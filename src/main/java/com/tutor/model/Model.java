@@ -8,6 +8,7 @@ import java.util.Date;
  */
 @XmlRootElement
 public class Model {
+
     private long id;
     private String message;
     private Date created;
@@ -48,5 +49,7 @@ public class Model {
     public void setAuthor(String author) {
         this.author = author;
     }
+
+
 
 }

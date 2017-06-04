@@ -1,19 +1,24 @@
-package com.tutor.model;
+package com.tutor.model.graphicalSVGObject;
+
+import com.tutor.model.graphicalSVGObject.SVGComponent;
 
 /**
  * Created by Wiranji Dinelka on 6/4/2017.
  */
-public class SVGLine {
+public class SVGLine extends SVGComponent {
     double x1;
     double y1;
     double x2;
     double y2;
+    int stroke_width;
 
-    public SVGLine(double x1, double y1, double x2, double y2){
+    public SVGLine(double x1, double y1, double x2, double y2,int stroke_width){
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
         this.y2 = y2;
+        this.stroke_width = stroke_width;
+
     }
 
     public double getX1() {
@@ -46,5 +51,13 @@ public class SVGLine {
 
     public void setY2(double y2) {
         this.y2 = y2;
+    }
+
+    public int getStroke_width() {
+        return stroke_width;
+    }
+
+    public void setStroke_width(int stroke_width) {
+        this.stroke_width = stroke_width;
     }
 }

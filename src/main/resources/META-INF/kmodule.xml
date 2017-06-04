@@ -1,5 +1,5 @@
 <kmodule xmlns="http://www.drools.org/xsd/kmodule">
-    <kbase name="NumberLineBase" packages="com.preprocessor">
-        <ksession name="NumberLine"/>
+    <kbase name="preprocessorBase" packages="com.preprocessor">
+        <ksession name="preprocessor"/>
     </kbase>
 </kmodule>

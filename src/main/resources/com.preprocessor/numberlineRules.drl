@@ -1,8 +1,0 @@
-package  com.preprocessor;
-import com.tutor.model.Line;
-rule "My First Drools Rule"
-  when
-    l : Line(alignment == "vertical");
-  then
-    System.out.println("Rule Fired for line: "+l.getAlignment());
-end

@@ -1,9 +1,11 @@
-package com.tutor.model;
+package com.tutor.model.graphicalSVGObject;
+
+import com.tutor.model.graphicalSVGObject.SVGComponent;
 
 /**
  * Created by Wiranji Dinelka on 6/4/2017.
  */
-public class SVGEllipse {
+public class SVGEllipse extends SVGComponent {
     private double cx;
     private double cy;
     private double rx;

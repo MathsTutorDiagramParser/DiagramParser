@@ -1,0 +1,61 @@
+package  com.preprocessor;
+
+import com.tutor.model.graphicalSVGObject.SVGComponent;
+import com.tutor.controller.preprocessor.SVGtoPOJOMapper
+import com.tutor.model.graphicalSVGObject.SVGLine;
+import com.tutor.model.graphicalSVGObject.SVGCircle;
+import com.tutor.model.graphicalSVGObject.SVGRectangle;
+import com.tutor.model.graphicalSVGObject.SVGText
+import java.util.ArrayList
+import com.tutor.model.graphicalpojoObject.line.VerticalLine
+import com.tutor.model.graphicalpojoObject.line.HorizontalLine
+import com.tutor.model.graphicalpojoObject.line.AngleLine
+import com.tutor.model.graphicalpojoObject.Circle.Circle
+import com.tutor.model.graphicalpojoObject.Text.Text;
+
+
+rule "Horizontal line identifier"
+  when
+    svgpojomapper : SVGtoPOJOMapper($listOfComponent : svgComponents,
+                    $horizontalLines :horizontalLines);
+    $component : SVGLine(x1==x2) from $listOfComponent;
+  then
+    $horizontalLines.add(new HorizontalLine($component.getX1(),$component.getY1(),$component.getX2(),$component.getY2(),$component.getStroke_width()));
+    System.out.println("got a horizontal Line");
+end
+
+rule "Vertical line identifier"
+  when
+    svgpojomapper : SVGtoPOJOMapper($listOfComponent : svgComponents, $verticalLines: verticalLines );
+    $component : SVGLine(y1==y2) from $listOfComponent;
+  then
+    $verticalLines.add(new VerticalLine($component.getX1(),$component.getY1(),$component.getX2(),$component.getY2(),$component.getStroke_width()));
+    System.out.println("got a vertical Line");
+end
+
+rule "Angle line identifier"
+  when
+    svgpojomapper : SVGtoPOJOMapper($listOfComponent : svgComponents,$angleLines : angleLines);
+    $component : SVGLine(y1!=y2 && x1!=x2) from $listOfComponent;
+  then
+    $angleLines.add(new AngleLine($component.getX1(),$component.getY1(),$component.getX2(),$component.getY2(),$component.getStroke_width()));
+    System.out.println("got a angled Line");
+end
+
+rule "Circle identifier"
+  when
+     svgpojomapper : SVGtoPOJOMapper($listOfComponent : svgComponents,$circles : circles);
+     $component : SVGCircle() from $listOfComponent;
+  then
+     $circles.add(new Circle($component.getCx(),$component.getCy(),$component.getFill()));
+     System.out.println("got a circle");
+end
+
+rule "Text identifier"
+  when
+    svgpojomapper : SVGtoPOJOMapper($listOfComponent : svgComponents,$text : texts);
+    $component : SVGText() from $listOfComponent;
+  then
+    $text.add(new Text($component.getX(),$component.getY(),$component.getText()));
+    System.out.println("got a text");
+end

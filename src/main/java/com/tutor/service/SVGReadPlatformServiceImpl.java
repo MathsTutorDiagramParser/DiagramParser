@@ -1,6 +1,6 @@
 package com.tutor.service;
 
-import com.tutor.model.*;
+import com.tutor.model.graphicalSVGObject.*;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -22,7 +22,7 @@ import java.util.List;
 public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
 
     @Override
-    public void parse(SVGImage svgImage, String svgfilepath) {
+    public SVGImage parse(SVGImage svgImage, String svgfilepath) {
         String svgFile = null;
         try {
             svgFile = readSVGFile(svgfilepath);
@@ -42,6 +42,16 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
             {
                 lines.add((Element)list.item(i));
             }
+
+            source = new InputSource(new StringReader(svgFile));
+            list = (NodeList)xPath.evaluate("//Circle", source, XPathConstants.NODESET);
+
+            List<Element> circles = new ArrayList<>(list.getLength());
+            for (int i = 0; i < list.getLength(); i++)
+            {
+                circles.add((Element)list.item(i));
+            }
+
 
             source = new InputSource(new StringReader(svgFile));
             list = (NodeList)xPath.evaluate("//ellipse", source, XPathConstants.NODESET);
@@ -92,8 +102,8 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
                 SVGLine line = new SVGLine(Double.parseDouble(lineElement.getAttribute("x1")),
                         Double.parseDouble(lineElement.getAttribute("y1")),
                         Double.parseDouble(lineElement.getAttribute("x2")),
-                        Double.parseDouble(lineElement.getAttribute("y2")));
-
+                        Double.parseDouble(lineElement.getAttribute("y2")),
+                        Integer.parseInt(lineElement.getAttribute("stroke-width")));
                 svgImage.addLine(line);
             }
 
@@ -112,6 +122,19 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
                 svgImage.addRectangle(rectangle);
             }
 
+            for (int i = 0; i < circles.size(); i++)
+            {
+                Element circleElement = circles.get(i);
+                System.out.println(i+"***"+circles.get(i).getAttribute("fill"));
+                //System.out.println(rectangles.get(i).getTagName());
+
+                SVGCircle circle = new SVGCircle(
+                        Double.parseDouble(circleElement.getAttribute("cx")),
+                        Double.parseDouble(circleElement.getAttribute("cy")),
+                        circleElement.getAttribute("fill"));
+
+                svgImage.addCircle(circle);
+            }
 
             for (int i = 0; i < ellipses.size(); i++)
             {
@@ -141,8 +164,11 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
                 svgImage.addText(text);
             }
 
+            return svgImage;
+
         } catch (XPathExpressionException e) {
             e.printStackTrace();
+            return null;
         }
     }
 

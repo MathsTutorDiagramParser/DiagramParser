@@ -1,9 +1,11 @@
-package com.tutor.model;
+package com.tutor.model.graphicalSVGObject;
+
+import com.tutor.model.graphicalSVGObject.SVGComponent;
 
 /**
  * Created by Wiranji Dinelka on 6/4/2017.
  */
-public class SVGText {
+public class SVGText extends SVGComponent {
     private double x;
     private double y;
     private String text;
