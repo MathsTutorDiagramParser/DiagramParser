@@ -1,10 +1,11 @@
 package com.tutor.controller.preprocessor;
 
-import com.tutor.model.graphicalpojoObject.Circle.Circle;
-import com.tutor.model.graphicalpojoObject.Text.Text;
-import com.tutor.model.graphicalpojoObject.line.AngleLine;
-import com.tutor.model.graphicalpojoObject.line.HorizontalLine;
-import com.tutor.model.graphicalpojoObject.line.VerticalLine;
+import com.tutor.model.graphicalPOJOObject.Circle.Circle;
+import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
+import com.tutor.model.graphicalPOJOObject.Text.Text;
+import com.tutor.model.graphicalPOJOObject.line.AngleLine;
+import com.tutor.model.graphicalPOJOObject.line.HorizontalLine;
+import com.tutor.model.graphicalPOJOObject.line.VerticalLine;
 import com.tutor.model.graphicalSVGObject.SVGImage;
 import com.tutor.service.SVGReadPlatformService;
 import com.tutor.service.SVGReadPlatformServiceImpl;
@@ -26,26 +27,16 @@ public class SVGObjectTokenizer {
         SVGReadPlatformService svgReader = new SVGReadPlatformServiceImpl();
         SVGImage svgImage = svgReader.parse(svgImageStudentAnswer, studentAnswerPath);
 
-        ArrayList<VerticalLine> verticalLines = new ArrayList<>();
-        ArrayList<HorizontalLine> horizontalLines = new ArrayList<>();
-        ArrayList<Circle> circles = new ArrayList<>();
-        ArrayList<Text> texts = new ArrayList<>();
-        ArrayList<AngleLine> angleLines = new ArrayList<>();
-        SVGtoPOJOMapper svgtoPOJOMapper = new SVGtoPOJOMapper(svgImage.getSvgComponents(),verticalLines,horizontalLines,circles,texts,angleLines);
+        SVGtoPOJOMapper svgtoPOJOMapper = new SVGtoPOJOMapper(svgImage);
 
 
-        System.out.println("===========================Start Executing Rules================================"+svgtoPOJOMapper.getSvgComponents().size());
+        System.out.println("===========================Start Executing Rules===================================");
         KieContainer kc = KieServices.Factory.get().getKieClasspathContainer();
         KieSession ksession = kc.newKieSession( "preprocessor");
         ksession.insert(svgtoPOJOMapper);
         ksession.fireAllRules();
         System.out.println("============================Finish Executing Rules==================================");
 
-        System.out.println("size of verticle line : "+verticalLines.size());
-        System.out.println("size of horizontal line : "+horizontalLines.size());
-        System.out.println("size of angled line : "+angleLines.size());
-        System.out.println("size of circles : "+circles.size());
-        System.out.println("size of text : "+texts.size());
 
 
     }

@@ -1,9 +1,11 @@
-package com.tutor.model.graphicalpojoObject.Text;
+package com.tutor.model.graphicalPOJOObject.Text;
+
+import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
 
 /**
  * Created by Madhavi Ruwandika on 6/4/2017.
  */
-public class Text {
+public class Text extends GraphicalImageComponent {
 
     double x;
     double y;

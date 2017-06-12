@@ -1,4 +1,4 @@
-package com.tutor.model.graphicalpojoObject.line;
+package com.tutor.model.graphicalPOJOObject.line;
 
 /**
  * Created by Madhavi Ruwandika on 6/4/2017.

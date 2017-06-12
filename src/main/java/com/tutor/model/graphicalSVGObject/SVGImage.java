@@ -10,8 +10,6 @@ public class SVGImage {
     private int width;
 
 
-    private ArrayList<SVGComponent> svgComponents;
-
     private ArrayList<SVGRectangle> rectangles;
     private ArrayList<SVGEllipse> ellipses;
     private ArrayList<SVGCircle> circles;
@@ -28,7 +26,7 @@ public class SVGImage {
         this.circles = new ArrayList<>();
         this.lines = new ArrayList<>();
         this.texts = new ArrayList<>();
-        svgComponents = new ArrayList<>();
+
     }
 
     public int getHeight(){
@@ -39,42 +37,31 @@ public class SVGImage {
         return this.width;
     }
 
-
-    public ArrayList<SVGComponent> getSvgComponents() {
-        return svgComponents;
-    }
-
-    public void setSvgComponents(ArrayList<SVGComponent> svgComponents) {
-        this.svgComponents = svgComponents;
-    }
-
     public void addRectangle(SVGRectangle rectangle){
 
         this.rectangles.add(rectangle);
-        this.svgComponents.add(rectangle);
     }
 
     public void addEllipse(SVGEllipse ellipse){
         this.ellipses.add(ellipse);
-        this.svgComponents.add(ellipse);
+
 
     }
 
     public void addCircle(SVGCircle circle){
         this.circles.add(circle);
-        this.svgComponents.add(circle);
+
 
     }
 
     public void addLine(SVGLine line)
     {
         this.lines.add(line);
-        this.svgComponents.add(line);
+
     }
 
     public void addText(SVGText text){
         this.texts.add(text);
-        this.svgComponents.add(text);
     }
 
     public int getNumOfRectangles(){

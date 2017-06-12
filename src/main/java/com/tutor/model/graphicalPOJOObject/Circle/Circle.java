@@ -1,9 +1,11 @@
-package com.tutor.model.graphicalpojoObject.Circle;
+package com.tutor.model.graphicalPOJOObject.Circle;
+
+import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
 
 /**
  * Created by Madhavi Ruwandika on 6/4/2017.
  */
-public class Circle {
+public class Circle extends GraphicalImageComponent{
 
     double x;
     double y;

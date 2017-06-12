@@ -1,9 +1,11 @@
-package com.tutor.model.graphicalpojoObject.line;
+package com.tutor.model.graphicalPOJOObject.line;
+
+import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
 
 /**
  * Created by Madhavi Ruwandika on 6/3/2017.
  */
-public class Line {
+public class Line extends GraphicalImageComponent{
 
     double x1;
     double y1;
