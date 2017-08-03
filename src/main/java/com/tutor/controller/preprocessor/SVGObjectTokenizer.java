@@ -22,7 +22,7 @@ public class SVGObjectTokenizer {
 
     public static SVGtoPOJOMapper tokenize() {
 
-        String studentAnswerPath = "D:\\Semester 7\\FYP\\project\\MathsTutor\\src\\main\\resources\\test\\answer.svg";
+        String studentAnswerPath = "D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\test\\answer.svg";
         System.out.println("===========================Start Executing Rules===================================");
         KieContainer kc = KieServices.Factory.get().getKieClasspathContainer();
         KieSession ksession = kc.newKieSession( "preprocessor");

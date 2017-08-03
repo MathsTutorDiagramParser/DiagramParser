@@ -1,5 +1,6 @@
 package com.tutor.controller.preprocessor;
 
+import com.tutor.model.SpatialRelation;
 import com.tutor.model.graphicalPOJOObject.Circle.Circle;
 import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.model.graphicalPOJOObject.line.HorizontalLine;
@@ -11,6 +12,7 @@ import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,6 +42,26 @@ public class main {
             System.out.println( "Y2: "+orderedList.get(i).getY2());
             System.out.println("++++++++++++++++++++++++");
         }
+
+        SpatialRelationShipGenerator spatialRelationShipGenerator = new SpatialRelationShipGenerator();
+
+        ArrayList<SpatialRelation>[][] relations = spatialRelationShipGenerator.buildSpatialRelationShipMatrix(orderedList);
+
+
+        for (int i=0; i< orderedList.size();i++){
+            System.out.println("======"+i+"=====");
+            for (int j=0;j<orderedList.size();j++){
+                System.out.print( "j="+j+ "=>");
+                for(int k=0;k< relations[i][j].size();k++){
+                    System.out.print(relations[i][j].get(k)+"   ");
+                }
+                System.out.println("\n");
+            }
+
+        }
+
+
+
 
     }
 }
