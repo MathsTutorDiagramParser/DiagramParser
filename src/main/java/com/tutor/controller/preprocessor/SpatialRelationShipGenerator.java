@@ -44,12 +44,7 @@ public class SpatialRelationShipGenerator {
 
         ArrayList<SpatialRelation> relations = new ArrayList<>();
         //identify tough
-        if( (o1.objectType!= ObjectType.Type_Line && o2.objectType!=ObjectType.Type_Line && o1.getX()== o2.getX() && o1.getY()== o2.getY())
-                || (o1.objectType!= ObjectType.Type_Circle && o2.objectType!=ObjectType.Type_Circle  && (o1.getX1()==o2.getX1() && o1.getY1()==o2.getY1()))
-                || (o1.objectType!= ObjectType.Type_Circle && o2.objectType!=ObjectType.Type_Circle  && (o1.getX2()==o2.getX2() && o1.getY2()==o2.getY2()))
-                || (o1.objectType!= ObjectType.Type_Line && o2.objectType!=ObjectType.Type_Circle  && ((o1.getX()==o2.getX1() && o1.getY()==o2.getY1())||(o1.getX()==o2.getX2() && o1.getY()==o2.getY2())))
-                || (o1.objectType!= ObjectType.Type_Circle && o2.objectType!=ObjectType.Type_Line  && ((o1.getX1()==o2.getX() && o1.getY1()==o2.getY())||(o1.getX2()==o2.getX() && o1.getY2()==o2.getY())))
-        ){
+        if(isTough(o1,o2)){
             relations.add(SpatialRelation.TOUGH);
         }
         //identify overlap
@@ -63,6 +58,20 @@ public class SpatialRelationShipGenerator {
         return relations;
     }
 
+    public boolean isTough(GraphicalImageComponent o1,GraphicalImageComponent o2){
+        if( (o1.objectType!= ObjectType.Type_Line && o2.objectType!=ObjectType.Type_Line && o1.getX()== o2.getX() && o1.getY()== o2.getY())
+                || (o1.objectType!= ObjectType.Type_Circle && o2.objectType!=ObjectType.Type_Circle  && (o1.getX1()==o2.getX1() && o1.getY1()==o2.getY1()))
+                || (o1.objectType!= ObjectType.Type_Circle && o2.objectType!=ObjectType.Type_Circle  && (o1.getX2()==o2.getX2() && o1.getY2()==o2.getY2()))
+                || (o1.objectType!= ObjectType.Type_Circle && o2.objectType!=ObjectType.Type_Circle  && (o1.getX1()==o2.getX2() && o1.getY1()==o2.getY2()))
+                || (o1.objectType!= ObjectType.Type_Circle && o2.objectType!=ObjectType.Type_Circle  && (o1.getX2()==o2.getX1() && o1.getY2()==o2.getY1()))
+                || (o1.objectType!= ObjectType.Type_Line && o2.objectType!=ObjectType.Type_Circle  && ((o1.getX()==o2.getX1() && o1.getY()==o2.getY1())||(o1.getX()==o2.getX2() && o1.getY()==o2.getY2())))
+                || (o1.objectType!= ObjectType.Type_Circle && o2.objectType!=ObjectType.Type_Line  && ((o1.getX1()==o2.getX() && o1.getY1()==o2.getY())||(o1.getX2()==o2.getX() && o1.getY2()==o2.getY())))
+                ){
+            return true;
+        }
+        return false;
+    }
+
 
     public boolean isCross(GraphicalImageComponent o1,GraphicalImageComponent o2){
         if(o2.objectType==ObjectType.Type_Line && o1.objectType==ObjectType.Type_Line){
@@ -70,17 +79,36 @@ public class SpatialRelationShipGenerator {
             double m1 = (o1.getY1()-o1.getY2())/(o1.getX1()-o1.getX2());
             double m2 = (o2.getY1()-o2.getY2())/(o2.getX1()-o2.getX2());
 
-            // calculate
-            double c1 = (o1.getY1()-(o1.getX1()*m1));
-            double c2 = (o2.getY1()-(o2.getX1()*m2));
+            double cross_x,cross_y;
 
             if(m1!= m2){
 
-                double cross_x = (c2-c1)/(m1-m2);
-                double cross_y = ((m2*c1) - (m1*c2)) / (m2-m1);
+                if (m1 == Double.POSITIVE_INFINITY || m1 ==  Double.NEGATIVE_INFINITY){
+                    double c2_1 = (o2.getY1()-(o2.getX1()*m2));
+                    cross_x = o1.getX1();
+                    cross_y = (m2*cross_x)+c2_1;
+                }
+
+                else if(m2 == Double.POSITIVE_INFINITY || m2 == Double.NEGATIVE_INFINITY){
+
+                    double c1_1 = (o1.getY1()-(o1.getX1()*m1));
+                    cross_x = o2.getX1();
+                    cross_y = (m1*cross_x)+c1_1;
+                }
+
+                else {
+                    System.out.println("=="+m1+"=="+m2);
+                    // calculate
+                    double c1 = (o1.getY1()-(o1.getX1()*m1));
+                    double c2 = (o2.getY1()-(o2.getX1()*m2));
+
+                    cross_x = (c2-c1)/(m1-m2);
+                    cross_y = ((m2*c1) - (m1*c2)) / (m2-m1);
+                }
+
+
 
                 if(pointOnLineSegment(o1.getX1(),o1.getX2(),o1.getY1(),o1.getY2(),cross_x,cross_y)){
-
                     return true;
 
                 }
