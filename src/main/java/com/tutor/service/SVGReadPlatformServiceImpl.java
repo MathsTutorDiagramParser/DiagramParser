@@ -44,7 +44,7 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
             }
 
             source = new InputSource(new StringReader(svgFile));
-            list = (NodeList)xPath.evaluate("//Circle", source, XPathConstants.NODESET);
+            list = (NodeList)xPath.evaluate("//circle", source, XPathConstants.NODESET);
 
             List<Element> circles = new ArrayList<>(list.getLength());
             for (int i = 0; i < list.getLength(); i++)

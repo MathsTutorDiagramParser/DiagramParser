@@ -7,33 +7,13 @@ import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
  */
 public class Circle extends GraphicalImageComponent{
 
-    double x;
-    double y;
+
     String filled_colour ;
 
-    public Circle() {
-    }
-
     public Circle(double x, double y, String filled_colour) {
-        this.x = x;
-        this.y = y;
+        super(x,y);
         this.filled_colour = filled_colour;
-    }
-
-    public double getX() {
-        return x;
-    }
-
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
+        this.objectType = "CIRCLE";
     }
 
     public String getFilled_colour() {

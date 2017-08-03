@@ -19,25 +19,24 @@ import java.util.ArrayList;
  * Created by Wiranji Dinelka on 6/4/2017.
  */
 public class SVGObjectTokenizer {
-    public static void main(String[] args) {
+
+    public static SVGtoPOJOMapper tokenize() {
 
         String studentAnswerPath = "D:\\Semester 7\\FYP\\project\\MathsTutor\\src\\main\\resources\\test\\answer.svg";
+        System.out.println("===========================Start Executing Rules===================================");
+        KieContainer kc = KieServices.Factory.get().getKieClasspathContainer();
+        KieSession ksession = kc.newKieSession( "preprocessor");
+        System.out.println("============================Finish Executing Rules==================================");
 
         SVGImage svgImageStudentAnswer = new SVGImage();
         SVGReadPlatformService svgReader = new SVGReadPlatformServiceImpl();
         SVGImage svgImage = svgReader.parse(svgImageStudentAnswer, studentAnswerPath);
 
         SVGtoPOJOMapper svgtoPOJOMapper = new SVGtoPOJOMapper(svgImage);
-
-
-        System.out.println("===========================Start Executing Rules===================================");
-        KieContainer kc = KieServices.Factory.get().getKieClasspathContainer();
-        KieSession ksession = kc.newKieSession( "preprocessor");
         ksession.insert(svgtoPOJOMapper);
         ksession.fireAllRules();
-        System.out.println("============================Finish Executing Rules==================================");
 
-
+        return svgtoPOJOMapper;
 
     }
 

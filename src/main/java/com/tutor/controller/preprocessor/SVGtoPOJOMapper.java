@@ -2,6 +2,8 @@ package com.tutor.controller.preprocessor;
 
 import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.model.graphicalSVGObject.SVGImage;
+import org.kie.api.cdi.KSession;
+import org.kie.api.runtime.KieSession;
 
 import java.util.ArrayList;
 
@@ -10,8 +12,9 @@ import java.util.ArrayList;
  */
 public class SVGtoPOJOMapper {
 
-    SVGImage svgImage;
+    private SVGImage svgImage;
     ArrayList<GraphicalImageComponent> graphicalImageComponents ;
+
 
     public SVGtoPOJOMapper(SVGImage svgImage) {
         this.svgImage = svgImage;

@@ -24,7 +24,7 @@ rule "Horizontal line identifier"
     $component : SVGLine(x1==x2) from $listOfComponent;
   then
     $graphicalComponent.add(new HorizontalLine($component.getX1(),$component.getY1(),$component.getX2(),$component.getY2(),$component.getStroke_width()));
-    System.out.println("got a horizontal Line");
+    System.out.println("got a Vertical Line");
 end
 
 rule "Vertical line identifier"
@@ -33,7 +33,7 @@ rule "Vertical line identifier"
     $component : SVGLine(y1==y2) from $listOfComponent;
   then
     $graphicalComponent.add(new VerticalLine($component.getX1(),$component.getY1(),$component.getX2(),$component.getY2(),$component.getStroke_width()));
-    System.out.println("got a vertical Line");
+    System.out.println("got a Horizontal Line");
 end
 
 rule "Angle line identifier"
@@ -54,19 +54,13 @@ rule "Circle identifier"
      System.out.println("got a circle");
 end
 
+
+
 rule "Text identifier"
   when
     svgpojomapper : SVGtoPOJOMapper($listOfComponent : svgImage.getTexts(),$graphicalComponent : graphicalImageComponents);
     $component : SVGText() from $listOfComponent;
   then
-    $graphicalComponent.add(new Text($component.getX(),$component.getY(),$component.getText()));
+//    $graphicalComponent.add(new Text($component.getX(),$component.getY(),$component.getText()));
     System.out.println("got a text");
-end
-
-rule "ordering the compeonet left to right and top to bottom"
-    when
-         svgpojomapper : SVGtoPOJOMapper(graphicalImageComponents.size == 0 );
-    then
-         objectSorter = new ObjectSequenceOrderGenerator();
-         objectSorter.Order(svgpojomapper.getGraphicalImageComponents());
 end

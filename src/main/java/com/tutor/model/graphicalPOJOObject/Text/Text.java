@@ -7,28 +7,13 @@ import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
  */
 public class Text extends GraphicalImageComponent {
 
-    double x;
-    double y;
     String text;
 
     public Text(double x, double y, String text) {
+        super(x,y);
+        this.text = text;
     }
 
-    public double getX() {
-        return x;
-    }
-
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
-    }
 
     public String getText() {
         return text;
