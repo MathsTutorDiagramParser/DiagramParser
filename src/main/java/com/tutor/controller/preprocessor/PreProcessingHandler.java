@@ -3,10 +3,6 @@ package com.tutor.controller.preprocessor;
 import com.tutor.controller.GraphParser.GraphParsingHandler;
 import com.tutor.model.preProcessor.SVGtoPOJOMapper;
 import com.tutor.model.util.SpatialRelation;
-import com.tutor.model.SpatialRelation;
-import com.tutor.model.graphParser.ObjectType;
-import com.tutor.model.graphParser.ProductionRule;
-import com.tutor.model.graphicalPOJOObject.Circle.Circle;
 import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.service.preProcessorService.*;
 
