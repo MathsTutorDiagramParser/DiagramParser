@@ -2,7 +2,6 @@ package com.tutor.controller.preprocessor;
 
 import com.tutor.model.preProcessor.SVGtoPOJOMapper;
 import com.tutor.model.util.SpatialRelation;
-import com.tutor.model.SpatialRelation;
 import com.tutor.model.graphParser.ObjectType;
 import com.tutor.model.graphParser.ProductionRule;
 import com.tutor.model.graphicalPOJOObject.Circle.Circle;
@@ -83,9 +82,9 @@ public class PreProcessingHandler {
         list.add(o1);
         list.add(o2);
 
-        ProductionRule emp1=new ProductionRule(1,"Vimal Jaiswal",50000, list);
+       // ProductionRule emp1=new ProductionRule(1,"Vimal Jaiswal",50000, list);
 
-        marshallerObj.marshal(emp1, new FileOutputStream("employee.xml"));
+       // marshallerObj.marshal(emp1, new FileOutputStream("employee.xml"));
 
     }
 }

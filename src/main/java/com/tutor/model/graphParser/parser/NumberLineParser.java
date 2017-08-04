@@ -10,7 +10,7 @@ import com.tutor.model.graphParser.parser.Parser;
  */
 public class NumberLineParser extends Parser {
 
-    public NumberLineParser(AbstractRepresentation abstractRepresentation) {
+    public NumberLineParser(AbstractRepresentation abstractRepresentation,GraphGrammar graphGrammar) {
         super(abstractRepresentation);
     }
 

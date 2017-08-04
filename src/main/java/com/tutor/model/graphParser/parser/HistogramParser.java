@@ -9,8 +9,8 @@ import com.tutor.model.graphParser.GraphGrammarBuilder.GraphGrammar;
  */
 public class HistogramParser extends Parser{
 
-    public HistogramParser(AbstractRepresentation abstractRepresentation) {
-        super(abstractRepresentation);
+    public HistogramParser(AbstractRepresentation abstractRepresentation,GraphGrammar graphGrammar) {
+        super(abstractRepresentation,graphGrammar);
     }
 
     @Override
