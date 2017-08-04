@@ -10,9 +10,11 @@ import com.tutor.model.graphParser.GraphGrammarBuilder.GraphGrammar;
 public abstract class Parser {
 
     AbstractRepresentation abstractRepresentation;
+    GraphGrammar graphGrammar;
 
-    public Parser(AbstractRepresentation abstractRepresentation) {
+    public Parser(AbstractRepresentation abstractRepresentation,GraphGrammar graphGrammar) {
         this.abstractRepresentation = abstractRepresentation;
+        this.graphGrammar = graphGrammar;
     }
 
     public abstract AbstractRepresentation parse(Graph initialGraph, GraphGrammar graphGrammar);
