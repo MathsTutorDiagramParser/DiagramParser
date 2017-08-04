@@ -8,6 +8,8 @@ public class Relationship {
     private String objectIdTwo;
     private String spatialRelationId;
 
+    public Relationship(){}
+
     public Relationship(String objectIdOne, String objectIdTwo, String spatialRelationId) {
         this.objectIdOne = objectIdOne;
         this.objectIdTwo = objectIdTwo;

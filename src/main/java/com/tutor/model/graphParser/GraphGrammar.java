@@ -1,6 +1,5 @@
 package com.tutor.model.graphParser;
 
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -11,32 +10,33 @@ import java.util.ArrayList;
  * Created by Wiranji Dinelka on 8/4/2017.
  */
 @XmlRootElement
-public class ProductionRule {
+public class GraphGrammar {
 
-    private TargetValue targetValue;
+    private TaggedValue taggedValue;
     private ArrayList<ObjectTypes> types;
     private ArrayList<SpatialRelations> spatialRelations;
+    private ArrayList<Operations> operations;
     private ArrayList<Rule> rules;
 
+    public GraphGrammar() {  }
 
-    public ProductionRule() {  }
-
-    public ProductionRule(TargetValue targetValue, ArrayList<ObjectTypes> types, ArrayList<SpatialRelations> spatialRelations, ArrayList<Rule> rules) {
+    public GraphGrammar(TaggedValue taggedValue, ArrayList<ObjectTypes> types, ArrayList<SpatialRelations> spatialRelations, ArrayList<Operations> operations, ArrayList<Rule> rules) {
         super();
-        this.targetValue = targetValue;
+        this.taggedValue = taggedValue;
         this.types= types;
         this.spatialRelations = spatialRelations;
+        this.operations = operations;
         this.rules = rules;
     }
 
 
     @XmlElement(name="TaggedValue")
-    public TargetValue getTargetValue() {
-        return targetValue;
+    public TaggedValue getTaggedValue() {
+        return taggedValue;
     }
 
-    public void setTargetValue(TargetValue targetValue) {
-        this.targetValue = targetValue;
+    public void setTaggedValue(TaggedValue taggedValue) {
+        this.taggedValue = taggedValue;
     }
 
     @XmlElementWrapper(name="Types")
@@ -59,6 +59,16 @@ public class ProductionRule {
         this.spatialRelations = spatialRelations;
     }
 
+    @XmlElementWrapper(name="Operations")
+    @XmlElement(name="OperationTypes")
+    public ArrayList<Operations> getOperations() {
+        return operations;
+    }
+
+    public void setOperations(ArrayList<Operations> operations) {
+        this.operations = operations;
+    }
+
     @XmlElementWrapper(name="Rules")
     @XmlElement(name="Rule")
     public ArrayList<Rule> getRules() {
@@ -68,4 +78,6 @@ public class ProductionRule {
     public void setRules(ArrayList<Rule> rules) {
         this.rules = rules;
     }
+
+
 }

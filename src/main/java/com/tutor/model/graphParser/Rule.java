@@ -1,5 +1,10 @@
 package com.tutor.model.graphParser;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
+
 /**
  * Created by Wiranji Dinelka on 8/4/2017.
  */
@@ -7,12 +12,14 @@ public class Rule {
 
     private Graph leftGraph;
     private Graph rightGraph;
-    private String applications;
+    private ArrayList<RuleOperations> ruleOperations = new ArrayList<>();
 
-    public Rule(Graph leftGraph, Graph rightGraph, String applications) {
+    public Rule(){}
+
+    public Rule(Graph leftGraph, Graph rightGraph, ArrayList<RuleOperations> ruleOperations) {
         this.leftGraph = leftGraph;
         this.rightGraph = rightGraph;
-        this.applications = applications;
+        this.ruleOperations = ruleOperations;
     }
 
     public Graph getLeftGraph() {
@@ -31,11 +38,13 @@ public class Rule {
         this.rightGraph = rightGraph;
     }
 
-    public String getApplications() {
-        return applications;
+    @XmlElementWrapper(name="RuleOperations")
+    @XmlElement(name="RuleOperations")
+    public ArrayList<RuleOperations> getRuleOperations() {
+        return ruleOperations;
     }
 
-    public void setApplications(String applications) {
-        this.applications = applications;
+    public void setRuleOperations(ArrayList<RuleOperations> ruleOperations) {
+        this.ruleOperations = ruleOperations;
     }
 }

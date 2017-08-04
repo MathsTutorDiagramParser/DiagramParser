@@ -3,12 +3,14 @@ package com.tutor.model.graphParser;
 /**
  * Created by Wiranji Dinelka on 8/4/2017.
  */
-public class TargetValue {
+public class TaggedValue {
 
     private String tag;
     private String tagValue;
 
-    public TargetValue(String tag, String tagValue) {
+    public TaggedValue(){}
+
+    public TaggedValue(String tag, String tagValue) {
         this.tag = tag;
         this.tagValue = tagValue;
     }

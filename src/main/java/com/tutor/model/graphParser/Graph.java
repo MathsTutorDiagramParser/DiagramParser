@@ -2,6 +2,8 @@ package com.tutor.model.graphParser;
 
 import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import java.util.List;
 
 /**
@@ -20,6 +22,8 @@ public class Graph {
         this.relationships = relationships;
     }
 
+    @XmlElementWrapper(name="Objects")
+    @XmlElement(name="Object")
     public List<String> getObjectIdList() {
         return objectIdList;
     }
@@ -28,6 +32,8 @@ public class Graph {
         this.objectIdList = objectIdList;
     }
 
+    @XmlElementWrapper(name="SpatialRelations")
+    @XmlElement(name="SpatialRelation")
     public List<Relationship> getRelationships() {
         return relationships;
     }
