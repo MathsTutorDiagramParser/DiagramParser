@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document version="1.0">
+    <GraphTransformationSystem ID="I1" name="Class">
+        <TaggedValue Tag="GraphType" TagValue="NUMBER_LINE"/>
+        <Types>
+            <ObjectType ID="I0" name="Horizontal_Line"/>
+            <ObjectType ID="I1" name="Verticle_Line"/>
+            <ObjectType ID="I2" name= "Angle_Line"/>
+            <ObjectType ID="I3" name= "Circle"/>
+            <ObjectType ID="I4" name="Initial_Number_Line"/>
+        </Types>
+
+        <Relations>
+            <SpatialRelationType ID="S0" name="TOUGH"/>
+            <SpatialRelationType ID="S1" name="OVERLAP"/>
+            <SpatialRelationType ID="S1" name="CROSS"/>
+        </Relations>
+
+        <Rules>
+            <Rule ID="R1">
+                <Graph ID="G1" name="Left of Rule1">
+                    <Object ID="O_1" type="I4">
+                        <Object_Attr x1="" y1="" x2="" y2="" scale="1"/>
+                    </Object>
+                </Graph>
+                <Graph ID="G2" name="Right of Rule1">
+                    <Object ID="O_1" type="I1">
+                    </Object>
+                    <Object ID="O_2" type="I2">
+                    </Object>
+                    <SpatialRelations>
+                        <SpatialRelation object1_ID="O_1" object2_ID="O_2" relation_ID="S2"/>
+                    </SpatialRelations>
+                </Graph>
+                <!--<Application>-->
+                    <!---->
+                <!--</Application>-->
+                <TaggedValue Tag="layer" TagValue="0"/>
+            </Rule>
+
+
+        </Rules>
+
+    </GraphTransformationSystem>
+</Document>
