@@ -8,20 +8,24 @@ import java.util.List;
  * Created by Wiranji Dinelka on 8/4/2017.
  */
 public class Graph {
-    private List<GraphicalImageComponent> objectList;
+    private List<String> objectIdList;
     private List<Relationship> relationships;
 
-    public Graph(List<GraphicalImageComponent> objectList, List<Relationship> relationships ) {
-        this.objectList = objectList;
+    public Graph() {
+
+    }
+
+    public Graph(List<String> objectIdList, List<Relationship> relationships ) {
+        this.objectIdList = objectIdList;
         this.relationships = relationships;
     }
 
-    public List<GraphicalImageComponent> getObjectList() {
-        return objectList;
+    public List<String> getObjectIdList() {
+        return objectIdList;
     }
 
-    public void setObjectList(List<GraphicalImageComponent> objectList) {
-        this.objectList = objectList;
+    public void setObjectIdList(List<String> objectIdList) {
+        this.objectIdList = objectIdList;
     }
 
     public List<Relationship> getRelationships() {

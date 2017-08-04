@@ -1,22 +1,13 @@
 package com.tutor.controller.preprocessor;
 
+import com.tutor.controller.GraphParser.GraphParsingHandler;
 import com.tutor.model.preProcessor.SVGtoPOJOMapper;
 import com.tutor.model.util.SpatialRelation;
-import com.tutor.model.SpatialRelation;
-import com.tutor.model.graphParser.ObjectType;
-import com.tutor.model.graphParser.ProductionRule;
-import com.tutor.model.graphicalPOJOObject.Circle.Circle;
 import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.service.preProcessorService.*;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
+import java.io.FileNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,20 +63,8 @@ public class PreProcessingHandler {
 
         }
 
-        JAXBContext contextObj = JAXBContext.newInstance(ProductionRule.class);
-
-        Marshaller marshallerObj = contextObj.createMarshaller();
-        marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-        ObjectType o1 = new ObjectType("aaa","a111");
-        ObjectType o2 = new ObjectType("aaab","a111b");
-        ArrayList<ObjectType> list = new ArrayList<>();
-        list.add(o1);
-        list.add(o2);
-
-        ProductionRule emp1=new ProductionRule(1,"Vimal Jaiswal",50000, list);
-
-        marshallerObj.marshal(emp1, new FileOutputStream("employee.xml"));
+        GraphParsingHandler graphParsingHandler = new GraphParsingHandler();
+        graphParsingHandler.writeToXML();
 
     }
 }

@@ -14,14 +14,14 @@ import java.util.ArrayList;
 public class ProductionRule {
 
     private TargetValue targetValue;
-    private ArrayList<ObjectType> types;
+    private ArrayList<ObjectTypes> types;
     private ArrayList<SpatialRelations> spatialRelations;
     private ArrayList<Rule> rules;
 
 
     public ProductionRule() {  }
 
-    public ProductionRule(TargetValue targetValue, ArrayList<ObjectType> types, ArrayList<SpatialRelations> spatialRelations, ArrayList<Rule> rules) {
+    public ProductionRule(TargetValue targetValue, ArrayList<ObjectTypes> types, ArrayList<SpatialRelations> spatialRelations, ArrayList<Rule> rules) {
         super();
         this.targetValue = targetValue;
         this.types= types;
@@ -30,7 +30,7 @@ public class ProductionRule {
     }
 
 
-    @XmlAttribute
+    @XmlElement(name="TaggedValue")
     public TargetValue getTargetValue() {
         return targetValue;
     }
@@ -40,12 +40,12 @@ public class ProductionRule {
     }
 
     @XmlElementWrapper(name="Types")
-    @XmlElement(name="ObjectTypes")
-    public ArrayList<ObjectType> getTypes() {
+    @XmlElement(name="ObjectType")
+    public ArrayList<ObjectTypes> getTypes() {
         return types;
     }
 
-    public void setTypes(ArrayList<ObjectType> types) {
+    public void setTypes(ArrayList<ObjectTypes> types) {
         this.types = types;
     }
 
