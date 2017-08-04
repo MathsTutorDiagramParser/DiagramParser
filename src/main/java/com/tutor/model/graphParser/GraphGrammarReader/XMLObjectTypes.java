@@ -3,14 +3,14 @@ package com.tutor.model.graphParser.GraphGrammarReader;
 /**
  * Created by Wiranji Dinelka on 8/4/2017.
  */
-public class Operations {
+public class XMLObjectTypes {
 
     private String id;
     private String name;
 
-    public Operations(){}
+    public XMLObjectTypes() {}
 
-    public Operations(String id, String name) {
+    public XMLObjectTypes(String id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -31,3 +31,5 @@ public class Operations {
         this.name = name;
     }
 }
+
+

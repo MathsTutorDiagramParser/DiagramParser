@@ -7,17 +7,17 @@ import java.util.List;
 /**
  * Created by Wiranji Dinelka on 8/4/2017.
  */
-public class Graph {
+public class XMLGraph {
     private List<String> objectIdList;
-    private List<Relationship> relationships;
+    private List<XMLRelationship> XMLRelationships;
 
-    public Graph() {
+    public XMLGraph() {
 
     }
 
-    public Graph(List<String> objectIdList, List<Relationship> relationships ) {
+    public XMLGraph(List<String> objectIdList, List<XMLRelationship> XMLRelationships) {
         this.objectIdList = objectIdList;
-        this.relationships = relationships;
+        this.XMLRelationships = XMLRelationships;
     }
 
     @XmlElementWrapper(name="Objects")
@@ -30,13 +30,13 @@ public class Graph {
         this.objectIdList = objectIdList;
     }
 
-    @XmlElementWrapper(name="SpatialRelations")
+    @XmlElementWrapper(name="XMLSpatialRelations")
     @XmlElement(name="SpatialRelation")
-    public List<Relationship> getRelationships() {
-        return relationships;
+    public List<XMLRelationship> getXMLRelationships() {
+        return XMLRelationships;
     }
 
-    public void setRelationships(List<Relationship> relationships) {
-        this.relationships = relationships;
+    public void setXMLRelationships(List<XMLRelationship> XMLRelationships) {
+        this.XMLRelationships = XMLRelationships;
     }
 }

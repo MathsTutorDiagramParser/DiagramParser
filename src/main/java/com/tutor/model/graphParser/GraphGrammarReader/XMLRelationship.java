@@ -3,14 +3,14 @@ package com.tutor.model.graphParser.GraphGrammarReader;
 /**
  * Created by Wiranji Dinelka on 8/4/2017.
  */
-public class Relationship {
+public class XMLRelationship {
     private String objectIdOne;
     private String objectIdTwo;
     private String spatialRelationId;
 
-    public Relationship(){}
+    public XMLRelationship(){}
 
-    public Relationship(String objectIdOne, String objectIdTwo, String spatialRelationId) {
+    public XMLRelationship(String objectIdOne, String objectIdTwo, String spatialRelationId) {
         this.objectIdOne = objectIdOne;
         this.objectIdTwo = objectIdTwo;
         this.spatialRelationId = spatialRelationId;

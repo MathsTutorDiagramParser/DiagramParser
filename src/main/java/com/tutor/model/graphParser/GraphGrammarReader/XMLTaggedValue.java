@@ -3,14 +3,14 @@ package com.tutor.model.graphParser.GraphGrammarReader;
 /**
  * Created by Wiranji Dinelka on 8/4/2017.
  */
-public class TaggedValue {
+public class XMLTaggedValue {
 
     private String tag;
     private String tagValue;
 
-    public TaggedValue(){}
+    public XMLTaggedValue(){}
 
-    public TaggedValue(String tag, String tagValue) {
+    public XMLTaggedValue(String tag, String tagValue) {
         this.tag = tag;
         this.tagValue = tagValue;
     }

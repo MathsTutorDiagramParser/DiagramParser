@@ -3,14 +3,14 @@ package com.tutor.model.graphParser.GraphGrammarReader;
 /**
  * Created by Wiranji Dinelka on 8/4/2017.
  */
-public class SpatialRelations {
+public class XMLOperations {
 
     private String id;
     private String name;
 
-    public SpatialRelations() {}
+    public XMLOperations(){}
 
-    public SpatialRelations(String id, String name) {
+    public XMLOperations(String id, String name) {
         this.id = id;
         this.name = name;
     }

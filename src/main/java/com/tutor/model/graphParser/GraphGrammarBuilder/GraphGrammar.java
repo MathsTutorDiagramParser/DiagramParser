@@ -1,6 +1,6 @@
 package com.tutor.model.graphParser.GraphGrammarBuilder;
 
-import com.tutor.model.graphParser.GraphGrammarReader.Rule;
+import com.tutor.model.graphParser.GraphGrammarReader.XMLProductionRule;
 
 import java.util.List;
 
@@ -9,6 +9,6 @@ import java.util.List;
  */
 public abstract class GraphGrammar {
 
-    List<Rule> ruleList;
+    List<XMLProductionRule> ruleList;
 
 }

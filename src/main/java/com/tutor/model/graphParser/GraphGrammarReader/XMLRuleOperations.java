@@ -3,14 +3,14 @@ package com.tutor.model.graphParser.GraphGrammarReader;
 /**
  * Created by Wiranji Dinelka on 8/4/2017.
  */
-public class RuleOperations {
+public class XMLRuleOperations {
     private String id;
     private String from_id;
     private String to_id;
 
-    public RuleOperations() {}
+    public XMLRuleOperations() {}
 
-    public RuleOperations(String id,String from_id,String to_id) {
+    public XMLRuleOperations(String id, String from_id, String to_id) {
         this.id = id;
         this.from_id = from_id;
         this.to_id = to_id;
