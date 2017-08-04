@@ -1,4 +1,4 @@
-package com.tutor.controller.preprocessor;
+package com.tutor.model.preProcessor;
 
 import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
 

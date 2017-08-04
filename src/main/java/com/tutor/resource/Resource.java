@@ -1,8 +1,5 @@
 package com.tutor.resource;
 
-import com.tutor.model.Model;
-import com.tutor.service.Service;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;

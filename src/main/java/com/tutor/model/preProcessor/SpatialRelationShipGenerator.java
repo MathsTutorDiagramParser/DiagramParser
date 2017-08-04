@@ -1,4 +1,4 @@
-package com.tutor.controller.preprocessor;
+package com.tutor.model.preProcessor;
 
 import com.tutor.model.SpatialRelation;
 import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
@@ -12,9 +12,9 @@ import java.util.List;
 public class SpatialRelationShipGenerator {
 
 
-    ArrayList<SpatialRelation>[][] relations ;
+    private ArrayList<SpatialRelation>[][] relations ;
 
-    int [][] a = new int[2][3];
+
     public ArrayList<SpatialRelation>[][] buildSpatialRelationShipMatrix(List<GraphicalImageComponent> objectList){
 
         int num_of_objects = objectList.size();
@@ -162,4 +162,9 @@ public class SpatialRelationShipGenerator {
         return false;
 
     }
+
+    public ArrayList<SpatialRelation>[][] getRelations() {
+        return relations;
+    }
+
 }

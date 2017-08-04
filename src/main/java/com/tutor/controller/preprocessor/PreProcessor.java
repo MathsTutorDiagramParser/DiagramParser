@@ -1,16 +1,9 @@
 package com.tutor.controller.preprocessor;
 
+import com.tutor.model.preProcessor.SVGtoPOJOMapper;
 import com.tutor.model.SpatialRelation;
-import com.tutor.model.graphicalPOJOObject.Circle.Circle;
 import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
-import com.tutor.model.graphicalPOJOObject.line.HorizontalLine;
-import com.tutor.model.graphicalPOJOObject.line.VerticalLine;
-import com.tutor.model.graphicalSVGObject.SVGImage;
-import com.tutor.service.SVGReadPlatformService;
-import com.tutor.service.SVGReadPlatformServiceImpl;
-import org.kie.api.KieServices;
-import org.kie.api.runtime.KieContainer;
-import org.kie.api.runtime.KieSession;
+import com.tutor.service.preProcessorService.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,20 +11,25 @@ import java.util.List;
 /**
  * Created by Madhavi Ruwandika on 7/22/2017.
  */
-public class main {
+public class PreProcessor {
 
     public static void main(String[] args) {
 
-        SVGtoPOJOMapper svGtoPOJOMapper = SVGObjectTokenizer.tokenize();
 
+        SVGObjectTokenizationService svgObjectTokenizationService = new SVGObjectTokenizationServiceImpl();
+        ObjectSequenceGeneratorService objectSequenceGeneratorService = new ObjectSequenceGeneratorServiceImpl();
+        SpatialRelationshipGeneratorService spatialRelationShipGenerator =
+                new SpatialRelationshipGeneratorServiceImpl();
+
+
+        SVGtoPOJOMapper svGtoPOJOMapper = svgObjectTokenizationService.tokenize();
         System.out.println("//////////////////////////////////done seperation//////////////////////////////////");
 
-        ObjectSequenceOrderGenerator objectSequenceOrderGenerator = new ObjectSequenceOrderGenerator();
-        objectSequenceOrderGenerator.order(svGtoPOJOMapper.getGraphicalImageComponents());
-        List<GraphicalImageComponent> orderedList = objectSequenceOrderGenerator.getOrderedList();
+        objectSequenceGeneratorService.order(svGtoPOJOMapper.getGraphicalImageComponents());
+        List<GraphicalImageComponent> orderedList = objectSequenceGeneratorService.getOrderedList();
 
+        // print ordered object list
         System.out.println("size of ordered list"+orderedList.size());
-
         for (int i=0;i<orderedList.size();i++){
             System.out.println("++++++++++++++++++++++++");
             System.out.println( "x: "+orderedList.get(i).getX());
@@ -43,11 +41,12 @@ public class main {
             System.out.println("++++++++++++++++++++++++");
         }
 
-        SpatialRelationShipGenerator spatialRelationShipGenerator = new SpatialRelationShipGenerator();
-
-        ArrayList<SpatialRelation>[][] relations = spatialRelationShipGenerator.buildSpatialRelationShipMatrix(orderedList);
 
 
+        ArrayList<SpatialRelation>[][] relations =
+                spatialRelationShipGenerator.getSpatialRelationshipMatrixOfObject(orderedList);
+
+        // print Spatial relationship
         for (int i=0; i< orderedList.size();i++){
             System.out.println("======"+i+"=====");
             for (int j=0;j<orderedList.size();j++){
