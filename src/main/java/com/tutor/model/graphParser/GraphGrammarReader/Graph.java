@@ -1,6 +1,4 @@
-package com.tutor.model.graphParser;
-
-import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
+package com.tutor.model.graphParser.GraphGrammarReader;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;

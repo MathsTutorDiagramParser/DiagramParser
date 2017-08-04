@@ -1,20 +1,16 @@
-package com.tutor.model.graphParser;
-
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+package com.tutor.model.graphParser.GraphGrammarReader;
 
 /**
  * Created by Wiranji Dinelka on 8/4/2017.
  */
-public class ObjectTypes {
+public class SpatialRelations {
 
     private String id;
     private String name;
 
-    public ObjectTypes() {}
+    public SpatialRelations() {}
 
-    public ObjectTypes(String id, String name) {
+    public SpatialRelations(String id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -35,5 +31,3 @@ public class ObjectTypes {
         this.name = name;
     }
 }
-
-

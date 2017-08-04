@@ -1,16 +1,16 @@
-package com.tutor.model.graphParser;
+package com.tutor.model.graphParser.GraphGrammarReader;
 
 /**
  * Created by Wiranji Dinelka on 8/4/2017.
  */
-public class SpatialRelations {
+public class ObjectTypes {
 
     private String id;
     private String name;
 
-    public SpatialRelations() {}
+    public ObjectTypes() {}
 
-    public SpatialRelations(String id, String name) {
+    public ObjectTypes(String id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -31,3 +31,5 @@ public class SpatialRelations {
         this.name = name;
     }
 }
+
+

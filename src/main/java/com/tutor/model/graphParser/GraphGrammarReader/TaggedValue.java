@@ -1,4 +1,4 @@
-package com.tutor.model.graphParser;
+package com.tutor.model.graphParser.GraphGrammarReader;
 
 /**
  * Created by Wiranji Dinelka on 8/4/2017.
