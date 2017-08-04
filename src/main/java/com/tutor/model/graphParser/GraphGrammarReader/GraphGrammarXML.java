@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * Created by Wiranji Dinelka on 8/4/2017.
  */
 @XmlRootElement
-public class GraphGrammar {
+public class GraphGrammarXML {
 
     private TaggedValue taggedValue;
     private ArrayList<ObjectTypes> types;
@@ -18,9 +18,9 @@ public class GraphGrammar {
     private ArrayList<Operations> operations;
     private ArrayList<Rule> rules;
 
-    public GraphGrammar() {  }
+    public GraphGrammarXML() {  }
 
-    public GraphGrammar(TaggedValue taggedValue, ArrayList<ObjectTypes> types, ArrayList<SpatialRelations> spatialRelations, ArrayList<Operations> operations, ArrayList<Rule> rules) {
+    public GraphGrammarXML(TaggedValue taggedValue, ArrayList<ObjectTypes> types, ArrayList<SpatialRelations> spatialRelations, ArrayList<Operations> operations, ArrayList<Rule> rules) {
         super();
         this.taggedValue = taggedValue;
         this.types= types;
