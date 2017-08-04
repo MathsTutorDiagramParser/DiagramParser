@@ -9,6 +9,14 @@ import java.util.List;
  */
 public abstract class GraphGrammar {
 
-    List<Rule> ruleList;
+    private List<ProductionRule> ruleList;
 
+
+    public List<ProductionRule> getRuleList() {
+        return ruleList;
+    }
+
+    public void setRuleList(List<ProductionRule> ruleList) {
+        this.ruleList = ruleList;
+    }
 }
