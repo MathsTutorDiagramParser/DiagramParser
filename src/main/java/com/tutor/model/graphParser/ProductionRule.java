@@ -2,7 +2,9 @@ package com.tutor.model.graphParser;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
 
 
 /**
@@ -10,40 +12,60 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class ProductionRule {
-    private int id;
-    private String name;
-    private float salary;
 
+    private TargetValue targetValue;
+    private ArrayList<ObjectType> types;
+    private ArrayList<SpatialRelations> spatialRelations;
+    private ArrayList<Rule> rules;
 
 
     public ProductionRule() {  }
 
-    public ProductionRule(int id, String name, float salary) {
+    public ProductionRule(TargetValue targetValue, ArrayList<ObjectType> types, ArrayList<SpatialRelations> spatialRelations, ArrayList<Rule> rules) {
         super();
-        this.id = id;
-        this.name = name;
-        this.salary = salary;
+        this.targetValue = targetValue;
+        this.types= types;
+        this.spatialRelations = spatialRelations;
+        this.rules = rules;
     }
 
+
     @XmlAttribute
-    public int getId() {
-        return id;
+    public TargetValue getTargetValue() {
+        return targetValue;
     }
-    public void setId(int id) {
-        this.id = id;
+
+    public void setTargetValue(TargetValue targetValue) {
+        this.targetValue = targetValue;
     }
-    @XmlElement
-    public String getName() {
-        return name;
+
+    @XmlElementWrapper(name="Types")
+    @XmlElement(name="ObjectTypes")
+    public ArrayList<ObjectType> getTypes() {
+        return types;
     }
-    public void setName(String name) {
-        this.name = name;
+
+    public void setTypes(ArrayList<ObjectType> types) {
+        this.types = types;
     }
-    @XmlElement
-    public float getSalary() {
-        return salary;
+
+    @XmlElementWrapper(name="Relations")
+    @XmlElement(name="SpatialRelationType")
+    public ArrayList<SpatialRelations> getSpatialRelations() {
+        return spatialRelations;
     }
-    public void setSalary(float salary) {
-        this.salary = salary;
+
+    public void setSpatialRelations(ArrayList<SpatialRelations> spatialRelations) {
+        this.spatialRelations = spatialRelations;
+    }
+
+    @XmlElementWrapper(name="Rules")
+    @XmlElement(name="Rule")
+    public ArrayList<Rule> getRules() {
+        return rules;
+    }
+
+    public void setRules(ArrayList<Rule> rules) {
+        this.rules = rules;
     }
 }
