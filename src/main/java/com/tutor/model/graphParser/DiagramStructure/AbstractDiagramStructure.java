@@ -7,12 +7,25 @@ import java.util.List;
 /**
  * Created by Madhavi Ruwandika on 8/4/2017.
  */
-public class AbstractDiagramStructure {
+public abstract class AbstractDiagramStructure {
 
-    List<Text> textList;
+    List<FeedBack> feedBackList;
 
-    public AbstractDiagramStructure(List<Text> textList) {
-        this.textList = textList;
+    /*
+        'structuralParserStatus' is used to identify parsing state of structural parser
+        if structuralParserStatus = true , then the diagram structure is correctly validated.
+     */
+    Boolean structuralParserStatus = true;
+    /*
+         'textAssociationParserStatus' is used to identify parsing state of structural parser
+         if textAssociationParserStatus = true , then the diagram structure is correctly validated.
+     */
+    Boolean textAssociationParserStatus = true;
+
+
+    public AbstractDiagramStructure() {
     }
+
+    public abstract void updateAbstractRepresentation();
 
 }

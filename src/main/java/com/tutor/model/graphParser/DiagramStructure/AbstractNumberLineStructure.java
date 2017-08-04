@@ -2,6 +2,7 @@ package com.tutor.model.graphParser.DiagramStructure;
 
 import com.tutor.model.graphicalPOJOObject.Text.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,15 +10,16 @@ import java.util.List;
  */
 public class AbstractNumberLineStructure extends AbstractDiagramStructure {
 
-    private List<TickPoint> tickPointList;
-    private List<MarkPoint> markPointList;
+    List<TickPoint> tickPointList;
+    List<MarkPoint> markPointList;
 
-    public AbstractNumberLineStructure(List<Text> textList) {
-        super(textList);
+    public AbstractNumberLineStructure() {
+        tickPointList = new ArrayList<>();
+        markPointList = new ArrayList<>();
     }
 
     public List<TickPoint> getTickPointList() {
-        return tickPointList;
+        return this.tickPointList;
     }
 
     public void setTickPointList(List<TickPoint> tickPointList) {
@@ -25,12 +27,16 @@ public class AbstractNumberLineStructure extends AbstractDiagramStructure {
     }
 
     public List<MarkPoint> getMarkPointList() {
-        return markPointList;
+        return this.markPointList;
     }
 
     public void setMarkPointList(List<MarkPoint> markPointList) {
         this.markPointList = markPointList;
     }
 
+    @Override
+    public void updateAbstractRepresentation() {
+
+    }
 
 }
