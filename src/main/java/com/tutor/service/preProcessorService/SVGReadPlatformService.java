@@ -1,4 +1,4 @@
-package com.tutor.service;
+package com.tutor.service.preProcessorService;
 
 import com.tutor.model.graphicalSVGObject.SVGImage;
 

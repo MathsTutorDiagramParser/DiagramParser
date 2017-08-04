@@ -38,7 +38,6 @@
                 <TaggedValue Tag="layer" TagValue="0"/>
             </Rule>
 
-
         </Rules>
 
     </GraphTransformationSystem>

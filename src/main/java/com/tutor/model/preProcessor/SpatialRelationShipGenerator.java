@@ -1,8 +1,8 @@
-package com.tutor.controller.preprocessor;
+package com.tutor.model.preProcessor;
 
-import com.tutor.model.SpatialRelation;
+import com.tutor.model.util.SpatialRelation;
 import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
-import com.tutor.model.graphicalPOJOObject.ObjectType;
+import com.tutor.model.util.ObjectType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,9 +12,9 @@ import java.util.List;
 public class SpatialRelationShipGenerator {
 
 
-    ArrayList<SpatialRelation>[][] relations ;
+    private ArrayList<SpatialRelation>[][] relations ;
 
-    int [][] a = new int[2][3];
+
     public ArrayList<SpatialRelation>[][] buildSpatialRelationShipMatrix(List<GraphicalImageComponent> objectList){
 
         int num_of_objects = objectList.size();
@@ -59,13 +59,13 @@ public class SpatialRelationShipGenerator {
     }
 
     public boolean isTough(GraphicalImageComponent o1,GraphicalImageComponent o2){
-        if( (o1.objectType!= ObjectType.Type_Line && o2.objectType!=ObjectType.Type_Line && o1.getX()== o2.getX() && o1.getY()== o2.getY())
-                || (o1.objectType!= ObjectType.Type_Circle && o2.objectType!=ObjectType.Type_Circle  && (o1.getX1()==o2.getX1() && o1.getY1()==o2.getY1()))
-                || (o1.objectType!= ObjectType.Type_Circle && o2.objectType!=ObjectType.Type_Circle  && (o1.getX2()==o2.getX2() && o1.getY2()==o2.getY2()))
-                || (o1.objectType!= ObjectType.Type_Circle && o2.objectType!=ObjectType.Type_Circle  && (o1.getX1()==o2.getX2() && o1.getY1()==o2.getY2()))
-                || (o1.objectType!= ObjectType.Type_Circle && o2.objectType!=ObjectType.Type_Circle  && (o1.getX2()==o2.getX1() && o1.getY2()==o2.getY1()))
-                || (o1.objectType!= ObjectType.Type_Line && o2.objectType!=ObjectType.Type_Circle  && ((o1.getX()==o2.getX1() && o1.getY()==o2.getY1())||(o1.getX()==o2.getX2() && o1.getY()==o2.getY2())))
-                || (o1.objectType!= ObjectType.Type_Circle && o2.objectType!=ObjectType.Type_Line  && ((o1.getX1()==o2.getX() && o1.getY1()==o2.getY())||(o1.getX2()==o2.getX() && o1.getY2()==o2.getY())))
+        if( (o1.objectType!= ObjectType.Line && o2.objectType!=ObjectType.Line && o1.getX()== o2.getX() && o1.getY()== o2.getY())
+                || (o1.objectType!= ObjectType.CIRCLE && o2.objectType!=ObjectType.CIRCLE  && (o1.getX1()==o2.getX1() && o1.getY1()==o2.getY1()))
+                || (o1.objectType!= ObjectType.CIRCLE && o2.objectType!=ObjectType.CIRCLE  && (o1.getX2()==o2.getX2() && o1.getY2()==o2.getY2()))
+                || (o1.objectType!= ObjectType.CIRCLE && o2.objectType!=ObjectType.CIRCLE  && (o1.getX1()==o2.getX2() && o1.getY1()==o2.getY2()))
+                || (o1.objectType!= ObjectType.CIRCLE && o2.objectType!=ObjectType.CIRCLE  && (o1.getX2()==o2.getX1() && o1.getY2()==o2.getY1()))
+                || (o1.objectType!= ObjectType.Line && o2.objectType!=ObjectType.CIRCLE  && ((o1.getX()==o2.getX1() && o1.getY()==o2.getY1())||(o1.getX()==o2.getX2() && o1.getY()==o2.getY2())))
+                || (o1.objectType!= ObjectType.CIRCLE && o2.objectType!=ObjectType.Line  && ((o1.getX1()==o2.getX() && o1.getY1()==o2.getY())||(o1.getX2()==o2.getX() && o1.getY2()==o2.getY())))
                 ){
             return true;
         }
@@ -74,7 +74,7 @@ public class SpatialRelationShipGenerator {
 
 
     public boolean isCross(GraphicalImageComponent o1,GraphicalImageComponent o2){
-        if(o2.objectType==ObjectType.Type_Line && o1.objectType==ObjectType.Type_Line){
+        if(o2.objectType==ObjectType.Line && o1.objectType==ObjectType.Line){
             // calculate gradiant of lines
             double m1 = (o1.getY1()-o1.getY2())/(o1.getX1()-o1.getX2());
             double m2 = (o2.getY1()-o2.getY2())/(o2.getX1()-o2.getX2());
@@ -118,22 +118,22 @@ public class SpatialRelationShipGenerator {
         return false;
     }
     public boolean isOverLap(GraphicalImageComponent o1,GraphicalImageComponent o2) {
-        if(o1.objectType==ObjectType.Type_Circle && o2.objectType==ObjectType.Type_Circle){
+        if(o1.objectType==ObjectType.CIRCLE && o2.objectType==ObjectType.CIRCLE){
             if(o1.getX()==o2.getX() && o1.getY()==o2.getY()){
                 return true;
             }
         }
-        else if(o1.objectType==ObjectType.Type_Line && o2.objectType==ObjectType.Type_Circle){
+        else if(o1.objectType==ObjectType.Line && o2.objectType==ObjectType.CIRCLE){
             if(pointOnLineSegment(o1.getX1(),o1.getX2(),o1.getY1(),o1.getY2(),o2.getX(),o2.getY())){
                 return true;
             }
         }
-        else if(o2.objectType==ObjectType.Type_Line && o1.objectType==ObjectType.Type_Circle){
+        else if(o2.objectType==ObjectType.Line && o1.objectType==ObjectType.CIRCLE){
             if(pointOnLineSegment(o2.getX1(),o2.getX2(),o2.getY1(),o2.getY2(),o1.getX(),o1.getY())){
                 return true;
             }
         }
-        else if(o2.objectType==ObjectType.Type_Line && o1.objectType==ObjectType.Type_Line){
+        else if(o2.objectType==ObjectType.Line && o1.objectType==ObjectType.Line){
             double m1 = (o1.getY1()-o1.getY2())/(o1.getX1()-o1.getX2());
             double m2 = (o2.getY1()-o2.getY2())/(o2.getX1()-o2.getX2());
 
@@ -162,4 +162,9 @@ public class SpatialRelationShipGenerator {
         return false;
 
     }
+
+    public ArrayList<SpatialRelation>[][] getRelations() {
+        return relations;
+    }
+
 }
