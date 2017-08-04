@@ -1,7 +1,5 @@
 package com.tutor.model.graphParser.GraphGrammarBuilder;
 
-import com.tutor.model.graphParser.GraphGrammarReader.Rule;
-
 import java.util.List;
 
 /**
