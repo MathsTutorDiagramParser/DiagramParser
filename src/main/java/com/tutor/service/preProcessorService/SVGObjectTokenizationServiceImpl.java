@@ -14,14 +14,16 @@ public class SVGObjectTokenizationServiceImpl implements SVGObjectTokenizationSe
     SVGtoPOJOMapper svgtoPOJOMapper;
 
     public SVGtoPOJOMapper tokenize() {
-        String studentAnswerPath = "D:\\Projects\\FYP\\project\\MathsTutor\\src\\PreProcessor\\resources\\test\\answer.svg";
+        SVGImage svgImageStudentAnswer = new SVGImage();
+        SVGReadPlatformService svgReader = new SVGReadPlatformServiceImpl();
+
+        String studentAnswerPath = "D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\test\\answer.svg";
         System.out.println("===========================Start Executing Rules===================================");
         KieContainer kc = KieServices.Factory.get().getKieClasspathContainer();
         KieSession ksession = kc.newKieSession( "preprocessor");
         System.out.println("============================Finish Executing Rules==================================");
 
-        SVGImage svgImageStudentAnswer = new SVGImage();
-        SVGReadPlatformService svgReader = new SVGReadPlatformServiceImpl();
+
         SVGImage svgImage = svgReader.parse(svgImageStudentAnswer, studentAnswerPath);
 
         svgtoPOJOMapper = new SVGtoPOJOMapper(svgImage);

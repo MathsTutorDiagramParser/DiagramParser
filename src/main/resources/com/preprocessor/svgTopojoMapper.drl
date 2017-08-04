@@ -1,21 +1,19 @@
 package  com.preprocessor;
 
 import com.tutor.model.graphicalSVGObject.SVGComponent;
-import com.tutor.controller.preprocessor.SVGtoPOJOMapper;
 import com.tutor.model.graphicalSVGObject.SVGLine;
 import com.tutor.model.graphicalSVGObject.SVGCircle;
 import com.tutor.model.graphicalSVGObject.SVGRectangle;
 import com.tutor.model.graphicalSVGObject.SVGText;
 import com.tutor.model.graphicalSVGObject.SVGImage;
+import com.tutor.model.preProcessor.SVGtoPOJOMapper;
 import java.util.ArrayList;
 import com.tutor.model.graphicalPOJOObject.line.VerticalLine;
 import com.tutor.model.graphicalPOJOObject.line.HorizontalLine;
 import com.tutor.model.graphicalPOJOObject.line.AngleLine;
 import com.tutor.model.graphicalPOJOObject.Circle.Circle;
 import com.tutor.model.graphicalPOJOObject.Text.Text;
-import com.tutor.controller.preprocessor.ObjectSequenceOrderGenerator;
 
-global ObjectSequenceOrderGenerator objectSorter;
 
 rule "Horizontal line identifier"
   when

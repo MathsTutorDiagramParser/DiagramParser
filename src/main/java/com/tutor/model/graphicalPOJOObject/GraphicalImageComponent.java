@@ -1,5 +1,7 @@
 package com.tutor.model.graphicalPOJOObject;
 
+import com.tutor.model.util.ObjectType;
+
 /**
  * Created by Madhavi Ruwandika on 6/11/2017.
  */
@@ -13,7 +15,7 @@ public class GraphicalImageComponent {
     private double y;
 
     private double hieght;
-    public String objectType;
+    public ObjectType objectType;
 
 
     public GraphicalImageComponent(double x1, double y1, double x2, double y2) {

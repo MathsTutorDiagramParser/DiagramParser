@@ -1,7 +1,7 @@
 package com.tutor.controller.preprocessor;
 
 import com.tutor.model.preProcessor.SVGtoPOJOMapper;
-import com.tutor.model.SpatialRelation;
+import com.tutor.model.util.SpatialRelation;
 import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.service.preProcessorService.*;
 
@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by Madhavi Ruwandika on 7/22/2017.
  */
-public class PreProcessor {
+public class PreProcessingHandler {
 
     public static void main(String[] args) {
 

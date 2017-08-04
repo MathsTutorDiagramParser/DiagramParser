@@ -1,6 +1,6 @@
 package com.tutor.service.preProcessorService;
 
-import com.tutor.model.SpatialRelation;
+import com.tutor.model.util.SpatialRelation;
 import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.model.preProcessor.SpatialRelationShipGenerator;
 

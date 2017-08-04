@@ -1,7 +1,7 @@
 package com.tutor.model.graphicalPOJOObject.line;
 
 import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
-import com.tutor.model.graphicalPOJOObject.ObjectType;
+import com.tutor.model.util.ObjectType;
 
 /**
  * Created by Madhavi Ruwandika on 6/3/2017.
@@ -15,7 +15,7 @@ public class Line extends GraphicalImageComponent{
     public Line(double x1, double y1, double x2, double y2, int stroke_width) {
         super(x1,y1,x2,y2);
         this.stroke_width = stroke_width;
-        this.objectType = ObjectType.Type_Line;
+        this.objectType = ObjectType.Line;
     }
 
 

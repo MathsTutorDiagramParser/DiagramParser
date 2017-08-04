@@ -1,6 +1,6 @@
 package com.tutor.service.preProcessorService;
 
-import com.tutor.model.SpatialRelation;
+import com.tutor.model.util.SpatialRelation;
 import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
 
 import java.util.ArrayList;
