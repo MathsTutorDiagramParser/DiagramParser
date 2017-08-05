@@ -45,7 +45,7 @@ public class SpatialRelationShipGenerator {
         ArrayList<SpatialRelation> relations = new ArrayList<>();
         //identify tough
         if(isTough(o1,o2)){
-            relations.add(SpatialRelation.TOUGH);
+            relations.add(SpatialRelation.TOUCH);
         }
         //identify overlap
         if (isOverLap(o1,o2)){

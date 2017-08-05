@@ -5,8 +5,10 @@ package com.tutor.model.util;
  */
 public enum SpatialRelation {
     SAME, // relationship with same object
-    TOUGH,
+    TOUCH,
     OVERLAP,
     CROSS,
+    UP,
+    DOWN;
 
 }

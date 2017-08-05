@@ -1,10 +1,7 @@
 package com.tutor.controller.preprocessor;
 
 import com.tutor.controller.GraphParser.GraphParsingHandler;
-import com.tutor.model.graphParser.GraphGrammarBuilder.GrammarBuilder;
-import com.tutor.model.graphParser.GraphGrammarBuilder.Graph;
-import com.tutor.model.graphParser.GraphGrammarBuilder.NumberLineGrammar;
-import com.tutor.model.graphParser.GraphGrammarBuilder.ProductionRule;
+import com.tutor.model.graphParser.GraphGrammarBuilder.*;
 import com.tutor.model.graphParser.parser.Parser;
 import com.tutor.model.preProcessor.SVGtoPOJOMapper;
 import com.tutor.model.util.DiagramType;
@@ -72,9 +69,9 @@ public class PreProcessingHandler {
 
         //For test the grammar rulelist generation
         GrammarBuilder grammarBuilder = new GrammarBuilder();
-        NumberLineGrammar numberLineGrammar = (NumberLineGrammar) grammarBuilder.loadBuiltGrammar("NumberLine");
+        TreeDiagramGrammar treeDiagramGrammar = (TreeDiagramGrammar) grammarBuilder.loadBuiltGrammar("TreeDiagram");
 
-        for (ProductionRule rule : numberLineGrammar.getRuleList()) {
+        for (ProductionRule rule : treeDiagramGrammar.getRuleList()) {
             System.out.println(rule.getLeftGraph().getGraphicalImageComponents().get(0).objectType);
         }
 

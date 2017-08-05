@@ -9,9 +9,11 @@ public enum  ObjectType {
     Text,
     Initial_Number_Line,
     Circle,
-    Angle_Line,
+    ANGLE_LINE,
     Vertical_Line,
-    Horizontal_Line;
+    Horizontal_Line,
+    INITIAL_TREE_DIAGRAM,
+    NODE;
 
 
 }
