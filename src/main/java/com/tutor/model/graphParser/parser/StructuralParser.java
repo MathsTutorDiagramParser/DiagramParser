@@ -3,6 +3,8 @@ package com.tutor.model.graphParser.parser;
 import com.tutor.model.graphParser.DiagramStructure.AbstractDiagramStructure;
 import com.tutor.model.graphParser.DiagramStructure.FeedBack;
 import com.tutor.model.graphParser.DiagramStructure.FeedBackGenerator;
+import com.tutor.model.graphParser.DiagramStructureGenerator.DiagramStructureGenerator;
+import com.tutor.model.graphParser.DiagramStructureGenerator.DiagramStructureGeneratorFactory;
 import com.tutor.model.graphParser.GraphGrammarBuilder.Graph;
 import com.tutor.model.graphParser.GraphGrammarBuilder.GraphGrammar;
 import com.tutor.model.graphParser.GraphGrammarBuilder.GraphGrammarFactory;
@@ -23,12 +25,14 @@ import java.util.List;
 public class StructuralParser {
 
     GraphGrammar graphGrammar;
+    DiagramStructureGenerator diagramStructureGenerator;
     boolean matched = false;
     List<FeedBack>  feedBacks;
 
     public StructuralParser(DiagramType diagramType) throws JAXBException, FileNotFoundException {
         this.graphGrammar = GraphGrammarFactory.getGrammar(diagramType);
         this.feedBacks = new ArrayList<>();
+        this.diagramStructureGenerator = DiagramStructureGeneratorFactory.getDiagramStructureGenerator(diagramType);
     }
 
     public  void parse(Graph host,AbstractDiagramStructure abstractDiagramStructure){
@@ -38,7 +42,7 @@ public class StructuralParser {
                 int[] redex =  findRedexForRApplication(host,productionRule);
                 while (redex != null){
                     rApplication(host,productionRule,redex);
-                    updateAbstractRepresentation(productionRule,abstractDiagramStructure,redex);
+                    updateAbstractRepresentation(i,host,productionRule,abstractDiagramStructure,redex);
                     redex = findRedexForRApplication(host,productionRule);
                 }
             }
@@ -50,9 +54,10 @@ public class StructuralParser {
     }
 
     // need to implement
-    public void updateAbstractRepresentation(ProductionRule productionRule,
+    public void updateAbstractRepresentation(int ruleID,Graph host,ProductionRule productionRule,
                                              AbstractDiagramStructure abstractDiagramStructure,int[] redex){
-
+        AbstractDiagramStructure temp = abstractDiagramStructure;
+        abstractDiagramStructure = diagramStructureGenerator.generate(ruleID,host,temp,redex);
     }
 
 
