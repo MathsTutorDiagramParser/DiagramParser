@@ -17,6 +17,9 @@ public class GraphicalImageComponent {
     private double hieght;
     public ObjectType objectType;
 
+    public GraphicalImageComponent(ObjectType objectType) {
+        this.objectType = objectType;
+    }
 
     public GraphicalImageComponent(double x1, double y1, double x2, double y2) {
         this.x1 = x1;

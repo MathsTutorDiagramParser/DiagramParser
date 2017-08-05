@@ -65,7 +65,7 @@ public class PreProcessingHandler {
 
         // Read and write grammar xml file
         GraphParsingHandler graphParsingHandler = new GraphParsingHandler();
-        //graphParsingHandler.writeToXML();
+        graphParsingHandler.writeToXML();
         graphParsingHandler.readFromXML();
 
     }

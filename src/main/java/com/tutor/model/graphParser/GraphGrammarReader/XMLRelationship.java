@@ -4,31 +4,31 @@ package com.tutor.model.graphParser.GraphGrammarReader;
  * Created by Wiranji Dinelka on 8/4/2017.
  */
 public class XMLRelationship {
-    private String objectIdOne;
-    private String objectIdTwo;
+    private int objectIdOne;
+    private int objectIdTwo;
     private String spatialRelationId;
 
     public XMLRelationship(){}
 
-    public XMLRelationship(String objectIdOne, String objectIdTwo, String spatialRelationId) {
+    public XMLRelationship(int objectIdOne, int objectIdTwo, String spatialRelationId) {
         this.objectIdOne = objectIdOne;
         this.objectIdTwo = objectIdTwo;
         this.spatialRelationId = spatialRelationId;
     }
 
-    public String getObjectIdOne() {
+    public int getObjectIdOne() {
         return objectIdOne;
     }
 
-    public void setObjectIdOne(String objectIdOne) {
+    public void setObjectIdOne(int objectIdOne) {
         this.objectIdOne = objectIdOne;
     }
 
-    public String getObjectIdTwo() {
+    public int getObjectIdTwo() {
         return objectIdTwo;
     }
 
-    public void setObjectIdTwo(String objectIdTwo) {
+    public void setObjectIdTwo(int objectIdTwo) {
         this.objectIdTwo = objectIdTwo;
     }
 

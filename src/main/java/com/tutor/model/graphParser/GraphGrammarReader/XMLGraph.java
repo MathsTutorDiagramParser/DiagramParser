@@ -8,25 +8,25 @@ import java.util.List;
  * Created by Wiranji Dinelka on 8/4/2017.
  */
 public class XMLGraph {
-    private List<String> objectIdList;
+    private List<XMLObject> objectIdList;
     private List<XMLRelationship> XMLRelationships;
 
     public XMLGraph() {
 
     }
 
-    public XMLGraph(List<String> objectIdList, List<XMLRelationship> XMLRelationships) {
+    public XMLGraph(List<XMLObject> objectIdList, List<XMLRelationship> XMLRelationships) {
         this.objectIdList = objectIdList;
         this.XMLRelationships = XMLRelationships;
     }
 
     @XmlElementWrapper(name="Objects")
     @XmlElement(name="Object")
-    public List<String> getObjectIdList() {
+    public List<XMLObject> getObjectIdList() {
         return objectIdList;
     }
 
-    public void setObjectIdList(List<String> objectIdList) {
+    public void setObjectIdList(List<XMLObject> objectIdList) {
         this.objectIdList = objectIdList;
     }
 

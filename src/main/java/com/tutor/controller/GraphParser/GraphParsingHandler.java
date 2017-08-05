@@ -15,6 +15,8 @@ import java.util.ArrayList;
  * Created by Madhavi Ruwandika on 8/4/2017.
  */
 public class GraphParsingHandler {
+    public GraphParsingHandler() {
+    }
 
     public void writeToXML() throws JAXBException, FileNotFoundException {
 
@@ -38,13 +40,15 @@ public class GraphParsingHandler {
         XMLSpatialRelationsList.add(XMLSpatialRelations2);
 
 
-        ArrayList<String> objectIdList = new ArrayList<>();
-        objectIdList.add("1");
-        objectIdList.add("2");
+        ArrayList<XMLObject> objectIdList = new ArrayList<>();
+        XMLObject xmlObject1 = new XMLObject(0,"I1");
+        XMLObject xmlObject2 = new XMLObject(1,"I1");
+        objectIdList.add(xmlObject1);
+        objectIdList.add(xmlObject2);
 
         ArrayList<XMLRelationship> XMLRelationshipList = new ArrayList<>();
-        XMLRelationship XMLRelationship1 = new XMLRelationship("1","2","I10");
-        XMLRelationship XMLRelationship2 = new XMLRelationship("1","2","I11");
+        XMLRelationship XMLRelationship1 = new XMLRelationship(0,1,"I10");
+        XMLRelationship XMLRelationship2 = new XMLRelationship(1,2,"I11");
         XMLRelationshipList.add(XMLRelationship1);
         XMLRelationshipList.add(XMLRelationship2);
 
@@ -76,15 +80,18 @@ public class GraphParsingHandler {
         marshallerObj.marshal(XMLGraphGrammar, new FileOutputStream("E:\\FYP\\implementation\\parser1\\DiagramParser\\src\\main\\resources\\com\\graphGrammar\\rule.xml"));
     }
 
-    public void readFromXML(){
+    public XMLGraphGrammar readFromXML(){
+        XMLGraphGrammar graphGrammar = new XMLGraphGrammar();
         try {
             File file = new File("E:\\FYP\\implementation\\parser1\\DiagramParser\\src\\main\\resources\\com\\graphGrammar\\rule.xml");
             JAXBContext jaxbContext = JAXBContext.newInstance(XMLGraphGrammar.class);
 
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            XMLGraphGrammar graphGrammar =(XMLGraphGrammar) jaxbUnmarshaller.unmarshal(file);
+            graphGrammar =(XMLGraphGrammar) jaxbUnmarshaller.unmarshal(file);
             System.out.println(graphGrammar.getXMLTaggedValue().getTag()+" "+ graphGrammar.getTypes().get(0).getName());
 
         } catch (JAXBException e) {e.printStackTrace(); }
+
+        return graphGrammar;
     }
 }
