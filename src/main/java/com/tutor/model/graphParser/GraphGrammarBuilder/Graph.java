@@ -43,4 +43,8 @@ public class Graph {
     public void setInitialGraph(boolean initialGraph) {
         isInitialGraph = initialGraph;
     }
+
+    public ArrayList<SpatialRelation> getSpatialRelations(int index1,int index2 ){
+        return relations[index1][index2];
+    }
 }

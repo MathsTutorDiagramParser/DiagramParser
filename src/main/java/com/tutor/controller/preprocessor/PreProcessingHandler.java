@@ -1,7 +1,10 @@
 package com.tutor.controller.preprocessor;
 
 import com.tutor.controller.GraphParser.GraphParsingHandler;
+import com.tutor.model.graphParser.GraphGrammarBuilder.Graph;
+import com.tutor.model.graphParser.parser.Parser;
 import com.tutor.model.preProcessor.SVGtoPOJOMapper;
+import com.tutor.model.util.DiagramType;
 import com.tutor.model.util.SpatialRelation;
 import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.service.preProcessorService.*;
@@ -63,10 +66,23 @@ public class PreProcessingHandler {
 
         }
 
+
+        // --------------test-------------------
+
         // Read and write grammar xml file
         GraphParsingHandler graphParsingHandler = new GraphParsingHandler();
         graphParsingHandler.writeToXML();
         graphParsingHandler.readFromXML();
+//        GraphParsingHandler graphParsingHandler = new GraphParsingHandler();
+//        graphParsingHandler.writeToXML();
+//        graphParsingHandler.readFromXML();
+//
+//        Graph host  = new Graph();
+//        host.setGraphicalImageComponents(orderedList);
+//        host.setRelations(relations);
+//
+//        Parser parser = new Parser(DiagramType.NUMBRELINE);
+//        parser.parse(host,svGtoPOJOMapper.getTexts());
 
     }
 }

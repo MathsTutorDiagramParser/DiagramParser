@@ -1,6 +1,8 @@
 package com.tutor.controller.GraphParser;
 
 import com.tutor.model.graphParser.GraphGrammarReader.*;
+import com.tutor.model.graphParser.parser.Parser;
+import com.tutor.model.util.DiagramType;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -94,4 +96,5 @@ public class GraphParsingHandler {
 
         return graphGrammar;
     }
+
 }
