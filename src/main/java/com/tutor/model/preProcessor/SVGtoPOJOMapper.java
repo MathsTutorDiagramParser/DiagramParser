@@ -1,6 +1,7 @@
 package com.tutor.model.preProcessor;
 
 import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
+import com.tutor.model.graphicalPOJOObject.Text.Text;
 import com.tutor.model.graphicalSVGObject.SVGImage;
 import org.kie.api.cdi.KSession;
 import org.kie.api.runtime.KieSession;
@@ -14,11 +15,12 @@ public class SVGtoPOJOMapper {
 
     private SVGImage svgImage;
     ArrayList<GraphicalImageComponent> graphicalImageComponents ;
-
+    ArrayList<Text> texts;
 
     public SVGtoPOJOMapper(SVGImage svgImage) {
         this.svgImage = svgImage;
         this.graphicalImageComponents = new ArrayList<>();
+        this.texts = new ArrayList<>();
     }
 
     public SVGImage getSvgImage() {
@@ -37,4 +39,11 @@ public class SVGtoPOJOMapper {
         this.graphicalImageComponents = graphicalImageComponents;
     }
 
+    public ArrayList<Text> getTexts() {
+        return texts;
+    }
+
+    public void setTexts(ArrayList<Text> texts) {
+        this.texts = texts;
+    }
 }

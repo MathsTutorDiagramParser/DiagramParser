@@ -12,12 +12,12 @@ public abstract class AbstractDiagramStructure {
     List<FeedBack> feedBackList;
 
     /*
-        'structuralParserStatus' is used to identify parsing state of structural parser
+        'structuralParserStatus' is used to identify parsing state of structural Parser
         if structuralParserStatus = true , then the diagram structure is correctly validated.
      */
     Boolean structuralParserStatus = true;
     /*
-         'textAssociationParserStatus' is used to identify parsing state of structural parser
+         'textAssociationParserStatus' is used to identify parsing state of structural Parser
          if textAssociationParserStatus = true , then the diagram structure is correctly validated.
      */
     Boolean textAssociationParserStatus = true;
