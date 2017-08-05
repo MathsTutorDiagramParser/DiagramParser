@@ -1,7 +1,10 @@
 package com.tutor.controller.preprocessor;
 
 import com.tutor.controller.GraphParser.GraphParsingHandler;
+import com.tutor.model.graphParser.GraphGrammarBuilder.GrammarBuilder;
 import com.tutor.model.graphParser.GraphGrammarBuilder.Graph;
+import com.tutor.model.graphParser.GraphGrammarBuilder.NumberLineGrammar;
+import com.tutor.model.graphParser.GraphGrammarBuilder.ProductionRule;
 import com.tutor.model.graphParser.parser.Parser;
 import com.tutor.model.preProcessor.SVGtoPOJOMapper;
 import com.tutor.model.util.DiagramType;
@@ -67,9 +70,15 @@ public class PreProcessingHandler {
         }
 
 
-        // --------------test-------------------
+        //For test the grammar rulelist generation
+        GrammarBuilder grammarBuilder = new GrammarBuilder();
+        NumberLineGrammar numberLineGrammar = (NumberLineGrammar) grammarBuilder.loadBuiltGrammar("NumberLine");
 
-        // Read and write grammar xml file
+        for (ProductionRule rule : numberLineGrammar.getRuleList()) {
+            System.out.println(rule.getLeftGraph().getGraphicalImageComponents().get(0).objectType);
+        }
+
+
 //        GraphParsingHandler graphParsingHandler = new GraphParsingHandler();
 //        graphParsingHandler.writeToXML();
 //        graphParsingHandler.readFromXML();

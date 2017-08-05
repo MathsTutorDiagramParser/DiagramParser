@@ -15,6 +15,11 @@ public class Graph {
     private ArrayList<SpatialRelation>[][] relations;
     private boolean isInitialGraph = false;
 
+    public Graph(List<GraphicalImageComponent> graphicalImageComponents, ArrayList<SpatialRelation>[][] relations) {
+        this.graphicalImageComponents = graphicalImageComponents;
+        this.relations = relations;
+    }
+
     public List<GraphicalImageComponent> getGraphicalImageComponents() {
         return graphicalImageComponents;
     }

@@ -11,6 +11,11 @@ public class ProductionRule {
     private Graph rightGraph;
     private RuleOperation ruleOperation;
 
+    public ProductionRule(Graph leftGraph, Graph rightGraph, RuleOperation ruleOperation) {
+        this.leftGraph = leftGraph;
+        this.rightGraph = rightGraph;
+        this.ruleOperation = ruleOperation;
+    }
 
     public Graph getLeftGraph() {
         return leftGraph;

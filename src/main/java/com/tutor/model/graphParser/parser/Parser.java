@@ -6,6 +6,8 @@ import com.tutor.model.graphParser.GraphGrammarBuilder.Graph;
 import com.tutor.model.graphicalPOJOObject.Text.Text;
 import com.tutor.model.util.DiagramType;
 
+import javax.xml.bind.JAXBException;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 /**
@@ -21,7 +23,7 @@ public class Parser {
         this.abstractDiagramStructure = DiagramStructureFactory.getAbstractDiagramStructure(diagramType);
     }
 
-    public AbstractDiagramStructure parse(Graph host, List<Text> textList){
+    public AbstractDiagramStructure parse(Graph host, List<Text> textList) throws JAXBException, FileNotFoundException {
 
         StructuralParser structuralParser = new StructuralParser(diagramType);
         // validate the diagram through structural Parser

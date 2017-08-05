@@ -14,6 +14,8 @@ import com.tutor.model.util.DiagramType;
 import com.tutor.model.util.FeedBackMessage;
 import com.tutor.model.util.SpatialRelation;
 
+import javax.xml.bind.JAXBException;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +29,7 @@ public class StructuralParser {
     boolean matched = false;
     List<FeedBack>  feedBacks;
 
-    public StructuralParser(DiagramType diagramType) {
+    public StructuralParser(DiagramType diagramType) throws JAXBException, FileNotFoundException {
         this.graphGrammar = GraphGrammarFactory.getGrammar(diagramType);
         this.feedBacks = new ArrayList<>();
         this.diagramStructureGenerator = DiagramStructureGeneratorFactory.getDiagramStructureGenerator(diagramType);

@@ -8,35 +8,35 @@ import java.util.List;
  * Created by Wiranji Dinelka on 8/4/2017.
  */
 public class XMLGraph {
-    private List<String> objectIdList;
-    private List<XMLRelationship> XMLRelationships;
+    private List<XMLObject> objectIdList;
+    private List<XMLRelationship> xmlRelationships;
 
     public XMLGraph() {
 
     }
 
-    public XMLGraph(List<String> objectIdList, List<XMLRelationship> XMLRelationships) {
+    public XMLGraph(List<XMLObject> objectIdList, List<XMLRelationship> xmlRelationships) {
         this.objectIdList = objectIdList;
-        this.XMLRelationships = XMLRelationships;
+        this.xmlRelationships = xmlRelationships;
     }
 
     @XmlElementWrapper(name="Objects")
     @XmlElement(name="Object")
-    public List<String> getObjectIdList() {
+    public List<XMLObject> getObjectIdList() {
         return objectIdList;
     }
 
-    public void setObjectIdList(List<String> objectIdList) {
+    public void setObjectIdList(List<XMLObject> objectIdList) {
         this.objectIdList = objectIdList;
     }
 
-    @XmlElementWrapper(name="XMLSpatialRelations")
+    @XmlElementWrapper(name="SpatialRelations")
     @XmlElement(name="SpatialRelation")
     public List<XMLRelationship> getXMLRelationships() {
-        return XMLRelationships;
+        return xmlRelationships;
     }
 
-    public void setXMLRelationships(List<XMLRelationship> XMLRelationships) {
-        this.XMLRelationships = XMLRelationships;
+    public void setXMLRelationships(List<XMLRelationship> xmlRelationships) {
+        this.xmlRelationships = xmlRelationships;
     }
 }
