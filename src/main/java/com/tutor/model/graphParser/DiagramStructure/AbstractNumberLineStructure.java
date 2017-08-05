@@ -34,6 +34,16 @@ public class AbstractNumberLineStructure extends AbstractDiagramStructure {
         this.markPointList = markPointList;
     }
 
+    public void updateMarkPointList(MarkPoint markPoint) {
+        markPointList.add(markPoint);
+    }
+
+    public void updatetickPointList(TickPoint tickPoint) {
+        tickPointList.add(tickPoint);
+    }
+
+
+
     @Override
     public void updateAbstractRepresentation() {
 

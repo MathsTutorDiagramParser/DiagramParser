@@ -23,8 +23,7 @@ public abstract class AbstractDiagramStructure {
     Boolean textAssociationParserStatus = true;
 
 
-    public AbstractDiagramStructure() {
-    }
+    public AbstractDiagramStructure() {}
 
     public abstract void updateAbstractRepresentation();
 
