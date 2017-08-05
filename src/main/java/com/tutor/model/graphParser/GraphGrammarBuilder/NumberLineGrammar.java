@@ -10,11 +10,6 @@ import java.io.FileNotFoundException;
  */
 public class NumberLineGrammar extends GraphGrammar {
     public NumberLineGrammar() {
-        loadGrammar(DiagramType.NUMBRELINE);
-    }
 
-    public NumberLineGrammar getNumberLineGrammar() throws JAXBException, FileNotFoundException {
-        GrammarBuilder grammarBuilder = new GrammarBuilder("NumberLine");
-        return (NumberLineGrammar) grammarBuilder.loadBuiltGrammar();
     }
 }

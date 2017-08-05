@@ -9,15 +9,15 @@ import java.util.List;
  */
 public class XMLGraph {
     private List<XMLObject> objectIdList;
-    private List<XMLRelationship> XMLRelationships;
+    private List<XMLRelationship> xmlRelationships;
 
     public XMLGraph() {
 
     }
 
-    public XMLGraph(List<XMLObject> objectIdList, List<XMLRelationship> XMLRelationships) {
+    public XMLGraph(List<XMLObject> objectIdList, List<XMLRelationship> xmlRelationships) {
         this.objectIdList = objectIdList;
-        this.XMLRelationships = XMLRelationships;
+        this.xmlRelationships = xmlRelationships;
     }
 
     @XmlElementWrapper(name="Objects")
@@ -30,13 +30,13 @@ public class XMLGraph {
         this.objectIdList = objectIdList;
     }
 
-    @XmlElementWrapper(name="XMLSpatialRelations")
+    @XmlElementWrapper(name="SpatialRelations")
     @XmlElement(name="SpatialRelation")
     public List<XMLRelationship> getXMLRelationships() {
-        return XMLRelationships;
+        return xmlRelationships;
     }
 
-    public void setXMLRelationships(List<XMLRelationship> XMLRelationships) {
-        this.XMLRelationships = XMLRelationships;
+    public void setXMLRelationships(List<XMLRelationship> xmlRelationships) {
+        this.xmlRelationships = xmlRelationships;
     }
 }

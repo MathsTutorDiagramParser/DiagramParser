@@ -11,16 +11,17 @@ public class XMLProductionRule {
 
     private XMLGraph leftXMLGraph;
     private XMLGraph rightXMLGraph;
-    private ArrayList<XMLRuleOperations> XMLRuleOperations = new ArrayList<>();
+    private ArrayList<XMLRuleOperations> xmlRuleOperations = new ArrayList<>();
 
     public XMLProductionRule(){}
 
-    public XMLProductionRule(XMLGraph leftXMLGraph, XMLGraph rightXMLGraph, ArrayList<XMLRuleOperations> XMLRuleOperations) {
+    public XMLProductionRule(XMLGraph leftXMLGraph, XMLGraph rightXMLGraph, ArrayList<XMLRuleOperations> xmlRuleOperations) {
         this.leftXMLGraph = leftXMLGraph;
         this.rightXMLGraph = rightXMLGraph;
-        this.XMLRuleOperations = XMLRuleOperations;
+        this.xmlRuleOperations = xmlRuleOperations;
     }
 
+    @XmlElement(name="LeftGraph")
     public XMLGraph getLeftXMLGraph() {
         return leftXMLGraph;
     }
@@ -29,6 +30,7 @@ public class XMLProductionRule {
         this.leftXMLGraph = leftXMLGraph;
     }
 
+    @XmlElement(name="RightGraph")
     public XMLGraph getRightXMLGraph() {
         return rightXMLGraph;
     }
@@ -37,13 +39,13 @@ public class XMLProductionRule {
         this.rightXMLGraph = rightXMLGraph;
     }
 
-    @XmlElementWrapper(name="XMLRuleOperations")
-    @XmlElement(name="XMLRuleOperations")
+    @XmlElementWrapper(name="RuleOperations")
+    @XmlElement(name="RuleOperation")
     public ArrayList<XMLRuleOperations> getXMLRuleOperations() {
-        return XMLRuleOperations;
+        return xmlRuleOperations;
     }
 
-    public void setXMLRuleOperations(ArrayList<XMLRuleOperations> XMLRuleOperations) {
-        this.XMLRuleOperations = XMLRuleOperations;
+    public void setXMLRuleOperations(ArrayList<XMLRuleOperations> xmlRuleOperations) {
+        this.xmlRuleOperations = xmlRuleOperations;
     }
 }

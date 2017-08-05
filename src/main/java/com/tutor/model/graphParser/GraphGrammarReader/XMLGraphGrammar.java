@@ -9,34 +9,34 @@ import java.util.ArrayList;
 /**
  * Created by Wiranji Dinelka on 8/4/2017.
  */
-@XmlRootElement
+@XmlRootElement(name = "GraphGrammar")
 public class XMLGraphGrammar {
 
-    private XMLTaggedValue XMLTaggedValue;
+    private XMLTaggedValue xmlTaggedValue;
     private ArrayList<XMLObjectTypes> types;
-    private ArrayList<XMLSpatialRelations> XMLSpatialRelations;
+    private ArrayList<XMLSpatialRelations> xmlSpatialRelations;
     private ArrayList<XMLOperations> operations;
-    private ArrayList<XMLProductionRule> XMLProductionRules;
+    private ArrayList<XMLProductionRule> xmlProductionRules;
 
     public XMLGraphGrammar() {  }
 
-    public XMLGraphGrammar(XMLTaggedValue XMLTaggedValue, ArrayList<XMLObjectTypes> types, ArrayList<XMLSpatialRelations> XMLSpatialRelations, ArrayList<XMLOperations> operations, ArrayList<XMLProductionRule> XMLProductionRules) {
+    public XMLGraphGrammar(XMLTaggedValue xmlTaggedValue, ArrayList<XMLObjectTypes> types, ArrayList<XMLSpatialRelations> xmlSpatialRelations, ArrayList<XMLOperations> operations, ArrayList<XMLProductionRule> xmlProductionRules) {
         super();
-        this.XMLTaggedValue = XMLTaggedValue;
+        this.xmlTaggedValue = xmlTaggedValue;
         this.types= types;
-        this.XMLSpatialRelations = XMLSpatialRelations;
+        this.xmlSpatialRelations = xmlSpatialRelations;
         this.operations = operations;
-        this.XMLProductionRules = XMLProductionRules;
+        this.xmlProductionRules = xmlProductionRules;
     }
 
 
-    @XmlElement(name="XMLTaggedValue")
+    @XmlElement(name="TaggedValue")
     public XMLTaggedValue getXMLTaggedValue() {
-        return XMLTaggedValue;
+        return xmlTaggedValue;
     }
 
-    public void setXMLTaggedValue(XMLTaggedValue XMLTaggedValue) {
-        this.XMLTaggedValue = XMLTaggedValue;
+    public void setXMLTaggedValue(XMLTaggedValue xmlTaggedValue) {
+        this.xmlTaggedValue = xmlTaggedValue;
     }
 
     @XmlElementWrapper(name="Types")
@@ -52,14 +52,14 @@ public class XMLGraphGrammar {
     @XmlElementWrapper(name="Relations")
     @XmlElement(name="SpatialRelationType")
     public ArrayList<XMLSpatialRelations> getXMLSpatialRelations() {
-        return XMLSpatialRelations;
+        return xmlSpatialRelations;
     }
 
-    public void setXMLSpatialRelations(ArrayList<XMLSpatialRelations> XMLSpatialRelations) {
-        this.XMLSpatialRelations = XMLSpatialRelations;
+    public void setXMLSpatialRelations(ArrayList<XMLSpatialRelations> xmlSpatialRelations) {
+        this.xmlSpatialRelations = xmlSpatialRelations;
     }
 
-    @XmlElementWrapper(name="XMLOperations")
+    @XmlElementWrapper(name="Operations")
     @XmlElement(name="OperationTypes")
     public ArrayList<XMLOperations> getOperations() {
         return operations;
@@ -70,13 +70,13 @@ public class XMLGraphGrammar {
     }
 
     @XmlElementWrapper(name="Rules")
-    @XmlElement(name="XMLProductionRule")
+    @XmlElement(name="Rule")
     public ArrayList<XMLProductionRule> getXMLProductionRules() {
-        return XMLProductionRules;
+        return xmlProductionRules;
     }
 
-    public void setXMLProductionRules(ArrayList<XMLProductionRule> XMLProductionRules) {
-        this.XMLProductionRules = XMLProductionRules;
+    public void setXMLProductionRules(ArrayList<XMLProductionRule> xmlProductionRules) {
+        this.xmlProductionRules = xmlProductionRules;
     }
 
 

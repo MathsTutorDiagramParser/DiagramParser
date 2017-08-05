@@ -22,28 +22,32 @@ public class GrammarBuilder {
 
     private String type;
 
-    public GrammarBuilder(String type){
-        this.type = type;
+    public GrammarBuilder(){
     }
 
-    public GraphGrammar loadBuiltGrammar() throws JAXBException, FileNotFoundException {
+    public GraphGrammar loadBuiltGrammar(String type) throws JAXBException, FileNotFoundException {
 
         // Read and write grammar xml file
         GraphParsingHandler graphParsingHandler = new GraphParsingHandler();
-        graphParsingHandler.writeToXML();
+        //graphParsingHandler.writeToXML();
         XMLGraphGrammar xmlGraphGrammar = graphParsingHandler.readFromXML();
-        return convertXMLGraphGrammar(xmlGraphGrammar);
+        return convertXMLGraphGrammar(xmlGraphGrammar, type);
 
 
     }
 
-    public GraphGrammar convertXMLGraphGrammar( XMLGraphGrammar xmlGraphGrammar ) {
+    public GraphGrammar convertXMLGraphGrammar( XMLGraphGrammar xmlGraphGrammar, String type ) {
         GraphGrammar graphGrammar = null;
         switch (type){
             case "NumberLine":
                 graphGrammar = new NumberLineGrammar();
+                break;
             case "Histogram":
                 graphGrammar = new HistogramGrammar();
+                break;
+            default:
+                graphGrammar = null;
+                break;
         }
 
         List<ProductionRule> ruleList = new ArrayList<>();
@@ -53,7 +57,6 @@ public class GrammarBuilder {
 
             ProductionRule productionRule = null;
 
-            List<GraphicalImageComponent> graphicalImageComponents;
             Graph leftGraph = null;
 
             XMLGraph leftXMLGraph = xmlProductionRule.getLeftXMLGraph();
@@ -74,21 +77,21 @@ public class GrammarBuilder {
 
             productionRule = new ProductionRule(leftGraph,rightGraph,RuleOperation.valueOf(operation));
             ruleList.add(productionRule);
+            graphGrammar.setRuleList(ruleList);
         }
-
         return graphGrammar;
     }
 
     public Graph getGraph(XMLGraph xmlGraph, XMLGraphGrammar xmlGraphGrammar) {
         Graph graph = null;
         List<XMLObject> xmlObjectList = xmlGraph.getObjectIdList();
-        List<GraphicalImageComponent> graphicalImageComponentList = null;
-
+        List<GraphicalImageComponent> graphicalImageComponentList = new ArrayList<>();
         for (XMLObject xmlObject : xmlObjectList ) {
             for (XMLObjectTypes xmlObjectTypes: xmlGraphGrammar.getTypes()) {
                 if(xmlObjectTypes.getId().equals(xmlObject.getType())) {
                     GraphicalImageComponent graphicalImageComponent = new GraphicalImageComponent(ObjectType.valueOf(xmlObjectTypes.getName()));
                     graphicalImageComponentList.add(graphicalImageComponent);
+
                 }
             }
         }
