@@ -16,6 +16,9 @@ public class TickPoint {
         this.verticalLine = verticalLine;
     }
 
+    public VerticalLine getVerticalLine(){
+        return verticalLine; }
+
     public Text getText() {
         return text;
     }
