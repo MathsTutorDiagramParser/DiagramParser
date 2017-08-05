@@ -22,7 +22,7 @@ rule "Horizontal line identifier"
     $component : SVGLine(x1==x2) from $listOfComponent;
   then
     $graphicalComponent.add(new HorizontalLine($component.getX1(),$component.getY1(),$component.getX2(),$component.getY2(),$component.getStroke_width()));
-    System.out.println("got a Vertical Line");
+  //  System.out.println("got a Vertical Line");
 end
 
 rule "Vertical line identifier"
@@ -31,7 +31,7 @@ rule "Vertical line identifier"
     $component : SVGLine(y1==y2) from $listOfComponent;
   then
     $graphicalComponent.add(new VerticalLine($component.getX1(),$component.getY1(),$component.getX2(),$component.getY2(),$component.getStroke_width()));
-    System.out.println("got a Horizontal Line");
+  //  System.out.println("got a Horizontal Line");
 end
 
 rule "Angle line identifier"
@@ -40,7 +40,7 @@ rule "Angle line identifier"
     $component : SVGLine(y1!=y2 && x1!=x2) from $listOfComponent;
   then
     $graphicalComponent.add(new AngleLine($component.getX1(),$component.getY1(),$component.getX2(),$component.getY2(),$component.getStroke_width()));
-    System.out.println("got a angled Line");
+  //  System.out.println("got a angled Line");
 end
 
 rule "Circle identifier"
@@ -49,16 +49,16 @@ rule "Circle identifier"
      $component : SVGCircle() from $listOfComponent;
   then
      $graphicalComponent.add(new Circle($component.getCx(),$component.getCy(),$component.getFill()));
-     System.out.println("got a circle");
+   //  System.out.println("got a circle");
 end
 
 
 
 rule "Text identifier"
   when
-    svgpojomapper : SVGtoPOJOMapper($listOfComponent : svgImage.getTexts(),$graphicalComponent : graphicalImageComponents);
+    svgpojomapper : SVGtoPOJOMapper($listOfComponent : svgImage.getTexts(),$texts : texts);
     $component : SVGText() from $listOfComponent;
   then
-//    $graphicalComponent.add(new Text($component.getX(),$component.getY(),$component.getText()));
-    System.out.println("got a text");
+    $texts.add(new Text($component.getX(),$component.getY(),$component.getText()));
+   // System.out.println("got a text");
 end

@@ -1,7 +1,13 @@
 package com.tutor.controller.preprocessor;
 
 import com.tutor.controller.GraphParser.GraphParsingHandler;
+import com.tutor.model.graphParser.GraphGrammarBuilder.GrammarBuilder;
+import com.tutor.model.graphParser.GraphGrammarBuilder.Graph;
+import com.tutor.model.graphParser.GraphGrammarBuilder.NumberLineGrammar;
+import com.tutor.model.graphParser.GraphGrammarBuilder.ProductionRule;
+import com.tutor.model.graphParser.parser.Parser;
 import com.tutor.model.preProcessor.SVGtoPOJOMapper;
+import com.tutor.model.util.DiagramType;
 import com.tutor.model.util.SpatialRelation;
 import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.service.preProcessorService.*;
@@ -63,10 +69,26 @@ public class PreProcessingHandler {
 
         }
 
-        // Read and write grammar xml file
-        GraphParsingHandler graphParsingHandler = new GraphParsingHandler();
-        //graphParsingHandler.writeToXML();
-        graphParsingHandler.readFromXML();
+
+        //For test the grammar rulelist generation
+        GrammarBuilder grammarBuilder = new GrammarBuilder();
+        NumberLineGrammar numberLineGrammar = (NumberLineGrammar) grammarBuilder.loadBuiltGrammar("NumberLine");
+
+        for (ProductionRule rule : numberLineGrammar.getRuleList()) {
+            System.out.println(rule.getLeftGraph().getGraphicalImageComponents().get(0).objectType);
+        }
+
+
+//        GraphParsingHandler graphParsingHandler = new GraphParsingHandler();
+//        graphParsingHandler.writeToXML();
+//        graphParsingHandler.readFromXML();
+//
+//        Graph host  = new Graph();
+//        host.setGraphicalImageComponents(orderedList);
+//        host.setRelations(relations);
+//
+//        Parser parser = new Parser(DiagramType.NUMBRELINE);
+//        parser.parse(host,svGtoPOJOMapper.getTexts());
 
     }
 }
