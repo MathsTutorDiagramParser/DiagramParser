@@ -72,13 +72,21 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
             }
 
             source = new InputSource(new StringReader(svgFile));
-            list = (NodeList)xPath.evaluate("//text", source, XPathConstants.NODESET);
+            list = (NodeList)xPath.evaluate("//g", source, XPathConstants.NODESET);
+            List<Element> textg = new ArrayList<>(list.getLength());
+            for (int i = 0; i < list.getLength(); i++)
+            {
+                textg.add((Element)list.item(i));
+            }
 
+            source = new InputSource(new StringReader(svgFile));
+            list = (NodeList)xPath.evaluate("//g/text/tspan", source, XPathConstants.NODESET);
             List<Element> texts = new ArrayList<>(list.getLength());
             for (int i = 0; i < list.getLength(); i++)
             {
                 texts.add((Element)list.item(i));
             }
+
 //
 //            source = new InputSource(new StringReader(svgFile));
 //            list = (NodeList)xPath.evaluate("/svg", source, XPathConstants.NODESET);
@@ -176,13 +184,19 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
 
             for (int i = 0; i < texts.size(); i++)
             {
+                Element gElement = textg.get(i);
                 Element textElement = texts.get(i);
+
                 //System.out.println(i+"***"+texts.get(i).getAttribute("id"));
                 //System.out.println(texts.get(i).getTextContent());
+                trsfm=gElement.getAttribute("transform");
+                x1=Double.parseDouble(trsfm.substring(10,trsfm.length()-1).split(" ")[0])+Double.parseDouble(textElement.getAttribute("x"));
+                y1=Double.parseDouble(trsfm.substring(10,trsfm.length()-1).split(" ")[1])+Double.parseDouble(textElement.getAttribute("y"));
 
-                SVGText text = new SVGText(Double.parseDouble(textElement.getAttribute("x")),
-                        Double.parseDouble(textElement.getAttribute("y")),
-                        textElement.getTextContent());
+
+
+
+                SVGText text = new SVGText(x1, y1, textElement.getTextContent());
                 svgImage.addText(text);
             }
 
