@@ -21,7 +21,7 @@ rule "Horizontal line identifier"
                     $graphicalComponent : graphicalImageComponents);
     $component : SVGLine(x1==x2) from $listOfComponent;
   then
-    $graphicalComponent.add(new HorizontalLine($component.getX1(),$component.getY1(),$component.getX2(),$component.getY2(),$component.getStroke_width()));
+    $graphicalComponent.add(new VerticalLine($component.getX1(),$component.getY1(),$component.getX2(),$component.getY2(),$component.getStroke_width()));
   //  System.out.println("got a Vertical Line");
 end
 
@@ -30,7 +30,7 @@ rule "Vertical line identifier"
     svgpojomapper : SVGtoPOJOMapper($listOfComponent : svgImage.getLines(), $graphicalComponent: graphicalImageComponents );
     $component : SVGLine(y1==y2) from $listOfComponent;
   then
-    $graphicalComponent.add(new VerticalLine($component.getX1(),$component.getY1(),$component.getX2(),$component.getY2(),$component.getStroke_width()));
+    $graphicalComponent.add(new HorizontalLine($component.getX1(),$component.getY1(),$component.getX2(),$component.getY2(),$component.getStroke_width()));
   //  System.out.println("got a Horizontal Line");
 end
 

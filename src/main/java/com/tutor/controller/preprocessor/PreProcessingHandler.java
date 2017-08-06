@@ -1,10 +1,7 @@
 package com.tutor.controller.preprocessor;
 
 import com.tutor.controller.GraphParser.GraphParsingHandler;
-import com.tutor.model.graphParser.GraphGrammarBuilder.GrammarBuilder;
-import com.tutor.model.graphParser.GraphGrammarBuilder.Graph;
-import com.tutor.model.graphParser.GraphGrammarBuilder.NumberLineGrammar;
-import com.tutor.model.graphParser.GraphGrammarBuilder.ProductionRule;
+import com.tutor.model.graphParser.GraphGrammarBuilder.*;
 import com.tutor.model.graphParser.parser.Parser;
 import com.tutor.model.preProcessor.SVGtoPOJOMapper;
 import com.tutor.model.util.DiagramType;
@@ -38,7 +35,9 @@ public class PreProcessingHandler {
         objectSequenceGeneratorService.order(svGtoPOJOMapper.getGraphicalImageComponents());
         List<GraphicalImageComponent> orderedList = objectSequenceGeneratorService.getOrderedList();
 
-        // print ordered object list
+        System.out.println("//////////////////////////////////done ordering//////////////////////////////////");
+
+       //  print ordered object list
         System.out.println("size of ordered list"+orderedList.size());
         for (int i=0;i<orderedList.size();i++){
             System.out.println("++++++++++++++++++++++++");
@@ -48,13 +47,17 @@ public class PreProcessingHandler {
             System.out.println( "Y2: "+orderedList.get(i).getY1());
             System.out.println( "X2: "+orderedList.get(i).getX2());
             System.out.println( "Y2: "+orderedList.get(i).getY2());
+            System.out.println(orderedList.get(i).objectType);
             System.out.println("++++++++++++++++++++++++");
+
         }
 
 
 
         ArrayList<SpatialRelation>[][] relations =
                 spatialRelationShipGenerator.getSpatialRelationshipMatrixOfObject(orderedList);
+
+        System.out.println("//////////////////////////////////done relationship identification//////////////////////////////////");
 
         // print Spatial relationship
         for (int i=0; i< orderedList.size();i++){
@@ -70,13 +73,26 @@ public class PreProcessingHandler {
         }
 
 
-        //For test the grammar rulelist generation
-        GrammarBuilder grammarBuilder = new GrammarBuilder();
-        NumberLineGrammar numberLineGrammar = (NumberLineGrammar) grammarBuilder.loadBuiltGrammar("NumberLine");
+//        //For test the grammar rulelist generation
+//        GrammarBuilder grammarBuilder = new GrammarBuilder();
+//        NumberLineGrammar numberLineGrammar = (NumberLineGrammar) grammarBuilder.loadBuiltGrammar("NumberLine");
+//
+//        for (ProductionRule rule : numberLineGrammar.getRuleList()) {
+//            System.out.println(rule.getLeftGraph().getGraphicalImageComponents().get(0).objectType);
+//        }
 
-        for (ProductionRule rule : numberLineGrammar.getRuleList()) {
-            System.out.println(rule.getLeftGraph().getGraphicalImageComponents().get(0).objectType);
-        }
+        Graph host  = new Graph();
+        host.setGraphicalImageComponents(orderedList);
+        host.setRelations(relations);
+        //For test the grammar rulelist generation
+//        GrammarBuilder grammarBuilder = new GrammarBuilder();
+//        TreeDiagramGrammar treeDiagramGrammar = (TreeDiagramGrammar) grammarBuilder.loadBuiltGrammar("TreeDiagram");
+
+        Parser parser = new Parser(DiagramType.NUMBRELINE);
+        parser.parse(host,svGtoPOJOMapper.getTexts());
+//        for (ProductionRule rule : treeDiagramGrammar.getRuleList()) {
+//            System.out.println(rule.getLeftGraph().getGraphicalImageComponents().get(0).objectType);
+//        }
 
 
 //        GraphParsingHandler graphParsingHandler = new GraphParsingHandler();

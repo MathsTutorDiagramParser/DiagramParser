@@ -16,6 +16,7 @@ public class GraphicalImageComponent {
 
     private double hieght;
     public ObjectType objectType;
+    public ObjectType superObjectType;
 
     public GraphicalImageComponent(ObjectType objectType) {
         this.objectType = objectType;
@@ -34,6 +35,10 @@ public class GraphicalImageComponent {
         this.x = x;
         this.y = y;
         this.hieght = 0;
+    }
+
+    public GraphicalImageComponent() {
+
     }
 
 
@@ -98,4 +103,5 @@ public class GraphicalImageComponent {
     }
 
     public double getLowerestYCoordinate(){ return y; }
+    public double getHighestXCoordinate(){return x;}
 }

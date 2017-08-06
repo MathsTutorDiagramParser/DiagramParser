@@ -13,6 +13,12 @@ public class SVGText extends SVGComponent {
     private boolean isNumeric;
     private Double numericValue;
 
+    public SVGText(double x, double y, String text) {
+        this.x = x;
+        this.y = y;
+        this.text = text;
+    }
+
     public SVGText(double x, double y, String text, int fontSize){
         this.x = x;
         this.y = y;

@@ -1,6 +1,6 @@
 package com.tutor.model.graphParser.GraphGrammarBuilder;
 
-import com.tutor.model.util.RuleOperation;
+import java.util.ArrayList;
 
 /**
  * Created by Madhavi Ruwandika on 8/4/2017.
@@ -9,12 +9,12 @@ public class ProductionRule {
 
     private Graph leftGraph;
     private Graph rightGraph;
-    private RuleOperation ruleOperation;
+    private ArrayList<RuleOperations> ruleOperations;
 
-    public ProductionRule(Graph leftGraph, Graph rightGraph, RuleOperation ruleOperation) {
+    public ProductionRule(Graph leftGraph, Graph rightGraph, ArrayList<RuleOperations> ruleOperations) {
         this.leftGraph = leftGraph;
         this.rightGraph = rightGraph;
-        this.ruleOperation = ruleOperation;
+        this.ruleOperations = ruleOperations;
     }
 
     public Graph getLeftGraph() {
@@ -33,11 +33,11 @@ public class ProductionRule {
         this.rightGraph = rightGraph;
     }
 
-    public RuleOperation getRuleOperation() {
-        return ruleOperation;
+    public ArrayList<RuleOperations> getRuleOperations() {
+        return ruleOperations;
     }
 
-    public void setRuleOperation(RuleOperation ruleOperation) {
-        this.ruleOperation = ruleOperation;
+    public void setRuleOperations(ArrayList<RuleOperations> ruleOperations) {
+        this.ruleOperations = ruleOperations;
     }
 }

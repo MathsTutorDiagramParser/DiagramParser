@@ -15,7 +15,6 @@ public class Line extends GraphicalImageComponent{
     public Line(double x1, double y1, double x2, double y2, int stroke_width) {
         super(x1,y1,x2,y2);
         this.stroke_width = stroke_width;
-        this.objectType = ObjectType.Line;
     }
 
 
@@ -42,6 +41,14 @@ public class Line extends GraphicalImageComponent{
             return getY1();
         }
         else return getY2();
+    }
+
+    public double getHighestXCoordinate(){
+        if( getX1() < getX2()){
+            return getX2();
+        } else {
+            return getX1();
+        }
     }
 
 }

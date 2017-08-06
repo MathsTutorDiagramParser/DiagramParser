@@ -20,6 +20,8 @@ public class GraphGrammarFactory {
                 return grammarBuilder.loadBuiltGrammar("NumberLine");
             case HISTOGRAM:
                 return grammarBuilder.loadBuiltGrammar("Histogram");
+            case TREEDIAGRAM:
+                return grammarBuilder.loadBuiltGrammar("TreeDiagram");
             default:
                 return null;
         }
