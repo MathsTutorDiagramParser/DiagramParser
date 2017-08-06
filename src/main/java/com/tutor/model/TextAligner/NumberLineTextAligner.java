@@ -1,5 +1,5 @@
 package com.tutor.model.TextAligner;
-import com.tutor.model.graphParser.DiagramStructure.AbstractDiagramStructure;
+
 import com.tutor.model.graphParser.DiagramStructure.AbstractNumberLineStructure;
 import com.tutor.model.graphParser.DiagramStructure.TickPoint;
 import com.tutor.model.graphicalPOJOObject.Text.Text;

@@ -1,5 +1,4 @@
 package com.tutor.model.TextAligner;
-
 import com.tutor.model.graphParser.DiagramStructure.AbstractHistogramStructure;
 import com.tutor.model.graphicalPOJOObject.Text.Text;
 
