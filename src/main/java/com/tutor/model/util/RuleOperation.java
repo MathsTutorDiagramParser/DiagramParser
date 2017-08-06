@@ -5,5 +5,5 @@ package com.tutor.model.util;
  */
 public enum  RuleOperation {
     COPY_OBJECT_ALL_ATTRIBUTE,
-    COPY_FIRST_OBJECT_ALL_ATTRIBUTE,
+    SET_INITIAL;
 }

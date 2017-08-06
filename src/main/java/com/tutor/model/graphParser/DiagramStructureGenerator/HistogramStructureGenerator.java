@@ -9,7 +9,7 @@ import com.tutor.model.graphParser.GraphGrammarBuilder.ProductionRule;
  */
 public class HistogramStructureGenerator extends DiagramStructureGenerator{
     @Override
-    public void generate(int ruleID, Graph host, ProductionRule productionRule, AbstractDiagramStructure abstractDiagramStructure, int[] objects) {
-
+    public AbstractDiagramStructure generate(int ruleID, Graph host, AbstractDiagramStructure abstractDiagramStructure, int[] objects) {
+        return null;
     }
 }

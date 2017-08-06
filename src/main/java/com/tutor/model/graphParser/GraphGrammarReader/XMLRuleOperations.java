@@ -6,14 +6,12 @@ package com.tutor.model.graphParser.GraphGrammarReader;
 public class XMLRuleOperations {
     private String id;
     private String from_id;
-    private String to_id;
 
     public XMLRuleOperations() {}
 
     public XMLRuleOperations(String id, String from_id, String to_id) {
         this.id = id;
         this.from_id = from_id;
-        this.to_id = to_id;
     }
 
     public String getId() {
@@ -32,11 +30,4 @@ public class XMLRuleOperations {
         this.from_id = from_id;
     }
 
-    public String getTo_id() {
-        return to_id;
-    }
-
-    public void setTo_id(String to_id) {
-        this.to_id = to_id;
-    }
 }

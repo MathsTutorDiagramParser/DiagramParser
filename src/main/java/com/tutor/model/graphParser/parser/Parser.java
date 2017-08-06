@@ -25,12 +25,15 @@ public class Parser {
 
     public AbstractDiagramStructure parse(Graph host, List<Text> textList) throws JAXBException, FileNotFoundException {
 
+        System.out.println("------------------------------Creating structural parser for diagram----------------------------");
         StructuralParser structuralParser = new StructuralParser(diagramType);
         // validate the diagram through structural Parser
         structuralParser.parse(host,abstractDiagramStructure);
+        System.out.println("------------------------------finish structural parsing for diagram----------------------------");
 
         TextAssociator textAssociator = new TextAssociator();
         // validate the diagram through text associator
+        System.out.println("------------------------------Started textuaral parsing for diagram----------------------------");
         textAssociator.associateText(abstractDiagramStructure,diagramType,textList);
 
         return abstractDiagramStructure;

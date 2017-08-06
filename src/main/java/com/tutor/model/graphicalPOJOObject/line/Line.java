@@ -15,7 +15,6 @@ public class Line extends GraphicalImageComponent{
     public Line(double x1, double y1, double x2, double y2, int stroke_width) {
         super(x1,y1,x2,y2);
         this.stroke_width = stroke_width;
-        this.objectType = ObjectType.Line;
     }
 
 

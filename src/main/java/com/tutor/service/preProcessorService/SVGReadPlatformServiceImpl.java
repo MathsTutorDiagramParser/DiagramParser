@@ -96,7 +96,7 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
             for (int i = 0; i < lines.size(); i++)
             {
                 Element lineElement = lines.get(i);
-                System.out.println(i+"***"+lines.get(i).getAttribute("width"));
+               // System.out.println(i+"***"+lines.get(i).getAttribute("width"));
                 //System.out.println(rectangles.get(i).getTagName());
 
                 SVGLine line = new SVGLine(Double.parseDouble(lineElement.getAttribute("x1")),
@@ -111,7 +111,7 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
             for (int i = 0; i < rectangles.size(); i++)
             {
                 Element rectangleElement = rectangles.get(i);
-                System.out.println(i+"***"+rectangles.get(i).getAttribute("width"));
+                //System.out.println(i+"***"+rectangles.get(i).getAttribute("width"));
                 //System.out.println(rectangles.get(i).getTagName());
 
                 SVGRectangle rectangle = new SVGRectangle(Double.parseDouble(rectangleElement.getAttribute("x")),
@@ -125,7 +125,7 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
             for (int i = 0; i < circles.size(); i++)
             {
                 Element circleElement = circles.get(i);
-                System.out.println(i+"***"+circles.get(i).getAttribute("fill"));
+                //System.out.println(i+"***"+circles.get(i).getAttribute("fill"));
                 //System.out.println(rectangles.get(i).getTagName());
 
                 SVGCircle circle = new SVGCircle(
@@ -139,7 +139,7 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
             for (int i = 0; i < ellipses.size(); i++)
             {
                 Element ellipseElement = ellipses.get(i);
-                System.out.println(i+"***"+ellipses.get(i).getAttribute("fill"));
+                //System.out.println(i+"***"+ellipses.get(i).getAttribute("fill"));
                 //System.out.println(rectangles.get(i).getTagName());
 
                 SVGEllipse ellipse = new SVGEllipse(Double.parseDouble(ellipseElement.getAttribute("cx")),
@@ -153,14 +153,12 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
             for (int i = 0; i < texts.size(); i++)
             {
                 Element textElement = texts.get(i);
-                System.out.println(i+"***"+texts.get(i).getAttribute("id"));
+                //System.out.println(i+"***"+texts.get(i).getAttribute("id"));
                 //System.out.println(texts.get(i).getTextContent());
 
                 SVGText text = new SVGText(Double.parseDouble(textElement.getAttribute("x")),
                         Double.parseDouble(textElement.getAttribute("y")),
-                        textElement.getTextContent(),
-                        Integer.parseInt(textElement.getAttribute("font-size")));
-
+                        textElement.getTextContent());
                 svgImage.addText(text);
             }
 
@@ -199,7 +197,7 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
             //String str = "sfd\nsdfsdf<g>\nthis it to be\n replaced\n</g>sdfsdf";
             //System.out.println(str.replaceAll("(?s)(?<=<g>\n)(.*?)(?=\n</g>)", "replacement"));
 
-            System.out.println(svgFile);
+            //System.out.println(svgFile);
         }
         catch(IOException ex){
         }
