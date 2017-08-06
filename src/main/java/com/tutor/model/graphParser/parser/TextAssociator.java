@@ -19,6 +19,7 @@ public class TextAssociator {
 
 
     public void associateText(AbstractDiagramStructure abstractDiagramStructure, DiagramType diagramType, List<Text> textList){
+
         this.abstractDiagramStructure = abstractDiagramStructure;
         this.diagramType = diagramType;
         this.textList = textList;

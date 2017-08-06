@@ -20,7 +20,6 @@ public class TextAlignmentAssigner {
         this.abstractDiagramStructure = abstractDiagramStructure;
         this.textList = textList;
         switch (diagramType){
-
             case NUMBRELINE:
                 NumberLineTextAligner numberLineTextAligner = new NumberLineTextAligner();
                 return numberLineTextAligner.alignTextToNumberLine((AbstractNumberLineStructure) abstractDiagramStructure,textList);

@@ -10,6 +10,7 @@ import java.util.List;
 public class HistogramTextAligner {
 
     public AbstractHistogramStructure alignTextToHistogram(AbstractHistogramStructure abstractHistogramStructure, List<Text> textList) {
-    return null;
+
+        return null;
     }
 }

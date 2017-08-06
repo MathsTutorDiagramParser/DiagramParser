@@ -19,7 +19,7 @@ public class NumberLineTextAligner {
     int tickCount = 0;
 
 
-    public AbstractNumberLineStructure alignTextToNumberLine(AbstractNumberLineStructure abstractNumberLineStructure, List<Text> textList) {
+    public AbstractNumberLineStructure alignTextToNumberLine(AbstractNumberLineStructure abstractNumberLineStructure,List<Text> textList) {
         this.abstractNumberLineStructure = abstractNumberLineStructure;
         tickPointList = abstractNumberLineStructure.getTickPointList();
         this.textList = textList;
