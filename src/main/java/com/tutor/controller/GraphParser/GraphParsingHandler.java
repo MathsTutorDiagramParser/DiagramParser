@@ -89,13 +89,13 @@ public class GraphParsingHandler {
 
         XMLGraphGrammar xmlGraphGrammar = new XMLGraphGrammar(xmlTaggedValue,objectTypeList, xmlSpatialRelationsList, xmlOperationsList, xmlProductionRuleList);
 
-        marshallerObj.marshal(xmlGraphGrammar, new FileOutputStream("E:\\FYP\\implementation\\parser1\\DiagramParser\\src\\main\\resources\\com\\graphGrammar\\treeDiagram.xml"));
+        marshallerObj.marshal(xmlGraphGrammar, new FileOutputStream("D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\com\\graphGrammar\\treeDiagram.xml"));
     }
 
     public XMLGraphGrammar readFromXML(){
         XMLGraphGrammar graphGrammar = new XMLGraphGrammar();
         try {
-            File file = new File("E:\\FYP\\implementation\\parser1\\DiagramParser\\src\\main\\resources\\com\\graphGrammar\\treeDiagram.xml");
+            File file = new File("D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\com\\graphGrammar\\numberLine.xml");
             JAXBContext jaxbContext = JAXBContext.newInstance(XMLGraphGrammar.class);
 
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
@@ -104,5 +104,7 @@ public class GraphParsingHandler {
 
         return graphGrammar;
     }
+
+
 
 }

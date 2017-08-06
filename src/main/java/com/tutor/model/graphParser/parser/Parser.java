@@ -2,12 +2,14 @@ package com.tutor.model.graphParser.parser;
 
 import com.tutor.model.graphParser.DiagramStructure.AbstractDiagramStructure;
 import com.tutor.model.graphParser.DiagramStructure.DiagramStructureFactory;
+import com.tutor.model.graphParser.DiagramStructure.FeedBack;
 import com.tutor.model.graphParser.GraphGrammarBuilder.Graph;
 import com.tutor.model.graphicalPOJOObject.Text.Text;
 import com.tutor.model.util.DiagramType;
 
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,6 +32,15 @@ public class Parser {
         // validate the diagram through structural Parser
         structuralParser.parse(host,abstractDiagramStructure);
         System.out.println("------------------------------finish structural parsing for diagram----------------------------");
+
+        System.out.println(">>>>>>>>>>>>>>> FeedBacks >>>>>>>>>>>>>>>>>");
+
+        List<FeedBack> feedBacks= structuralParser.feedBacks;
+        for (int i=0;i<feedBacks.size();i++){
+            System.out.println(feedBacks.get(i).getDescription());
+        }
+        System.out.println(">>>>>>>>>>>>>>> FeedBacks >>>>>>>>>>>>>>>>>");
+
 
         TextAssociator textAssociator = new TextAssociator();
         // validate the diagram through text associator

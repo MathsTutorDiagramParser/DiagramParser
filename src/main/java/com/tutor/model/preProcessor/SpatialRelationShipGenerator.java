@@ -2,6 +2,7 @@ package com.tutor.model.preProcessor;
 
 import com.tutor.model.graphParser.GraphGrammarBuilder.Graph;
 import com.tutor.model.graphParser.GraphGrammarBuilder.ProductionRule;
+import com.tutor.model.graphParser.GraphGrammarBuilder.RuleOperations;
 import com.tutor.model.util.DiagramType;
 import com.tutor.model.util.RuleOperation;
 import com.tutor.model.util.SpatialRelation;
@@ -27,21 +28,43 @@ public class SpatialRelationShipGenerator {
 
         for(int i=0;i<num_of_objects;i++){
             for(int j=i; j<num_of_objects;j++){
-                relations[i][j] = new ArrayList<>();
-                relations[j][i] = new ArrayList<>();
                 if (i==j){
-                    ArrayList<SpatialRelation> relation = new ArrayList<>();
-                    relation.add(SpatialRelation.SAME);
-                    relations[i][j] = relation;
+                    if(relations[i][j] == null){
+                        ArrayList<SpatialRelation> relation = new ArrayList<>();
+                        relation.add(SpatialRelation.SAME);
+                        relations[i][j] = relation;
+                    }
+                    else {
+                        relations[i][j].add(SpatialRelation.SAME);
+                    }
                 } else {
                     // get the existing spatial relationship between 2 objects
                     ArrayList<SpatialRelation> relation =   identifySpatiolRelation(objectList.get(i),objectList.get(j));
+
+                    // this is numberline specific checking condition
+                    if(relation.contains(SpatialRelation.SAMEEND)){
+                        if(relations[i][i]==null){
+                            relations[i][i]=new ArrayList<>();
+                            relations[i][i].add(SpatialRelation.SAMEEND);
+                        }else {
+                            relations[i][i].add(SpatialRelation.SAMEEND);
+                        }
+                       if(relations[j][j]==null){
+                           relations[j][j] = new ArrayList<>();
+                           relations[j][j].add(SpatialRelation.SAMEEND);
+                       }
+                       else {
+                           relations[j][j].add(SpatialRelation.SAMEEND);
+                       }
+                       relation.remove(SpatialRelation.SAMEEND);
+                    }
+                    //end
+
                     relations[i][j]= relation;
                     relations[j][i]= relation;
                 }
             }
         }
-
         return relations;
     }
 
@@ -60,23 +83,28 @@ public class SpatialRelationShipGenerator {
         if (isCross(o1,o2)){
             relations.add(SpatialRelation.CROSS);
         }
+
+        if(isSameEnd(o1,o2)){
+            relations.add(SpatialRelation.SAMEEND);
+        }
+
         return relations;
     }
 
     public boolean isTough(GraphicalImageComponent o1,GraphicalImageComponent o2){
-        if( (o1.superObjectType!= ObjectType.LINE && o2.superObjectType!=ObjectType.LINE && o1.getX()== o2.getX() && o1.getY()== o2.getY())
-                || (o1.objectType!= ObjectType.CIRCLE && o2.objectType!=ObjectType.CIRCLE  && (o1.getX1()==o2.getX1() && o1.getY1()==o2.getY1()))
-                || (o1.objectType!= ObjectType.CIRCLE && o2.objectType!=ObjectType.CIRCLE  && (o1.getX2()==o2.getX2() && o1.getY2()==o2.getY2()))
-                || (o1.objectType!= ObjectType.CIRCLE && o2.objectType!=ObjectType.CIRCLE  && (o1.getX1()==o2.getX2() && o1.getY1()==o2.getY2()))
-                || (o1.objectType!= ObjectType.CIRCLE && o2.objectType!=ObjectType.CIRCLE  && (o1.getX2()==o2.getX1() && o1.getY2()==o2.getY1()))
-                || (o1.superObjectType!= ObjectType.LINE && o2.objectType!=ObjectType.CIRCLE  && ((o1.getX()==o2.getX1() && o1.getY()==o2.getY1())||(o1.getX()==o2.getX2() && o1.getY()==o2.getY2())))
-                || (o1.objectType!= ObjectType.CIRCLE && o2.superObjectType!=ObjectType.LINE  && ((o1.getX1()==o2.getX() && o1.getY1()==o2.getY())||(o1.getX2()==o2.getX() && o1.getY2()==o2.getY())))
+        if( (o1.superObjectType!= ObjectType.LINE && o2.superObjectType!=ObjectType.LINE && (isCloseToTough(o1.getX(), o2.getX()) && isCloseToTough(o1.getY(),o2.getY())))
+                || (o1.objectType!= ObjectType.CIRCLE && o2.objectType!=ObjectType.CIRCLE  && (isCloseToTough(o1.getX1(),o2.getX1()) && isCloseToTough(o1.getY1(),o2.getY1())))
+                || (o1.objectType!= ObjectType.CIRCLE && o2.objectType!=ObjectType.CIRCLE  && (isCloseToTough(o1.getX2(),o2.getX2()) && isCloseToTough(o1.getY2(),o2.getY2())))
+                || (o1.objectType!= ObjectType.CIRCLE && o2.objectType!=ObjectType.CIRCLE  && (isCloseToTough(o1.getX1(),o2.getX2()) && isCloseToTough(o1.getY1(),o2.getY2())))
+                || (o1.objectType!= ObjectType.CIRCLE && o2.objectType!=ObjectType.CIRCLE  && (isCloseToTough(o1.getX2(),o2.getX1()) && isCloseToTough(o1.getY2(),o2.getY1())))
+                || (o1.superObjectType!= ObjectType.LINE && o2.objectType!=ObjectType.CIRCLE  && (isCloseToTough(o1.getX(),o2.getX1()) && isCloseToTough(o1.getY(),o2.getY1()))||(isCloseToTough(o1.getX(),o2.getX2()) && isCloseToTough(o1.getY(),o2.getY2())))
+                || (o1.objectType!= ObjectType.CIRCLE && o2.superObjectType!=ObjectType.LINE  && (isCloseToTough(o1.getX1(),o2.getX()) && isCloseToTough(o1.getY1(),o2.getY()))||(isCloseToTough(o1.getX2(),o2.getX()) && isCloseToTough(o1.getY2(),o2.getY())))
                 ){
             return true;
         }
+
         return false;
     }
-
 
     public boolean isCross(GraphicalImageComponent o1,GraphicalImageComponent o2){
         if(o2.superObjectType==ObjectType.LINE && o1.superObjectType==ObjectType.LINE){
@@ -153,6 +181,46 @@ public class SpatialRelationShipGenerator {
         return false;
     }
 
+    public boolean isSameEnd(GraphicalImageComponent o1,GraphicalImageComponent o2){
+
+        if(isOverLap(o1,o2)){
+            if((o1.objectType.equals(ObjectType.HORIZONTAL_LINE) && o2.objectType.equals(ObjectType.HORIZONTAL_LINE))) {
+                double o1_lowest = o1.getLowerestXCoordinate();
+                double o1_highest = o1.getHighestXCoordinate();
+
+                double o2_lowest = o2.getLowerestXCoordinate();
+                double o2_highest = o2.getHighestXCoordinate();
+
+                if( o1_lowest <= o2_lowest ){
+                    if( (o2_lowest-30.0) < o1_lowest){
+                        return true;
+                    }
+                    else return false;
+                }
+                else if(o1_lowest >= o2_lowest){
+                    if( (o1_lowest-30.0) < o2_lowest){
+                        return true;
+                    }
+                    else return false;
+                }
+                else if (o1_highest>=o2_highest){
+                    if( (o1_highest-30.0) < o2_highest){
+                        return true;
+                    }
+                    else return false;
+                }
+                else if(o1_highest <=o2_highest){
+                    if( (o2_highest-30.0) < o1_highest){
+                        return true;
+                    }
+                    else return false;
+                }
+            }
+        }
+        return false;
+    }
+
+
     public boolean pointOnLineSegment(double x1,double x2,double y1,double y2, double x,double y){
 
         if(((x1<=x )&& (x <= x2))||((x1>=x)&&(x2<=x))){
@@ -174,7 +242,7 @@ public class SpatialRelationShipGenerator {
 
     public static void updateSpatialRelationShipMatrix(Graph host, int[] redex, ProductionRule rule, DiagramType diagramType){
 
-        RuleOperation ruleOperations = rule.getRuleOperation();
+        ArrayList<RuleOperations> ruleOperations = rule.getRuleOperations();
 
         switch (diagramType){
             case NUMBRELINE:
@@ -229,6 +297,13 @@ public class SpatialRelationShipGenerator {
             if(array[i]==element){
                 return true;
             }
+        }
+        return false;
+    }
+
+    public boolean isCloseToTough(double p,double q){
+        if((p<= q+0.5) && (p>(q-0.5))){
+            return true;
         }
         return false;
     }

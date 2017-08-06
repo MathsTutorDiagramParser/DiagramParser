@@ -10,6 +10,8 @@ import com.tutor.model.graphParser.GraphGrammarBuilder.Graph;
 import com.tutor.model.graphParser.GraphGrammarBuilder.GraphGrammar;
 import com.tutor.model.graphParser.GraphGrammarBuilder.GraphGrammarFactory;
 import com.tutor.model.graphParser.GraphGrammarBuilder.ProductionRule;
+import com.tutor.model.graphParser.SpatialRelations.DiagramSpecificSpatialRelationShipIdentifier;
+import com.tutor.model.graphParser.SpatialRelations.RelationShipIdentifierFactory;
 import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.model.preProcessor.SpatialRelationShipGenerator;
 import com.tutor.model.util.DiagramType;
@@ -31,6 +33,7 @@ public class StructuralParser {
     GraphGrammar graphGrammar;
     DiagramType diagramType;
     DiagramStructureGenerator diagramStructureGenerator;
+    DiagramSpecificSpatialRelationShipIdentifier relationShipIdentifier;
     boolean matched = false;
     List<FeedBack>  feedBacks;
 
@@ -45,6 +48,7 @@ public class StructuralParser {
         this.graphGrammar = GraphGrammarFactory.getGrammar(diagramType);
         this.feedBacks = new ArrayList<>();
         this.diagramStructureGenerator = DiagramStructureGeneratorFactory.getDiagramStructureGenerator(diagramType);
+        this.relationShipIdentifier = RelationShipIdentifierFactory.getRelationIdentifier(diagramType);
     }
 
     /*
@@ -98,7 +102,11 @@ public class StructuralParser {
                 FeedBack feedBack = new FeedBack("VALID_DIAGRAM_STRUCTURE");
                 feedBack.setDescription(FeedBackMessage.VALID_DIAGRAM_STRUCTURE);
                 feedBacks.add(feedBack);
-
+            }
+            else {
+                FeedBack feedBack = new FeedBack("INVALID_DIAGRAM_STRUCTURE");
+                feedBack.setDescription(FeedBackMessage.INVALID_DIAGRAM_STRUCTURE);
+                feedBacks.add(feedBack);
             }
     }
 
@@ -133,7 +141,7 @@ public class StructuralParser {
              */
             int j=stopPointOfHostGraph;
            //iterate through object of host graph
-           while ( j < host.getGraphicalImageComponents().size()){
+            while ( j < host.getGraphicalImageComponents().size()){
 
                ObjectType objectType = host.getGraphicalImageComponents().get(j).objectType;
                // after applying rule element that need to be checked will be setted by the 'r application method'
@@ -160,22 +168,15 @@ public class StructuralParser {
                      else {
                          // aftre finding first element of the redex it is needed compare spatial relations with the next matched element
                          if(host.getSpatialRelations(j,redex[i-1]) != null) {
-                            // System.out.println("£££"+ruleGraph.getGraphicalImageComponents().get(i).objectType+"->"+objectType);
-                         //    System.out.println("object: "+redex[i-1]+"host relations :"+ host.getSpatialRelations(j,redex[i-1]).size());
-//                             for (int k=0;k<host.getSpatialRelations(j,redex[i-1]).size();k++){
-//                                 System.out.print(host.getSpatialRelations(redex[i-1],j).get(k)+" ");
-//                             }
-//                             System.out.println("");
-
-                            // System.out.println("object: " + i + ","+(i-1)+"rule relations :"+ruleGraph.getSpatialRelations(i, i - 1).size());
-//                             for (int k=0;k<ruleGraph.getSpatialRelations(i, i - 1).size();k++){
-//                                 System.out.print(ruleGraph.getSpatialRelations(i,i-1).get(k)+" ");
-//                             }
-//                             System.out.println("\n");
-
                              // check whether required spatial relationships are exist
                              int contain_count=0;
                              for (int k=0; k < ruleGraph.getSpatialRelations(i, i - 1).size();k++){
+
+                                 //specific relationship checking conditions
+                                 contain_count = relationShipIdentifier.identifySpecificRelations(ruleGraph.getSpatialRelations(i,i-1).get(k),(host.getRelations())[j][j],
+                                         (host.getRelations())[redex[i-1]][redex[i-1]],contain_count,feedBacks);
+                                 //end
+
                                  if(host.getSpatialRelations(j, redex[i - 1]).contains(ruleGraph.getSpatialRelations(i, i - 1).get(k))){
                                      contain_count+=1;
                                  }
@@ -249,6 +250,7 @@ public class StructuralParser {
 
         afterRuleApplication = true;
         first_checkIndex_afterRuleApplication = redex[0];
+        stopPointOfHostGraph = stopPointOfHostGraph+2-redex.length;
 
 
     }

@@ -189,6 +189,11 @@
                         <objectIdOne>0</objectIdOne>
                         <objectIdTwo>1</objectIdTwo>
                         <spatialRelationId>S0</spatialRelationId>
+                        <SpatialRelation>
+                            <objectIdOne>0</objectIdOne>
+                            <objectIdTwo>1</objectIdTwo>
+                            <spatialRelationId>S3</spatialRelationId>
+                        </SpatialRelation>
                     </SpatialRelation>
                 </SpatialRelations>
             </RightGraph>
@@ -228,6 +233,12 @@
                         <objectIdTwo>1</objectIdTwo>
                         <spatialRelationId>S0</spatialRelationId>
                     </SpatialRelation>
+                    <SpatialRelation>
+                        <objectIdOne>0</objectIdOne>
+                        <objectIdTwo>1</objectIdTwo>
+                        <spatialRelationId>S3</spatialRelationId>
+                    </SpatialRelation>
+
                 </SpatialRelations>
             </RightGraph>
             <RuleOperations>
@@ -292,6 +303,10 @@
         <SpatialRelationType>
             <id>S2</id>
             <name>CROSS</name>
+        </SpatialRelationType>
+        <SpatialRelationType>
+            <id>S3</id>
+            <name>SAMEEND</name>
         </SpatialRelationType>
     </Relations>
     <TaggedValue>

@@ -103,4 +103,5 @@ public class GraphicalImageComponent {
     }
 
     public double getLowerestYCoordinate(){ return y; }
+    public double getHighestXCoordinate(){return x;}
 }

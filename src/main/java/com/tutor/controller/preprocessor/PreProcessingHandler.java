@@ -38,19 +38,19 @@ public class PreProcessingHandler {
         System.out.println("//////////////////////////////////done ordering//////////////////////////////////");
 
        //  print ordered object list
-//        System.out.println("size of ordered list"+orderedList.size());
-//        for (int i=0;i<orderedList.size();i++){
-//            System.out.println("++++++++++++++++++++++++");
-//            System.out.println( "x: "+orderedList.get(i).getX());
-//            System.out.println( "y: "+orderedList.get(i).getY());
-//            System.out.println( "X1: "+orderedList.get(i).getX1());
-//            System.out.println( "Y2: "+orderedList.get(i).getY1());
-//            System.out.println( "X2: "+orderedList.get(i).getX2());
-//            System.out.println( "Y2: "+orderedList.get(i).getY2());
-//            System.out.println(orderedList.get(i).objectType);
-//            System.out.println("++++++++++++++++++++++++");
-//
-//        }
+        System.out.println("size of ordered list"+orderedList.size());
+        for (int i=0;i<orderedList.size();i++){
+            System.out.println("++++++++++++++++++++++++");
+            System.out.println( "x: "+orderedList.get(i).getX());
+            System.out.println( "y: "+orderedList.get(i).getY());
+            System.out.println( "X1: "+orderedList.get(i).getX1());
+            System.out.println( "Y2: "+orderedList.get(i).getY1());
+            System.out.println( "X2: "+orderedList.get(i).getX2());
+            System.out.println( "Y2: "+orderedList.get(i).getY2());
+            System.out.println(orderedList.get(i).objectType);
+            System.out.println("++++++++++++++++++++++++");
+
+        }
 
 
 
@@ -60,17 +60,17 @@ public class PreProcessingHandler {
         System.out.println("//////////////////////////////////done relationship identification//////////////////////////////////");
 
         // print Spatial relationship
-//        for (int i=0; i< orderedList.size();i++){
-//            System.out.println("======"+i+"=====");
-//            for (int j=0;j<orderedList.size();j++){
-//                System.out.print( "j="+j+ "=>");
-//                for(int k=0;k< relations[i][j].size();k++){
-//                    System.out.print(relations[i][j].get(k)+"   ");
-//                }
-//                System.out.println("\n");
-//            }
-//
-//        }
+        for (int i=0; i< orderedList.size();i++){
+            System.out.println("======"+i+"=====");
+            for (int j=0;j<orderedList.size();j++){
+                System.out.print( "j="+j+ "=>");
+                for(int k=0;k< relations[i][j].size();k++){
+                    System.out.print(relations[i][j].get(k)+"   ");
+                }
+                System.out.println("\n");
+            }
+
+        }
 
 
 //        //For test the grammar rulelist generation

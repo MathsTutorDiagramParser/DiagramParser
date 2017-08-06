@@ -9,6 +9,7 @@ public enum SpatialRelation {
     OVERLAP,
     CROSS,
     UP,
-    DOWN;
+    DOWN,
+    SAMEEND;
 
 }

@@ -43,4 +43,12 @@ public class Line extends GraphicalImageComponent{
         else return getY2();
     }
 
+    public double getHighestXCoordinate(){
+        if( getX1() < getX2()){
+            return getX2();
+        } else {
+            return getX1();
+        }
+    }
+
 }
