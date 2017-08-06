@@ -91,7 +91,6 @@ public class GrammarBuilder {
                 if(xmlObjectTypes.getId().equals(xmlObject.getType())) {
                     GraphicalImageComponent graphicalImageComponent = new GraphicalImageComponent(ObjectType.valueOf(xmlObjectTypes.getName()));
                     graphicalImageComponentList.add(graphicalImageComponent);
-
                 }
             }
         }

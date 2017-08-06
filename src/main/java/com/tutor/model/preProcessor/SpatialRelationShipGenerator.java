@@ -174,7 +174,7 @@ public class SpatialRelationShipGenerator {
 
     public static void updateSpatialRelationShipMatrix(Graph host, int[] redex, ProductionRule rule, DiagramType diagramType){
 
-        List<RuleOperation> ruleOperations = rule.getRuleOperation();
+        RuleOperation ruleOperations = rule.getRuleOperation();
 
         switch (diagramType){
             case NUMBRELINE:

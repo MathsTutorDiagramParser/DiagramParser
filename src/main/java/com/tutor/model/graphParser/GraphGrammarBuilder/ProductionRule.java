@@ -11,9 +11,9 @@ public class ProductionRule {
 
     private Graph leftGraph;
     private Graph rightGraph;
-    private List<RuleOperation> ruleOperations;
+    private RuleOperation ruleOperations;
 
-    public ProductionRule(Graph leftGraph, Graph rightGraph, List<RuleOperation> ruleOperations) {
+    public ProductionRule(Graph leftGraph, Graph rightGraph, RuleOperation ruleOperations) {
         this.leftGraph = leftGraph;
         this.rightGraph = rightGraph;
         this.ruleOperations = ruleOperations;
@@ -35,11 +35,11 @@ public class ProductionRule {
         this.rightGraph = rightGraph;
     }
 
-    public List<RuleOperation> getRuleOperation() {
+    public RuleOperation getRuleOperation() {
         return ruleOperations;
     }
 
-    public void setRuleOperation(List<RuleOperation> ruleOperations) {
+    public void setRuleOperation(RuleOperation ruleOperations) {
         this.ruleOperations = ruleOperations;
     }
 }
