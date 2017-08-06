@@ -10,5 +10,4 @@ import java.util.List;
  * Created by Vithusha on 8/5/2017.
  */
 public class TreeDiagramTextAligner {
-
 }
