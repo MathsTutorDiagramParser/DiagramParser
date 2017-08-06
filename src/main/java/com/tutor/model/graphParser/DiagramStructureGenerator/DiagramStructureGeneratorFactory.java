@@ -13,6 +13,8 @@ public class DiagramStructureGeneratorFactory {
                 return new NumberLineStructureGenerator();
             case HISTOGRAM:
                 return new HistogramStructureGenerator();
+            case TREEDIAGRAM:
+                return new TreeDiagramStructureGenerator();
             default:
                 return null;
         }

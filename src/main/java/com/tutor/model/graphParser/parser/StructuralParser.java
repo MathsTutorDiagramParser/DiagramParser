@@ -71,6 +71,7 @@ public class StructuralParser {
         int stopPointOfHostGraph = 0;
         for (int i=0; i < total_nuber_of_objects ;i++){
            int j=stopPointOfHostGraph;
+           //To iterate all the objects in host graph
            while ( j < host.getGraphicalImageComponents().size()){
                  if(host.getGraphicalImageComponents().get(j).objectType == host.getGraphicalImageComponents().get(i).objectType){
                      if (i==0){

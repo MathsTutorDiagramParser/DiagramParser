@@ -68,12 +68,14 @@ public class PreProcessingHandler {
 
 
         //For test the grammar rulelist generation
-        GrammarBuilder grammarBuilder = new GrammarBuilder();
-        TreeDiagramGrammar treeDiagramGrammar = (TreeDiagramGrammar) grammarBuilder.loadBuiltGrammar("TreeDiagram");
+//        GrammarBuilder grammarBuilder = new GrammarBuilder();
+//        TreeDiagramGrammar treeDiagramGrammar = (TreeDiagramGrammar) grammarBuilder.loadBuiltGrammar("TreeDiagram");
+//
+//        for (ProductionRule rule : treeDiagramGrammar.getRuleList()) {
+//            System.out.println(rule.getLeftGraph().getGraphicalImageComponents().get(0).objectType);
+//        }
 
-        for (ProductionRule rule : treeDiagramGrammar.getRuleList()) {
-            System.out.println(rule.getLeftGraph().getGraphicalImageComponents().get(0).objectType);
-        }
+
 
 
 //        GraphParsingHandler graphParsingHandler = new GraphParsingHandler();
