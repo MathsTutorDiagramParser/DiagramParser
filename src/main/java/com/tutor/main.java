@@ -24,8 +24,7 @@ public class main {
     public static void main(String[] args) throws JAXBException, FileNotFoundException {
         SVGObjectTokenizationService svgObjectTokenizationService = new SVGObjectTokenizationServiceImpl();
         ObjectSequenceGeneratorService objectSequenceGeneratorService = new ObjectSequenceGeneratorServiceImpl();
-        SpatialRelationshipGeneratorService spatialRelationShipGenerator =
-                new SpatialRelationshipGeneratorServiceImpl();
+        SpatialRelationshipGeneratorService spatialRelationShipGenerator = new SpatialRelationshipGeneratorServiceImpl();
 
 
         SVGtoPOJOMapper svGtoPOJOMapper = svgObjectTokenizationService.tokenize();

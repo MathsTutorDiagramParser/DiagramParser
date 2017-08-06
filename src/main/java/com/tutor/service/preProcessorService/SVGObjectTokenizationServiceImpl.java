@@ -17,7 +17,7 @@ public class SVGObjectTokenizationServiceImpl implements SVGObjectTokenizationSe
         SVGImage svgImageStudentAnswer = new SVGImage();
         SVGReadPlatformService svgReader = new SVGReadPlatformServiceImpl();
 
-        String studentAnswerPath = "D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\test\\numberLine_test2.svg";
+        String studentAnswerPath = "G:\\FYP\\DiagramParser\\src\\main\\resources\\test\\rawNumberLine.svg";
         System.out.println("===========================Start Executing Rules===================================");
         KieContainer kc = KieServices.Factory.get().getKieClasspathContainer();
         KieSession ksession = kc.newKieSession( "preprocessor");

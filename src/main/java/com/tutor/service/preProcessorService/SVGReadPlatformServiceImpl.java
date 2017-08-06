@@ -93,17 +93,41 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
             //System.out.println("No of Texts: " + texts.size());
 
             //svgImage = new SVGImage();
+            String styl;
+            String stkval;
+            String trsfm;
+            Double x1;
+            Double x2;
+            Double y1;
+            Double y2;
             for (int i = 0; i < lines.size(); i++)
             {
+
                 Element lineElement = lines.get(i);
                // System.out.println(i+"***"+lines.get(i).getAttribute("width"));
                 //System.out.println(rectangles.get(i).getTagName());
+                styl = lineElement.getAttribute("style");
+                // Transform Operation
+                trsfm=lineElement.getAttribute("transform");
+                x1= Double.parseDouble(lineElement.getAttribute("x1"))+Double.parseDouble(trsfm.substring(10,trsfm.length()-1).split(" ")[0]);
+                x2 =Double.parseDouble(lineElement.getAttribute("x2"))+Double.parseDouble(trsfm.substring(10,trsfm.length()-1).split(" ")[0]);
+                y1= Double.parseDouble(lineElement.getAttribute("y1"))+Double.parseDouble(trsfm.substring(10,trsfm.length()-1).split(" ")[1]);
+                y2 =Double.parseDouble(lineElement.getAttribute("y2"))+Double.parseDouble(trsfm.substring(10,trsfm.length()-1).split(" ")[1]);
+                if(styl.equals(null)||styl.equals("")) {
+                   stkval=lineElement.getAttribute("stroke-width");
 
-                SVGLine line = new SVGLine(Double.parseDouble(lineElement.getAttribute("x1")),
-                        Double.parseDouble(lineElement.getAttribute("y1")),
-                        Double.parseDouble(lineElement.getAttribute("x2")),
-                        Double.parseDouble(lineElement.getAttribute("y2")),
-                        Integer.parseInt(lineElement.getAttribute("stroke-width")));
+                }else{
+                   stkval =(styl.split("stroke-width")[1].split(";")[0]).replace(": ", "");
+                }
+
+                SVGLine line = new SVGLine(x1,y1,x2,y2,Integer.parseInt(stkval));
+                // If you want to check the values printing well, set the print
+               // System.out.println(line.getX1());
+               // System.out.println(line.getY1());
+                //System.out.println(line.getX2());
+               // System.out.println(line.getY2());
+               // System.out.println(line.getStroke_width());
+
                 svgImage.addLine(line);
             }
 
@@ -192,6 +216,9 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
             svgFile = sb.toString();
 
             svgFile = svgFile.replace(" xmlns=\"http://www.w3.org/2000/svg\"", "");
+            svgFile=svgFile.replace("<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">","");
+            svgFile = svgFile.replace("<desc>Created with Fabric.js 1.6.3</desc>", "");
+            svgFile = svgFile.replace("<defs></defs>", "");
             //svgFile = svgFile.replaceAll("(?s)(?<=<g>\n)(.*?)(?=\n</g>)", "REPLACE");
 
             //String str = "sfd\nsdfsdf<g>\nthis it to be\n replaced\n</g>sdfsdf";
@@ -207,4 +234,5 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
         return svgFile;
 
     }
+
 }
