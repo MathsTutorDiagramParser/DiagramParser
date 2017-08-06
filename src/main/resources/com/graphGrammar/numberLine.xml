@@ -71,7 +71,9 @@
             </RightGraph>
             <RuleOperations>
                 <RuleOperation>
-                    <from_id>0</from_id>
+                    <ObjectList>
+                        <Object>0</Object>
+                    </ObjectList>
                     <id>o_p1</id>
                 </RuleOperation>
             </RuleOperations>
@@ -107,7 +109,9 @@
             <RuleOperations>
                 <RuleOperation>
                     <id>o_p1</id>
-                    <from_id>0</from_id>
+                    <ObjectList>
+                        <Object>0</Object>
+                    </ObjectList>
                 </RuleOperation>
             </RuleOperations>
         </Rule>
@@ -152,7 +156,9 @@
             <RuleOperations>
                 <RuleOperation>
                     <id>o_p1</id>
-                    <from_id>1</from_id>
+                    <ObjectList>
+                        <Object>1</Object>
+                    </ObjectList>
                 </RuleOperation>
             </RuleOperations>
         </Rule>
@@ -189,7 +195,9 @@
             <RuleOperations>
                 <RuleOperation>
                     <id>o_p1</id>
-                    <from_id>1</from_id>
+                    <ObjectList>
+                        <Object>0</Object>
+                    </ObjectList>
                 </RuleOperation>
             </RuleOperations>
         </Rule>
@@ -225,7 +233,9 @@
             <RuleOperations>
                 <RuleOperation>
                     <id>o_p1</id>
-                    <from_id>0</from_id>
+                    <ObjectList>
+                        <Object>0</Object>
+                    </ObjectList>
                 </RuleOperation>
             </RuleOperations>
         </Rule>
@@ -262,7 +272,9 @@
             <RuleOperations>
                 <RuleOperation>
                     <id>o_p2</id>
-                    <from_id>0</from_id>
+                    <ObjectList>
+                        <Object>0</Object>
+                    </ObjectList>
                 </RuleOperation>
             </RuleOperations>
         </Rule>
