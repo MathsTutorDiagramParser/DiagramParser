@@ -33,7 +33,6 @@ public class GrammarBuilder {
         XMLGraphGrammar xmlGraphGrammar = graphParsingHandler.readFromXML();
         return convertXMLGraphGrammar(xmlGraphGrammar, type);
 
-
     }
 
     public GraphGrammar convertXMLGraphGrammar( XMLGraphGrammar xmlGraphGrammar, String type ) {
@@ -44,6 +43,9 @@ public class GrammarBuilder {
                 break;
             case "Histogram":
                 graphGrammar = new HistogramGrammar();
+                break;
+            case "TreeDiagram":
+                graphGrammar = new TreeDiagramGrammar();
                 break;
             default:
                 graphGrammar = null;
@@ -66,16 +68,27 @@ public class GrammarBuilder {
             XMLGraph rightXMLGraph = xmlProductionRule.getRightXMLGraph();
             rightGraph = getGraph(rightXMLGraph,xmlGraphGrammar);
 
-            String operationId = xmlProductionRule.getXMLRuleOperations().get(0).getId();
+            ArrayList<XMLRuleOperations> xmlRuleOperationsList = xmlProductionRule.getXMLRuleOperations();
             String operation = null;
-            for (XMLOperations xmlOperations: xmlGraphGrammar.getOperations() ) {
-                if(operationId.equals(xmlOperations.getId())) {
-                    operation = xmlOperations.getName();
+            ArrayList<Integer> existenceList = new ArrayList<>();
+            ArrayList<RuleOperations> ruleOperationsArrayList = new ArrayList<>();
+            RuleOperations ruleOperations;
+            for (XMLRuleOperations xmlRuleOperation: xmlRuleOperationsList) {
+                for (XMLOperations xmlOperations : xmlGraphGrammar.getOperations()) {
+                    if (xmlRuleOperation.getId().equals(xmlOperations.getId())) {
+                        operation = xmlOperations.getName();
+                    }
+
+                }
+                for (int object_Id:xmlRuleOperation.getFrom_id_List()) {
+                    existenceList.add(object_Id);
                 }
 
+                ruleOperations = new RuleOperations(RuleOperation.valueOf(operation),existenceList);
+                ruleOperationsArrayList.add(ruleOperations);
             }
 
-            productionRule = new ProductionRule(leftGraph,rightGraph,RuleOperation.valueOf(operation));
+            productionRule = new ProductionRule(leftGraph,rightGraph, ruleOperationsArrayList);
             ruleList.add(productionRule);
             graphGrammar.setRuleList(ruleList);
         }

@@ -8,5 +8,7 @@ public enum SpatialRelation {
     TOUCH,
     OVERLAP,
     CROSS,
+    UP,
+    DOWN;
 
 }

@@ -27,24 +27,24 @@ public class GraphParsingHandler {
         Marshaller marshallerObj = contextObj.createMarshaller();
         marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
-        XMLTaggedValue xmlTaggedValue = new XMLTaggedValue("GraphType", "NUMBER_LINE");
+        XMLTaggedValue xmlTaggedValue = new XMLTaggedValue("GraphType", "TREE_DIAGRAM");
 
         ArrayList<XMLObjectTypes> objectTypeList = new ArrayList<>();
-        XMLObjectTypes type1 = new XMLObjectTypes("I0","Horizontal_Line");
-        XMLObjectTypes type2 = new XMLObjectTypes("I1","Vertical_Line");
-        XMLObjectTypes type3 = new XMLObjectTypes("I2","Angle_Line");
-        XMLObjectTypes type4 = new XMLObjectTypes("I3","Circle");
-        XMLObjectTypes type5 = new XMLObjectTypes("I4","Initial_Number_Line");
+        XMLObjectTypes type1 = new XMLObjectTypes("I0","ANGLE_LINE");
+//        XMLObjectTypes type2 = new XMLObjectTypes("I1","Vertical_Line");
+//        XMLObjectTypes type3 = new XMLObjectTypes("I2","Angle_Line");
+//        XMLObjectTypes type4 = new XMLObjectTypes("I3","Circle");
+//        XMLObjectTypes type5 = new XMLObjectTypes("I4","Initial_Number_Line");
         objectTypeList.add(type1);
-        objectTypeList.add(type2);
-        objectTypeList.add(type3);
-        objectTypeList.add(type4);
-        objectTypeList.add(type5);
+//        objectTypeList.add(type2);
+//        objectTypeList.add(type3);
+//        objectTypeList.add(type4);
+//        objectTypeList.add(type5);
 
         ArrayList<XMLSpatialRelations> xmlSpatialRelationsList = new ArrayList<>();
         XMLSpatialRelations xmlSpatialRelations1 = new XMLSpatialRelations("S0","TOUCH");
-        XMLSpatialRelations xmlSpatialRelations2 = new XMLSpatialRelations("S1","OVERLAP");
-        XMLSpatialRelations xmlSpatialRelations3 = new XMLSpatialRelations("S2","CROSS");
+        XMLSpatialRelations xmlSpatialRelations2 = new XMLSpatialRelations("S1","UP");
+        XMLSpatialRelations xmlSpatialRelations3 = new XMLSpatialRelations("S2","DOWN");
         xmlSpatialRelationsList.add(xmlSpatialRelations1);
         xmlSpatialRelationsList.add(xmlSpatialRelations2);
         xmlSpatialRelationsList.add(xmlSpatialRelations3);
@@ -64,7 +64,7 @@ public class GraphParsingHandler {
 
         ArrayList<XMLOperations> xmlOperationsList = new ArrayList<>();
         XMLOperations xmlOperations1 = new XMLOperations("o_p1","COPY_OBJECT_ALL_ATTRIBUTE");
-        XMLOperations xmlOperations2 = new XMLOperations("o_p2","COPY_OBJECT_ALL_ATTRIBUTE");
+        XMLOperations xmlOperations2 = new XMLOperations("o_p2","COPY_OBJECT_AVERAGE_ATTRIBUTE");
         xmlOperationsList.add(xmlOperations1);
         xmlOperationsList.add(xmlOperations2);
 
@@ -72,13 +72,15 @@ public class GraphParsingHandler {
         XMLGraph xmlGraph2 = new XMLGraph(objectIdList, xmlRelationshipList);
 
         ArrayList<XMLRuleOperations> xmlRuleOperationsList = new ArrayList<>();
-        XMLRuleOperations xmlRuleOperations1 = new XMLRuleOperations(xmlOperations1.getId(), type1.getId(),type2.getId());
-        XMLRuleOperations xmlRuleOperations2 = new XMLRuleOperations(xmlOperations2.getId(), type1.getId(),type2.getId());
+        ArrayList<Integer> intFromList = new ArrayList<>();
+        intFromList.add(0);
+        intFromList.add(1);
+        XMLRuleOperations xmlRuleOperations1 = new XMLRuleOperations(xmlOperations1.getId(),intFromList);
+        intFromList.add(3);
+        XMLRuleOperations xmlRuleOperations2 = new XMLRuleOperations(xmlOperations2.getId(), intFromList);
         xmlRuleOperationsList.add(xmlRuleOperations1);
         xmlRuleOperationsList.add(xmlRuleOperations2);
 
-
-        XMLOperations operationType = new XMLOperations("o_p","COPY_OBJECT_ALL_ATTRIBUTE");
         ArrayList<XMLProductionRule> xmlProductionRuleList = new ArrayList<>();
         XMLProductionRule xmlProductionRule1 = new XMLProductionRule(xmlGraph1, xmlGraph2, xmlRuleOperationsList);
         XMLProductionRule xmlProductionRule2 = new XMLProductionRule(xmlGraph1, xmlGraph2, xmlRuleOperationsList);
@@ -87,13 +89,13 @@ public class GraphParsingHandler {
 
         XMLGraphGrammar xmlGraphGrammar = new XMLGraphGrammar(xmlTaggedValue,objectTypeList, xmlSpatialRelationsList, xmlOperationsList, xmlProductionRuleList);
 
-        marshallerObj.marshal(xmlGraphGrammar, new FileOutputStream("D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\com\\graphGrammar\\numberLine.xml"));
+        marshallerObj.marshal(xmlGraphGrammar, new FileOutputStream("E:\\FYP\\implementation\\parser1\\DiagramParser\\src\\main\\resources\\com\\graphGrammar\\treeDiagram.xml"));
     }
 
     public XMLGraphGrammar readFromXML(){
         XMLGraphGrammar graphGrammar = new XMLGraphGrammar();
         try {
-            File file = new File("D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\com\\graphGrammar\\numberLine.xml");
+            File file = new File("E:\\FYP\\implementation\\parser1\\DiagramParser\\src\\main\\resources\\com\\graphGrammar\\treeDiagram.xml");
             JAXBContext jaxbContext = JAXBContext.newInstance(XMLGraphGrammar.class);
 
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();

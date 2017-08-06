@@ -37,6 +37,10 @@ public class GraphicalImageComponent {
         this.hieght = 0;
     }
 
+    public GraphicalImageComponent() {
+
+    }
+
 
     public double getX1() {
         return x1;
