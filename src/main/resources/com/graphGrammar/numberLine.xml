@@ -7,29 +7,37 @@
         </OperationTypes>
         <OperationTypes>
             <id>o_p2</id>
-            <name>COPY_OBJECT_ALL_ATTRIBUTE</name>
+            <name>SET_INITIAL</name>
         </OperationTypes>
     </Operations>
     <Types>
         <ObjectType>
             <id>I0</id>
-            <name>Horizontal_Line</name>
+            <name>HORIZONTAL_LINE</name>
         </ObjectType>
         <ObjectType>
             <id>I1</id>
-            <name>Vertical_Line</name>
+            <name>VERTICAL_LINE</name>
         </ObjectType>
         <ObjectType>
             <id>I2</id>
-            <name>Angle_Line</name>
+            <name>ANGLE_LINE</name>
         </ObjectType>
         <ObjectType>
             <id>I3</id>
-            <name>Circle</name>
+            <name>CIRCLE</name>
         </ObjectType>
         <ObjectType>
             <id>I4</id>
-            <name>Initial_Number_Line</name>
+            <name>INITIAL_NUMBER_LINE</name>
+        </ObjectType>
+        <ObjectType>
+            <id>I5</id>
+            <name>MARKED_LINE</name>
+        </ObjectType>
+        <ObjectType>
+            <id>I6</id>
+            <name>INITIAL_GRAPH</name>
         </ObjectType>
     </Types>
     <Rules>
@@ -38,31 +46,15 @@
                 <Objects>
                     <Object>
                         <id>0</id>
-                        <type>I1</type>
-                    </Object>
-                    <Object>
-                        <id>1</id>
-                        <type>I1</type>
+                        <type>I4</type>
                     </Object>
                 </Objects>
-                <SpatialRelations>
-                    <SpatialRelation>
-                        <objectIdOne>0</objectIdOne>
-                        <objectIdTwo>1</objectIdTwo>
-                        <spatialRelationId>I10</spatialRelationId>
-                    </SpatialRelation>
-                    <SpatialRelation>
-                        <objectIdOne>1</objectIdOne>
-                        <objectIdTwo>2</objectIdTwo>
-                        <spatialRelationId>I11</spatialRelationId>
-                    </SpatialRelation>
-                </SpatialRelations>
             </LeftGraph>
             <RightGraph>
                 <Objects>
                     <Object>
                         <id>0</id>
-                        <type>I1</type>
+                        <type>I0</type>
                     </Object>
                     <Object>
                         <id>1</id>
@@ -73,25 +65,16 @@
                     <SpatialRelation>
                         <objectIdOne>0</objectIdOne>
                         <objectIdTwo>1</objectIdTwo>
-                        <spatialRelationId>I10</spatialRelationId>
-                    </SpatialRelation>
-                    <SpatialRelation>
-                        <objectIdOne>1</objectIdOne>
-                        <objectIdTwo>2</objectIdTwo>
-                        <spatialRelationId>I11</spatialRelationId>
+                        <spatialRelationId>S2</spatialRelationId>
                     </SpatialRelation>
                 </SpatialRelations>
             </RightGraph>
             <RuleOperations>
                 <RuleOperation>
-                    <from_id>I0</from_id>
+                    <ObjectList>
+                        <Object>0</Object>
+                    </ObjectList>
                     <id>o_p1</id>
-                    <to_id>I1</to_id>
-                </RuleOperation>
-                <RuleOperation>
-                    <from_id>I0</from_id>
-                    <id>o_p2</id>
-                    <to_id>I1</to_id>
                 </RuleOperation>
             </RuleOperations>
         </Rule>
@@ -100,31 +83,15 @@
                 <Objects>
                     <Object>
                         <id>0</id>
-                        <type>I1</type>
-                    </Object>
-                    <Object>
-                        <id>1</id>
-                        <type>I1</type>
+                        <type>I4</type>
                     </Object>
                 </Objects>
-                <SpatialRelations>
-                    <SpatialRelation>
-                        <objectIdOne>0</objectIdOne>
-                        <objectIdTwo>1</objectIdTwo>
-                        <spatialRelationId>I10</spatialRelationId>
-                    </SpatialRelation>
-                    <SpatialRelation>
-                        <objectIdOne>1</objectIdOne>
-                        <objectIdTwo>2</objectIdTwo>
-                        <spatialRelationId>I11</spatialRelationId>
-                    </SpatialRelation>
-                </SpatialRelations>
             </LeftGraph>
             <RightGraph>
                 <Objects>
                     <Object>
                         <id>0</id>
-                        <type>I1</type>
+                        <type>I4</type>
                     </Object>
                     <Object>
                         <id>1</id>
@@ -135,28 +102,183 @@
                     <SpatialRelation>
                         <objectIdOne>0</objectIdOne>
                         <objectIdTwo>1</objectIdTwo>
-                        <spatialRelationId>I10</spatialRelationId>
-                    </SpatialRelation>
-                    <SpatialRelation>
-                        <objectIdOne>1</objectIdOne>
-                        <objectIdTwo>2</objectIdTwo>
-                        <spatialRelationId>I11</spatialRelationId>
+                        <spatialRelationId>S2</spatialRelationId>
                     </SpatialRelation>
                 </SpatialRelations>
             </RightGraph>
             <RuleOperations>
                 <RuleOperation>
-                    <from_id>I0</from_id>
                     <id>o_p1</id>
-                    <to_id>I1</to_id>
-                </RuleOperation>
-                <RuleOperation>
-                    <from_id>I0</from_id>
-                    <id>o_p2</id>
-                    <to_id>I1</to_id>
+                    <ObjectList>
+                        <Object>0</Object>
+                    </ObjectList>
                 </RuleOperation>
             </RuleOperations>
         </Rule>
+
+        <Rule>
+            <LeftGraph>
+                <Objects>
+                    <Object>
+                        <id>0</id>
+                        <type>I5</type>
+                    </Object>
+                </Objects>
+            </LeftGraph>
+            <RightGraph>
+                <Objects>
+                    <Object>
+                        <id>0</id>
+                        <type>I3</type>
+                    </Object>
+                    <Object>
+                        <id>1</id>
+                        <type>I0</type>
+                    </Object>
+                    <Object>
+                        <id>2</id>
+                        <type>I3</type>
+                    </Object>
+                </Objects>
+                <SpatialRelations>
+                    <SpatialRelation>
+                        <objectIdOne>0</objectIdOne>
+                        <objectIdTwo>1</objectIdTwo>
+                        <spatialRelationId>S0</spatialRelationId>
+                    </SpatialRelation>
+                    <SpatialRelation>
+                        <objectIdOne>1</objectIdOne>
+                        <objectIdTwo>2</objectIdTwo>
+                        <spatialRelationId>S0</spatialRelationId>
+                    </SpatialRelation>
+                </SpatialRelations>
+            </RightGraph>
+            <RuleOperations>
+                <RuleOperation>
+                    <id>o_p1</id>
+                    <ObjectList>
+                        <Object>1</Object>
+                    </ObjectList>
+                </RuleOperation>
+            </RuleOperations>
+        </Rule>
+
+
+        <Rule>
+            <LeftGraph>
+                <Objects>
+                    <Object>
+                        <id>0</id>
+                        <type>I5</type>
+                    </Object>
+                </Objects>
+            </LeftGraph>
+            <RightGraph>
+                <Objects>
+                    <Object>
+                        <id>0</id>
+                        <type>I3</type>
+                    </Object>
+                    <Object>
+                        <id>1</id>
+                        <type>I0</type>
+                    </Object>
+                </Objects>
+                <SpatialRelations>
+                    <SpatialRelation>
+                        <objectIdOne>0</objectIdOne>
+                        <objectIdTwo>1</objectIdTwo>
+                        <spatialRelationId>S0</spatialRelationId>
+                    </SpatialRelation>
+                </SpatialRelations>
+            </RightGraph>
+            <RuleOperations>
+                <RuleOperation>
+                    <id>o_p1</id>
+                    <ObjectList>
+                        <Object>0</Object>
+                    </ObjectList>
+                </RuleOperation>
+            </RuleOperations>
+        </Rule>
+
+        <Rule>
+            <LeftGraph>
+                <Objects>
+                    <Object>
+                        <id>0</id>
+                        <type>I5</type>
+                    </Object>
+                </Objects>
+            </LeftGraph>
+            <RightGraph>
+                <Objects>
+                    <Object>
+                        <id>0</id>
+                        <type>I0</type>
+                    </Object>
+                    <Object>
+                        <id>1</id>
+                        <type>I3</type>
+                    </Object>
+                </Objects>
+                <SpatialRelations>
+                    <SpatialRelation>
+                        <objectIdOne>0</objectIdOne>
+                        <objectIdTwo>1</objectIdTwo>
+                        <spatialRelationId>S0</spatialRelationId>
+                    </SpatialRelation>
+                </SpatialRelations>
+            </RightGraph>
+            <RuleOperations>
+                <RuleOperation>
+                    <id>o_p1</id>
+                    <ObjectList>
+                        <Object>0</Object>
+                    </ObjectList>
+                </RuleOperation>
+            </RuleOperations>
+        </Rule>
+
+
+        <Rule>
+            <LeftGraph>
+                <Objects>
+                    <Object>
+                        <id>0</id>
+                        <type>I6</type>
+                    </Object>
+                </Objects>
+            </LeftGraph>
+            <RightGraph>
+                <Objects>
+                    <Object>
+                        <id>0</id>
+                        <type>I4</type>
+                    </Object>
+                    <Object>
+                        <id>1</id>
+                        <type>I5</type>
+                    </Object>
+                </Objects>
+                <SpatialRelations>
+                    <SpatialRelation>
+                        <objectIdOne>0</objectIdOne>
+                        <objectIdTwo>1</objectIdTwo>
+                        <spatialRelationId>S1</spatialRelationId>
+                    </SpatialRelation>
+                </SpatialRelations>
+            </RightGraph>
+            <RuleOperations>
+                <RuleOperation>
+                    <id>o_p2</id>
+                    <ObjectList>
+                        <Object>0</Object>
+                    </ObjectList>
+                </RuleOperation>
+            </RuleOperations>
+        </Rule>
+
     </Rules>
     <Relations>
         <SpatialRelationType>

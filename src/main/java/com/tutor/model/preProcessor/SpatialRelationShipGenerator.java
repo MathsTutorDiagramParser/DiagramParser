@@ -1,9 +1,14 @@
 package com.tutor.model.preProcessor;
 
+import com.tutor.model.graphParser.GraphGrammarBuilder.Graph;
+import com.tutor.model.graphParser.GraphGrammarBuilder.ProductionRule;
+import com.tutor.model.util.DiagramType;
+import com.tutor.model.util.RuleOperation;
 import com.tutor.model.util.SpatialRelation;
 import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.model.util.ObjectType;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -59,13 +64,13 @@ public class SpatialRelationShipGenerator {
     }
 
     public boolean isTough(GraphicalImageComponent o1,GraphicalImageComponent o2){
-        if( (o1.objectType!= ObjectType.Line && o2.objectType!=ObjectType.Line && o1.getX()== o2.getX() && o1.getY()== o2.getY())
+        if( (o1.superObjectType!= ObjectType.LINE && o2.superObjectType!=ObjectType.LINE && o1.getX()== o2.getX() && o1.getY()== o2.getY())
                 || (o1.objectType!= ObjectType.CIRCLE && o2.objectType!=ObjectType.CIRCLE  && (o1.getX1()==o2.getX1() && o1.getY1()==o2.getY1()))
                 || (o1.objectType!= ObjectType.CIRCLE && o2.objectType!=ObjectType.CIRCLE  && (o1.getX2()==o2.getX2() && o1.getY2()==o2.getY2()))
                 || (o1.objectType!= ObjectType.CIRCLE && o2.objectType!=ObjectType.CIRCLE  && (o1.getX1()==o2.getX2() && o1.getY1()==o2.getY2()))
                 || (o1.objectType!= ObjectType.CIRCLE && o2.objectType!=ObjectType.CIRCLE  && (o1.getX2()==o2.getX1() && o1.getY2()==o2.getY1()))
-                || (o1.objectType!= ObjectType.Line && o2.objectType!=ObjectType.CIRCLE  && ((o1.getX()==o2.getX1() && o1.getY()==o2.getY1())||(o1.getX()==o2.getX2() && o1.getY()==o2.getY2())))
-                || (o1.objectType!= ObjectType.CIRCLE && o2.objectType!=ObjectType.Line  && ((o1.getX1()==o2.getX() && o1.getY1()==o2.getY())||(o1.getX2()==o2.getX() && o1.getY2()==o2.getY())))
+                || (o1.superObjectType!= ObjectType.LINE && o2.objectType!=ObjectType.CIRCLE  && ((o1.getX()==o2.getX1() && o1.getY()==o2.getY1())||(o1.getX()==o2.getX2() && o1.getY()==o2.getY2())))
+                || (o1.objectType!= ObjectType.CIRCLE && o2.superObjectType!=ObjectType.LINE  && ((o1.getX1()==o2.getX() && o1.getY1()==o2.getY())||(o1.getX2()==o2.getX() && o1.getY2()==o2.getY())))
                 ){
             return true;
         }
@@ -74,7 +79,7 @@ public class SpatialRelationShipGenerator {
 
 
     public boolean isCross(GraphicalImageComponent o1,GraphicalImageComponent o2){
-        if(o2.objectType==ObjectType.Line && o1.objectType==ObjectType.Line){
+        if(o2.superObjectType==ObjectType.LINE && o1.superObjectType==ObjectType.LINE){
             // calculate gradiant of lines
             double m1 = (o1.getY1()-o1.getY2())/(o1.getX1()-o1.getX2());
             double m2 = (o2.getY1()-o2.getY2())/(o2.getX1()-o2.getX2());
@@ -97,7 +102,7 @@ public class SpatialRelationShipGenerator {
                 }
 
                 else {
-                    System.out.println("=="+m1+"=="+m2);
+                    //System.out.println("=="+m1+"=="+m2);
                     // calculate
                     double c1 = (o1.getY1()-(o1.getX1()*m1));
                     double c2 = (o2.getY1()-(o2.getX1()*m2));
@@ -123,17 +128,17 @@ public class SpatialRelationShipGenerator {
                 return true;
             }
         }
-        else if(o1.objectType==ObjectType.Line && o2.objectType==ObjectType.CIRCLE){
+        else if(o1.superObjectType==ObjectType.LINE && o2.objectType==ObjectType.CIRCLE){
             if(pointOnLineSegment(o1.getX1(),o1.getX2(),o1.getY1(),o1.getY2(),o2.getX(),o2.getY())){
                 return true;
             }
         }
-        else if(o2.objectType==ObjectType.Line && o1.objectType==ObjectType.CIRCLE){
+        else if(o2.superObjectType==ObjectType.LINE && o1.objectType==ObjectType.CIRCLE){
             if(pointOnLineSegment(o2.getX1(),o2.getX2(),o2.getY1(),o2.getY2(),o1.getX(),o1.getY())){
                 return true;
             }
         }
-        else if(o2.objectType==ObjectType.Line && o1.objectType==ObjectType.Line){
+        else if(o2.superObjectType==ObjectType.LINE && o1.superObjectType==ObjectType.LINE){
             double m1 = (o1.getY1()-o1.getY2())/(o1.getX1()-o1.getX2());
             double m2 = (o2.getY1()-o2.getY2())/(o2.getX1()-o2.getX2());
 
@@ -166,5 +171,67 @@ public class SpatialRelationShipGenerator {
     public ArrayList<SpatialRelation>[][] getRelations() {
         return relations;
     }
+
+    public static void updateSpatialRelationShipMatrix(Graph host, int[] redex, ProductionRule rule, DiagramType diagramType){
+
+        RuleOperation ruleOperations = rule.getRuleOperation();
+
+        switch (diagramType){
+            case NUMBRELINE:
+                //need to consider rule operation
+                ArrayList<SpatialRelation>[][] old = host.getRelations();
+                ArrayList<SpatialRelation>[] change = old[redex[0]];
+
+                ArrayList<SpatialRelation>[][] newRelations =
+                        new ArrayList[host.getGraphicalImageComponents().size()][host.getGraphicalImageComponents().size()];
+
+                int newItr =0;
+                for(int oldItr = 0;oldItr < change.length; oldItr++){
+                    ArrayList<SpatialRelation>[] substitute = old[oldItr];
+                    //if(oldItr==0 || !isInArray(Arrays.copyOfRange(redex,1,redex.length),oldItr)){
+                    if(!isInArray(Arrays.copyOfRange(redex,1,redex.length),oldItr)){
+                        newRelations[newItr] = buildSubstituteArray(substitute,redex);
+                        newItr++;
+                    }
+                }
+                host.setRelations(newRelations);
+
+            case HISTOGRAM:
+            case TREEDIAGRAM:
+            case TRIGNOMETRICDIAGRAM:
+
+        }
+
+    }
+
+
+    public static ArrayList<SpatialRelation>[] buildSubstituteArray(ArrayList<SpatialRelation>[] substitute,int[] redex){
+        int size = substitute.length-redex.length+1;
+
+        if (size==0){
+            return substitute;
+        }
+
+        ArrayList<SpatialRelation>[] newSubstitute = new  ArrayList[size];
+        int itrNew = 0;
+        for (int i=0;i<substitute.length;i++){
+
+            if(i==redex[0] || !isInArray(redex,i)){
+                newSubstitute[itrNew] = substitute[i];
+                itrNew++;
+            }
+        }
+        return newSubstitute;
+    }
+
+    public static boolean isInArray(int[] array, int element){
+        for(int i=0;i<array.length;i++){
+            if(array[i]==element){
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 }

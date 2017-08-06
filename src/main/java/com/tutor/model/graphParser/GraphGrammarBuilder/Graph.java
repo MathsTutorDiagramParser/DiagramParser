@@ -20,6 +20,9 @@ public class Graph {
         this.relations = relations;
     }
 
+    public Graph() {
+    }
+
     public List<GraphicalImageComponent> getGraphicalImageComponents() {
         return graphicalImageComponents;
     }

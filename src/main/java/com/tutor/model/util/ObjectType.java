@@ -5,13 +5,14 @@ package com.tutor.model.util;
  */
 public enum  ObjectType {
     CIRCLE,
-    Line,
-    Text,
-    Initial_Number_Line,
-    Circle,
+    LINE,
+    TEXT,
+    INITIAL_NUMBER_LINE,
     ANGLE_LINE,
-    Vertical_Line,
-    Horizontal_Line,
+    VERTICAL_LINE,
+    HORIZONTAL_LINE,
+    MARKED_LINE,
+    INITIAL_GRAPH,
     INITIAL_TREE_DIAGRAM,
     NODE;
 
