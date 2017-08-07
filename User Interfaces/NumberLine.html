@@ -1,0 +1,332 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+    <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src = "http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.6.3/fabric.min.js"></script>
+  </head>
+  <body >
+    <div>
+     <canvas id="myCanvas" width = 800 height = 400 style="border:1px solid #000000"></canvas>
+    </div>
+    <div>
+      <INPUT type = "Button" value = '&#9899'  onclick="createArrowWithFilledDot()"/> 
+	  <INPUT type = "Button" value = '&#9898'  onclick="createArrowWithDot()"/> 
+      <INPUT type = "Button" value = "Undo" onclick="undo()"/>  
+      <INPUT type = "Button" value = "Clear Plane" onclick="clearPlane()"/> 
+      <button id ="save">Save</button>
+    </div>
+    <script type="text/javascript">
+		var canvas = new fabric.Canvas("myCanvas");
+		var scale = 40;
+		var numberLinePos = [50, 200, 600, 200]; // **if numberLinePos[1],numberLinePos[3] should be equal.
+		var dotPlaced = false; // check dot placed before draw arrow
+		
+		function drawNumLine(){
+		
+			//main line
+			var numLine = new fabric.Line(numberLinePos, {
+				strokeWidth: 2,
+				fill: 'black',
+				stroke: 'black',
+				originX: 'center',
+				originY: 'center',
+				targetFindTolerance: true,
+				selectable: false
+			  });
+
+			
+			
+			//small scale line
+			sclPos = 100 - scale;
+			unit = -5;
+			while(sclPos > 50 && sclPos < 600){
+			  tick = new fabric.Line([sclPos, 190, sclPos, 210], {
+				selectable: false,
+				strokeWidth: 2,
+				fill: 'black',
+				stroke: 'black',
+				originX: 'center',
+				originY: 'center',
+				targetFindTolerance: true
+			  });
+			  st = unit.toString() + '';
+				text = new fabric.IText(st, {
+				  fontFamily: 'Arial',
+				  left: sclPos,
+				  top: 213,
+				  fontSize: 10,
+				  fontWeight: 'bold',
+				  textAlign: "center",
+				  fill: "#000000"
+				});
+				canvas.add(tick);
+				canvas.add(text);
+				unit += 1;
+				sclPos = sclPos + scale;
+			}
+			
+			//arrow heads
+			var triLeft = new fabric.Triangle({
+				angle: 270,
+				fill: 'black',
+				top: 205,
+				left: 40,
+				height: 10,
+				width: 10,
+				selectable: false
+			  });
+			  
+			var triRight = new fabric.Triangle({
+				angle: 90,
+				fill: 'black',
+				top: 195,
+				left: 605,
+				height: 10,
+				width: 10,
+				selectable: false
+			  });
+			  
+			canvas.add(numLine);
+			canvas.add(triLeft);
+			canvas.add(triRight);
+		
+		
+		}
+		
+		//draw number Line
+		drawNumLine();
+		
+		//Draw Arrow
+		function createLineArrow(points,side) {
+			var line = new fabric.Line(points, {
+			  strokeWidth: 5,
+			  stroke: '#7db9e8',
+			  originX: 'center',
+			  originY: 'center',
+			  hasControls: false,
+			  hasRotatingPoint: false,
+			  hoverCursor: 'default',
+			  selectable: false,
+			  lockScalingY: true
+			});
+
+			 //create arrow head
+			var headLength = 15,
+
+			x1 = points[0],
+			y1 = points[1],
+			x2 = points[2],
+			y2 = points[3],
+
+			dx = x2 - x1,
+			dy = y2 - y1,
+
+			angle = Math.atan2(dy, dx);
+
+			angle *= 180 / Math.PI;
+			angle += 90;
+			// temporary removed the triangle in markrd line
+			var triangle = new fabric.Triangle({
+			  // angle: angle,
+			  fill: '#207cca',
+			  top: y2,
+			  left: x2,
+			  height: headLength,
+			  width: headLength,
+			  originX: 'center',
+			  originY: 'center',
+			  selectable: false
+			});
+			
+			
+			if (side == 'left'){
+			  var groupArrow = new fabric.Group([line],{left: points[0]+8,top: points[1]-4, id: 'arrow', hasRotatingPoint: false, lockScalingY: true});
+			}
+			if (side == 'right'){
+			  var groupArrow = new fabric.Group([line],{left: points[2]-16,top: points[3]-4, id: 'arrow', hasRotatingPoint: false, lockScalingY: true});
+			}  
+		  
+			return groupArrow;
+			  
+		}
+		
+		
+		
+		//reset All
+		function clearPlane(){
+			canvas.clear();
+			drawNumLine();
+		}
+		
+		
+		
+		//create arrow with filled dot
+		function createArrowWithFilledDot(){
+			canvas.off();
+
+			canvas.on({
+				'mouse:down': function(e) {
+					pointX = e.e.clientX;
+					pointY = e.e.clientY;
+					//appear dot where click
+					if(!dotPlaced && checkDotPlace(pointX,pointY)){
+						filledDot = placeDot(e.e.clientX,e.e.clientY,'blue','filledDot');
+						canvas.add(filledDot);
+						dotPlaced = true;
+						canvas.renderAll();
+					}
+					else if(dotPlaced){
+						dotPlaced = false;
+						saveObject('arrow');
+						saveObject('filledDot');
+						canvas.renderAll();
+					}
+					else{
+						dotPlaced = false;
+					}
+					
+				},
+				'mouse:move': function(e) {
+				
+					if (dotPlaced){
+						//draw arrow to left
+						if (getItemByMyID('filledDot').left < e.e.clientX){
+							//remove older arrow
+							canvas.remove(getItemByMyID('arrow'));
+							canvas.add(createLineArrow([getItemByMyID('filledDot').left, getItemByMyID('filledDot').top, e.e.clientX, getItemByMyID('filledDot').top],'left'));
+						}
+						else if (getItemByMyID('filledDot').left > e.e.clientX){
+							//remove older arrow
+							canvas.remove(getItemByMyID('arrow'));
+							canvas.add(createLineArrow([getItemByMyID('filledDot').left, getItemByMyID('filledDot').top, e.e.clientX, getItemByMyID('filledDot').top],'right'));
+						}
+					}
+				}				
+			});
+		}
+		
+		//get object by custom id
+		function getItemByMyID(myID) {
+			var object = null,
+			objects = canvas.getObjects();
+			for (var i = 0, len = canvas.size(); i < len; i++) {
+				if (objects[i].id&& objects[i].id=== myID) {
+					object = objects[i];
+					break;
+			}
+		}
+		return object;
+		};
+		
+		//create arrow with dot (not filled)
+		function createArrowWithDot(){
+			canvas.off();
+				
+			canvas.on({
+				'mouse:down': function(e) {
+					pointX = e.e.clientX;
+					pointY = e.e.clientY;
+					//appear dot where click
+					if(!dotPlaced && checkDotPlace(pointX,pointY)){
+						var dot = placeDot(pointX,pointY,'transparent','dot');
+						canvas.add(dot);
+						dotPlaced = true;
+						canvas.renderAll();
+					}
+					else if (dotPlaced){
+						
+						dotPlaced = false;
+						saveObject('arrow');
+						saveObject('dot');
+						canvas.renderAll();
+					}
+					else{
+						dotPlaced = false;
+					}
+					
+				},
+				'mouse:move': function(e) {
+					if(dotPlaced){
+						//draw arrow to left
+						if (getItemByMyID('dot').left < e.e.clientX){
+							//remove older arrow
+							canvas.remove(getItemByMyID('arrow'));
+							canvas.add(createLineArrow([getItemByMyID('dot').left, getItemByMyID('dot').top, e.e.clientX, getItemByMyID('dot').top],'left'));
+						}
+						else if (getItemByMyID('dot').left > e.e.clientX){
+							//remove older arrow
+							canvas.remove(getItemByMyID('arrow'));
+							canvas.add(createLineArrow([getItemByMyID('dot').left, getItemByMyID('dot').top, e.e.clientX, getItemByMyID('dot').top],'right'));
+						}
+					}
+					
+				}
+			
+			});
+		}
+		
+		
+		//set xy to dot
+		function placeDot(x,y,fill,id){
+			var dot = new fabric.Circle({
+				strokeWidth: 2,
+				stroke: 'blue',
+				fill: fill,
+				radius: 8,
+				originX: 'center',
+				originY: 'center',
+				top : numberLinePos[1],
+				left: x,
+				id: id,
+				selectable: false
+				
+			});
+			return dot;
+		}
+		
+		//check whether dot place is on the line
+		function checkDotPlace(x,y){
+			if(y < numberLinePos[1]+5 && y > numberLinePos[1]-5 && x<numberLinePos[2] && x>numberLinePos[0] ){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		$('#save').click(function (e){
+            $('#save').click(function (e){
+                var svg = canvas.toSVG();
+                fabric.log(svg);
+
+                $.ajax({
+                    crossDomain: true,
+                    url: 'http://localhost:8080/webapi/svg/save',
+                    type: 'POST',
+                    data: {
+                        svg,
+                    },
+                    success: function(){alert('POST completed');}
+                });
+            });
+		})
+
+		
+		function undo(){
+			var canvas_objects = canvas._objects;
+			if(canvas_objects.length !== 0)
+			{
+				var last = canvas_objects[canvas_objects.length -1]; //Get last object   
+				canvas.remove(last);
+				canvas.renderAll();
+			}
+		}
+	  </script>
+  </body>
+</html>
