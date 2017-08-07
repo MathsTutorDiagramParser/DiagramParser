@@ -1,5 +1,6 @@
 package com.tutor.model.graphParser.DiagramStructure;
 
+import com.tutor.model.graphParser.DiagramStructure.TreeDiagram.AbstractTreeDiagramStructure;
 import com.tutor.model.graphicalPOJOObject.Text.Text;
 import com.tutor.model.util.DiagramType;
 
@@ -18,7 +19,7 @@ public class DiagramStructureFactory {
             case HISTOGRAM:
                 return new AbstractHistogramStructure();
             case TREEDIAGRAM:
-                return null;
+                return new AbstractTreeDiagramStructure();
             case TRIGNOMETRICDIAGRAM:
                 return null;
             default:

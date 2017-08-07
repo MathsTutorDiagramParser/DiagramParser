@@ -46,7 +46,8 @@ public class main {
         host.setGraphicalImageComponents(orderedList);
         host.setRelations(relations);
 
-        Parser parser = new Parser(DiagramType.NUMBRELINE);
+
+        Parser parser = new Parser(DiagramType.TREEDIAGRAM);
         parser.parse(host,svGtoPOJOMapper.getTexts());
     }
 }

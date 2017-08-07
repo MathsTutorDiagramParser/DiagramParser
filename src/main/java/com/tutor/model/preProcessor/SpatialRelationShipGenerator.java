@@ -39,7 +39,7 @@ public class SpatialRelationShipGenerator {
                     }
                 } else {
                     // get the existing spatial relationship between 2 objects
-                    ArrayList<SpatialRelation> relation =   identifySpatiolRelation(objectList.get(i),objectList.get(j));
+                    ArrayList<SpatialRelation> relation =   identifySpatialRelation(objectList.get(i),objectList.get(j));
 
                     // this is numberline specific checking condition
                     if(relation.contains(SpatialRelation.SAMEEND)){
@@ -58,17 +58,45 @@ public class SpatialRelationShipGenerator {
                        }
                        relation.remove(SpatialRelation.SAMEEND);
                     }
-                    //end
+                    //Check the relations array contains UP or DOWN relations
+                    if(relation.contains(SpatialRelation.UP) || relation.contains(SpatialRelation.DOWN) ) {
+                        relations[i][j] = relation;
 
-                    relations[i][j]= relation;
-                    relations[j][i]= relation;
+                        if(relation.contains(SpatialRelation.UP)) {
+                            if(relations[j][i] == null) {
+                                relations[j][i] = new ArrayList<>();
+                            }
+                            for (SpatialRelation s: relation ) {
+                                if(s!= SpatialRelation.UP) {
+                                    relations[j][i].add(s);
+                                } else {
+                                    relations[j][i].add(SpatialRelation.DOWN);
+                                }
+                            }
+                        } else {
+                            if(relations[j][i] == null) {
+                                relations[j][i] = new ArrayList<>();
+                            }
+                            for (SpatialRelation s: relation ) {
+                                if(s!= SpatialRelation.DOWN) {
+                                    relations[j][i].add(s);
+                                } else {
+                                    relations[j][i].add(SpatialRelation.UP);
+                                }
+                            }
+                        }
+                    }
+                    else {
+                        relations[i][j] = relation;
+                        relations[j][i] = relation;
+                    }
                 }
             }
         }
         return relations;
     }
 
-    public ArrayList<SpatialRelation> identifySpatiolRelation(GraphicalImageComponent o1,GraphicalImageComponent o2){
+    public  ArrayList<SpatialRelation> identifySpatialRelation(GraphicalImageComponent o1,GraphicalImageComponent o2){
 
         ArrayList<SpatialRelation> relations = new ArrayList<>();
         //identify tough
@@ -87,6 +115,13 @@ public class SpatialRelationShipGenerator {
         if(isSameEnd(o1,o2)){
             relations.add(SpatialRelation.SAMEEND);
         }
+
+        if(isUp(o1,o2)){
+            relations.add(SpatialRelation.UP);
+        }else {
+            relations.add(SpatialRelation.DOWN);
+        }
+
 
         return relations;
     }
@@ -220,6 +255,13 @@ public class SpatialRelationShipGenerator {
         return false;
     }
 
+    public boolean isUp(GraphicalImageComponent o1,GraphicalImageComponent o2){
+        if( (o1.superObjectType!= ObjectType.LINE && o2.superObjectType!=ObjectType.LINE && ( o1.getY() >= o2.getY()))
+                || (o1.superObjectType == ObjectType.LINE && o2.superObjectType == ObjectType.LINE  && (getAverageValue(o1.getY1(),o1.getY2()) >= getAverageValue(o2.getY1(),o2.getY2()))) )   {
+            return true;
+        }
+        return false;
+    }
 
     public boolean pointOnLineSegment(double x1,double x2,double y1,double y2, double x,double y){
 
@@ -243,29 +285,30 @@ public class SpatialRelationShipGenerator {
     public static void updateSpatialRelationShipMatrix(Graph host, int[] redex, ProductionRule rule, DiagramType diagramType){
 
         ArrayList<RuleOperations> ruleOperations = rule.getRuleOperations();
+        //need to consider rule operation
+        ArrayList<SpatialRelation>[][] old = host.getRelations();
+        ArrayList<SpatialRelation>[] change = old[redex[0]];
+        ArrayList<SpatialRelation>[][] newRelations =
+                new ArrayList[host.getGraphicalImageComponents().size()][host.getGraphicalImageComponents().size()];
 
         switch (diagramType){
             case NUMBRELINE:
-                //need to consider rule operation
-                ArrayList<SpatialRelation>[][] old = host.getRelations();
-                ArrayList<SpatialRelation>[] change = old[redex[0]];
-
-                ArrayList<SpatialRelation>[][] newRelations =
-                        new ArrayList[host.getGraphicalImageComponents().size()][host.getGraphicalImageComponents().size()];
-
                 int newItr =0;
                 for(int oldItr = 0;oldItr < change.length; oldItr++){
                     ArrayList<SpatialRelation>[] substitute = old[oldItr];
-                    //if(oldItr==0 || !isInArray(Arrays.copyOfRange(redex,1,redex.length),oldItr)){
                     if(!isInArray(Arrays.copyOfRange(redex,1,redex.length),oldItr)){
                         newRelations[newItr] = buildSubstituteArray(substitute,redex);
                         newItr++;
                     }
                 }
                 host.setRelations(newRelations);
+                break;
 
             case HISTOGRAM:
             case TREEDIAGRAM:
+                host.setRelations(getNewTreeRelArray(newRelations, host, change,old, redex));
+                break;
+
             case TRIGNOMETRICDIAGRAM:
 
         }
@@ -308,5 +351,87 @@ public class SpatialRelationShipGenerator {
         return false;
     }
 
+    public double getAverageValue(double y1, double y2) {
+        return (y1+y2)/2;
+    }
+
+    public static SpatialRelation identifySpecificSpatialRelation(GraphicalImageComponent o1,GraphicalImageComponent o2){
+        if(specificCheckUp(o1,o2)){
+            return SpatialRelation.UP;
+        }else {
+            return SpatialRelation.DOWN;
+        }
+    }
+
+    public static boolean specificCheckUp(GraphicalImageComponent o1,GraphicalImageComponent o2){
+        if((o1.getY1()+o1.getY2())/2 >= (o2.getY1()+o2.getY2())/2) {
+            return true;
+        }
+        return false;
+    }
+
+    public static ArrayList<SpatialRelation>[][] getNewTreeRelArray(ArrayList<SpatialRelation>[][] newRelations, Graph host,
+                                                                    ArrayList<SpatialRelation>[] change, ArrayList<SpatialRelation>[][] old,
+                                                                    int[] redex) {
+
+        //Iterate through old host graph
+        int hostGraphComponentSize = host.getGraphicalImageComponents().size();
+        int row = 0;
+        for (int itr = 0; itr < change.length; itr++) {
+            if (itr == redex[0]) {
+                GraphicalImageComponent graphicalImageComponent = host.getGraphicalImageComponents().get(itr);
+                // Set Up or Down relationship with newly added graph element with existing elements
+                for (int j = 0; j < hostGraphComponentSize; j++) {
+                    ArrayList<SpatialRelation> spatialRelationsList;
+                    if (j == itr) {
+                        spatialRelationsList = new ArrayList<>();
+                        spatialRelationsList.add(SpatialRelation.SAME);
+                        newRelations[itr][itr] = spatialRelationsList;
+                    } else {
+                        spatialRelationsList = new ArrayList<>();
+                        SpatialRelation spatialRelationNew = identifySpecificSpatialRelation(graphicalImageComponent, host.getGraphicalImageComponents().get(j));
+                        spatialRelationsList.add(spatialRelationNew);
+                        newRelations[itr][j] = spatialRelationsList;
+
+                        if (spatialRelationNew.equals(SpatialRelation.UP)) {
+                            if (newRelations[j][itr] == null) {
+                                newRelations[j][itr] = new ArrayList<>();
+                            }
+                            newRelations[j][itr].add(SpatialRelation.DOWN);
+
+                        } else {
+                            if (newRelations[j][itr] == null) {
+                                newRelations[j][itr] = new ArrayList<>();
+                            }
+                            newRelations[j][itr].add(SpatialRelation.UP);
+                        }
+                    }
+
+                }
+                row++;
+            } else if (itr != redex[1]) {
+                //Get old relationship list
+                ArrayList<SpatialRelation>[] oldRelationList = old[itr];
+                //To keep the new host relation iteration
+                int count = 0;
+                //To assign each relation with other objects according to the old relation list
+                for (int k = 0; k < oldRelationList.length; k++) {
+                    // Skip when relation is already define during adding new relation between newly added element and other elements
+                    if (k != redex[0]) {
+                        //Skip relation if the object is removed when reducing host graph
+                        if (k != redex[1]) {
+                            newRelations[row][count] = oldRelationList[k];
+                            count++;
+                        }
+                    } else {
+                        count++;
+                    }
+                }
+                row++;
+            }
+        }
+
+        return newRelations;
+    }
 
 }

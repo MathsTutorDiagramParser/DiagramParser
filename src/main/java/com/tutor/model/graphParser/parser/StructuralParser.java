@@ -4,6 +4,10 @@ import com.tutor.model.graphParser.DiagramStructure.AbstractDiagramStructure;
 import com.tutor.model.graphParser.DiagramStructure.AbstractNumberLineStructure;
 import com.tutor.model.graphParser.DiagramStructure.FeedBack;
 import com.tutor.model.graphParser.DiagramStructure.FeedBackGenerator;
+import com.tutor.model.graphParser.DiagramStructure.TreeDiagram.AbstractTreeDiagramStructure;
+import com.tutor.model.graphParser.DiagramStructure.TreeDiagram.TreeBranch;
+import com.tutor.model.graphParser.DiagramStructure.TreeDiagram.TreeGraph;
+import com.tutor.model.graphParser.DiagramStructure.TreeDiagram.TreeNode;
 import com.tutor.model.graphParser.DiagramStructureGenerator.DiagramStructureGenerator;
 import com.tutor.model.graphParser.DiagramStructureGenerator.DiagramStructureGeneratorFactory;
 import com.tutor.model.graphParser.GraphGrammarBuilder.Graph;
@@ -13,6 +17,7 @@ import com.tutor.model.graphParser.GraphGrammarBuilder.ProductionRule;
 import com.tutor.model.graphParser.SpatialRelations.DiagramSpecificSpatialRelationShipIdentifier;
 import com.tutor.model.graphParser.SpatialRelations.RelationShipIdentifierFactory;
 import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
+import com.tutor.model.graphicalPOJOObject.line.AngleLine;
 import com.tutor.model.preProcessor.SpatialRelationShipGenerator;
 import com.tutor.model.util.DiagramType;
 import com.tutor.model.util.FeedBackMessage;
@@ -66,6 +71,7 @@ public class StructuralParser {
                 ProductionRule productionRule = graphGrammar.getRuleList().get(i);
                 // find redex which matched with the production rule
                 int[] redex =  findRedexForRApplication(host,productionRule);
+
                 // iterate through host graph until the end to find redex for finding host graph
                 while (redex != null){
                     // update the abstract representation before doing r reduction
@@ -78,7 +84,7 @@ public class StructuralParser {
                     System.out.println("+++++++++++++++++++++++++++++++++++++++++");
 
                     // apply r application
-                    rApplication(host,productionRule,redex);
+                    rApplication(i,host,productionRule,redex);
 
                     System.out.println("==========================================");
                     for (int k=0;k<host.getGraphicalImageComponents().size();k++){
@@ -94,10 +100,10 @@ public class StructuralParser {
                 afterRuleApplication = false;
             }
 
-            if(host.isInitialGraph()){
+            if(host.isInitialGraph()) {
                 System.out.println("found Initial graph");
-                System.out.println("mark points: "+((AbstractNumberLineStructure)abstractDiagramStructure).getMarkPointList().size());
-                System.out.println("tick points: "+((AbstractNumberLineStructure)abstractDiagramStructure).getTickPointList().size());
+//                System.out.println("mark points: "+((AbstractNumberLineStructure)abstractDiagramStructure).getMarkPointList().size());
+//                System.out.println("tick points: "+((AbstractNumberLineStructure)abstractDiagramStructure).getTickPointList().size());
 
                 FeedBack feedBack = new FeedBack("VALID_DIAGRAM_STRUCTURE");
                 feedBack.setDescription(FeedBackMessage.VALID_DIAGRAM_STRUCTURE);
@@ -123,6 +129,7 @@ public class StructuralParser {
      */
 
     public int[] findRedexForRApplication(Graph host,ProductionRule p){
+
 
         // access right graph of the production rule
         Graph ruleGraph = p.getRightGraph();
@@ -214,7 +221,7 @@ public class StructuralParser {
      * update spatial relationship matrix
      */
 
-    public void rApplication(Graph host,ProductionRule productionRule,int[] redex){
+    public void rApplication(int ruleId, Graph host,ProductionRule productionRule,int[] redex){
 
         // get the substitute from the left of the rule graph
         GraphicalImageComponent substitute = productionRule.getLeftGraph().getGraphicalImageComponents().get(0);
@@ -222,22 +229,21 @@ public class StructuralParser {
         List<GraphicalImageComponent> newObList = new ArrayList<>();
 
         // create new host graph by substituting new element and removing elements
+
         for (int i=0;i<host.getGraphicalImageComponents().size();i++){
             if(i==redex[redexItr]){
                 if (redexItr==0){
-                    newObList.add(substitute);
+                    newObList = applyFirstSubstitute(newObList, substitute, host, ruleId,redex);
                 }
                 redexItr++;
                 if(redexItr==redex.length){
-                    redexItr= redexItr-=1;
-
+                    redexItr-=1;
                 }
             }
             else {
                 newObList.add( host.getGraphicalImageComponents().get(i));
             }
         }
-
         // set new object list in to the host graph
         host.setGraphicalImageComponents(newObList);
         // identify initial graph
@@ -246,77 +252,99 @@ public class StructuralParser {
             host.setInitialGraph(true);
         }
 
+
         SpatialRelationShipGenerator.updateSpatialRelationShipMatrix(host,redex,productionRule,diagramType);
 
         afterRuleApplication = true;
-        first_checkIndex_afterRuleApplication = redex[0];
         stopPointOfHostGraph = stopPointOfHostGraph+2-redex.length;
-
 
     }
 
-//    public boolean isInArray(int[] array, int element){
-//        for(int i=0;i<array.length;i++){
-//            if(array[i]==element){
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-//
-//    public void updateSpatialRelationShipMatrix(Graph host,int[] redex,ProductionRule rule){
-//
-//        ArrayList<SpatialRelation>[][] old = host.getRelations();
-//        ArrayList<SpatialRelation>[] change = old[redex[0]];
-//
-//        ArrayList<SpatialRelation>[][] newRelations =
-//                new ArrayList[host.getGraphicalImageComponents().size()][host.getGraphicalImageComponents().size()];
-//
-//        int newItr =0;
-//        for(int oldItr = 0;oldItr < change.length; oldItr++){
-//            ArrayList<SpatialRelation>[] substitute = old[oldItr];
-//            //if(oldItr==0 || !isInArray(Arrays.copyOfRange(redex,1,redex.length),oldItr)){
-//            if(!isInArray(Arrays.copyOfRange(redex,1,redex.length),oldItr)){
-//                newRelations[newItr] = buildSubstituteArray(substitute,redex);
-//                newItr++;
-//            }
-//        }
-////        for(int k=0;k<host.getGraphicalImageComponents().size();k++){
-////            System.out.println("K : "+k);
-////            for(int p=0;p<host.getGraphicalImageComponents().size();p++) {
-////                ArrayList<SpatialRelation> r = newRelations[k][p];
-////                if(r!=null){
-////                    for (int q=0;q<r.size();q++){
-////                        if(r.get(q)!=null){
-////                            System.out.print(r.get(q)+" ");
-////                        }
-////                    }
-////                }
-////                System.out.println();
-////            }
-////        }
-////        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-//        host.setRelations(newRelations);
-//    }
-//
-//
-//    public ArrayList<SpatialRelation>[] buildSubstituteArray(ArrayList<SpatialRelation>[] substitute,int[] redex){
-//        int size = substitute.length-redex.length+1;
-//
-//        if (size==0){
-//            return substitute;
-//        }
-//
-//        ArrayList<SpatialRelation>[] newSubstitute = new  ArrayList[size];
-//        int itrNew = 0;
-//        for (int i=0;i<substitute.length;i++){
-//
-//            if(i==redex[0] || !isInArray(redex,i)){
-//                newSubstitute[itrNew] = substitute[i];
-//                itrNew++;
-//            }
-//        }
-//        return newSubstitute;
-//    }
+    public List<GraphicalImageComponent> applyFirstSubstitute(List<GraphicalImageComponent> newObjectList, GraphicalImageComponent substitute, Graph host,int ruleId, int[] redex ) {
+        switch (diagramType) {
+            case NUMBRELINE:
+                newObjectList.add(substitute);
+                first_checkIndex_afterRuleApplication = redex[0];
+                return newObjectList;
+            case HISTOGRAM:
+                newObjectList.add(substitute);
+                return newObjectList;
+            case TREEDIAGRAM:
+                return getSubstituteList(newObjectList, substitute, ruleId, host, redex);
+            case TRIGNOMETRICDIAGRAM:
+                return newObjectList;
+            default:
+                return null;
+        }
+    }
+
+    public List<GraphicalImageComponent> getSubstituteList(List<GraphicalImageComponent> newObjectList, GraphicalImageComponent substitute, int ruleId, Graph host, int[] redex) {
+        if (ruleId == 0) {
+            TreeNode treeNodeNew = new TreeNode();
+            treeNodeNew.objectType = substitute.objectType;
+            TreeNode treeNode = getTreeNode( treeNodeNew, host, redex);
+            newObjectList.add(treeNode);
+            first_checkIndex_afterRuleApplication = redex[0]+1;
+        } else if(ruleId == 1) {
+            TreeGraph treeGraphNew = new TreeGraph();
+            treeGraphNew.objectType = substitute.objectType;
+            TreeGraph treeGraph = getTreeGraphWithTwoNodes(treeGraphNew, host, redex);
+            newObjectList.add(treeGraph);
+        } else {
+            TreeGraph treeGraph = getTreeGraphWithOneNode(host, redex);
+            newObjectList.add(treeGraph);
+        }
+        return newObjectList;
+    }
+
+
+    public TreeNode getTreeNode( TreeNode treeNode, Graph host, int[] redex) {
+        TreeBranch leftTreeBranch = new TreeBranch((AngleLine) host.getGraphicalImageComponents().get(redex[0]));
+        leftTreeBranch.setX1(leftTreeBranch.getAngleLine().getX1());
+        leftTreeBranch.setY1(leftTreeBranch.getAngleLine().getY1());
+        leftTreeBranch.setX2(leftTreeBranch.getAngleLine().getX2());
+        leftTreeBranch.setY2(leftTreeBranch.getAngleLine().getY2());
+
+        TreeBranch rightTreeBranch = new TreeBranch((AngleLine) host.getGraphicalImageComponents().get(redex[1]));
+        rightTreeBranch.setX1(rightTreeBranch.getAngleLine().getX1());
+        rightTreeBranch.setY1(rightTreeBranch.getAngleLine().getY1());
+        rightTreeBranch.setX2(rightTreeBranch.getAngleLine().getX2());
+        rightTreeBranch.setY2(rightTreeBranch.getAngleLine().getY2());
+
+        treeNode.setLeftTreeBranch(leftTreeBranch);
+        treeNode.setRightTreeBranch(rightTreeBranch);
+        int level = 0;
+        for(int hostItr = 0; hostItr<host.getGraphicalImageComponents().size(); hostItr++) {
+            if(host.getGraphicalImageComponents().get(hostItr).objectType == ObjectType.NODE) {
+                level++;
+            }
+        }
+        if(level == 0){
+            treeNode.setLevel("0:"+level);
+        } else {
+            treeNode.setLevel("1:"+(level-1));
+        }
+
+        treeNode.setX1((leftTreeBranch.getX1()+rightTreeBranch.getX1())/2);
+        treeNode.setX2((leftTreeBranch.getX2()+rightTreeBranch.getX2())/2);
+        treeNode.setY1((leftTreeBranch.getY1()+rightTreeBranch.getY1())/2);
+        treeNode.setY2((leftTreeBranch.getY2()+rightTreeBranch.getY2())/2);
+
+        return treeNode;
+    }
+
+    public TreeGraph getTreeGraphWithTwoNodes(TreeGraph treeGraph, Graph host, int[] redex) {
+        TreeNode treeNodeOne = (TreeNode) host.getGraphicalImageComponents().get(redex[0]);
+        treeNodeOne.setLevel("1:1");
+        treeGraph.setX1(treeNodeOne.getX1());
+        treeGraph.setY1(treeNodeOne.getY1());
+        treeGraph.setX2(treeNodeOne.getX2());
+        treeGraph.setY2(treeNodeOne.getY2());
+
+        return treeGraph;
+    }
+    public TreeGraph getTreeGraphWithOneNode(Graph host, int[] redex) {
+       return  (TreeGraph) host.getGraphicalImageComponents().get(redex[0]);
+    }
 
 }

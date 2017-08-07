@@ -44,15 +44,13 @@ public class PreProcessingHandler {
             System.out.println( "x: "+orderedList.get(i).getX());
             System.out.println( "y: "+orderedList.get(i).getY());
             System.out.println( "X1: "+orderedList.get(i).getX1());
-            System.out.println( "Y2: "+orderedList.get(i).getY1());
+            System.out.println( "Y1: "+orderedList.get(i).getY1());
             System.out.println( "X2: "+orderedList.get(i).getX2());
             System.out.println( "Y2: "+orderedList.get(i).getY2());
             System.out.println(orderedList.get(i).objectType);
             System.out.println("++++++++++++++++++++++++");
 
         }
-
-
 
         ArrayList<SpatialRelation>[][] relations =
                 spatialRelationShipGenerator.getSpatialRelationshipMatrixOfObject(orderedList);
@@ -71,40 +69,5 @@ public class PreProcessingHandler {
             }
 
         }
-
-
-//        //For test the grammar rulelist generation
-//        GrammarBuilder grammarBuilder = new GrammarBuilder();
-//        NumberLineGrammar numberLineGrammar = (NumberLineGrammar) grammarBuilder.loadBuiltGrammar("NumberLine");
-//
-//        for (ProductionRule rule : numberLineGrammar.getRuleList()) {
-//            System.out.println(rule.getLeftGraph().getGraphicalImageComponents().get(0).objectType);
-//        }
-
-        Graph host  = new Graph();
-        host.setGraphicalImageComponents(orderedList);
-        host.setRelations(relations);
-        //For test the grammar rulelist generation
-//        GrammarBuilder grammarBuilder = new GrammarBuilder();
-//        TreeDiagramGrammar treeDiagramGrammar = (TreeDiagramGrammar) grammarBuilder.loadBuiltGrammar("TreeDiagram");
-
-        Parser parser = new Parser(DiagramType.NUMBRELINE);
-        parser.parse(host,svGtoPOJOMapper.getTexts());
-//        for (ProductionRule rule : treeDiagramGrammar.getRuleList()) {
-//            System.out.println(rule.getLeftGraph().getGraphicalImageComponents().get(0).objectType);
-//        }
-
-
-//        GraphParsingHandler graphParsingHandler = new GraphParsingHandler();
-//        graphParsingHandler.writeToXML();
-//        graphParsingHandler.readFromXML();
-//
-//        Graph host  = new Graph();
-//        host.setGraphicalImageComponents(orderedList);
-//        host.setRelations(relations);
-//
-//        Parser parser = new Parser(DiagramType.NUMBRELINE);
-//        parser.parse(host,svGtoPOJOMapper.getTexts());
-
     }
 }
