@@ -38,37 +38,27 @@ public class PreProcessingHandler {
         objectSequenceGeneratorService.order(svGtoPOJOMapper.getGraphicalImageComponents());
 
         List<GraphicalImageComponent> orderedList = objectSequenceGeneratorService.getOrderedList();
-        return orderedList;
 
-        //        System.out.println("size of ordered list"+orderedList.size());
-//        for (int i=0;i<orderedList.size();i++){
-//            System.out.println("++++++++++++++++++++++++");
-//            System.out.println( "x: "+orderedList.get(i).getX());
-//            System.out.println( "y: "+orderedList.get(i).getY());
-//            System.out.println( "X1: "+orderedList.get(i).getX1());
-//            System.out.println( "Y2: "+orderedList.get(i).getY1());
-//            System.out.println( "X2: "+orderedList.get(i).getX2());
-//            System.out.println( "Y2: "+orderedList.get(i).getY2());
-//            System.out.println(orderedList.get(i).objectType);
-//            System.out.println("++++++++++++++++++++++++");
-//
-//        }
+
+        System.out.println("size of ordered list"+orderedList.size());
+        for (int j=0; j<orderedList.size(); j++){
+            System.out.println("++++++++++++++++++++++++");
+            System.out.println( "x: "+orderedList.get(j).getX());
+            System.out.println( "y: "+orderedList.get(j).getY());
+            System.out.println( "X1: "+orderedList.get(j).getX1());
+            System.out.println( "Y2: "+orderedList.get(j).getY1());
+            System.out.println( "X2: "+orderedList.get(j).getX2());
+            System.out.println( "Y2: "+orderedList.get(j).getY2());
+            System.out.println(orderedList.get(j).objectType);
+            System.out.println("++++++++++++++++++++++++");
+
+        }
+        return orderedList;
 
     }
     public ArrayList<SpatialRelation>[][] getSpatialRelations (List<GraphicalImageComponent> orderedList) {
         ArrayList<SpatialRelation>[][] relations = spatialRelationShipGenerator.getSpatialRelationshipMatrixOfObject(orderedList);
-        // print Spatial relationship
-//        for (int i=0; i< orderedList.size();i++){
-//            System.out.println("======"+i+"=====");
-//            for (int j=0;j<orderedList.size();j++){
-//                System.out.print( "j="+j+ "=>");
-//                for(int k=0;k< relations[i][j].size();k++){
-//                    System.out.print(relations[i][j].get(k)+"   ");
-//                }
-//                System.out.println("\n");
-//            }
-//
-//        }
+
         return relations;
     }
     public ArrayList<Text> getAssociatedTextList () {

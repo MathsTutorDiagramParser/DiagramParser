@@ -26,6 +26,7 @@ import com.tutor.model.util.ObjectType;
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -128,7 +129,8 @@ public class StructuralParser {
 
     public int[] findRedexForRApplication(Graph host,ProductionRule p){
 
-
+        // keep track whether the object which matched with object type had required relations
+        boolean isRelationMatched = true;
         // access right graph of the production rule
         Graph ruleGraph = p.getRightGraph();
         //get the total number of objects in right graph of the rule
@@ -173,10 +175,19 @@ public class StructuralParser {
                          break;
                      }
                      else {
+
+                         if(!isRelationMatched){
+                                  redex[i-1]= redex[i-1]+1;
+                                  j=redex[i-1]+1;
+                         }
                          // aftre finding first element of the redex it is needed compare spatial relations with the next matched element
                          if(host.getSpatialRelations(j,redex[i-1]) != null) {
                              // check whether required spatial relationships are exist
                              int contain_count=0;
+                             System.out.println("> Host Rlation: j -"+j+" -> "+ Arrays.toString((host.getRelations())[j]));
+                             System.out.println("> Host Rlation: redex[i-1] -"+redex[i-1]+" -> "+ Arrays.toString((host.getRelations())[redex[i-1]]));
+
+
                              for (int k=0; k < ruleGraph.getSpatialRelations(i, i - 1).size();k++){
 
                                  //specific relationship checking conditions
@@ -188,6 +199,9 @@ public class StructuralParser {
                                      contain_count+=1;
                                  }
                              }
+
+                             System.out.println("> rule Rlation: "+ruleGraph.getSpatialRelations(i,i-1).toString());
+                             System.out.println("Contain c : "+contain_count+" "+ruleGraph.getSpatialRelations(i, i - 1).size() );
                              if (contain_count >= ruleGraph.getSpatialRelations(i, i - 1).size()) {
                                  redex[i] = j;
                                  stopPointOfHostGraph = j;
@@ -195,6 +209,8 @@ public class StructuralParser {
                                  if(total_number_of_object_found==total_number_of_objects){
                                      return redex;
                                  }
+                             }else {
+                                 isRelationMatched = false;
                              }
                          }else {
                              FeedBack feedBack = new FeedBack("NO_RELATION");

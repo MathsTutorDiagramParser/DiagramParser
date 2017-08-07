@@ -3,6 +3,7 @@ package com.tutor.model.preProcessor;
 import com.tutor.model.graphParser.GraphGrammarBuilder.Graph;
 import com.tutor.model.graphParser.GraphGrammarBuilder.ProductionRule;
 import com.tutor.model.graphParser.GraphGrammarBuilder.RuleOperations;
+import com.tutor.model.graphicalPOJOObject.line.HorizontalLine;
 import com.tutor.model.util.DiagramType;
 import com.tutor.model.util.RuleOperation;
 import com.tutor.model.util.SpatialRelation;
@@ -32,9 +33,13 @@ public class SpatialRelationShipGenerator {
                     if(relations[i][j] == null){
                         ArrayList<SpatialRelation> relation = new ArrayList<>();
                         relation.add(SpatialRelation.SAME);
+                        // only applied for numberline.this is used to identify marked line.
+                        checkThickLine(relation,objectList.get(i));
                         relations[i][j] = relation;
                     }
                     else {
+                        // only applied for numberline.this is used to identify marked line.
+                        checkThickLine(relations[i][j],objectList.get(i));
                         relations[i][j].add(SpatialRelation.SAME);
                     }
                 } else {
@@ -58,6 +63,10 @@ public class SpatialRelationShipGenerator {
                        }
                        relation.remove(SpatialRelation.SAMEEND);
                     }
+                    //
+
+
+
                     //Check the relations array contains UP or DOWN relations
                     if(relation.contains(SpatialRelation.UP) || relation.contains(SpatialRelation.DOWN) ) {
                         relations[i][j] = relation;
@@ -94,6 +103,17 @@ public class SpatialRelationShipGenerator {
             }
         }
         return relations;
+    }
+
+
+    public void checkThickLine(ArrayList<SpatialRelation> relations,GraphicalImageComponent obj){
+        if(obj.objectType==ObjectType.HORIZONTAL_LINE){
+            if(((HorizontalLine)obj).getStroke_width()>=5){
+                relations.add(SpatialRelation.THICK_LINE);
+            }else {
+                relations.add(SpatialRelation.NOT_THICK_LINE);
+            }
+        }
     }
 
     public  ArrayList<SpatialRelation> identifySpatialRelation(GraphicalImageComponent o1,GraphicalImageComponent o2){
@@ -375,6 +395,7 @@ public class SpatialRelationShipGenerator {
         return false;
     }
 
+
     public double getAverageValue(double y1, double y2) {
         return (y1+y2)/2;
     }
@@ -393,6 +414,7 @@ public class SpatialRelationShipGenerator {
         }
         return false;
     }
+
 
     public static ArrayList<SpatialRelation>[][] getNewTreeRelArray(ArrayList<SpatialRelation>[][] newRelations, Graph host,
                                                                     ArrayList<SpatialRelation>[] change, ArrayList<SpatialRelation>[][] old,
