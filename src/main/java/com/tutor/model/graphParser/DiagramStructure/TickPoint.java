@@ -26,5 +26,5 @@ public class TickPoint {
     public void setText(Text text) {
         this.text = text;
     }
-    
+
 }
