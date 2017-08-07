@@ -92,10 +92,27 @@ public class GraphParsingHandler {
         marshallerObj.marshal(xmlGraphGrammar, new FileOutputStream("D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\com\\graphGrammar\\treeDiagram.xml"));
     }
 
-    public XMLGraphGrammar readFromXML(){
+    public XMLGraphGrammar readFromXML(String diagramType){
         XMLGraphGrammar graphGrammar = new XMLGraphGrammar();
+        String fileName = "";
+
+        switch (diagramType) {
+            case "NumberLine":
+                fileName = "numberLine.xml";
+                break;
+            case "Histogram":
+                fileName = "numberLine.xml";
+                break;
+            case "TreeDiagram":
+                fileName = "treeDiagram.xml";
+                break;
+            default:
+                fileName = "numberLine.xml";
+                break;
+        }
         try {
-            File file = new File("D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\com\\graphGrammar\\numberLine.xml");
+            File file = new File("E:\\FYP\\implementation\\parser1\\DiagramParser\\src\\main\\resources\\com\\graphGrammar\\"+fileName);
+
             JAXBContext jaxbContext = JAXBContext.newInstance(XMLGraphGrammar.class);
 
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();

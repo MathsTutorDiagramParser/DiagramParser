@@ -13,4 +13,13 @@ import java.io.UnsupportedEncodingException;
  */
 public interface SVGAnswerService {
     public void storeSVGInput(String inputStr) throws IOException, ParserConfigurationException, SAXException, TransformerException;
+
+    public void storeNumberLineSVGInput(String inputStr) throws IOException, ParserConfigurationException, SAXException, TransformerException;
+
+    public void storeHistogramSVGInput(String inputStr) throws IOException, ParserConfigurationException, SAXException, TransformerException;
+
+    public void storeTreeDiagramSVGInput(String inputStr) throws IOException, ParserConfigurationException, SAXException, TransformerException;
+
+    public void storeTrigonometrySVGInput(String inputStr) throws IOException, ParserConfigurationException, SAXException, TransformerException;
+
 }

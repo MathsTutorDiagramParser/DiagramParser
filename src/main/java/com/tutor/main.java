@@ -9,8 +9,6 @@ import com.tutor.model.util.DiagramType;
 import com.tutor.model.util.SpatialRelation;
 import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.service.preProcessorService.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
@@ -23,16 +21,14 @@ import java.util.List;
  */
 public class main {
 
-    private static Logger logger = LoggerFactory.getLogger(main.class);
-
     public static void main(String[] args) throws JAXBException, FileNotFoundException {
         SVGObjectTokenizationService svgObjectTokenizationService = new SVGObjectTokenizationServiceImpl();
         ObjectSequenceGeneratorService objectSequenceGeneratorService = new ObjectSequenceGeneratorServiceImpl();
         SpatialRelationshipGeneratorService spatialRelationShipGenerator = new SpatialRelationshipGeneratorServiceImpl();
 
 
-        SVGtoPOJOMapper svGtoPOJOMapper = svgObjectTokenizationService.tokenize();
-        logger.info("================done catogerization======================= ");
+        SVGtoPOJOMapper svGtoPOJOMapper = svgObjectTokenizationService.tokenize(DiagramType.TREEDIAGRAM);
+        System.out.println("//////////////////////////////////done seperation//////////////////////////////////");
 
         objectSequenceGeneratorService.order(svGtoPOJOMapper.getGraphicalImageComponents());
         List<GraphicalImageComponent> orderedList = objectSequenceGeneratorService.getOrderedList();
@@ -49,7 +45,8 @@ public class main {
         host.setGraphicalImageComponents(orderedList);
         host.setRelations(relations);
 
-        Parser parser = new Parser(DiagramType.NUMBRELINE);
+
+        Parser parser = new Parser(DiagramType.TREEDIAGRAM);
         parser.parse(host,svGtoPOJOMapper.getTexts());
     }
 }

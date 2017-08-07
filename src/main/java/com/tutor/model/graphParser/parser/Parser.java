@@ -44,8 +44,8 @@ public class Parser {
 
         TextAssociator textAssociator = new TextAssociator();
         // validate the diagram through text associator
-        System.out.println("------------------------------Started textuaral parsing for diagram----------------------------");
-        textAssociator.associateText(abstractDiagramStructure,diagramType,textList);
+        //System.out.println("------------------------------Started textuaral parsing for diagram----------------------------");
+        //textAssociator.associateText(abstractDiagramStructure,diagramType,textList);
 
         return abstractDiagramStructure;
 
