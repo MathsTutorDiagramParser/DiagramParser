@@ -27,7 +27,7 @@ public class main {
         SpatialRelationshipGeneratorService spatialRelationShipGenerator = new SpatialRelationshipGeneratorServiceImpl();
 
 
-        SVGtoPOJOMapper svGtoPOJOMapper = svgObjectTokenizationService.tokenize();
+        SVGtoPOJOMapper svGtoPOJOMapper = svgObjectTokenizationService.tokenize(DiagramType.TREEDIAGRAM);
         System.out.println("//////////////////////////////////done seperation//////////////////////////////////");
 
         objectSequenceGeneratorService.order(svGtoPOJOMapper.getGraphicalImageComponents());
