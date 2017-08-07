@@ -9,6 +9,8 @@ import com.tutor.model.util.DiagramType;
 import com.tutor.model.util.SpatialRelation;
 import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.service.preProcessorService.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
@@ -21,6 +23,8 @@ import java.util.List;
  */
 public class main {
 
+    private static Logger logger = LoggerFactory.getLogger(main.class);
+
     public static void main(String[] args) throws JAXBException, FileNotFoundException {
         SVGObjectTokenizationService svgObjectTokenizationService = new SVGObjectTokenizationServiceImpl();
         ObjectSequenceGeneratorService objectSequenceGeneratorService = new ObjectSequenceGeneratorServiceImpl();
@@ -28,7 +32,7 @@ public class main {
 
 
         SVGtoPOJOMapper svGtoPOJOMapper = svgObjectTokenizationService.tokenize();
-        System.out.println("//////////////////////////////////done seperation//////////////////////////////////");
+        logger.info("================done catogerization======================= ");
 
         objectSequenceGeneratorService.order(svGtoPOJOMapper.getGraphicalImageComponents());
         List<GraphicalImageComponent> orderedList = objectSequenceGeneratorService.getOrderedList();

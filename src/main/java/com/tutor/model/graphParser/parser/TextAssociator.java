@@ -22,7 +22,7 @@ public class TextAssociator {
         this.abstractDiagramStructure = abstractDiagramStructure;
         this.diagramType = diagramType;
         this.textList = textList;
-        textAligner.assignTextAligner(abstractDiagramStructure, diagramType, textList );
+//        textAligner.assignTextAligner(abstractDiagramStructure, diagramType, textList );
     }
 
 

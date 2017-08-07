@@ -185,10 +185,10 @@
                     </Object>
                 </Objects>
                 <SpatialRelations>
-                    <SpatialRelation>
-                        <objectIdOne>0</objectIdOne>
-                        <objectIdTwo>1</objectIdTwo>
-                        <spatialRelationId>S0</spatialRelationId>
+                        <SpatialRelation>
+                            <objectIdOne>0</objectIdOne>
+                            <objectIdTwo>1</objectIdTwo>
+                            <spatialRelationId>S0</spatialRelationId>
                         <SpatialRelation>
                             <objectIdOne>0</objectIdOne>
                             <objectIdTwo>1</objectIdTwo>

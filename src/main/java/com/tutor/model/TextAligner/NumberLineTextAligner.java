@@ -1,7 +1,7 @@
 package com.tutor.model.TextAligner;
 
-import com.tutor.model.graphParser.DiagramStructure.AbstractNumberLineStructure;
-import com.tutor.model.graphParser.DiagramStructure.TickPoint;
+import com.tutor.model.graphParser.DiagramStructure.NumberLine.AbstractNumberLineStructure;
+import com.tutor.model.graphParser.DiagramStructure.NumberLine.TickPoint;
 import com.tutor.model.graphicalPOJOObject.Text.Text;
 
 import java.util.List;
@@ -22,8 +22,6 @@ public class NumberLineTextAligner {
         this.abstractNumberLineStructure = abstractNumberLineStructure;
         tickPointList = abstractNumberLineStructure.getTickPointList();
         this.textList = textList;
-
-
         stepDistance = (tickPointList.get(1).getVerticalLine().getX1() - tickPointList.get(0).getVerticalLine().getX1());
         //for (TickPoint tick : tickPointList) {
         while(tickCount < tickPointList.size()){

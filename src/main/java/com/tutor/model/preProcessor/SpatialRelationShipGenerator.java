@@ -192,28 +192,43 @@ public class SpatialRelationShipGenerator {
                 double o2_highest = o2.getHighestXCoordinate();
 
                 if( o1_lowest <= o2_lowest ){
-                    if( (o2_lowest-30.0) < o1_lowest){
+//                    if( (o2_lowest-30.0) < o1_lowest){
+//                        return true;
+//                    }
+//                    else return false;
+
+                    if((o2_lowest-o1_lowest)<=30){
                         return true;
                     }
-                    else return false;
+
                 }
                 else if(o1_lowest >= o2_lowest){
-                    if( (o1_lowest-30.0) < o2_lowest){
+//                    if( ((o1_lowest-30.0) < o2_lowest)){
+//                        return true;
+//                    }
+//                    else return false;
+                    if( (o1_lowest- o2_lowest)<=30){
                         return true;
                     }
-                    else return false;
                 }
                 else if (o1_highest>=o2_highest){
-                    if( (o1_highest-30.0) < o2_highest){
+//                    if( (o1_highest-30.0) < o2_highest){
+//                        return true;
+//                    }
+//                    else return false;
+                    if( (o1_highest-o2_highest)<=30){
                         return true;
                     }
-                    else return false;
+
                 }
                 else if(o1_highest <=o2_highest){
-                    if( (o2_highest-30.0) < o1_highest){
+//                    if( (o2_highest-30.0) < o1_highest){
+//                        return true;
+//                    }
+//                    else return false;
+                    if( (o2_highest-o1_highest)<=30){
                         return true;
                     }
-                    else return false;
                 }
             }
         }
@@ -223,15 +238,24 @@ public class SpatialRelationShipGenerator {
 
     public boolean pointOnLineSegment(double x1,double x2,double y1,double y2, double x,double y){
 
-        if(((x1<=x )&& (x <= x2))||((x1>=x)&&(x2<=x))){
-            if(((y1<=y) && (y <= y2))||((y1>=y)&&(y2<=y))){
-                double m1 = ((y1-y)/(x1-x));
-                double m2 = ((y1-y2)/(x1-x2));
-                if(m1==m2){
+        double m1 = ((y1-y)/(x1-x));
+        double m2 = ((y1-y2)/(x1-x2));
+
+        if(m1==m2){
+            if(((x1<=x )&& (x <= x2))||((x1>=x)&&(x2<=x))){
+                if(((y1<=y) && (y <= y2))||((y1>=y)&&(y2<=y))){
+                    return true;
+                }
+            }
+        }else {
+             if(y1==y2) {
+                if(((y1+5)>=y ) || ((y1-5)<=y)){
                     return true;
                 }
             }
         }
+
+
         return false;
 
     }

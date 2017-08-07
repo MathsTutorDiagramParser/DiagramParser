@@ -1,9 +1,8 @@
 package com.tutor.model.graphParser.parser;
 
 import com.tutor.model.graphParser.DiagramStructure.AbstractDiagramStructure;
-import com.tutor.model.graphParser.DiagramStructure.AbstractNumberLineStructure;
+import com.tutor.model.graphParser.DiagramStructure.NumberLine.AbstractNumberLineStructure;
 import com.tutor.model.graphParser.DiagramStructure.FeedBack;
-import com.tutor.model.graphParser.DiagramStructure.FeedBackGenerator;
 import com.tutor.model.graphParser.DiagramStructureGenerator.DiagramStructureGenerator;
 import com.tutor.model.graphParser.DiagramStructureGenerator.DiagramStructureGeneratorFactory;
 import com.tutor.model.graphParser.GraphGrammarBuilder.Graph;
@@ -17,12 +16,10 @@ import com.tutor.model.preProcessor.SpatialRelationShipGenerator;
 import com.tutor.model.util.DiagramType;
 import com.tutor.model.util.FeedBackMessage;
 import com.tutor.model.util.ObjectType;
-import com.tutor.model.util.SpatialRelation;
 
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -139,6 +136,7 @@ public class StructuralParser {
                 when same rule is applying,it need to start iteration from the stop point(not from the start again)
                 by assigning 'j' to 'stopPointOfHostGraph' iteration will start from the previous stop point
              */
+
             int j=stopPointOfHostGraph;
            //iterate through object of host graph
             while ( j < host.getGraphicalImageComponents().size()){
@@ -148,9 +146,10 @@ public class StructuralParser {
                if(afterRuleApplication){
                    objectType = host.getGraphicalImageComponents().get(first_checkIndex_afterRuleApplication).objectType;
                }
-
+                System.out.println("> "+i+"> object type : h "+objectType+" r "+ruleGraph.getGraphicalImageComponents().get(i).objectType);
                // first step of finding redex, match object type
                if(objectType == ruleGraph.getGraphicalImageComponents().get(i).objectType){
+
                    // second step of finding redex, match spatial relations
                    if (i==0){
                          if(afterRuleApplication){
@@ -254,69 +253,5 @@ public class StructuralParser {
 
 
     }
-
-//    public boolean isInArray(int[] array, int element){
-//        for(int i=0;i<array.length;i++){
-//            if(array[i]==element){
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-//
-//    public void updateSpatialRelationShipMatrix(Graph host,int[] redex,ProductionRule rule){
-//
-//        ArrayList<SpatialRelation>[][] old = host.getRelations();
-//        ArrayList<SpatialRelation>[] change = old[redex[0]];
-//
-//        ArrayList<SpatialRelation>[][] newRelations =
-//                new ArrayList[host.getGraphicalImageComponents().size()][host.getGraphicalImageComponents().size()];
-//
-//        int newItr =0;
-//        for(int oldItr = 0;oldItr < change.length; oldItr++){
-//            ArrayList<SpatialRelation>[] substitute = old[oldItr];
-//            //if(oldItr==0 || !isInArray(Arrays.copyOfRange(redex,1,redex.length),oldItr)){
-//            if(!isInArray(Arrays.copyOfRange(redex,1,redex.length),oldItr)){
-//                newRelations[newItr] = buildSubstituteArray(substitute,redex);
-//                newItr++;
-//            }
-//        }
-////        for(int k=0;k<host.getGraphicalImageComponents().size();k++){
-////            System.out.println("K : "+k);
-////            for(int p=0;p<host.getGraphicalImageComponents().size();p++) {
-////                ArrayList<SpatialRelation> r = newRelations[k][p];
-////                if(r!=null){
-////                    for (int q=0;q<r.size();q++){
-////                        if(r.get(q)!=null){
-////                            System.out.print(r.get(q)+" ");
-////                        }
-////                    }
-////                }
-////                System.out.println();
-////            }
-////        }
-////        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-//        host.setRelations(newRelations);
-//    }
-//
-//
-//    public ArrayList<SpatialRelation>[] buildSubstituteArray(ArrayList<SpatialRelation>[] substitute,int[] redex){
-//        int size = substitute.length-redex.length+1;
-//
-//        if (size==0){
-//            return substitute;
-//        }
-//
-//        ArrayList<SpatialRelation>[] newSubstitute = new  ArrayList[size];
-//        int itrNew = 0;
-//        for (int i=0;i<substitute.length;i++){
-//
-//            if(i==redex[0] || !isInArray(redex,i)){
-//                newSubstitute[itrNew] = substitute[i];
-//                itrNew++;
-//            }
-//        }
-//        return newSubstitute;
-//    }
 
 }
