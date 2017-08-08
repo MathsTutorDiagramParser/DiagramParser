@@ -92,7 +92,6 @@ public class TrignometryTextAligner {
 
     public void matchLengthText(List<Text> lengthTextList, LineConnection lineConnection){
 
-
     }
 
     public void matchAngleText(List<Text> angleTextList, LineConnection lineConnection){
