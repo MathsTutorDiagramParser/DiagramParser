@@ -1,9 +1,9 @@
 package com.tutor.model.graphParser.DiagramStructure;
 
-import com.tutor.model.graphicalPOJOObject.Text.Text;
+import com.tutor.model.graphParser.DiagramStructure.Histogram.AbstractHistogramStructure;
+import com.tutor.model.graphParser.DiagramStructure.NumberLine.AbstractNumberLineStructure;
+import com.tutor.model.graphParser.DiagramStructure.TreeDiagram.AbstractTreeDiagramStructure;
 import com.tutor.model.util.DiagramType;
-
-import java.util.List;
 
 /**
  * Created by Madhavi Ruwandika on 8/4/2017.
@@ -18,7 +18,7 @@ public class DiagramStructureFactory {
             case HISTOGRAM:
                 return new AbstractHistogramStructure();
             case TREEDIAGRAM:
-                return null;
+                return new AbstractTreeDiagramStructure();
             case TRIGNOMETRICDIAGRAM:
                 return null;
             default:

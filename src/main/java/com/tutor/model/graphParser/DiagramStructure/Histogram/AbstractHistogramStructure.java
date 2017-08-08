@@ -1,5 +1,6 @@
-package com.tutor.model.graphParser.DiagramStructure;
+package com.tutor.model.graphParser.DiagramStructure.Histogram;
 
+import com.tutor.model.graphParser.DiagramStructure.AbstractDiagramStructure;
 import com.tutor.model.graphicalPOJOObject.Text.Text;
 
 import java.util.List;

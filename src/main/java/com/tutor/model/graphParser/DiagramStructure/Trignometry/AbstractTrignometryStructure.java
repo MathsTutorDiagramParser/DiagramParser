@@ -1,8 +1,6 @@
 package com.tutor.model.graphParser.DiagramStructure.Trignometry;
 
 import com.tutor.model.graphParser.DiagramStructure.AbstractDiagramStructure;
-import com.tutor.model.graphParser.DiagramStructure.MarkPoint;
-import com.tutor.model.graphParser.DiagramStructure.TickPoint;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -14,6 +14,6 @@ public class TreeDiagramRelationshipIdentifier implements DiagramSpecificSpatial
 
     @Override
     public int identifySpecificRelations(SpatialRelation ruleRelation, List<SpatialRelation> hostRelation_o1, List<SpatialRelation> hostRelation_o2, int count, List<FeedBack> feedBacks) {
-        return 0;
+        return count;
     }
 }

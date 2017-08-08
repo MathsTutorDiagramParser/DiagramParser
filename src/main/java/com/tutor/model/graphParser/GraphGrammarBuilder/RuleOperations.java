@@ -17,4 +17,20 @@ public class RuleOperations {
         this.ruleOperation = ruleOperation;
         this.isExists = isExists;
     }
+
+    public RuleOperation getRuleOperation() {
+        return ruleOperation;
+    }
+
+    public void setRuleOperation(RuleOperation ruleOperation) {
+        this.ruleOperation = ruleOperation;
+    }
+
+    public ArrayList<Integer> getIsExists() {
+        return isExists;
+    }
+
+    public void setIsExists(ArrayList<Integer> isExists) {
+        this.isExists = isExists;
+    }
 }

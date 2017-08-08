@@ -30,7 +30,7 @@ public class GrammarBuilder {
         // Read and write grammar xml file
         GraphParsingHandler graphParsingHandler = new GraphParsingHandler();
         //graphParsingHandler.writeToXML();
-        XMLGraphGrammar xmlGraphGrammar = graphParsingHandler.readFromXML();
+        XMLGraphGrammar xmlGraphGrammar = graphParsingHandler.readFromXML(type);
         return convertXMLGraphGrammar(xmlGraphGrammar, type);
 
     }

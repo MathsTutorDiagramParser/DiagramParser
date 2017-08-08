@@ -9,17 +9,18 @@ import java.util.ArrayList;
  */
 public class AbstractTreeDiagramStructure extends AbstractDiagramStructure {
 
-    private ArrayList<Node> nodeArrayList;
+    private ArrayList<TreeGraph> treeGraphArrayList;
 
     public AbstractTreeDiagramStructure() {
+        this.treeGraphArrayList = treeGraphArrayList;
     }
 
-    public ArrayList<Node> getNodeArrayList() {
-        return nodeArrayList;
+    public ArrayList<TreeGraph> getTreeGraphArrayList() {
+        return treeGraphArrayList;
     }
 
-    public void setNodeArrayList(ArrayList<Node> nodeArrayList) {
-        this.nodeArrayList = nodeArrayList;
+    public void setTreeGraphArrayList(ArrayList<TreeGraph> treeGraphArrayList) {
+        this.treeGraphArrayList = treeGraphArrayList;
     }
 
     @Override

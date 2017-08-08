@@ -1,7 +1,9 @@
 package com.tutor.service.preProcessorService;
 
 import com.tutor.model.graphicalSVGObject.*;
+import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
@@ -35,7 +37,7 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
 
         NodeList list;
         try {
-            list = (NodeList)xPath.evaluate("//line", source, XPathConstants.NODESET);
+            list = (NodeList)xPath.evaluate("//svg/line", source, XPathConstants.NODESET);
 
             List<Element> lines = new ArrayList<>(list.getLength());
             for (int i = 0; i < list.getLength(); i++)
@@ -43,6 +45,13 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
                 lines.add((Element)list.item(i));
             }
 
+            source = new InputSource(new StringReader(svgFile));
+            list = (NodeList)xPath.evaluate("//g/line", source, XPathConstants.NODESET);
+            List<Element> glines = new ArrayList<>(list.getLength());
+            for (int i = 0; i < list.getLength(); i++)
+            {
+                glines.add((Element)list.item(i));
+            }
             source = new InputSource(new StringReader(svgFile));
             list = (NodeList)xPath.evaluate("//circle", source, XPathConstants.NODESET);
 
@@ -71,13 +80,6 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
                 rectangles.add((Element)list.item(i));
             }
 
-            source = new InputSource(new StringReader(svgFile));
-            list = (NodeList)xPath.evaluate("//g", source, XPathConstants.NODESET);
-            List<Element> textg = new ArrayList<>(list.getLength());
-            for (int i = 0; i < list.getLength(); i++)
-            {
-                textg.add((Element)list.item(i));
-            }
 
             source = new InputSource(new StringReader(svgFile));
             list = (NodeList)xPath.evaluate("//g/text/tspan", source, XPathConstants.NODESET);
@@ -130,14 +132,47 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
 
                 SVGLine line = new SVGLine(x1,y1,x2,y2,Integer.parseInt(stkval));
                 // If you want to check the values printing well, set the print
-               // System.out.println(line.getX1());
-               // System.out.println(line.getY1());
-                //System.out.println(line.getX2());
-               // System.out.println(line.getY2());
-               // System.out.println(line.getStroke_width());
+                System.out.println("These are normal lines");
+                System.out.println(line.getX1());
+                System.out.println(line.getY1());
+                System.out.println(line.getX2());
+                System.out.println(line.getY2());
+                System.out.println(line.getStroke_width());
 
                 svgImage.addLine(line);
             }
+            for (int i = 0; i < glines.size(); i++)
+            {
+                Element glineElement=glines.get(i);
+                Node nd=glineElement.getParentNode();
+                Element e = (Element)nd;
+                trsfm=e.getAttribute("transform");
+                styl = glineElement.getAttribute("style");
+                x1= Double.parseDouble(glineElement.getAttribute("x1"))+Double.parseDouble(trsfm.substring(10,trsfm.length()-1).split(" ")[0]);
+                x2 =Double.parseDouble(glineElement.getAttribute("x2"))+Double.parseDouble(trsfm.substring(10,trsfm.length()-1).split(" ")[0]);
+                y1= Double.parseDouble(glineElement.getAttribute("y1"))+Double.parseDouble(trsfm.substring(10,trsfm.length()-1).split(" ")[1]);
+                y2 =Double.parseDouble(glineElement.getAttribute("y2"))+Double.parseDouble(trsfm.substring(10,trsfm.length()-1).split(" ")[1]);
+                if(styl.equals(null)||styl.equals("")) {
+                    stkval=glineElement.getAttribute("stroke-width");
+
+                }else{
+                    stkval =(styl.split("stroke-width")[1].split(";")[0]).replace(": ", "");
+                }
+
+                SVGLine line = new SVGLine(x1,y1,x2,y2,Integer.parseInt(stkval));
+                // If you want to check the values printing well, set the print
+                System.out.println("This is the lines inside g");
+                System.out.println(line.getX1());
+                System.out.println(line.getY1());
+                System.out.println(line.getX2());
+                System.out.println(line.getY2());
+                System.out.println(line.getStroke_width());
+
+                svgImage.addLine(line);
+
+            }
+
+
 
 
             for (int i = 0; i < rectangles.size(); i++)
@@ -153,17 +188,23 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
 
                 svgImage.addRectangle(rectangle);
             }
-
+            String fill;
             for (int i = 0; i < circles.size(); i++)
             {
                 Element circleElement = circles.get(i);
                 //System.out.println(i+"***"+circles.get(i).getAttribute("fill"));
                 //System.out.println(rectangles.get(i).getTagName());
+                trsfm=circleElement.getAttribute("transform");
+                styl =circleElement.getAttribute("style");
+                x1= Double.parseDouble(circleElement.getAttribute("cx"))+Double.parseDouble(trsfm.substring(10,trsfm.length()-2).split(" ")[0]);
+                y1 =Double.parseDouble(circleElement.getAttribute("cy"))+Double.parseDouble(trsfm.substring(10,trsfm.length()-2).split(" ")[1]);
+                if(styl.equals(null)||styl.equals("")) {
+                   fill=circleElement.getAttribute("fill");
 
-                SVGCircle circle = new SVGCircle(
-                        Double.parseDouble(circleElement.getAttribute("cx")),
-                        Double.parseDouble(circleElement.getAttribute("cy")),
-                        circleElement.getAttribute("fill"));
+                }else{
+                    fill =(styl.split("fill")[1].split(";")[0]).replace(": ", "");
+                }
+                SVGCircle circle = new SVGCircle(x1,y1,fill);
 
                 svgImage.addCircle(circle);
             }
@@ -184,19 +225,21 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
 
             for (int i = 0; i < texts.size(); i++)
             {
-                Element gElement = textg.get(i);
                 Element textElement = texts.get(i);
+                Node nd=textElement.getParentNode();
+                Element e = (Element)nd;
+                Node nd1=e.getParentNode();
+                Element e1 = (Element)nd1;
+                trsfm=e1.getAttribute("transform");
+                x1= Double.parseDouble(textElement.getAttribute("x"))+Double.parseDouble(trsfm.substring(10,trsfm.length()-1).split(" ")[0]);
+                y1 =Double.parseDouble(textElement.getAttribute("y"))+Double.parseDouble(trsfm.substring(10,trsfm.length()-1).split(" ")[1]);
 
-                //System.out.println(i+"***"+texts.get(i).getAttribute("id"));
-                //System.out.println(texts.get(i).getTextContent());
-                trsfm=gElement.getAttribute("transform");
-                x1=Double.parseDouble(trsfm.substring(10,trsfm.length()-1).split(" ")[0])+Double.parseDouble(textElement.getAttribute("x"));
-                y1=Double.parseDouble(trsfm.substring(10,trsfm.length()-1).split(" ")[1])+Double.parseDouble(textElement.getAttribute("y"));
 
-
-
-
-                SVGText text = new SVGText(x1, y1, textElement.getTextContent());
+                SVGText text = new SVGText(x1,y1, textElement.getTextContent());
+                System.out.println("These ate texts inside g and tspan");
+                System.out.println(x1);
+                System.out.println(y1);
+                System.out.println(textElement.getTextContent());
                 svgImage.addText(text);
             }
 

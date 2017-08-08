@@ -10,6 +10,8 @@ public enum SpatialRelation {
     CROSS,
     UP,
     DOWN,
-    SAMEEND;
+    SAMEEND,
+    THICK_LINE,
+    NOT_THICK_LINE;
 
 }

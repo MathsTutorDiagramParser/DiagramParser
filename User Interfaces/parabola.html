@@ -1,0 +1,620 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+		<script type="text/javascript" src = "http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.6.3/fabric.min.js"></script>
+	</head>
+	<body onload="drawLines()">
+		<div>
+			<canvas id="myCanvas" name="myCanvas" width="800" height="800">
+			</canvas>
+		</div>
+		
+		<div>
+		  <select id = "select-axis">
+		  	<option>X Axis</option>
+		  	<option>Y Axis</option>
+		  </select>
+		  <button id = "setScale">Scale</button>
+	      <button id = "setPoints">Points</button>
+	      <select id = "select-line">
+		  	<option>Line Graph</option>
+		  	<option>Dash Line</option>
+		  </select>
+      	  <button id ="undo">Undo</button>
+      	  <button id = "save">Save</button>
+      	  <button id="clearPlane">Clear Plane</button>
+        </div>
+
+        <script type="text/javascript">
+        var canvas = new fabric.Canvas('myCanvas', {
+        	isDrawingMode : true,
+        	selection : false,
+        	//lastAdded = window._lastAdded = [];
+        });
+        var axis_clicked = false, xaxis = false, yaxis = false;
+        var strokeColour = "black";
+	    var width = 2;
+	    var mouseX, mouseY, lastX, lastY;
+	    var points_clicked = false;
+	    var intersectingX, intersectingY, xscale, yscale;
+	    var scale_clicked = false;
+	    var line_clicked = false;
+	    var points = [];
+	    var lastAdded = [];
+	    var mouseDown = false;
+	    var mode;
+
+	    $('#clearPlane').click(function (o){
+	    	canvas.clear();
+	    	drawLines();
+	    });
+
+		$('#save').click(function (e){
+
+		    var svg = canvas.toSVG();
+			        
+		    //sending the svg to the server
+		        $.ajax({
+		            crossDomain: true,
+			          url: 'http://127.0.0.1:8000/svg/',
+			          type: 'POST',
+			          data: {
+			            'str': svg, 
+			          },
+			          success: function(){alert('PUT completed');}
+		        });
+		});
+
+	    $("#setScale").click(function (e){
+	    	if (!scale_clicked) {
+	    		scale_clicked = true;
+		    	axis_clicked = false;
+		    	points_clicked = false;
+		    	line_clicked = false;
+	    	}
+	    	else{
+	    		scale_clicked = false;
+	    	}
+	    });
+
+	    $("#setPoints").click(function (e){
+	    	if (!points_clicked) {
+	    		points_clicked = true;
+		    	axis_clicked = false;
+		    	scale_clicked = false;
+		    	line_clicked = false;
+	    	}
+	    	else
+	    		{	points_clicked = false;	
+	    		}    	
+	    });
+
+	    document.getElementById('select-line').addEventListener('click', function(){
+
+		    line_clicked = true;
+		    points_clicked = false;
+		    axis_clicked = false;
+		    scale_clicked = false;
+		    
+		    if (this.value == "Line Graph") {
+		    	drawLine("line");
+		    }
+		    if (this.value == "Dash Line") {
+		    	drawLine("dash");
+		    }
+	    });
+
+	
+
+	    //selecting which axis to be drawn
+	    document.getElementById('select-axis').addEventListener('click', function(e){
+
+		    axis_clicked = true;
+
+		    if (this.value == "X Axis") {
+		    	xaxis = true;
+		    	yaxis = false;
+		    }
+		    if (this.value == "Y Axis") {
+		    	yaxis = true;
+		    	xaxis = false;
+		    }
+	    });
+
+	    canvas.on('mouse:down', function (o){
+	    	var pointer = canvas.getPointer(o.e);
+	    	if (!points_clicked && !scale_clicked && !axis_clicked && !line_clicked) {
+	    		canvas.isDrawingMode = true;
+	    	}
+  			//drawing x and y axises
+	    	if (axis_clicked) {
+	    		canvas.isDrawingMode = false;
+	    		if (xaxis) {
+	    			line = new fabric.Line([0, pointer.y, 800, pointer.y], {
+				    strokeWidth: 2,
+				    fill: 'black',
+				    stroke: 'black',
+				    originX: 'center',
+				    originY: 'center',
+				    targetFindTolerance: true,
+				    selectable: false
+				  });
+				  canvas.add(line);
+				  /*points.push({
+				  	x : 0, 
+				  	y : pointer.y,
+				  	color : strokeColour,
+				  	mode : "xaxis"
+				  });*/
+				  intersectingY = pointer.y;
+				  xaxis = false;
+	    		}
+
+	    		if (yaxis) {
+	    			line = new fabric.Line([pointer.x, 0, pointer.x, 800], {
+	    				strokeWidth : 2,
+	    				fill: 'black',
+	    				stroke: "black",
+	    				originX: 'center',
+	    				originY: 'center',
+	    				targetFindTolerance: true,
+	    				selectable: false
+	    			});
+	    			canvas.add(line);
+	    			/*points.push({
+	    				x: pointer.x,
+	    				y: 0,
+	    				color: strokeColour,
+	    				mode: "yaxis"
+	    			});
+*/	    			intersectingX = pointer.x;
+	    			yaxis = false;
+	    		}
+	    		axis_clicked = false;
+	    		canvas.isDrawingMode = true;
+	    	}
+
+	    	else if (scale_clicked) {
+	    		markScale(o);
+	    	}
+	    	else if (points_clicked) {
+	    		markPoint(o);
+	    	}
+	    	else
+	    		handleMouseDown(o);
+	    });
+
+	    
+
+	    $("#myCanvas").mousemove(function (e){
+        	handleMouseMove(e);
+      	});
+
+      	$("#myCanvas").mouseup(function (e){
+        	handleMoueseUp(e);
+      	});
+
+
+      	$("#undo").mousedown(function (e){
+	      interval = setInterval(undoLast, 50);
+	    	}).mouseup(function (e){
+	      clearInterval(interval);
+    	});
+
+	    function drawLine(mode){
+	    	//var pointer = canvas.getPointer(o.e);
+	    	this.mode = mode;
+	    	canvas.isDrawingMode = false;
+	    	if (points.length != 0) {
+	    		var pt1 = points[points.length - 2];
+	    		var pt2 = points[points.length - 1];
+
+	    		m = (pt1.y - pt2.y) / (pt1.x - pt2.x);
+
+		        var x0 = pt1.x -(100/Math.sqrt(m*m+1));
+		        var test = (pt1.y-pt2.y)/(pt1.x-pt2.x)*(x0-pt1.x);
+		        if(test<0)
+		          var y0 = pt1.y - Math.abs(test);
+		        else
+		          var y0 = pt1.y + Math.abs(test);
+		          //context.moveTo(x0, y0);
+
+		          //extending last point
+		        var x1 = pt2.x+(100/Math.sqrt(m*m+1));
+		          
+		        var ext = m*(x1-pt2.x);
+		        if(ext>0)
+		          var y1 = pt2.y+Math.abs(ext);
+		        else
+		          var y1 = pt2.y-Math.abs(ext);
+	    		
+	    		if (mode == "line") {
+	    			var line = new fabric.Line([x0, y0, x1, y1],{
+		    			selectable: false,
+			        	strokeWidth: 2,
+						fill: 'black',
+						stroke: 'black',
+						originX: 'center',
+						originY: 'center'
+		    		});
+		    		canvas.add(line);
+	    		}
+	    		if (mode == "dash") {
+	    			var dash = new fabric.Line([x0, y0, x1, y1],{
+	    				strokeDashArray: [5,5],
+	    				selectable: false,
+	    				strokeWidth: 2,
+	    				fill: 'black',
+	    				stroke: 'black',
+	    				originX: 'center',
+	    				originY: 'center'
+	    			});
+	    			canvas.add(dash);
+	    		}
+	    	} 
+	    	canvas.renderAll();
+	    	line_clicked = false;
+	    }
+
+		function undoLast(){
+		    var canvas_objects = canvas._objects;
+		    if(canvas_objects.length !== 0){
+		     var last = canvas_objects[canvas_objects.length -1]; //Get last object   
+		     canvas.remove(last);
+		     canvas.renderAll();
+		 }
+
+   		 }
+
+	   	function handleMouseDown(o){
+	   		var pointer = canvas.getPointer(o.e);
+	      mouseX = pointer.x;
+	      mouseY = pointer.y;
+
+	      	points.push({
+	        x: mouseX,
+	        y: mouseY,
+	        color : strokeColour,
+	        mode: "begin"
+	      });
+	      setInterval(50, handleMoueseUp(o));
+	      lastX = mouseX;
+	      lastY = mouseY;
+	      mouseDown = true;
+    	}
+
+    	function markPoint(o){
+    		var pointer = canvas.getPointer(o.e);
+    		canvas.isDrawingMode = false;
+    		var circle = new fabric.Circle({
+			    left: pointer.x,
+			    top: pointer.y,
+			    radius: 1,
+			    strokeWidth: 5,
+			    stroke: 'black',
+			    selectable: false,
+			    originX: 'center', originY: 'center'
+			  });
+
+	        xcoor = Math.round(((pointer.x-intersectingX) / xscale)*10)/10;
+	        ycoor = Math.round(((intersectingY-pointer.y)/yscale)*10)/10;
+	        
+	        coordinates = "("+xcoor+" , "+ycoor+")";
+	        var text = new fabric.IText(coordinates,{
+		        		fontFamily: 'Arial',
+		        		left: pointer.x +1,
+		        		top: pointer.y,
+		        		fontSize: 10,
+		        		fontWeight: 'bold',
+		        		textAlign: "center",
+		        		fill: "#000000",
+		        		selectable: false
+		        	});
+	        canvas.add(circle);
+	        canvas.add(text);
+	        canvas.renderAll();
+
+	        points.push({
+	        	x: pointer.x,
+	        	y: pointer.y
+	        });
+    	}
+
+    	function markScale(o){
+    		canvas.isDrawingMode = false;
+    		var pointer = canvas.getPointer(o.e);
+    		console.log("intersecting : "+intersectingX+","+intersectingY);
+    		console.log(pointer.x+","+pointer.y);
+
+  			var tickSize = 20;
+
+  			text = new fabric.IText('0',{
+		        		fontFamily: 'Arial',
+		        		left: intersectingX + 3,
+		        		top: intersectingY + 3,
+		        		fontSize: 10,
+		        		fontWeight: 'bold',
+		        		textAlign: "center",
+		        		fill: "#000000"
+		        	});
+  			canvas.add(text);
+  			//2nd and 3rd conditions are to give a slight flexibility to the user when marking the scale
+  			//as it is said that it was difficult to mark the scale when using this, especially using a tab
+  			if (pointer.y == intersectingY || pointer.y - 10 == intersectingY || pointer.y + 10 == intersectingY) {
+  				if (pointer.x > intersectingX) {
+  					xscale = pointer.x - intersectingX;
+  				}
+  				else
+  					xscale = intersectingX - pointer.x;
+  				
+
+  				var xPos, unit;
+
+	    		// draw left tick marks
+		        xPos = intersectingX - xscale;
+		        unit = -1 * 1;
+		        while(xPos > 0 && xPos <= 800) {
+		        	line = new fabric.Line([xPos, intersectingY - tickSize / 2, xPos, intersectingY + tickSize /2],{
+		        		selectable: false,
+		        		strokeWidth: 2,
+					    fill: 'black',
+					    stroke: 'black',
+					    originX: 'center',
+					    originY: 'center',
+					    targetFindTolerance: true
+		        	});
+
+
+		        	var st = unit.toString() + '';
+		        	text = new fabric.IText(st,{
+		        		fontFamily: 'Arial',
+		        		left: xPos,
+		        		top: intersectingY + tickSize / 2 + 3,
+		        		fontSize: 10,
+		        		fontWeight: 'bold',
+		        		textAlign: "center",
+		        		fill: "#000000"
+		        	});
+		        	canvas.add(line);
+		        	canvas.add(text);
+		        	canvas.renderAll();
+		          
+			          /*points.push({
+			          	x : xPos,
+			          	y : intersectingY,
+			          	color : unit,
+			          	mode : "x"
+			          });*/
+			          unit -= 1;
+		          
+		          	xPos = Math.round(xPos - xscale);		          
+		        }
+
+		        // draw right tick marks
+		        xPos = intersectingX + xscale;
+		        unit = 1*1;
+		        while(xPos < this.canvas.width && xPos >= 0) {
+		        	line = new fabric.Line([xPos, intersectingY - tickSize / 2, xPos, intersectingY + tickSize /2],{
+		        		selectable: false,
+		        		strokeWidth: 2,
+					    fill: 'black',
+					    stroke: 'black',
+					    originX: 'center',
+					    originY: 'center',
+					    targetFindTolerance: true
+		        	});
+		        	
+		        	var st = unit.toString()+'';
+		        	text = new fabric.IText(st, {
+		        		text: st,
+		        		fontFamily: 'Arial',
+		        		left: xPos,
+		        		top: intersectingY + tickSize / 2 + 3,
+		        		fontSize: 10,
+		        		fontWeight: 'bold',
+		        		textAlign: "center",
+		        		fill: "#000000"
+		        	});
+
+		        	canvas.add(line);
+		        	canvas.add(text);
+		        	canvas.renderAll();
+		          /*points.push({
+		          	x : xPos,
+		          	y : intersectingY,
+		          	color : unit,
+		          	mode : "x"
+		          });*/
+		          unit += 1;
+		          xPos = Math.round(xPos + xscale);
+	        	}
+  			}
+
+  			//marking scale on y axis
+  			if (pointer.x == intersectingX || pointer.x - 10 == intersectingX || pointer.x + 10 == intersectingX) {
+  				if (pointer.y < intersectingY) {
+	    			yscale = intersectingY - pointer.y;
+	    		} else {
+	    			yscale = pointer.y - intersectingY;
+	    		}
+
+				var yPos, unit;
+
+		        // draw top tick marks
+		        yPos = intersectingY - yscale;
+		        unit = 1;
+		        while(yPos > 0 && yPos <= 800) {
+		        	line = new fabric.Line([intersectingX - tickSize /2, yPos, intersectingX + tickSize / 2, yPos],{
+		        		selectable: false,
+		        		strokeWidth: 2,
+					    fill: 'black',
+					    stroke: 'black',
+					    originX: 'center',
+					    originY: 'center',
+					    targetFindTolerance: true
+		        	});
+
+    				var st = unit.toString() + '';
+		        	text = new fabric.IText(st, {
+		        		text: st,
+		        		fontFamily: 'Arial',
+		        		left: intersectingX - tickSize / 2 - 8,
+		        		top: yPos - 10,
+		        		fontSize: 10,
+		        		fontWeight: 'bold',
+		        		textAlign: "center",
+		        		fill: "#000000"
+		        	});
+		        	canvas.add(line);
+		        	canvas.add(text);
+		        	canvas.renderAll();
+		          /*points.push({
+		          	x : intersectingX,
+		          	y : yPos,
+		          	color : unit,
+		          	mode : "y"
+		          });*/
+		          unit += 1;
+		          
+		          yPos = Math.round(yPos - yscale);
+		        }
+
+		        // draw bottom tick marks
+		        yPos = intersectingY + yscale;
+		        unit = -1 * 1;
+		        while(yPos < this.canvas.height && yPos >= 0) {
+		        	line = new fabric.Line([intersectingX - tickSize /2, yPos, intersectingX + tickSize / 2, yPos],{
+		        		selectable: false,
+		        		strokeWidth: 2,
+					    fill: 'black',
+					    stroke: 'black',
+					    originX: 'center',
+					    originY: 'center',
+					    targetFindTolerance: true
+		        	});
+		        	
+		        	var st = unit.toString() +'';
+		        	text = new fabric.IText(st,{
+		        		fontFamily: 'Arial',
+		        		left: intersectingX - tickSize / 2 - 8,
+		        		top: yPos - 10,
+		        		fontSize: 10,
+		        		fontWeight: 'bold',
+		        		textAlign: "center",
+		        		fill: "#000000"
+		        	});
+		          canvas.add(line);
+		          canvas.add(text);
+		          canvas.renderAll();
+		          /*points.push({
+		          	x : intersectingX,
+		          	y : yPos,
+		          	color : unit,
+		          	mode : "y"
+		          });*/
+		          unit -= 1;
+		          
+		          yPos = Math.round(yPos + yscale);
+		        }
+	    	}
+	    	scale_clicked = false;
+	    	canvas.isDrawingMode = true;
+  		}
+    	
+
+    	function handleMoueseUp(o){
+    	  var pointer = canvas.getPointer(o.e);
+	      mouseX = pointer.x;
+	      mouseY = pointer.y;
+
+	      mouseDown = false;
+	      if (canvas.isDrawingMode) {
+	      	/*points.push({
+	        x: mouseX,
+	        y: mouseY,
+	        color : strokeColour,
+	        mode: "end"
+	      });*/
+	      }
+    	}
+
+    	function handleMouseMove(o){
+    		var pointer = canvas.getPointer(o.e);
+	        mouseX = pointer.x;
+	        mouseY = pointer.y;
+
+	        if (mouseDown) {
+	          lastX = mouseX;
+	          lastY = mouseY;
+	          if (canvas.isDrawingMode) {
+	          	/*points.push({
+	            x: mouseX,
+	            y: mouseY,
+	            color : strokeColour,
+	            mode: "draw"
+	          });*/
+	          };
+	          
+	        }
+        }
+
+        //creating the graph paper
+        function drawLines(){
+		    var count = -1;
+		    var boldLines = [];
+
+		    //drawing vertical lines
+		    for (var i = 0; i < this.canvas.width; i= i+4) {
+		    count++;
+
+		    if (count == 5) {
+		        count = 0;
+		        }
+		    else
+		    	{canvas.add(new fabric.Line([i,0,i,this.canvas.width],{
+		    			    		strokeWidth : 2,
+		    			    		stroke : "#bcdfff",
+		    			    		selectable : false
+		    			    	}));
+				}
+		    }
+
+		    //drawing horizontal lines
+		    count = -1;
+		    for (var i = 0; i < this.canvas.width; i = i+4) {
+		        count++;
+		        if (count == 5) {
+		        canvas.add(new fabric.Line([0,i,this.canvas.width,i],{
+		        	strokeWidth : 2,
+		    		stroke : "#5aabdd",
+		    		selectable : false
+		    	}));
+		          count = 0;
+		        }
+		        else{
+		        	canvas.add(new fabric.Line([0,i,this.canvas.width,i],{
+		        	   	strokeWidth : 2,
+		        		stroke : "#bcdfff",
+		        		selectable : false
+		        	 	}));
+		            }
+		        }
+
+		    count = -1;
+		    for (var i = 0; i < this.canvas.width; i = i + 4) {
+		    	count++;
+		    	if (count == 5) {
+		    		canvas.add(new fabric.Line([i,0,i,this.canvas.width],{
+		        	strokeWidth : 2,
+		    		stroke : "#5aabdd", 
+		    		selectable : false
+		    	}));
+		        count = 0;
+		    	}
+		    }
+		}
+		//drawLines();
+        </script>
+	</body>
