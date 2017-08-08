@@ -1,6 +1,7 @@
 package com.tutor.model.graphParser.DiagramStructure.TreeDiagram;
 
 import com.tutor.model.graphParser.DiagramStructure.AbstractDiagramStructure;
+import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
 
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ public class AbstractTreeDiagramStructure extends AbstractDiagramStructure {
     }
 
     @Override
-    public void updateAbstractRepresentation() {
+    public void updateAbstractRepresentation(GraphicalImageComponent obj) {
 
     }
 }

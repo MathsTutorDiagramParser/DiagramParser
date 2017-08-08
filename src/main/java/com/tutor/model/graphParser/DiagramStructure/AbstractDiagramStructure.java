@@ -1,5 +1,6 @@
 package com.tutor.model.graphParser.DiagramStructure;
 
+import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.model.graphicalPOJOObject.Text.Text;
 
 import java.util.List;
@@ -25,6 +26,6 @@ public abstract class AbstractDiagramStructure {
 
     public AbstractDiagramStructure() {}
 
-    public abstract void updateAbstractRepresentation();
+    public abstract void updateAbstractRepresentation(GraphicalImageComponent graphicalImageComponent);
 
 }

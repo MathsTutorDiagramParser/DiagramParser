@@ -1,6 +1,7 @@
 package com.tutor.model.graphParser.DiagramStructure.Trignometry;
 
 import com.tutor.model.graphParser.DiagramStructure.AbstractDiagramStructure;
+import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,7 @@ public class AbstractTrignometryStructure extends AbstractDiagramStructure {
     }
 
     @Override
-    public void updateAbstractRepresentation() {
+    public void updateAbstractRepresentation(GraphicalImageComponent obj) {
 
     }
 

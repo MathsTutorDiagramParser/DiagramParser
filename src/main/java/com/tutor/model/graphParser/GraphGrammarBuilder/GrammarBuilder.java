@@ -10,6 +10,7 @@ import com.tutor.model.util.SpatialRelation;
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.tutor.model.util.DiagramType.HISTOGRAM;
@@ -65,6 +66,7 @@ public class GrammarBuilder {
             leftGraph = getGraph(leftXMLGraph, xmlGraphGrammar);
 
             Graph rightGraph = null;
+
             XMLGraph rightXMLGraph = xmlProductionRule.getRightXMLGraph();
             rightGraph = getGraph(rightXMLGraph,xmlGraphGrammar);
 
@@ -115,22 +117,26 @@ public class GrammarBuilder {
             relations = new ArrayList[graphicalImageComponentList.size()][graphicalImageComponentList.size()];
 
             for (XMLRelationship xmlRelationship : xmlRelationships) {
+
                 for (XMLSpatialRelations xmlSpatialRelations : xmlGraphGrammar.getXMLSpatialRelations()) {
+
                     if (xmlSpatialRelations.getId().equals(xmlRelationship.getSpatialRelationId())) {
+
                         SpatialRelation spatialRelationEnum = SpatialRelation.valueOf(xmlSpatialRelations.getName());
+
                         if (relations[xmlRelationship.getObjectIdOne()][xmlRelationship.getObjectIdTwo()] == null) {
-                            ArrayList<SpatialRelation> spatialRelations = new ArrayList<>();
-                            spatialRelations.add(spatialRelationEnum);
-                            relations[xmlRelationship.getObjectIdOne()][xmlRelationship.getObjectIdTwo()] = spatialRelations;
-                            relations[xmlRelationship.getObjectIdTwo()][xmlRelationship.getObjectIdOne()] = spatialRelations;
+                            relations[xmlRelationship.getObjectIdOne()][xmlRelationship.getObjectIdTwo()] = new ArrayList<>();
+                            relations[xmlRelationship.getObjectIdOne()][xmlRelationship.getObjectIdTwo()].add(spatialRelationEnum);
+                            relations[xmlRelationship.getObjectIdTwo()][xmlRelationship.getObjectIdOne()] = new ArrayList<>();
+                            relations[xmlRelationship.getObjectIdTwo()][xmlRelationship.getObjectIdOne()].add(spatialRelationEnum);
                         } else {
                             relations[xmlRelationship.getObjectIdOne()][xmlRelationship.getObjectIdTwo()].add(spatialRelationEnum);
                             relations[xmlRelationship.getObjectIdTwo()][xmlRelationship.getObjectIdOne()].add(spatialRelationEnum);
                         }
                     }
                 }
-
             }
+
         }
         graph = new Graph(graphicalImageComponentList, relations);
         return graph;

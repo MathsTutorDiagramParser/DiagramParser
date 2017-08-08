@@ -1,6 +1,7 @@
 package com.tutor.model.graphParser.DiagramStructure.Histogram;
 
 import com.tutor.model.graphParser.DiagramStructure.AbstractDiagramStructure;
+import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.model.graphicalPOJOObject.Text.Text;
 
 import java.util.List;
@@ -13,7 +14,8 @@ public class AbstractHistogramStructure extends AbstractDiagramStructure {
     }
 
     @Override
-    public void updateAbstractRepresentation() {
+    public void updateAbstractRepresentation(GraphicalImageComponent graphicalImageComponent) {
 
     }
+
 }

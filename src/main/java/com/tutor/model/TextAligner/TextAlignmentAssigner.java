@@ -5,8 +5,6 @@ import com.tutor.model.graphParser.DiagramStructure.AbstractDiagramStructure;
 import com.tutor.model.graphParser.DiagramStructure.Histogram.AbstractHistogramStructure;
 import com.tutor.model.graphParser.DiagramStructure.NumberLine.AbstractNumberLineStructure;
 import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
-import com.tutor.model.graphParser.DiagramStructure.AbstractHistogramStructure;
-import com.tutor.model.graphParser.DiagramStructure.AbstractNumberLineStructure;
 import com.tutor.model.graphParser.DiagramStructure.Trignometry.AbstractTrignometryStructure;
 import com.tutor.model.graphicalPOJOObject.Text.Text;
 import com.tutor.model.util.DiagramType;

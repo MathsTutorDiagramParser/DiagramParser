@@ -88,7 +88,6 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
             {
                 texts.add((Element)list.item(i));
             }
-
 //
 //            source = new InputSource(new StringReader(svgFile));
 //            list = (NodeList)xPath.evaluate("/svg", source, XPathConstants.NODESET);

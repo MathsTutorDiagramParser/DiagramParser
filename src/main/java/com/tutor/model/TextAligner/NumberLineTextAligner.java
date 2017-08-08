@@ -16,17 +16,21 @@ public class NumberLineTextAligner {
     AbstractNumberLineStructure abstractNumberLineStructure;
     List<TickPoint> tickPointList;
     List<MarkPoint> markPointList;
+    List<MarkPoint> extraPointList;
     List<GraphicalImageComponent> textList;
     double stepDistance;
     int textCount = 0;
     int tickCount = 0;
     int markPointCount = 0;
+    int extraCount = 0;
 
     public AbstractNumberLineStructure alignTextToNumberLine(AbstractNumberLineStructure abstractNumberLineStructure,List<GraphicalImageComponent> textList) {
 
         this.abstractNumberLineStructure = abstractNumberLineStructure;
         tickPointList = abstractNumberLineStructure.getTickPointList();
         markPointList = abstractNumberLineStructure.getMarkPointList();
+        extraPointList = abstractNumberLineStructure.getExtraPointList();
+
         this.textList = textList;
         stepDistance = (tickPointList.get(1).getVerticalLine().getX1() - tickPointList.get(0).getVerticalLine().getX1());
         //for (TickPoint tick : tickPointList) {
@@ -44,6 +48,16 @@ public class NumberLineTextAligner {
             Text matchedText = matchText(markPoint);
             markPoint.setText(matchedText);
         }
+
+        markPointCount=0;
+        if(extraPointList!=null){
+            while (markPointCount < extraPointList.size()){
+                MarkPoint markPoint = extraPointList.get(markPointCount);
+                Text matchedText = matchText(markPoint);
+                markPoint.setText(matchedText);
+            }
+        }
+
         return  abstractNumberLineStructure;
     }
 

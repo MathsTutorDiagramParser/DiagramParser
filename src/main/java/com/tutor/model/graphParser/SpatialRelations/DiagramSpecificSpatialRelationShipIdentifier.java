@@ -1,5 +1,6 @@
 package com.tutor.model.graphParser.SpatialRelations;
 
+import com.tutor.model.graphParser.DiagramStructure.AbstractDiagramStructure;
 import com.tutor.model.graphParser.DiagramStructure.FeedBack;
 import com.tutor.model.graphParser.GraphGrammarBuilder.Graph;
 import com.tutor.model.util.SpatialRelation;
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public interface DiagramSpecificSpatialRelationShipIdentifier {
 
-    public int identifySpecificRelations(SpatialRelation ruleRelation, List<SpatialRelation> hostRelation_o1, List<SpatialRelation> hostRelation_o2, int count,
-                                          List<FeedBack> feedBacks);
+    public int identifySpecificRelations(SpatialRelation ruleRelation, int contain_count, List<FeedBack> feedBacks,
+                                         AbstractDiagramStructure diagramStructure, Graph host,int o_1,int o_2);
 
 }

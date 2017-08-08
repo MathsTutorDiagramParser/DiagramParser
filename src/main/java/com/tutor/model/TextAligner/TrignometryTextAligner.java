@@ -4,6 +4,7 @@ import com.sun.xml.internal.bind.v2.TODO;
 import com.tutor.model.graphParser.DiagramStructure.AbstractDiagramStructure;
 import com.tutor.model.graphParser.DiagramStructure.Trignometry.AbstractTrignometryStructure;
 import com.tutor.model.graphParser.DiagramStructure.Trignometry.LineConnection;
+import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.model.graphicalPOJOObject.Text.Text;
 import com.tutor.model.graphicalPOJOObject.line.Line;
 
@@ -16,19 +17,19 @@ public class TrignometryTextAligner {
 // TODO: 8/7/2017 Add the regex patterns correctly
 
     AbstractTrignometryStructure abstractTrignometryStructure;
-    List<Text> textList;
-    List<Text> angleTextList = null;
-    List<Text> labelTextList = null;
-    List<Text> lengthTextList = null;
-    List<Text> labelsInside =null;
-    List<Text> angleInside =null;
+    List<GraphicalImageComponent> textList;
+    List<GraphicalImageComponent> angleTextList = null;
+    List<GraphicalImageComponent> labelTextList = null;
+    List<GraphicalImageComponent> lengthTextList = null;
+    List<GraphicalImageComponent> labelsInside =null;
+    List<GraphicalImageComponent> angleInside =null;
     String lengthRegex = "\\d{1,3}(\\.\\d{1,3})?";
     String labelRegex =  " ";
     String angleRegex = " ";
     double vertexToleranceRadius;
     double angleToleranceRadius;
 
-    public AbstractDiagramStructure alignTextToTrignometry(AbstractTrignometryStructure abstractTrignometryStructure, List<Text> textList) {
+    public AbstractDiagramStructure alignTextToTrignometry(AbstractTrignometryStructure abstractTrignometryStructure, List<GraphicalImageComponent> textList) {
         this.abstractTrignometryStructure = abstractTrignometryStructure;
         this.textList = textList;
 
@@ -36,31 +37,31 @@ public class TrignometryTextAligner {
         return null;
     }
 
-    public  List<Text> getLengthList(List<Text> textList){
+    public  List<GraphicalImageComponent> getLengthList(List<GraphicalImageComponent> textList){
         String textValue;
-        for (Text text : textList){
-            textValue = text.getText().replaceAll("\\s","");
+        for (GraphicalImageComponent text : textList){
+            textValue = ((Text)text).getText().replaceAll("\\s","");
             if (textValue.matches(lengthRegex)){
-                lengthTextList.add(text);
+                lengthTextList.add((Text) text);
             }
 
         }
         return lengthTextList;
     }
 
-    public  List<Text> getLabelList(List<Text> textList){
+    public  List<GraphicalImageComponent> getLabelList(List<GraphicalImageComponent> textList){
         String textValue;
-        for (Text text : textList){
-            textValue = text.getText().replaceAll("\\s","");
+        for (GraphicalImageComponent text : textList){
+            textValue = ((Text)text).getText().replaceAll("\\s","");
             if (textValue.matches(labelRegex)){
-                labelTextList.add(text);
+                labelTextList.add((Text)text);
             }
 
         }
         return lengthTextList;
     }
 
-    public  List<Text> getAngleList(List<Text> textList){
+    public  List<GraphicalImageComponent> getAngleList(List<Text> textList){
         String textValue;
         for (Text text : textList){
             textValue = text.getText().replaceAll("\\s","");
@@ -72,17 +73,17 @@ public class TrignometryTextAligner {
         return lengthTextList;
     }
 
-    public void matchLabelText(List<Text> labelTextList, LineConnection lineConnection){
-        for(Text angleText: labelTextList){
+    public void matchLabelText(List<GraphicalImageComponent> labelTextList, LineConnection lineConnection){
+        for(GraphicalImageComponent angleText: labelTextList){
 
-            Boolean matched = isInsideCircle(lineConnection, angleText);
+            Boolean matched = isInsideCircle(lineConnection, (Text) angleText);
             if(matched){
                 angleInside.add(angleText);
             }
         }
 
         if (labelsInside.size() ==1){
-            lineConnection.setVertexLabel(labelsInside.get(0));
+            lineConnection.setVertexLabel((Text) labelsInside.get(0));
         }
         else if(labelsInside.size() > 1) {
             Text closestText = findClosestMatching(labelsInside , lineConnection);
@@ -105,7 +106,7 @@ public class TrignometryTextAligner {
         }
 
         if (angleInside.size() ==1){
-            lineConnection.setAngleText(angleInside.get(0));
+            lineConnection.setAngleText((Text) angleInside.get(0));
         }
         else if(angleInside.size() > 1) {
             Text closestText = findClosestMatching(angleInside , lineConnection);
@@ -150,15 +151,15 @@ public class TrignometryTextAligner {
 
 
 
-    public Text findClosestMatching(List<Text> labelList, LineConnection lineConnection){
+    public Text findClosestMatching(List<GraphicalImageComponent> labelList, LineConnection lineConnection){
         double minimumDistance = Double.POSITIVE_INFINITY;
         Text closestLabel = null;
-        for (Text label :labelList){
+        for (GraphicalImageComponent label :labelList){
             double distance = Math.sqrt(Math.pow((label.getX()-lineConnection.getConnectionPoint_X()),2)
                     + Math.pow((label.getY()-lineConnection.getConnectionPoint_Y()),2));
             if(distance < minimumDistance){
                 minimumDistance = distance;
-                closestLabel = label;
+                closestLabel = (Text) label;
             }
         }
         return  closestLabel;

@@ -41,6 +41,7 @@ public class StructuralParser {
     GraphGrammar graphGrammar;
     DiagramType diagramType;
     DiagramStructureGenerator diagramStructureGenerator;
+    AbstractDiagramStructure abstractDiagramStructure;
     DiagramSpecificSpatialRelationShipIdentifier relationShipIdentifier;
     boolean matched = false;
     List<FeedBack>  feedBacks;
@@ -66,7 +67,9 @@ public class StructuralParser {
 
      */
 
-    public  void parse(Graph host,AbstractDiagramStructure abstractDiagramStructure){
+    public  AbstractDiagramStructure parse(Graph host,AbstractDiagramStructure abstractDiagramStructure){
+
+            this.abstractDiagramStructure = abstractDiagramStructure;
 
             for (int i=0;i<graphGrammar.getRuleList().size();i++){
                 logger.info("========rule : " +i+"========");
@@ -78,7 +81,7 @@ public class StructuralParser {
                 // iterate through host graph until the end to find redex for finding host graph
                 while (redex != null){
                     // update the abstract representation before doing r reduction
-                    updateAbstractRepresentation(i,host,productionRule,abstractDiagramStructure,redex);
+                    updateAbstractRepresentation(i,host,productionRule,this.abstractDiagramStructure,redex);
 
                    logger.info("+++++++++++++++++++++++++++++++++++++++++");
                     for (int k=0;k<host.getGraphicalImageComponents().size();k++){
@@ -105,8 +108,8 @@ public class StructuralParser {
 
             if(host.isInitialGraph()) {
                 logger.info("found Initial graph");
-                logger.info("mark points: "+((AbstractNumberLineStructure)abstractDiagramStructure).getMarkPointList().size());
-                logger.info("tick points: "+((AbstractNumberLineStructure)abstractDiagramStructure).getTickPointList().size());
+                logger.info("mark points: "+((AbstractNumberLineStructure)this.abstractDiagramStructure).getMarkPointList().size());
+                logger.info("tick points: "+((AbstractNumberLineStructure)this.abstractDiagramStructure).getTickPointList().size());
 
                 FeedBack feedBack = new FeedBack("VALID_DIAGRAM_STRUCTURE");
                 feedBack.setDescription(FeedBackMessage.VALID_DIAGRAM_STRUCTURE);
@@ -117,6 +120,8 @@ public class StructuralParser {
                 feedBack.setDescription(FeedBackMessage.INVALID_DIAGRAM_STRUCTURE);
                 feedBacks.add(feedBack);
             }
+
+            return this.abstractDiagramStructure;
     }
 
     // need to implement
@@ -191,8 +196,8 @@ public class StructuralParser {
                              for (int k=0; k < ruleGraph.getSpatialRelations(i, i - 1).size();k++){
 
                                  //specific relationship checking conditions
-                                 contain_count = relationShipIdentifier.identifySpecificRelations(ruleGraph.getSpatialRelations(i,i-1).get(k),(host.getRelations())[j][j],
-                                         (host.getRelations())[redex[i-1]][redex[i-1]],contain_count,feedBacks);
+                                 contain_count = relationShipIdentifier.identifySpecificRelations(ruleGraph.getSpatialRelations(i,i-1).get(k),
+                                         contain_count,feedBacks,this.abstractDiagramStructure,host,j,redex[i-1]);
                                  //end
 
                                  if(host.getSpatialRelations(j, redex[i - 1]).contains(ruleGraph.getSpatialRelations(i, i - 1).get(k))){

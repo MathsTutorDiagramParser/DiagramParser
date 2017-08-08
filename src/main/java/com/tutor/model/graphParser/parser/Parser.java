@@ -60,24 +60,28 @@ public class Parser {
             logger.info(" ==============Represented value================ ");
             List<MarkPoint> markPoints = ((AbstractNumberLineStructure)abstractDiagramStructure).getMarkPointList();
             List<TickPoint> tickPoints = ((AbstractNumberLineStructure)abstractDiagramStructure).getTickPointList();
+            List<MarkPoint> extra = ((AbstractNumberLineStructure)abstractDiagramStructure).getExtraPointList();
+            logger.info("tick points");
             for (int i=0;i<tickPoints.size();i++){
-
-                if(i==5){
-                    logger.info(tickPoints.get(i).getVerticalLine().getHighestXCoordinate()+" "+tickPoints.get(i).getVerticalLine().getLowerestYCoordinate());
-                }
                 logger.info("tick "+i+" :"+tickPoints.get(i).getText().getText());
             }
 
-            for (int i=0;i<markPoints.size();i++){
+            logger.info("mark points");
+            for (int j=0;j<markPoints.size();j++){
 
+                logger.info("mark point "+j+" :"+markPoints.get(j).getCircle().getX()+" "+markPoints.get(j).getCircle().getY());
 
-                logger.info("mark point "+i+" :"+markPoints.get(i).getCircle().getX()+" "+markPoints.get(i).getCircle().getY());
-
-                if(markPoints.get(i).endOFTheThickLine=="LEFT"){
-                    logger.info("LeftEnd :"+ markPoints.get(i).getText().getText()+" -> is_Filled : "+markPoints.get(i).isFilled);
+                if(markPoints.get(j).endOFTheThickLine=="LEFT"){
+                    logger.info("LeftEnd :"+ markPoints.get(j).getText().getText()+" -> is_Filled : "+markPoints.get(j).isFilled);
                 }
-                if(markPoints.get(i).endOFTheThickLine=="RIGHT"){
-                    logger.info("RightEnd :"+ markPoints.get(i).getText().getText()+"-> is_Filled : "+markPoints.get(i).isFilled);
+                if(markPoints.get(j).endOFTheThickLine=="RIGHT"){
+                    logger.info("RightEnd :"+ markPoints.get(j).getText().getText()+"-> is_Filled : "+markPoints.get(j).isFilled);
+                }
+            }
+            logger.info("extra mark points");
+            if(extra!=null){
+                for (int k=0 ; k<extra.size();k++){
+                    logger.info("point :"+ extra.get(k).getText().getText()+" -> is_Filled : "+extra.get(k).isFilled);
                 }
             }
         }
