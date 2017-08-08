@@ -10,8 +10,7 @@ public class LineStructure  {
 
     private Line line;
     private Text lengthText;
-    private Text lowerEndPointText;
-    private Text higherEndPointText;
+
 
     public LineStructure(Line line){
         this.line = line;
@@ -28,17 +27,5 @@ public class LineStructure  {
         return lengthText;
     }
 
-    public void setEndPointText(Text lowerEndPointText , Text higherEndPointText ) {
-        this.lowerEndPointText = lowerEndPointText;
-        this.higherEndPointText = higherEndPointText;
 
-    }
-
-    public Text getLowerEndPointText() {
-        return lowerEndPointText;
-    }
-
-    public Text getHigherEndPointText() {
-        return higherEndPointText;
-    }
 }
