@@ -4,7 +4,7 @@ import com.tutor.model.graphParser.DiagramStructure.AbstractDiagramStructure;
 import com.tutor.model.graphParser.DiagramStructure.TreeDiagram.AbstractTreeDiagramStructure;
 import com.tutor.model.graphParser.DiagramStructure.TreeDiagram.TreeGraph;
 import com.tutor.model.graphParser.DiagramStructure.TreeDiagram.TreeNode;
-import com.tutor.model.graphParser.GraphGrammarBuilder.Graph;
+import com.tutor.model.graphParser.GraphGrammarGenerator.graphGrammarObject.Graph;
 
 import java.util.ArrayList;
 

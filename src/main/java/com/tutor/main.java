@@ -1,10 +1,8 @@
 package com.tutor;
 
 
-import com.tutor.controller.GraphParser.GraphParsingHandler;
-import com.tutor.model.graphParser.GraphGrammarBuilder.*;
-import com.tutor.model.graphParser.parser.Parser;
-import com.tutor.model.graphicalPOJOObject.Text.Text;
+import com.tutor.model.graphParser.GraphGrammarGenerator.graphGrammarObject.Graph;
+import com.tutor.model.graphParser.Parser.Parser;
 import com.tutor.model.preProcessor.SVGtoPOJOMapper;
 import com.tutor.model.util.DiagramType;
 import com.tutor.model.util.SpatialRelation;
@@ -33,7 +31,7 @@ public class main {
         SpatialRelationshipGeneratorService spatialRelationShipGenerator = new SpatialRelationshipGeneratorServiceImpl();
 
 
-        SVGtoPOJOMapper svGtoPOJOMapper = svgObjectTokenizationService.tokenize(DiagramType.NUMBRELINE);
+        SVGtoPOJOMapper svGtoPOJOMapper = svgObjectTokenizationService.tokenize(DiagramType.TREEDIAGRAM);
         logger.info("//////////////////////////////////done seperation//////////////////////////////////");
 
         List<GraphicalImageComponent> orderedList = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapper.getGraphicalImageComponents());
@@ -77,7 +75,7 @@ public class main {
         host.setGraphicalImageComponents(orderedList);
         host.setRelations(relations);
 
-        Parser parser = new Parser(DiagramType.NUMBRELINE);
+        Parser parser = new Parser(DiagramType.TREEDIAGRAM);
         parser.parse(host,textList);
     }
 }

@@ -1,7 +1,6 @@
 package com.tutor.controller.GraphParser;
 
-import com.tutor.model.graphParser.GraphGrammarReader.*;
-import com.tutor.model.graphParser.parser.Parser;
+import com.tutor.model.graphParser.GraphGrammarGenerator.GraphGrammarReaderObject.*;
 import com.tutor.model.util.DiagramType;
 
 import javax.xml.bind.JAXBContext;
@@ -92,20 +91,22 @@ public class GraphParsingHandler {
         marshallerObj.marshal(xmlGraphGrammar, new FileOutputStream("D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\com\\graphGrammar\\treeDiagram.xml"));
     }
 
-    public XMLGraphGrammar readFromXML(String diagramType){
+    public XMLGraphGrammar readFromXML(DiagramType diagramType){
         XMLGraphGrammar graphGrammar = new XMLGraphGrammar();
         String fileName = "";
 
         switch (diagramType) {
-            case "NumberLine":
+            case NUMBRELINE:
                 fileName = "numberLine.xml";
                 break;
-            case "Histogram":
+            case HISTOGRAM:
                 fileName = "numberLine.xml";
                 break;
-            case "TreeDiagram":
+            case TREEDIAGRAM:
                 fileName = "treeDiagram.xml";
                 break;
+            case TRIGNOMETRICDIAGRAM:
+                fileName = "trigDiagram.xml";
             default:
                 fileName = "numberLine.xml";
                 break;

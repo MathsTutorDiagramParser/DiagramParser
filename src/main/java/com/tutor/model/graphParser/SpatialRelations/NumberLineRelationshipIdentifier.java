@@ -2,13 +2,11 @@ package com.tutor.model.graphParser.SpatialRelations;
 
 import com.tutor.model.graphParser.DiagramStructure.AbstractDiagramStructure;
 import com.tutor.model.graphParser.DiagramStructure.FeedBack;
-import com.tutor.model.graphParser.GraphGrammarBuilder.Graph;
-import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
+import com.tutor.model.graphParser.GraphGrammarGenerator.graphGrammarObject.Graph;
 import com.tutor.model.util.FeedBackMessage;
 import com.tutor.model.util.ObjectType;
 import com.tutor.model.util.SpatialRelation;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,6 +26,7 @@ public class NumberLineRelationshipIdentifier implements DiagramSpecificSpatialR
 
             }else {
 
+                System.out.println("Not Same End");
                 if(host.getGraphicalImageComponents().get(o_1).objectType== ObjectType.CIRCLE){
                     diagramStructure.updateAbstractRepresentation(host.getGraphicalImageComponents().get(o_1));
                 }

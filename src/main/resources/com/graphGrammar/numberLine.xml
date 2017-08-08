@@ -42,6 +42,7 @@
     </Types>
     <Rules>
         <Rule>
+            <RuleId>0</RuleId>
             <LeftGraph>
                 <Objects>
                     <Object>
@@ -84,6 +85,7 @@
             </RuleOperations>
         </Rule>
         <Rule>
+            <RuleId>1</RuleId>
             <LeftGraph>
                 <Objects>
                     <Object>
@@ -122,6 +124,7 @@
         </Rule>
 
         <Rule>
+            <RuleId>2</RuleId>
             <LeftGraph>
                 <Objects>
                     <Object>
@@ -180,6 +183,7 @@
 
 
         <Rule>
+            <RuleId>3</RuleId>
             <LeftGraph>
                 <Objects>
                     <Object>
@@ -204,6 +208,7 @@
                             <objectIdOne>0</objectIdOne>
                             <objectIdTwo>1</objectIdTwo>
                             <spatialRelationId>S0</spatialRelationId>
+                        </SpatialRelation>
                         <SpatialRelation>
                             <objectIdOne>0</objectIdOne>
                             <objectIdTwo>1</objectIdTwo>
@@ -214,7 +219,6 @@
                             <objectIdTwo>1</objectIdTwo>
                             <spatialRelationId>S4</spatialRelationId>
                         </SpatialRelation>
-                    </SpatialRelation>
                 </SpatialRelations>
             </RightGraph>
             <RuleOperations>

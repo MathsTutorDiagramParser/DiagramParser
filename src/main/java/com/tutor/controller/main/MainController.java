@@ -1,14 +1,11 @@
 package com.tutor.controller.main;
 
 import com.tutor.controller.preprocessor.PreProcessingHandler;
-import com.tutor.model.graphParser.GraphGrammarBuilder.Graph;
-import com.tutor.model.graphParser.parser.Parser;
+import com.tutor.model.graphParser.GraphGrammarGenerator.graphGrammarObject.Graph;
+import com.tutor.model.graphParser.Parser.Parser;
 import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
-import com.tutor.model.graphicalPOJOObject.Text.Text;
-import com.tutor.model.preProcessor.SVGtoPOJOMapper;
 import com.tutor.model.util.DiagramType;
 import com.tutor.model.util.SpatialRelation;
-import com.tutor.service.preProcessorService.*;
 
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;

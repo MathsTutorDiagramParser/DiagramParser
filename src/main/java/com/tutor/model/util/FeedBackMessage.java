@@ -9,6 +9,7 @@ public final class FeedBackMessage {
     public final static String INVALID_DIAGRAM_STRUCTURE = "Invalid diagram structure";
     public final static String VALID_DIAGRAM_STRUCTURE = "Valid diagram structure";
     public final static String INCORECT_END_OF_MARKED_LINE = "Incorrect end of marked line";
+    public final static String INITIAL_GRAPH_WITH_EXTRA_OBJECTS = "Initial graph found but there is extra or unrelated objects.";
 
 
 }

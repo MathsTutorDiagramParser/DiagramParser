@@ -1,11 +1,10 @@
 package com.tutor.model.preProcessor;
 
-import com.tutor.model.graphParser.GraphGrammarBuilder.Graph;
-import com.tutor.model.graphParser.GraphGrammarBuilder.ProductionRule;
-import com.tutor.model.graphParser.GraphGrammarBuilder.RuleOperations;
+import com.tutor.model.graphParser.GraphGrammarGenerator.graphGrammarObject.Graph;
+import com.tutor.model.graphParser.GraphGrammarGenerator.graphGrammarObject.ProductionRule;
+import com.tutor.model.graphParser.GraphGrammarGenerator.graphGrammarObject.RuleOperations;
 import com.tutor.model.graphicalPOJOObject.line.HorizontalLine;
 import com.tutor.model.util.DiagramType;
-import com.tutor.model.util.RuleOperation;
 import com.tutor.model.util.SpatialRelation;
 import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.model.util.ObjectType;
@@ -247,40 +246,23 @@ public class SpatialRelationShipGenerator {
                 double o2_highest = o2.getHighestXCoordinate();
 
                 if( o1_lowest <= o2_lowest ){
-//                    if( (o2_lowest-30.0) < o1_lowest){
-//                        return true;
-//                    }
-//                    else return false;
-
                     if((o2_lowest-o1_lowest)<=30){
                         return true;
                     }
 
                 }
                 else if(o1_lowest >= o2_lowest){
-//                    if( ((o1_lowest-30.0) < o2_lowest)){
-//                        return true;
-//                    }
-//                    else return false;
                     if( (o1_lowest- o2_lowest)<=30){
                         return true;
                     }
                 }
-                else if (o1_highest>=o2_highest){
-//                    if( (o1_highest-30.0) < o2_highest){
-//                        return true;
-//                    }
-//                    else return false;
+                if (o1_highest>=o2_highest){
                     if( (o1_highest-o2_highest)<=30){
                         return true;
                     }
 
                 }
                 else if(o1_highest <=o2_highest){
-//                    if( (o2_highest-30.0) < o1_highest){
-//                        return true;
-//                    }
-//                    else return false;
                     if( (o2_highest-o1_highest)<=30){
                         return true;
                     }
@@ -389,7 +371,7 @@ public class SpatialRelationShipGenerator {
     }
 
     public boolean isCloseToTough(double p,double q){
-        if((p<= q+0.5) && (p>(q-0.5))){
+        if((p<= q+5) && (p>(q-5))){
             return true;
         }
         return false;

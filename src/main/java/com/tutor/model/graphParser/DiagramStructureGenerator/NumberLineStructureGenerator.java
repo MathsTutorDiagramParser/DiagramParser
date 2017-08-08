@@ -4,7 +4,7 @@ import com.tutor.model.graphParser.DiagramStructure.AbstractDiagramStructure;
 import com.tutor.model.graphParser.DiagramStructure.NumberLine.AbstractNumberLineStructure;
 import com.tutor.model.graphParser.DiagramStructure.NumberLine.MarkPoint;
 import com.tutor.model.graphParser.DiagramStructure.NumberLine.TickPoint;
-import com.tutor.model.graphParser.GraphGrammarBuilder.Graph;
+import com.tutor.model.graphParser.GraphGrammarGenerator.graphGrammarObject.Graph;
 import com.tutor.model.graphicalPOJOObject.Circle.Circle;
 import com.tutor.model.graphicalPOJOObject.line.VerticalLine;
 
