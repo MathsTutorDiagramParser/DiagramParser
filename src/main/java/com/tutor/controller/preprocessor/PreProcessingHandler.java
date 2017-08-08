@@ -35,9 +35,7 @@ public class PreProcessingHandler {
     public List<GraphicalImageComponent> getOrderedList (DiagramType diagramType) throws JAXBException, FileNotFoundException {
 
         this.svGtoPOJOMapper = svgObjectTokenizationService.tokenize(diagramType);
-        objectSequenceGeneratorService.order(svGtoPOJOMapper.getGraphicalImageComponents());
-
-        List<GraphicalImageComponent> orderedList = objectSequenceGeneratorService.getOrderedList();
+        List<GraphicalImageComponent> orderedList = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapper.getGraphicalImageComponents());
 
 
         System.out.println("size of ordered list"+orderedList.size());
@@ -61,7 +59,7 @@ public class PreProcessingHandler {
 
         return relations;
     }
-    public ArrayList<Text> getAssociatedTextList () {
+    public ArrayList<GraphicalImageComponent> getAssociatedTextList () {
         return this.svGtoPOJOMapper.getTexts();
     }
 }

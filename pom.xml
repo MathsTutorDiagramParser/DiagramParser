@@ -10,7 +10,7 @@
     <packaging>war</packaging>
 
     <build>
-        <finalName>Test</finalName>
+        <finalName>MathsTutor</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

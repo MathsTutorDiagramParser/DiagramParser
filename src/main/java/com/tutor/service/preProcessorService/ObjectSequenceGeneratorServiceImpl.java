@@ -13,13 +13,11 @@ public class ObjectSequenceGeneratorServiceImpl implements ObjectSequenceGenerat
    private ObjectSequenceOrderGenerator objectSequenceOrderGenerator
            = new ObjectSequenceOrderGenerator();
 
-    @Override
-    public void order(List<GraphicalImageComponent> unOderedList) {
-        objectSequenceOrderGenerator.order(unOderedList);
-    }
 
     @Override
-    public List<GraphicalImageComponent> getOrderedList() {
-        return objectSequenceOrderGenerator.getOrderedList();
+    public List<GraphicalImageComponent> getOrderedList(List<GraphicalImageComponent> unOderedList) {
+        return objectSequenceOrderGenerator.getOrderedList(unOderedList);
     }
+
+
 }

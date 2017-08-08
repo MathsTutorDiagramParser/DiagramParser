@@ -35,6 +35,9 @@ public class AbstractNumberLineStructure extends AbstractDiagramStructure {
     }
 
     public void updateMarkPointList(MarkPoint markPoint) {
+        if(markPoint.getCircle().getFilled_colour().equals("rgb(0,0,255)")){
+            markPoint.isFilled =true;
+        }
         markPointList.add(markPoint);
     }
 

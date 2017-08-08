@@ -4,6 +4,7 @@ import com.tutor.model.graphParser.DiagramStructure.AbstractDiagramStructure;
 
 import com.tutor.model.graphParser.DiagramStructure.Histogram.AbstractHistogramStructure;
 import com.tutor.model.graphParser.DiagramStructure.NumberLine.AbstractNumberLineStructure;
+import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.model.graphicalPOJOObject.Text.Text;
 import com.tutor.model.util.DiagramType;
 
@@ -14,9 +15,9 @@ import java.util.List;
 public class TextAlignmentAssigner {
 
     AbstractDiagramStructure abstractDiagramStructure;
-    List<Text> textList;
+    List<GraphicalImageComponent> textList;
 
-    public AbstractDiagramStructure assignTextAligner(AbstractDiagramStructure abstractDiagramStructure, DiagramType diagramType, List<Text> textList ){
+    public AbstractDiagramStructure assignTextAligner(AbstractDiagramStructure abstractDiagramStructure, DiagramType diagramType, List<GraphicalImageComponent> textList ){
         this.abstractDiagramStructure = abstractDiagramStructure;
         this.textList = textList;
         switch (diagramType){

@@ -21,6 +21,7 @@ import java.util.List;
 public class MainController {
 
     public void processSVGInput(DiagramType diagramType) throws JAXBException, FileNotFoundException {
+
         PreProcessingHandler preProcessingHandler = new PreProcessingHandler();
 
         List<GraphicalImageComponent> orderedList = preProcessingHandler.getOrderedList(diagramType);
@@ -31,7 +32,7 @@ public class MainController {
 
         System.out.println("//////////////////////////////////Done relationship identification//////////////////////////////////");
 
-        ArrayList<Text> textArrayList = preProcessingHandler.getAssociatedTextList();
+        ArrayList<GraphicalImageComponent> textArrayList = preProcessingHandler.getAssociatedTextList();
 
 
         Graph host  = new Graph();

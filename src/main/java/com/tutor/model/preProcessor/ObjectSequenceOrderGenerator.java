@@ -14,15 +14,16 @@ public class ObjectSequenceOrderGenerator {
 
 
     private HashMap<Double,HashMap<Double,List<GraphicalImageComponent>>> partitiallyOrderedList;
-    private List<GraphicalImageComponent> orderedList;
+    private List<GraphicalImageComponent> orderedList ;
 
     public ObjectSequenceOrderGenerator() {
-        partitiallyOrderedList = new HashMap<>();
-        orderedList = new ArrayList<>();
+
     }
 
-    public void order(List<GraphicalImageComponent> unOderedList){
+    private  List<GraphicalImageComponent> order(List<GraphicalImageComponent> unOderedList){
 
+        orderedList = new ArrayList<>();
+        partitiallyOrderedList = new HashMap<>();
         /*
             Fill hash map structure with svg objects
          */
@@ -104,9 +105,13 @@ public class ObjectSequenceOrderGenerator {
            }
        }
 
+       return orderedList;
     }
 
-    public List<GraphicalImageComponent> getOrderedList() {
+    public List<GraphicalImageComponent> getOrderedList(List<GraphicalImageComponent> unOderedList) {
+
+        order(unOderedList);
+        System.out.println(orderedList.size());
         return orderedList;
     }
 }

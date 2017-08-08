@@ -1,5 +1,7 @@
 package com.tutor.service.RestService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -22,6 +24,8 @@ import java.io.UnsupportedEncodingException;
  * Created by Wiranji Dinelka on 8/6/2017.
  */
 public class SVGAnswerServiceImpl implements SVGAnswerService {
+
+    private Logger logger = LoggerFactory.getLogger(SVGAnswerServiceImpl.class);
     @Override
     public void storeSVGInput(String inputStr) throws IOException, ParserConfigurationException, SAXException, TransformerException {
         storeInput(inputStr,"svgResult");
@@ -61,7 +65,7 @@ public class SVGAnswerServiceImpl implements SVGAnswerService {
         Transformer transformer = transformerFactory.newTransformer();
         DOMSource source = new DOMSource(doc);
 
-        StreamResult result =  new StreamResult(new File("E:\\FYP\\implementation\\parser1\\DiagramParser\\src\\main\\resources\\com\\answerFile\\"+fileName+".xml"));
+        StreamResult result =  new StreamResult(new File("D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\com\\answerFile\\"+fileName+".xml"));
         transformer.transform(source, result);
     }
 }

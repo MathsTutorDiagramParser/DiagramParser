@@ -22,6 +22,8 @@ import com.tutor.model.preProcessor.SpatialRelationShipGenerator;
 import com.tutor.model.util.DiagramType;
 import com.tutor.model.util.FeedBackMessage;
 import com.tutor.model.util.ObjectType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
@@ -34,6 +36,8 @@ import java.util.List;
  */
 public class StructuralParser {
 
+
+    private Logger logger = LoggerFactory.getLogger(StructuralParser.class);
     GraphGrammar graphGrammar;
     DiagramType diagramType;
     DiagramStructureGenerator diagramStructureGenerator;
@@ -65,7 +69,7 @@ public class StructuralParser {
     public  void parse(Graph host,AbstractDiagramStructure abstractDiagramStructure){
 
             for (int i=0;i<graphGrammar.getRuleList().size();i++){
-                System.out.println("========rule : " +i+"========");
+                logger.info("========rule : " +i+"========");
                 // get production rule according to order
                 ProductionRule productionRule = graphGrammar.getRuleList().get(i);
                 // find redex which matched with the production rule
@@ -76,20 +80,20 @@ public class StructuralParser {
                     // update the abstract representation before doing r reduction
                     updateAbstractRepresentation(i,host,productionRule,abstractDiagramStructure,redex);
 
-                    System.out.println("+++++++++++++++++++++++++++++++++++++++++");
+                   logger.info("+++++++++++++++++++++++++++++++++++++++++");
                     for (int k=0;k<host.getGraphicalImageComponents().size();k++){
-                        System.out.println(host.getGraphicalImageComponents().get(k).objectType);
+                        logger.info(host.getGraphicalImageComponents().get(k).objectType.toString());
                     }
-                    System.out.println("+++++++++++++++++++++++++++++++++++++++++");
+                    logger.info("+++++++++++++++++++++++++++++++++++++++++");
 
                     // apply r application
                     rApplication(i,host,productionRule,redex);
 
-                    System.out.println("==========================================");
+                    logger.info("==========================================");
                     for (int k=0;k<host.getGraphicalImageComponents().size();k++){
-                        System.out.println(host.getGraphicalImageComponents().get(k).objectType);
+                        logger.info(host.getGraphicalImageComponents().get(k).objectType.toString());
                     }
-                    System.out.println("==========================================");
+                    logger.info("==========================================");
 
                     // find redex
                     redex = findRedexForRApplication(host,productionRule);
@@ -100,9 +104,9 @@ public class StructuralParser {
             }
 
             if(host.isInitialGraph()) {
-                System.out.println("found Initial graph");
-                System.out.println("mark points: "+((AbstractNumberLineStructure)abstractDiagramStructure).getMarkPointList().size());
-                System.out.println("tick points: "+((AbstractNumberLineStructure)abstractDiagramStructure).getTickPointList().size());
+                logger.info("found Initial graph");
+                logger.info("mark points: "+((AbstractNumberLineStructure)abstractDiagramStructure).getMarkPointList().size());
+                logger.info("tick points: "+((AbstractNumberLineStructure)abstractDiagramStructure).getTickPointList().size());
 
                 FeedBack feedBack = new FeedBack("VALID_DIAGRAM_STRUCTURE");
                 feedBack.setDescription(FeedBackMessage.VALID_DIAGRAM_STRUCTURE);
@@ -156,8 +160,7 @@ public class StructuralParser {
                if(afterRuleApplication){
                    objectType = host.getGraphicalImageComponents().get(first_checkIndex_afterRuleApplication).objectType;
                }
-                System.out.println("> "+i+"> object type : h "+objectType+" r "+ruleGraph.getGraphicalImageComponents().get(i).objectType);
-               // first step of finding redex, match object type
+                // first step of finding redex, match object type
                if(objectType == ruleGraph.getGraphicalImageComponents().get(i).objectType){
 
                    // second step of finding redex, match spatial relations
@@ -184,9 +187,6 @@ public class StructuralParser {
                          if(host.getSpatialRelations(j,redex[i-1]) != null) {
                              // check whether required spatial relationships are exist
                              int contain_count=0;
-                             System.out.println("> Host Rlation: j -"+j+" -> "+ Arrays.toString((host.getRelations())[j]));
-                             System.out.println("> Host Rlation: redex[i-1] -"+redex[i-1]+" -> "+ Arrays.toString((host.getRelations())[redex[i-1]]));
-
 
                              for (int k=0; k < ruleGraph.getSpatialRelations(i, i - 1).size();k++){
 
@@ -200,8 +200,9 @@ public class StructuralParser {
                                  }
                              }
 
-                             System.out.println("> rule Rlation: "+ruleGraph.getSpatialRelations(i,i-1).toString());
-                             System.out.println("Contain c : "+contain_count+" "+ruleGraph.getSpatialRelations(i, i - 1).size() );
+                             logger.info("> rule Rlation: "+ruleGraph.getSpatialRelations(i,i-1).toString());
+                             logger.info("Contain c : "+contain_count+" "+ruleGraph.getSpatialRelations(i, i - 1).size() );
+
                              if (contain_count >= ruleGraph.getSpatialRelations(i, i - 1).size()) {
                                  redex[i] = j;
                                  stopPointOfHostGraph = j;
@@ -212,6 +213,7 @@ public class StructuralParser {
                              }else {
                                  isRelationMatched = false;
                              }
+
                          }else {
                              FeedBack feedBack = new FeedBack("NO_RELATION");
                              feedBack.setDescription(FeedBackMessage.SIMILLAR_OBJECT_TYPE_NO_RELATION);

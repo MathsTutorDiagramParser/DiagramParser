@@ -15,7 +15,7 @@ public class SVGtoPOJOMapper {
 
     private SVGImage svgImage;
     ArrayList<GraphicalImageComponent> graphicalImageComponents ;
-    ArrayList<Text> texts;
+    ArrayList<GraphicalImageComponent> texts;
 
     public SVGtoPOJOMapper(SVGImage svgImage) {
         this.svgImage = svgImage;
@@ -39,11 +39,11 @@ public class SVGtoPOJOMapper {
         this.graphicalImageComponents = graphicalImageComponents;
     }
 
-    public ArrayList<Text> getTexts() {
+    public ArrayList<GraphicalImageComponent> getTexts() {
         return texts;
     }
 
-    public void setTexts(ArrayList<Text> texts) {
+    public void setTexts(ArrayList<GraphicalImageComponent> texts) {
         this.texts = texts;
     }
 }

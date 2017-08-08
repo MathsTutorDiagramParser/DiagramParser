@@ -1,5 +1,6 @@
 package com.tutor.model.TextAligner;
 import com.tutor.model.graphParser.DiagramStructure.Histogram.AbstractHistogramStructure;
+import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.model.graphicalPOJOObject.Text.Text;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
  */
 public class HistogramTextAligner {
 
-    public AbstractHistogramStructure alignTextToHistogram(AbstractHistogramStructure abstractHistogramStructure, List<Text> textList) {
+    public AbstractHistogramStructure alignTextToHistogram(AbstractHistogramStructure abstractHistogramStructure, List<GraphicalImageComponent> textList) {
         return null;
     }
 }

@@ -8,6 +8,5 @@ import java.util.List;
  * Created by Madhavi Ruwandika on 8/4/2017.
  */
 public interface ObjectSequenceGeneratorService {
-    public void order(List<GraphicalImageComponent> unOderedList);
-    public List<GraphicalImageComponent> getOrderedList();
+    public List<GraphicalImageComponent> getOrderedList(List<GraphicalImageComponent> unOderedList);
 }
