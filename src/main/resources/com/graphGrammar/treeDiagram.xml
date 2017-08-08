@@ -3,7 +3,7 @@
     <Operations>
         <OperationTypes>
             <id>o_p1</id>
-            <name>COPY_OBJECT_ALL_ATTRIBUTE</name>
+            <name>COPY_FIRST_OBJECT_ALL_ATTRIBUTE</name>
         </OperationTypes>
         <OperationTypes>
             <id>o_p2</id>
@@ -21,7 +21,7 @@
         </ObjectType>
         <ObjectType>
             <id>I2</id>
-            <name>INITIAL_TREE_DIAGRAM</name>
+            <name>INITIAL_GRAPH</name>
         </ObjectType>
     </Types>
     <Rules>
@@ -88,11 +88,6 @@
                         <objectIdOne>0</objectIdOne>
                         <objectIdTwo>1</objectIdTwo>
                         <spatialRelationId>S1</spatialRelationId>
-                    </SpatialRelation>
-                    <SpatialRelation>
-                        <objectIdOne>0</objectIdOne>
-                        <objectIdTwo>1</objectIdTwo>
-                        <spatialRelationId>S2</spatialRelationId>
                     </SpatialRelation>
                 </SpatialRelations>
             </RightGraph>

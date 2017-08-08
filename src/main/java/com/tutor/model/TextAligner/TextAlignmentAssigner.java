@@ -4,6 +4,7 @@ import com.tutor.model.graphParser.DiagramStructure.AbstractDiagramStructure;
 
 import com.tutor.model.graphParser.DiagramStructure.AbstractHistogramStructure;
 import com.tutor.model.graphParser.DiagramStructure.AbstractNumberLineStructure;
+import com.tutor.model.graphParser.DiagramStructure.Trignometry.AbstractTrignometryStructure;
 import com.tutor.model.graphicalPOJOObject.Text.Text;
 import com.tutor.model.util.DiagramType;
 
@@ -28,6 +29,10 @@ public class TextAlignmentAssigner {
             case HISTOGRAM:
                 HistogramTextAligner histogramTextAligner = new HistogramTextAligner();
                 return histogramTextAligner.alignTextToHistogram((AbstractHistogramStructure) abstractDiagramStructure,textList);
+
+            case TRIGNOMETRICDIAGRAM:
+                TrignometryTextAligner trignometryTextAligner=new TrignometryTextAligner();
+                return trignometryTextAligner.alignTextToTrignometry((AbstractTrignometryStructure) abstractDiagramStructure,textList);
 
             default:
                 return null;

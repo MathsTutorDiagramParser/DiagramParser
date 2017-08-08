@@ -109,6 +109,14 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4jVersion}</version>
+        </dependency>
+
+
     </dependencies>
     <properties>
         <jersey.version>2.23.2</jersey.version>
@@ -116,6 +124,7 @@
         <junit.version>4.11</junit.version>
         <cdi.version>1.2</cdi.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <slf4jVersion>1.7.5</slf4jVersion>
     </properties>
     
 </project>

@@ -301,20 +301,20 @@
 			}
 		}
 		$('#save').click(function (e){
-            $('#save').click(function (e){
-                var svg = canvas.toSVG();
-                fabric.log(svg);
+           
+			var svg = canvas.toSVG();
+			fabric.log(svg);
 
-                $.ajax({
-                    crossDomain: true,
-                    url: 'http://localhost:8080/webapi/svg/save',
-                    type: 'POST',
-                    data: {
-                        svg,
-                    },
-                    success: function(){alert('POST completed');}
-                });
-            });
+			$.ajax({
+				crossDomain: true,
+				url: 'http://localhost:8080/webapi/svg/save/number_line',
+				type: 'POST',
+				data: {
+					svg,
+				},
+				success: function(){alert('POST completed');}
+			});
+           
 		})
 
 		

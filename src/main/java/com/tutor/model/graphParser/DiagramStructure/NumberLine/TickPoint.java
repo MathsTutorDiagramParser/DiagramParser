@@ -1,4 +1,4 @@
-package com.tutor.model.graphParser.DiagramStructure;
+package com.tutor.model.graphParser.DiagramStructure.NumberLine;
 
 import com.tutor.model.graphicalPOJOObject.Text.Text;
 import com.tutor.model.graphicalPOJOObject.line.VerticalLine;

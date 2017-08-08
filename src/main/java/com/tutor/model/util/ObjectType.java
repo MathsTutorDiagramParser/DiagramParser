@@ -13,7 +13,6 @@ public enum  ObjectType {
     HORIZONTAL_LINE,
     MARKED_LINE,
     INITIAL_GRAPH,
-    INITIAL_TREE_DIAGRAM,
     NODE;
 
 
