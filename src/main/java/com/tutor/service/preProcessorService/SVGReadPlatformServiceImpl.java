@@ -52,6 +52,7 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
             {
                 glines.add((Element)list.item(i));
             }
+
             source = new InputSource(new StringReader(svgFile));
             list = (NodeList)xPath.evaluate("//circle", source, XPathConstants.NODESET);
 
@@ -82,13 +83,12 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
 
 
             source = new InputSource(new StringReader(svgFile));
-            list = (NodeList)xPath.evaluate("//g/text/tspan", source, XPathConstants.NODESET);
+            list = (NodeList)xPath.evaluate("//g/text", source, XPathConstants.NODESET);
             List<Element> texts = new ArrayList<>(list.getLength());
             for (int i = 0; i < list.getLength(); i++)
             {
                 texts.add((Element)list.item(i));
             }
-
 //
 //            source = new InputSource(new StringReader(svgFile));
 //            list = (NodeList)xPath.evaluate("/svg", source, XPathConstants.NODESET);
@@ -106,10 +106,10 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
             String styl;
             String stkval;
             String trsfm;
-            Double x1;
-            Double x2;
-            Double y1;
-            Double y2;
+            Double x1=0.0;
+            Double x2=0.0;
+            Double y1=0.0;
+            Double y2=0.0;
             for (int i = 0; i < lines.size(); i++)
             {
 
@@ -222,24 +222,37 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
 
                 svgImage.addEllipse(ellipse);
             }
-
+            int count=0;
             for (int i = 0; i < texts.size(); i++)
             {
+                count=0;
                 Element textElement = texts.get(i);
                 Node nd=textElement.getParentNode();
                 Element e = (Element)nd;
-                Node nd1=e.getParentNode();
-                Element e1 = (Element)nd1;
-                trsfm=e1.getAttribute("transform");
-                x1= Double.parseDouble(textElement.getAttribute("x"))+Double.parseDouble(trsfm.substring(10,trsfm.length()-1).split(" ")[0]);
-                y1 =Double.parseDouble(textElement.getAttribute("y"))+Double.parseDouble(trsfm.substring(10,trsfm.length()-1).split(" ")[1]);
+                String tspanConcate="";
+                x1=0.0;
+                y1=0.0;
+                NodeList nodes=textElement.getChildNodes();
+                    for (int j = 0; j < nodes.getLength(); j++) {
+                        if (nodes.item(j).getNodeType() == Node.ELEMENT_NODE && nodes.item(j).getNodeName()=="tspan") {
+                            Element element = (Element) nodes.item(j);
+                            tspanConcate+=element.getTextContent();
+                            x1+=Double.parseDouble(element.getAttribute("x"));
+                            y1+=Double.parseDouble(element.getAttribute("y"));
+                            count++;
+                        }
+                    }
+                x1=x1/count;
+                y1=y1/count;
+                trsfm=e.getAttribute("transform");
+               x1= x1+Double.parseDouble(trsfm.substring(10,trsfm.length()-1).split(" ")[0]);
+               y1 =y1+Double.parseDouble(trsfm.substring(10,trsfm.length()-1).split(" ")[1]);
 
-
-                SVGText text = new SVGText(x1,y1, textElement.getTextContent());
-                System.out.println("These ate texts inside g and tspan");
+              SVGText text = new SVGText(x1,y1,tspanConcate);
+                System.out.println("For text labels x , y and labels are");
                 System.out.println(x1);
                 System.out.println(y1);
-                System.out.println(textElement.getTextContent());
+                System.out.println(tspanConcate);
                 svgImage.addText(text);
             }
 
