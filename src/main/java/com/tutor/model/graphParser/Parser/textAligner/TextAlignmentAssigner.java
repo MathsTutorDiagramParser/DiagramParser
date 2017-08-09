@@ -38,7 +38,8 @@ public class TextAlignmentAssigner {
             case TREEDIAGRAM:
                 TreeDiagramTextAligner treeDiagramTextAligner = new TreeDiagramTextAligner();
                 return treeDiagramTextAligner.alignTextToTreeDiagram((AbstractTreeDiagramStructure) abstractDiagramStructure, textList);
-            default:
+
+                default:
                 return null;
         }
 
