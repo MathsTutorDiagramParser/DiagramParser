@@ -21,22 +21,18 @@
         </ObjectType>
         <ObjectType>
             <id>I2</id>
-            <name>ANGLE_LINE</name>
+            <name>XAXIS</name>
         </ObjectType>
         <ObjectType>
             <id>I3</id>
-            <name>CIRCLE</name>
+            <name>YAXIS</name>
         </ObjectType>
         <ObjectType>
             <id>I4</id>
-            <name>INITIAL_NUMBER_LINE</name>
+            <name>BAR</name>
         </ObjectType>
         <ObjectType>
             <id>I5</id>
-            <name>MARKED_LINE</name>
-        </ObjectType>
-        <ObjectType>
-            <id>I6</id>
             <name>INITIAL_GRAPH</name>
         </ObjectType>
     </Types>
@@ -381,6 +377,6 @@
     </Relations>
     <TaggedValue>
         <tag>GraphType</tag>
-        <tagValue>NUMBER_LINE</tagValue>
+        <tagValue>HISTOGRAM</tagValue>
     </TaggedValue>
 </GraphGrammar>
