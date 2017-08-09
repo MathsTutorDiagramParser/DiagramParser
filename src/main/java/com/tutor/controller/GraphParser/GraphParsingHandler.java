@@ -112,7 +112,7 @@ public class GraphParsingHandler {
                 break;
         }
         try {
-            File file = new File("E:\\FYP\\implementation\\parser2\\DiagramParser\\src\\main\\resources\\com\\graphGrammar\\"+fileName);
+            File file = new File("G:\\Sem8\\FYP\\DiagramParser\\src\\main\\resources\\com\\graphGrammar\\numberLine.xml");
 
             JAXBContext jaxbContext = JAXBContext.newInstance(XMLGraphGrammar.class);
 

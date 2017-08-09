@@ -31,7 +31,7 @@ public class main {
         SpatialRelationshipGeneratorService spatialRelationShipGenerator = new SpatialRelationshipGeneratorServiceImpl();
 
 
-        SVGtoPOJOMapper svGtoPOJOMapper = svgObjectTokenizationService.tokenize(DiagramType.TREEDIAGRAM);
+        SVGtoPOJOMapper svGtoPOJOMapper = svgObjectTokenizationService.tokenize(DiagramType.NUMBRELINE);
         logger.info("//////////////////////////////////done seperation//////////////////////////////////");
 
         List<GraphicalImageComponent> orderedList = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapper.getGraphicalImageComponents());
@@ -75,7 +75,7 @@ public class main {
         host.setGraphicalImageComponents(orderedList);
         host.setRelations(relations);
 
-        Parser parser = new Parser(DiagramType.TREEDIAGRAM);
+        Parser parser = new Parser(DiagramType.NUMBRELINE);
         parser.parse(host,textList);
     }
 }

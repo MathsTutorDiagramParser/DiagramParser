@@ -42,7 +42,6 @@
     </Types>
     <Rules>
         <Rule>
-            <RuleId>0</RuleId>
             <LeftGraph>
                 <Objects>
                     <Object>
@@ -85,7 +84,6 @@
             </RuleOperations>
         </Rule>
         <Rule>
-            <RuleId>1</RuleId>
             <LeftGraph>
                 <Objects>
                     <Object>
@@ -124,7 +122,6 @@
         </Rule>
 
         <Rule>
-            <RuleId>2</RuleId>
             <LeftGraph>
                 <Objects>
                     <Object>
@@ -183,7 +180,6 @@
 
 
         <Rule>
-            <RuleId>3</RuleId>
             <LeftGraph>
                 <Objects>
                     <Object>
@@ -204,11 +200,10 @@
                     </Object>
                 </Objects>
                 <SpatialRelations>
-                        <SpatialRelation>
-                            <objectIdOne>0</objectIdOne>
-                            <objectIdTwo>1</objectIdTwo>
-                            <spatialRelationId>S0</spatialRelationId>
-                        </SpatialRelation>
+                    <SpatialRelation>
+                        <objectIdOne>0</objectIdOne>
+                        <objectIdTwo>1</objectIdTwo>
+                        <spatialRelationId>S0</spatialRelationId>
                         <SpatialRelation>
                             <objectIdOne>0</objectIdOne>
                             <objectIdTwo>1</objectIdTwo>
@@ -219,6 +214,7 @@
                             <objectIdTwo>1</objectIdTwo>
                             <spatialRelationId>S4</spatialRelationId>
                         </SpatialRelation>
+                    </SpatialRelation>
                 </SpatialRelations>
             </RightGraph>
             <RuleOperations>
@@ -232,7 +228,6 @@
         </Rule>
 
         <Rule>
-            <RuleId>4</RuleId>
             <LeftGraph>
                 <Objects>
                     <Object>
@@ -282,7 +277,6 @@
         </Rule>
 
         <Rule>
-            <RuleId>5</RuleId>
             <LeftGraph>
                 <Objects>
                     <Object>
@@ -321,7 +315,6 @@
         </Rule>
 
         <Rule>
-            <RuleId>6</RuleId>
             <LeftGraph>
                 <Objects>
                     <Object>
