@@ -4,6 +4,7 @@ import com.tutor.model.graphParser.DiagramStructure.AbstractDiagramStructure;
 
 import com.tutor.model.graphParser.DiagramStructure.Histogram.AbstractHistogramStructure;
 import com.tutor.model.graphParser.DiagramStructure.NumberLine.AbstractNumberLineStructure;
+import com.tutor.model.graphParser.DiagramStructure.TreeDiagram.AbstractTreeDiagramStructure;
 import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.model.graphParser.DiagramStructure.Trignometry.AbstractTrignometryStructure;
 import com.tutor.model.util.DiagramType;
@@ -34,7 +35,11 @@ public class TextAlignmentAssigner {
                 TrignometryTextAligner trignometryTextAligner=new TrignometryTextAligner();
                 return trignometryTextAligner.alignTextToTrignometry((AbstractTrignometryStructure) abstractDiagramStructure,textList);
 
-            default:
+            case TREEDIAGRAM:
+                TreeDiagramTextAligner treeDiagramTextAligner = new TreeDiagramTextAligner();
+                return treeDiagramTextAligner.alignTextToTreeDiagram((AbstractTreeDiagramStructure) abstractDiagramStructure, textList);
+
+                default:
                 return null;
         }
 

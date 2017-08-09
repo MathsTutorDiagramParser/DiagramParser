@@ -2,20 +2,21 @@ package com.tutor.model.graphParser.DiagramStructure.TreeDiagram;
 
 import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.model.graphicalPOJOObject.line.AngleLine;
+import com.tutor.model.graphicalPOJOObject.Text.Text;
 
 /**
  * Created by Wiranji Dinelka on 8/5/2017.
  */
 public class TreeBranch extends GraphicalImageComponent {
     private AngleLine angleLine;
-    private String outCome;
-    private String probability;
+    private Text outCome;
+    private Text probability;
 
     public TreeBranch(AngleLine angleLine) {
         this.angleLine = angleLine;
     }
 
-    public TreeBranch(AngleLine angleLine, String outCome, String probability) {
+    public TreeBranch(AngleLine angleLine, Text outCome, Text probability) {
         this.angleLine = angleLine;
         this.outCome = outCome;
         this.probability = probability;
@@ -29,19 +30,19 @@ public class TreeBranch extends GraphicalImageComponent {
         this.angleLine = angleLine;
     }
 
-    public String getOutCome() {
+    public Text getOutCome() {
         return outCome;
     }
 
-    public void setOutCome(String outCome) {
+    public void setOutCome(Text outCome) {
         this.outCome = outCome;
     }
 
-    public String getProbability() {
+    public Text getProbability() {
         return probability;
     }
 
-    public void setProbability(String probability) {
+    public void setProbability(Text probability) {
         this.probability = probability;
     }
 }

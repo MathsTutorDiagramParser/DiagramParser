@@ -8,6 +8,7 @@ import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
 public class Text extends GraphicalImageComponent {
 
     String text;
+    boolean isAttached = false;
 
     public Text(double x, double y, String text) {
         super(x,y);
@@ -21,5 +22,13 @@ public class Text extends GraphicalImageComponent {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public boolean isAttached() {
+        return isAttached;
+    }
+
+    public void setAttached(boolean attached) {
+        isAttached = attached;
     }
 }
