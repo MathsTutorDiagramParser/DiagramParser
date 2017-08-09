@@ -1,10 +1,12 @@
-package com.tutor.model.TextAligner;
+package com.tutor.model.graphParser.Parser.textAligner;
 
 import com.tutor.model.graphParser.DiagramStructure.AbstractDiagramStructure;
 
 import com.tutor.model.graphParser.DiagramStructure.TreeDiagram.AbstractTreeDiagramStructure;
 import com.tutor.model.graphParser.DiagramStructure.TreeDiagram.TreeBranch;
 import com.tutor.model.graphParser.DiagramStructure.TreeDiagram.TreeGraph;
+import com.tutor.model.graphParser.Parser.textAligner.TextAligner;
+import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.model.graphicalPOJOObject.Text.Text;
 import com.tutor.model.graphicalPOJOObject.line.Line;
 
@@ -17,12 +19,12 @@ public class TreeDiagramTextAligner extends TextAligner{
 
 
     public AbstractTreeDiagramStructure abstractTreeDiagramStructure;
-    public List<Text> textList;
+    public List<GraphicalImageComponent> textList;
     TextAligner aligner = new TextAligner();
     List<TreeGraph> graphList;
 
-    public AbstractDiagramStructure alignTextToTreeDiagram(AbstractDiagramStructure abstractDiagramStructure, List<Text> textList){
-        this.abstractTreeDiagramStructure = (AbstractTreeDiagramStructure)abstractDiagramStructure;
+    public AbstractDiagramStructure alignTextToTreeDiagram(AbstractTreeDiagramStructure abstractTreeDiagramStructure, List<GraphicalImageComponent> textList){
+        this.abstractTreeDiagramStructure = abstractTreeDiagramStructure;
         this.textList = textList;
         this.graphList = abstractTreeDiagramStructure.getTreeGraphArrayList();
         for(TreeGraph graph: graphList) {
@@ -31,7 +33,7 @@ public class TreeDiagramTextAligner extends TextAligner{
             matchDescriptionText(graph.getNode().getRightTreeBranch());
             matchProbabilityText(graph.getNode().getRightTreeBranch());
         }
-        return abstractDiagramStructure;
+        return abstractTreeDiagramStructure;
     }
 
 
@@ -39,10 +41,11 @@ public class TreeDiagramTextAligner extends TextAligner{
         Line line = branch.getAngleLine();
         Text text = null;
         Double minDistance = Double.POSITIVE_INFINITY;
-        for(Text desText: textList){
+        for(GraphicalImageComponent textComponent: textList){
+            Text desText = (Text) textComponent;
             boolean isInside = aligner.isInsideLengthTolerance(line, desText);
             if(isInside){
-                if(minDistance > aligner.findLineToPointDistance(line, desText)){
+                if(minDistance > findLineToPointDistance(line, desText)){
                     minDistance = aligner.findLineToPointDistance(line, desText);
                     text = desText;
                 }
@@ -61,7 +64,8 @@ public class TreeDiagramTextAligner extends TextAligner{
         Line line = branch.getAngleLine();
         Text text = null;
         Double minDistance = Double.POSITIVE_INFINITY;
-        for (Text probText :textList){
+        for (GraphicalImageComponent textComponent :textList){
+            Text probText = (Text) textComponent;
             if(!probText.isAttached()){
                 if(isProbabilityMatch(line,probText)){
                     if(minDistance > findProbabilityPointDistance(line , probText)){

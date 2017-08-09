@@ -165,24 +165,7 @@ public class TrignometryTextAligner {
     }
 
 
-    public double findLineToPointDistance(Line line, Text text){
-        double endOne_X = line.getX1();
-        double endTwo_X = line.getX2();
-        double endOne_Y = line.getY1();
-        double endTwo_Y = line.getY2();
-        double textPoint_X = text.getX();
-        double textPoint_Y = text.getY();
 
-        double lengthOfLine = Math.sqrt(Math.pow((endTwo_X - endOne_X),2)+Math.pow((endTwo_Y - endTwo_X),2));
-        double lengthPointToEndOne = Math.sqrt(Math.pow((endOne_X - textPoint_X),2)+Math.pow((endOne_Y - textPoint_Y),2));
-        double lengthPointToEndTwo = Math.sqrt(Math.pow((endTwo_X - textPoint_X),2)+Math.pow((endTwo_Y - textPoint_Y),2));
-
-        double distanceEndOneToMid = (Math.pow(lengthOfLine , 2) + Math.pow(lengthPointToEndOne , 2)
-                -Math.pow(lengthPointToEndTwo ,2)) / (2* lengthOfLine);
-        double perpendicularDistance = Math.sqrt(Math.pow(lengthPointToEndOne , 2) - Math.pow(distanceEndOneToMid , 2));
-
-        return  perpendicularDistance;
-    }
 
 }
 
