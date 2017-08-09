@@ -40,7 +40,7 @@ public class TreeDiagramTextAligner extends TextAligner{
         Text text = null;
         Double minDistance = Double.POSITIVE_INFINITY;
         for(Text desText: textList){
-            boolean isInside = isInsideLengthTolerance(line, desText);
+            boolean isInside = aligner.isInsideLengthTolerance(line, desText);
             if(isInside){
                 if(minDistance > aligner.findLineToPointDistance(line, desText)){
                     minDistance = aligner.findLineToPointDistance(line, desText);
