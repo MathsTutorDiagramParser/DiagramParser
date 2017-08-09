@@ -52,6 +52,7 @@ public class SVGResource {
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     public void saveTreeDiagramSVG(String svgString) throws IOException, ParserConfigurationException, SAXException, TransformerException, JAXBException {
+        System.out.println("Arrived");
         svgAnswerService.storeTreeDiagramSVGInput(svgString);
         mainController.processSVGInput(DiagramType.TREEDIAGRAM);
     }

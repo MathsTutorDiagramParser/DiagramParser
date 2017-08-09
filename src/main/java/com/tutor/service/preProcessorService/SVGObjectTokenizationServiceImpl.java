@@ -35,8 +35,7 @@ public class SVGObjectTokenizationServiceImpl implements SVGObjectTokenizationSe
                 fileName = "svgResult";
         }
 
-        String studentAnswerPath = "D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\test\\answerTree.svg";
-//        String studentAnswerPath = "E:\\FYP\\implementation\\parser1\\DiagramParser\\src\\main\\resources\\com\\answerFile\\" + fileName + ".xml";
+        String studentAnswerPath = "E:\\FYP\\implementation\\parser2\\DiagramParser\\src\\main\\resources\\com\\answerFile\\"+fileName+".xml";
         System.out.println("===========================Start Executing Rules===================================");
         KieContainer kc = KieServices.Factory.get().getKieClasspathContainer();
         KieSession ksession = kc.newKieSession( "preprocessor");

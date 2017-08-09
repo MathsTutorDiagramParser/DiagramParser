@@ -60,6 +60,7 @@ public class GrammarGrammarFactory {
         for (XMLProductionRule xmlProductionRule: xmlRuleList ) {
 
             ProductionRule productionRule = null;
+            int ruleId = xmlProductionRule.getRuleId();
 
             Graph leftGraph = null;
 
@@ -91,7 +92,7 @@ public class GrammarGrammarFactory {
                 ruleOperationsArrayList.add(ruleOperations);
             }
 
-            productionRule = new ProductionRule(leftGraph,rightGraph, ruleOperationsArrayList);
+            productionRule = new ProductionRule(ruleId,leftGraph,rightGraph, ruleOperationsArrayList);
             ruleList.add(productionRule);
             graphGrammar.setRuleList(ruleList);
         }

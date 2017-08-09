@@ -1,5 +1,8 @@
 package com.tutor.model.graphParser.GraphGrammarGenerator.graphGrammarObject;
 
+import com.tutor.model.graphParser.GraphGrammarGenerator.graphGrammarObject.Graph;
+import com.tutor.model.graphParser.GraphGrammarGenerator.graphGrammarObject.RuleOperations;
+
 import java.util.ArrayList;
 
 /**
@@ -7,14 +10,24 @@ import java.util.ArrayList;
  */
 public class ProductionRule {
 
+    private int ruleId;
     private Graph leftGraph;
     private Graph rightGraph;
     private ArrayList<RuleOperations> ruleOperations;
 
-    public ProductionRule(Graph leftGraph, Graph rightGraph, ArrayList<RuleOperations> ruleOperations) {
+    public ProductionRule(int ruleId, Graph leftGraph, Graph rightGraph, ArrayList<RuleOperations> ruleOperations) {
+        this.ruleId = ruleId;
         this.leftGraph = leftGraph;
         this.rightGraph = rightGraph;
         this.ruleOperations = ruleOperations;
+    }
+
+    public int getRuleId() {
+        return ruleId;
+    }
+
+    public void setRuleId(int ruleId) {
+        this.ruleId = ruleId;
     }
 
     public Graph getLeftGraph() {
