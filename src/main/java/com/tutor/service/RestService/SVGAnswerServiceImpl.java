@@ -52,6 +52,8 @@ public class SVGAnswerServiceImpl implements SVGAnswerService {
     }
 
     public void storeInput (String inputStr, String fileName) throws IOException, ParserConfigurationException, SAXException, TransformerException {
+
+        System.out.println("Start writing");
         String decodedStr = java.net.URLDecoder.decode(inputStr, "UTF-8");
         String xmlString = decodedStr.substring(decodedStr.indexOf("=")+1);
 
@@ -65,7 +67,8 @@ public class SVGAnswerServiceImpl implements SVGAnswerService {
         Transformer transformer = transformerFactory.newTransformer();
         DOMSource source = new DOMSource(doc);
 
-        StreamResult result =  new StreamResult(new File("D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\com\\answerFile\\"+fileName+".xml"));
+        StreamResult result =  new StreamResult(new File("G:\\Sem8\\FYP\\DiagramParser\\src\\main\\resources\\com\\answerFile\\"+fileName+".xml"));
         transformer.transform(source, result);
+        System.out.println("Finish writing");
     }
 }

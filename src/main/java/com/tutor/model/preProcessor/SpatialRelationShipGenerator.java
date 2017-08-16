@@ -16,8 +16,6 @@ import java.util.List;
  * Created by Madhavi Ruwandika on 8/3/2017.
  */
 public class SpatialRelationShipGenerator {
-
-
     private ArrayList<SpatialRelation>[][] relations ;
 
 
@@ -118,8 +116,8 @@ public class SpatialRelationShipGenerator {
     public  ArrayList<SpatialRelation> identifySpatialRelation(GraphicalImageComponent o1,GraphicalImageComponent o2){
 
         ArrayList<SpatialRelation> relations = new ArrayList<>();
-        //identify tough
-        if(isTough(o1,o2)){
+        //identify touch
+        if(isTouch(o1,o2)){
             relations.add(SpatialRelation.TOUCH);
         }
         //identify overlap
@@ -134,6 +132,15 @@ public class SpatialRelationShipGenerator {
         if(isSameEnd(o1,o2)){
             relations.add(SpatialRelation.SAMEEND);
         }
+        if(isLong(o1,o2)){
+            relations.add(SpatialRelation.SHORT);
+        }
+        if(isPerpendicular(o1,o2)){
+            relations.add(SpatialRelation.PERPENDICULAR);
+        }
+        if(isOnTheLine(o1,o2)){
+            relations.add(SpatialRelation.TOUCH);
+        }
 
         if(isUp(o1,o2)){
             relations.add(SpatialRelation.UP);
@@ -145,18 +152,102 @@ public class SpatialRelationShipGenerator {
         return relations;
     }
 
-    public boolean isTough(GraphicalImageComponent o1,GraphicalImageComponent o2){
-        if( (o1.superObjectType!= ObjectType.LINE && o2.superObjectType!=ObjectType.LINE && (isCloseToTough(o1.getX(), o2.getX()) && isCloseToTough(o1.getY(),o2.getY())))
-                || (o1.objectType!= ObjectType.CIRCLE && o2.objectType!=ObjectType.CIRCLE  && (isCloseToTough(o1.getX1(),o2.getX1()) && isCloseToTough(o1.getY1(),o2.getY1())))
-                || (o1.objectType!= ObjectType.CIRCLE && o2.objectType!=ObjectType.CIRCLE  && (isCloseToTough(o1.getX2(),o2.getX2()) && isCloseToTough(o1.getY2(),o2.getY2())))
-                || (o1.objectType!= ObjectType.CIRCLE && o2.objectType!=ObjectType.CIRCLE  && (isCloseToTough(o1.getX1(),o2.getX2()) && isCloseToTough(o1.getY1(),o2.getY2())))
-                || (o1.objectType!= ObjectType.CIRCLE && o2.objectType!=ObjectType.CIRCLE  && (isCloseToTough(o1.getX2(),o2.getX1()) && isCloseToTough(o1.getY2(),o2.getY1())))
-                || (o1.superObjectType!= ObjectType.LINE && o2.objectType!=ObjectType.CIRCLE  && (isCloseToTough(o1.getX(),o2.getX1()) && isCloseToTough(o1.getY(),o2.getY1()))||(isCloseToTough(o1.getX(),o2.getX2()) && isCloseToTough(o1.getY(),o2.getY2())))
-                || (o1.objectType!= ObjectType.CIRCLE && o2.superObjectType!=ObjectType.LINE  && (isCloseToTough(o1.getX1(),o2.getX()) && isCloseToTough(o1.getY1(),o2.getY()))||(isCloseToTough(o1.getX2(),o2.getX()) && isCloseToTough(o1.getY2(),o2.getY())))
-                ){
-            return true;
-        }
+    public boolean isTouch(GraphicalImageComponent o1,GraphicalImageComponent o2){
 
+            if (!(o1.objectType == ObjectType.RECTANGLE || o2.objectType == ObjectType.RECTANGLE)&&((o1.superObjectType != ObjectType.LINE && o2.superObjectType != ObjectType.LINE && (isCloseToTouch(o1.getX(), o2.getX()) && isCloseToTouch(o1.getY(), o2.getY())))
+                    || (o1.objectType != ObjectType.CIRCLE && o2.objectType != ObjectType.CIRCLE && (isCloseToTouch(o1.getX1(), o2.getX1()) && isCloseToTouch(o1.getY1(), o2.getY1())))
+                    || (o1.objectType != ObjectType.CIRCLE && o2.objectType != ObjectType.CIRCLE && (isCloseToTouch(o1.getX2(), o2.getX2()) && isCloseToTouch(o1.getY2(), o2.getY2())))
+                    || (o1.objectType != ObjectType.CIRCLE && o2.objectType != ObjectType.CIRCLE && (isCloseToTouch(o1.getX1(), o2.getX2()) && isCloseToTouch(o1.getY1(), o2.getY2())))
+                    || (o1.objectType != ObjectType.CIRCLE && o2.objectType != ObjectType.CIRCLE && (isCloseToTouch(o1.getX2(), o2.getX1()) && isCloseToTouch(o1.getY2(), o2.getY1())))
+                    || (o1.superObjectType != ObjectType.LINE && o2.objectType != ObjectType.CIRCLE && (isCloseToTouch(o1.getX(), o2.getX1()) && isCloseToTouch(o1.getY(), o2.getY1())) || (isCloseToTouch(o1.getX(), o2.getX2()) && isCloseToTouch(o1.getY(), o2.getY2())))
+                    || (o1.objectType != ObjectType.CIRCLE && o2.superObjectType != ObjectType.LINE && (isCloseToTouch(o1.getX1(), o2.getX()) && isCloseToTouch(o1.getY1(), o2.getY())) || (isCloseToTouch(o1.getX2(), o2.getX()) && isCloseToTouch(o1.getY2(), o2.getY()))))
+                    ) {
+                return true;
+            }
+
+
+        return false;
+    }
+    public boolean isPerpendicular(GraphicalImageComponent o1,GraphicalImageComponent o2){
+        if(o1.objectType== ObjectType.HORIZONTAL_LINE && o2.objectType==ObjectType.VERTICAL_LINE){
+            double y1=o1.getY1();
+            double y2=o1.getY2();
+            double x1=o2.getX1();
+            double x2=o2.getX2();
+            if(y1==y2 && x1==x2){
+                return true;
+            }
+
+
+        }else if(o1.objectType== ObjectType.VERTICAL_LINE&& o2.objectType==ObjectType.HORIZONTAL_LINE){
+            double x1=o1.getX1();
+            double x2=o1.getX2();
+            double y1=o2.getY1();
+            double y2=o2.getY2();
+            if(x1==x2 && y1==y2){
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+
+    public boolean isLong(GraphicalImageComponent o1,GraphicalImageComponent o2){
+        if(o1.objectType== ObjectType.HORIZONTAL_LINE && o2.objectType==ObjectType.VERTICAL_LINE){
+            double x1=o1.getX1();
+            double x2=o1.getX2();
+            double y1=o2.getY1();
+            double y2=o2.getY2();
+            double t1=Math.abs(x2-x1);
+            double t2=Math.abs(y2-y1);
+            if(t2/t1<10){
+                return true;
+            }
+        }else if(o1.objectType== ObjectType.VERTICAL_LINE&& o2.objectType==ObjectType.HORIZONTAL_LINE){
+            double x1=o2.getX1();
+            double x2=o2.getX2();
+            double y1=o1.getY1();
+            double y2=o1.getY2();
+            double t1=Math.abs(x2-x1);
+            double t2=Math.abs(y2-y1);
+            if(t2/t1<10){
+                return true;
+            }
+        }
+          return false;
+    }
+
+    public boolean isOnTheLine(GraphicalImageComponent o1,GraphicalImageComponent o2){
+
+        if(o1.objectType== ObjectType.HORIZONTAL_LINE && o2.objectType==ObjectType.RECTANGLE ){
+            double x1=o1.getX1();
+            double y1=o1.getY1();
+            double x2=o1.getX2();
+            double x3=o2.getX();
+            double y3=o2.getY();
+            double h=o2.getH();
+            double t =y3+h;
+            // Check whether the bars are inside the horizontal line
+            if(((x1<x3 && x3<x2)||(x2<x3 && x3<x1))&&(isCloseToTouch(y1,t))){
+                return true;
+
+            }
+        }else if(o2.objectType== ObjectType.HORIZONTAL_LINE && o1.objectType==ObjectType.RECTANGLE){
+            double x1=o2.getX1();
+            double y1=o2.getY1();
+            double x2=o2.getX2();
+            double x3=o1.getX();
+            double y3=o1.getY();
+            double h=o1.getH();
+            double t =y3+h;
+            // Check whether the bars are inside the horizontal line
+            if(((x1<x3 && x3<x2)||(x2<x3 && x3<x1))&&(isCloseToTouch(y1,t))){
+                return true;
+
+            }
+
+        }
         return false;
     }
 
@@ -331,6 +422,19 @@ public class SpatialRelationShipGenerator {
                 break;
 
             case HISTOGRAM:
+
+                int newItr1 =0;
+                for(int oldItr = 0;oldItr < change.length; oldItr++){
+                    ArrayList<SpatialRelation>[] substitute = old[oldItr];
+                    if(!isInArray(Arrays.copyOfRange(redex,1,redex.length),oldItr)){
+                        newRelations[newItr1] = buildSubstituteArray(substitute,redex);
+                        newItr1++;
+                    }
+                }
+                host.setRelations(newRelations);
+                break;
+
+
             case TREEDIAGRAM:
                 host.setRelations(getNewTreeRelArray(newRelations, host, change,old, redex));
                 break;
@@ -370,8 +474,8 @@ public class SpatialRelationShipGenerator {
         return false;
     }
 
-    public boolean isCloseToTough(double p,double q){
-        if((p<= q+5) && (p>(q-5))){
+    public boolean isCloseToTouch(double p,double q){
+        if((p<= q + 3.5 ) && (p>(q - 3.5))){
             return true;
         }
         return false;
@@ -410,16 +514,15 @@ public class SpatialRelationShipGenerator {
                 GraphicalImageComponent graphicalImageComponent = host.getGraphicalImageComponents().get(itr);
                 // Set Up or Down relationship with newly added graph element with existing elements
                 for (int j = 0; j < hostGraphComponentSize; j++) {
-                    ArrayList<SpatialRelation> spatialRelationsList;
+
                     if (j == itr) {
-                        spatialRelationsList = new ArrayList<>();
-                        spatialRelationsList.add(SpatialRelation.SAME);
-                        newRelations[itr][itr] = spatialRelationsList;
+                        newRelations[itr][itr] = new ArrayList<>();
+                        newRelations[itr][itr].add(SpatialRelation.SAME);
                     } else {
-                        spatialRelationsList = new ArrayList<>();
+                        newRelations[itr][j] = new ArrayList<>();
                         SpatialRelation spatialRelationNew = identifySpecificSpatialRelation(graphicalImageComponent, host.getGraphicalImageComponents().get(j));
-                        spatialRelationsList.add(spatialRelationNew);
-                        newRelations[itr][j] = spatialRelationsList;
+                        newRelations[itr][j].add(spatialRelationNew);
+
 
                         if (spatialRelationNew.equals(SpatialRelation.UP)) {
                             if (newRelations[j][itr] == null) {

@@ -180,7 +180,11 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
                 Element rectangleElement = rectangles.get(i);
                 //System.out.println(i+"***"+rectangles.get(i).getAttribute("width"));
                 //System.out.println(rectangles.get(i).getTagName());
-
+                System.out.println("Rectangles are ************");
+                System.out.println("x value is "+rectangleElement.getAttribute("x") );
+                System.out.println("y value is "+ rectangleElement.getAttribute("y"));
+                System.out.println("height value is "+ rectangleElement.getAttribute("height"));
+                System.out.println("width value is "+rectangleElement.getAttribute("width") );
                 SVGRectangle rectangle = new SVGRectangle(Double.parseDouble(rectangleElement.getAttribute("x")),
                         Double.parseDouble(rectangleElement.getAttribute("y")),
                         Double.parseDouble(rectangleElement.getAttribute("height")),

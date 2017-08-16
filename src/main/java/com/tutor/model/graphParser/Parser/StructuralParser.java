@@ -69,8 +69,15 @@ public class StructuralParser {
 
             for (int i=0;i<graphGrammar.getRuleList().size();i++){
                 logger.info("========rule : " +i+"========");
-                // get production rule according to order
-                ProductionRule productionRule = graphGrammar.getRuleList().get(i);
+                ProductionRule productionRule = null;
+
+                //Get production rule according to the acceding order
+                for (int itr = 0; itr<graphGrammar.getRuleList().size(); itr++) {
+                    if(i == graphGrammar.getRuleList().get(itr).getRuleId()) {
+                        productionRule = graphGrammar.getRuleList().get(i);
+                        break;
+                    }
+                }
                 // find redex which matched with the production rule
                 int[] redex =  findRedexForRApplication(host,productionRule);
 
@@ -195,7 +202,7 @@ public class StructuralParser {
                                          contain_count,feedBacks,this.abstractDiagramStructure,host,j,redex[i-1]);
                                  //end
 
-                                 if(host.getSpatialRelations(j, redex[i - 1]).contains(ruleGraph.getSpatialRelations(i, i - 1).get(k))){
+                                 if(host.getSpatialRelations( redex[i - 1],j).contains(ruleGraph.getSpatialRelations(i-1, i ).get(k))){
                                      contain_count+=1;
                                  }
                              }
@@ -320,14 +327,16 @@ public class StructuralParser {
             TreeNode treeNode = getTreeNode( treeNodeNew, host, redex);
             newObjectList.add(treeNode);
             first_checkIndex_afterRuleApplication = redex[0]+1;
-        } else if(ruleId == 1) {
+        } else if(ruleId == 1 || ruleId == 2) {
             TreeGraph treeGraphNew = new TreeGraph();
             treeGraphNew.objectType = substitute.objectType;
             TreeGraph treeGraph = getTreeGraphWithTwoNodes(treeGraphNew, host, redex);
             newObjectList.add(treeGraph);
+            first_checkIndex_afterRuleApplication = redex[0];
         } else {
             TreeGraph treeGraph = getTreeGraphWithOneNode(host, redex);
             newObjectList.add(treeGraph);
+            first_checkIndex_afterRuleApplication = redex[0];
         }
         return newObjectList;
     }
@@ -348,17 +357,6 @@ public class StructuralParser {
 
         treeNode.setLeftTreeBranch(leftTreeBranch);
         treeNode.setRightTreeBranch(rightTreeBranch);
-        int level = 0;
-        for(int hostItr = 0; hostItr<host.getGraphicalImageComponents().size(); hostItr++) {
-            if(host.getGraphicalImageComponents().get(hostItr).objectType == ObjectType.NODE) {
-                level++;
-            }
-        }
-        if(level == 0){
-            treeNode.setLevel("0:"+level);
-        } else {
-            treeNode.setLevel("1:"+(level-1));
-        }
 
         treeNode.setX1((leftTreeBranch.getX1()+rightTreeBranch.getX1())/2);
         treeNode.setX2((leftTreeBranch.getX2()+rightTreeBranch.getX2())/2);
@@ -370,7 +368,7 @@ public class StructuralParser {
 
     public TreeGraph getTreeGraphWithTwoNodes(TreeGraph treeGraph, Graph host, int[] redex) {
         TreeNode treeNodeOne = (TreeNode) host.getGraphicalImageComponents().get(redex[0]);
-        treeNodeOne.setLevel("1:1");
+
         treeGraph.setX1(treeNodeOne.getX1());
         treeGraph.setY1(treeNodeOne.getY1());
         treeGraph.setX2(treeNodeOne.getX2());
@@ -379,7 +377,7 @@ public class StructuralParser {
         return treeGraph;
     }
     public TreeGraph getTreeGraphWithOneNode(Graph host, int[] redex) {
-       return  (TreeGraph) host.getGraphicalImageComponents().get(redex[0]);
+        return  (TreeGraph) host.getGraphicalImageComponents().get(redex[0]);
     }
 
 }

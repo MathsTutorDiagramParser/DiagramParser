@@ -9,16 +9,27 @@ import java.util.ArrayList;
  */
 public class XMLProductionRule {
 
+    private int ruleId;
     private XMLGraph leftXMLGraph;
     private XMLGraph rightXMLGraph;
     private ArrayList<XMLRuleOperations> xmlRuleOperations = new ArrayList<>();
 
     public XMLProductionRule(){}
 
-    public XMLProductionRule(XMLGraph leftXMLGraph, XMLGraph rightXMLGraph, ArrayList<XMLRuleOperations> xmlRuleOperations) {
+    public XMLProductionRule(int ruleId, XMLGraph leftXMLGraph, XMLGraph rightXMLGraph, ArrayList<XMLRuleOperations> xmlRuleOperations) {
+        this.ruleId = ruleId;
         this.leftXMLGraph = leftXMLGraph;
         this.rightXMLGraph = rightXMLGraph;
         this.xmlRuleOperations = xmlRuleOperations;
+    }
+
+    @XmlElement(name="RuleId")
+    public int getRuleId() {
+        return ruleId;
+    }
+
+    public void setRuleId(int ruleId) {
+        this.ruleId = ruleId;
     }
 
     @XmlElement(name="LeftGraph")

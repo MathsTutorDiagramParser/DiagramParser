@@ -13,6 +13,8 @@ public class GraphicalImageComponent {
     private double y2;
     private double x;
     private double y;
+    private double h;
+    private double w;
 
     private double hieght;
     public ObjectType objectType;
@@ -36,11 +38,31 @@ public class GraphicalImageComponent {
         this.y = y;
         this.hieght = 0;
     }
+    public GraphicalImageComponent(double x, double y, double h) {
+        this.x = x;
+        this.y = y;
+        this.h=h;
+    }
 
     public GraphicalImageComponent() {
 
     }
 
+    public double getW() {
+        return w;
+    }
+
+    public double getH() {
+        return h;
+    }
+
+    public void setH(double h) {
+        this.h = h;
+    }
+
+    public void setW(double w) {
+        this.w = w;
+    }
 
     public double getX1() {
         return x1;

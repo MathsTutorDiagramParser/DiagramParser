@@ -30,9 +30,9 @@ public class main {
         ObjectSequenceGeneratorService objectSequenceGeneratorService = new ObjectSequenceGeneratorServiceImpl();
         SpatialRelationshipGeneratorService spatialRelationShipGenerator = new SpatialRelationshipGeneratorServiceImpl();
 
-
-        SVGtoPOJOMapper svGtoPOJOMapper = svgObjectTokenizationService.tokenize(DiagramType.TREEDIAGRAM);
+        SVGtoPOJOMapper svGtoPOJOMapper = svgObjectTokenizationService.tokenize(DiagramType.NUMBRELINE);
         logger.info("//////////////////////////////////done seperation//////////////////////////////////");
+
 
         List<GraphicalImageComponent> orderedList = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapper.getGraphicalImageComponents());
 //        objectSequenceGeneratorService.order(svGtoPOJOMapper.getTexts());
@@ -55,18 +55,19 @@ public class main {
 
         ArrayList<SpatialRelation>[][] relations =
                 spatialRelationShipGenerator.getSpatialRelationshipMatrixOfObject(orderedList);
-        //    print Spatial relationship
-//        for (int i=0; i< orderedList.size();i++){
-//            System.out.println("======"+i+"=====");
-//            for (int j=0;j<orderedList.size();j++){
-//                System.out.print( "j="+j+ "=>");
-//                for(int k=0;k< relations[i][j].size();k++){
-//                    System.out.print(relations[i][j].get(k)+"   ");
-//                }
-//                System.out.println("\n");
-//            }
-//
-//        }
+        //   print Spatial relationship
+        for (int i=11; i< 12;i++){
+            System.out.println("======"+i+" "+orderedList.get(i).getX1()+"===== "+orderedList.get(i).getX2());
+           for (int j=0;j<orderedList.size();j++){
+                System.out.print( "j="+j+ " "+orderedList.get(i).objectType+"=>"+orderedList.get(j).objectType+" are ");
+
+                for(int k=0;k< relations[i][j].size();k++){
+                   System.out.print(relations[i][j].get(k)+"   ");
+                }
+                System.out.println("\n");
+           }
+
+        }
 
         logger.info("//////////////////////////////////done relationship identification//////////////////////////////////");
 
@@ -75,7 +76,7 @@ public class main {
         host.setGraphicalImageComponents(orderedList);
         host.setRelations(relations);
 
-        Parser parser = new Parser(DiagramType.TREEDIAGRAM);
+        Parser parser = new Parser(DiagramType.HISTOGRAM);
         parser.parse(host,textList);
     }
 }
