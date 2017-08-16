@@ -1,27 +1,29 @@
 package com.tutor.model.graphParser.DiagramStructure.Histogram;
 
 import com.tutor.model.graphParser.DiagramStructure.AbstractDiagramStructure;
-import com.tutor.model.graphParser.DiagramStructure.NumberLine.TickPoint;
 import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
-import com.tutor.model.graphicalPOJOObject.Text.Text;
+
 
 import java.util.ArrayList;
 import java.util.List;
+import com.tutor.model.graphicalPOJOObject.Rectangle.Rectangle;
+import com.tutor.model.util.ObjectType;
 
 /**
  * Created by Madhavi Ruwandika on 8/4/2017.
  */
 public class AbstractHistogramStructure extends AbstractDiagramStructure {
-    List<BarList> barList;
+    List<Bar> bar;
+    List<Bar> abstractBar;
     public String xLegend;
     public String yLegend;
     public AbstractHistogramStructure() {
-        barList=new ArrayList<>();
-        xLegend="";
-        yLegend="";
+        bar =new ArrayList<>();
+        xLegend=null;
+        yLegend=null;
     }
-    public void updateBarList(BarList barItem){
-        barList.add(barItem);
+    public void updateBarList(Bar barItem){
+        bar.add(barItem);
     }
 
     public String getxLegend() {
@@ -41,7 +43,11 @@ public class AbstractHistogramStructure extends AbstractDiagramStructure {
     }
 
     @Override
-    public void updateAbstractRepresentation(GraphicalImageComponent graphicalImageComponent) {
+    public void updateAbstractRepresentation(GraphicalImageComponent obj) {
+        if(obj.objectType== ObjectType.RECTANGLE){
+            Bar bar1 = new Bar((Rectangle) obj);
+            abstractBar.add(bar1);
+        }
 
     }
 

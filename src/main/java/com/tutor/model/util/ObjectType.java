@@ -13,9 +13,9 @@ public enum  ObjectType {
     HORIZONTAL_LINE,
     MARKED_LINE,
     INITIAL_GRAPH,
+    RECTANGLE,
+    AXIS_LINE,
     BAR,
-    XAXIS,
-    YAXIS,
     NODE;
 
 

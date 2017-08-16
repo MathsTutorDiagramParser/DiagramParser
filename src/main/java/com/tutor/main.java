@@ -34,6 +34,7 @@ public class main {
         SVGtoPOJOMapper svGtoPOJOMapper = svgObjectTokenizationService.tokenize(DiagramType.NUMBRELINE);
         logger.info("//////////////////////////////////done seperation//////////////////////////////////");
 
+
         List<GraphicalImageComponent> orderedList = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapper.getGraphicalImageComponents());
 //        objectSequenceGeneratorService.order(svGtoPOJOMapper.getTexts());
         List<GraphicalImageComponent> textList = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapper.getTexts());
