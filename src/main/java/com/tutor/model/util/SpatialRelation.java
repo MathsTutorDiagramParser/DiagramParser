@@ -12,7 +12,8 @@ public enum SpatialRelation {
     DOWN,
     SAMEEND,
     THICK_LINE,
-    LONG,
+    SHORT,
+    PERPENDICULAR,
     NOT_THICK_LINE;
 
 }

@@ -15,7 +15,9 @@ public enum  ObjectType {
     INITIAL_GRAPH,
     RECTANGLE,
     AXIS_LINE,
-    BAR,
+    YAXIS,
+    XAXIS,
+    BARS,
     NODE;
 
 
