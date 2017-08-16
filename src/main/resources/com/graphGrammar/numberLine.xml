@@ -232,6 +232,7 @@
         </Rule>
 
         <Rule>
+            <RuleId>4</RuleId>
             <LeftGraph>
                 <Objects>
                     <Object>
@@ -281,6 +282,7 @@
         </Rule>
 
         <Rule>
+            <RuleId>5</RuleId>
             <LeftGraph>
                 <Objects>
                     <Object>
@@ -319,6 +321,7 @@
         </Rule>
 
         <Rule>
+            <RuleId>6</RuleId>
             <LeftGraph>
                 <Objects>
                     <Object>

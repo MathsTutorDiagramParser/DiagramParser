@@ -18,9 +18,10 @@ public class SVGObjectTokenizationServiceImpl implements SVGObjectTokenizationSe
         SVGImage svgImageStudentAnswer = new SVGImage();
         SVGReadPlatformService svgReader = new SVGReadPlatformServiceImpl();
         String fileName;
+
         switch (diagramType) {
             case NUMBRELINE:
-                fileName = "svgNumberLineResult";
+                fileName = "NumberLine\\test1.svg";
                 break;
             case HISTOGRAM:
                 fileName = "svgHistogramResultResult";
@@ -35,14 +36,15 @@ public class SVGObjectTokenizationServiceImpl implements SVGObjectTokenizationSe
                 fileName = "svgResult";
         }
 
-        String studentAnswerPath = "E:\\FYP\\implementation\\parser2\\DiagramParser\\src\\main\\resources\\com\\answerFile\\"+fileName+".xml";
+       // String studentAnswerPath = "E:\\FYP\\implementation\\parser2\\DiagramParser\\src\\main\\resources\\com\\answerFile\\"+fileName+".xml";
+        String studentAnswerPath = "D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\test\\"+fileName;
         System.out.println("===========================Start Executing Rules===================================");
         KieContainer kc = KieServices.Factory.get().getKieClasspathContainer();
         KieSession ksession = kc.newKieSession( "preprocessor");
         System.out.println("============================Finish Executing Rules==================================");
 
 
-        SVGImage svgImage = svgReader.parse(svgImageStudentAnswer, studentAnswerPath);
+        SVGImage svgImage = sReader.parse(svgImageStudentAnswer, studentAnswerPath);
 
         svgtoPOJOMapper = new SVGtoPOJOMapper(svgImage);
         ksession.insert(svgtoPOJOMapper);
