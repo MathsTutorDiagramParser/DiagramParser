@@ -43,10 +43,10 @@ public class TreeDiagramTextAligner extends TextAligner{
         Double minDistance = Double.POSITIVE_INFINITY;
         for(GraphicalImageComponent textComponent: textList){
             Text desText = (Text) textComponent;
-            boolean isInside = aligner.isInsideLengthTolerance(line, desText);
+            boolean isInside = isInsideLengthTolerance(line, desText);
             if(isInside){
                 if(minDistance > findLineToPointDistance(line, desText)){
-                    minDistance = aligner.findLineToPointDistance(line, desText);
+                    minDistance = findLineToPointDistance(line, desText);
                     text = desText;
                 }
             }
@@ -94,7 +94,11 @@ public class TreeDiagramTextAligner extends TextAligner{
             return true;
         }
         else {return false;}
+
     }
+
+
+
 
 
 

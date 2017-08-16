@@ -43,7 +43,7 @@ public class TextAligner {
         double label_X = lengthLabel.getX();
         double label_Y = lengthLabel.getY();
 
-        double radius =  Math.sqrt(Math.pow((endTwo_X - endOne_X),2)+Math.pow((endTwo_Y - endTwo_Y),2));
+        double radius =  Math.sqrt(Math.pow((endTwo_X - endOne_X),2)+Math.pow((endTwo_Y - endTwo_Y),2)) / 2;
         double center_X = (endOne_X + endTwo_X) / 2;
         double center_Y = (endOne_Y + endTwo_Y) / 2;
 

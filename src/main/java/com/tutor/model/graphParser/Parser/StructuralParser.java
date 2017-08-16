@@ -159,7 +159,7 @@ public class StructuralParser {
             while ( j < host.getGraphicalImageComponents().size()){
 
                ObjectType objectType = host.getGraphicalImageComponents().get(j).objectType;
-               // after applying rule element that need to be checked will be setted by the 'r application method'
+               // after applying rule element that need to be checked will be set by the 'r application method'
                if(afterRuleApplication){
                    objectType = host.getGraphicalImageComponents().get(first_checkIndex_afterRuleApplication).objectType;
                }
@@ -306,6 +306,7 @@ public class StructuralParser {
             case TREEDIAGRAM:
                 return getSubstituteList(newObjectList, substitute, ruleId, host, redex);
             case TRIGNOMETRICDIAGRAM:
+                newObjectList.add(substitute);
                 return newObjectList;
             default:
                 return null;
