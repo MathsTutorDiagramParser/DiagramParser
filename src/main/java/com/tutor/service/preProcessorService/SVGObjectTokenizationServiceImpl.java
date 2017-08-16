@@ -1,11 +1,14 @@
 package com.tutor.service.preProcessorService;
 
 import com.tutor.model.graphicalSVGObject.SVGImage;
+import com.tutor.model.graphicalSVGObject.SVGRectangle;
 import com.tutor.model.preProcessor.SVGtoPOJOMapper;
 import com.tutor.model.util.DiagramType;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+
+import java.util.ArrayList;
 
 /**
  * Created by Madhavi Ruwandika on 8/4/2017.
@@ -44,9 +47,12 @@ public class SVGObjectTokenizationServiceImpl implements SVGObjectTokenizationSe
         System.out.println("============================Finish Executing Rules==================================");
 
 
-        SVGImage svgImage = sReader.parse(svgImageStudentAnswer, studentAnswerPath);
+        SVGImage svgImage = svgReader.parse(svgImageStudentAnswer, studentAnswerPath);
 
         svgtoPOJOMapper = new SVGtoPOJOMapper(svgImage);
+        for(int i=0;i<svgtoPOJOMapper.getGraphicalImageComponents().size();i++) {
+            System.out.println(svgtoPOJOMapper.getGraphicalImageComponents().get(i).objectType);
+        }
         ksession.insert(svgtoPOJOMapper);
         ksession.fireAllRules();
 
