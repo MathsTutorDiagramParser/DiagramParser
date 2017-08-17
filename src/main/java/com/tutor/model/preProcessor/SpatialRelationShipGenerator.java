@@ -141,6 +141,7 @@ public class SpatialRelationShipGenerator {
         if(isPerpendicular(o1,o2)){
             relations.add(SpatialRelation.PERPENDICULAR);
         }
+        // For Rectangle
         if(isOnTheLine(o1,o2)){
             relations.add(SpatialRelation.TOUCH);
         }
@@ -278,7 +279,7 @@ public class SpatialRelationShipGenerator {
             double h=o2.getH();
             double t =y3+h;
             // Check whether the bars are inside the horizontal line
-            if(((x1<x3 && x3<x2)||(x2<x3 && x3<x1))&&(isCloseToTouch(y1,t))){
+            if(((x1<x3 && x3<x2)||(x2<x3 && x3<x1))&&(isCloseToTouchRectangle(y1,t))){
                 return true;
 
             }
@@ -291,7 +292,7 @@ public class SpatialRelationShipGenerator {
             double h=o1.getH();
             double t =y3+h;
             // Check whether the bars are inside the horizontal line
-            if(((x1<x3 && x3<x2)||(x2<x3 && x3<x1))&&(isCloseToTouch(y1,t))){
+            if(((x1<x3 && x3<x2)||(x2<x3 && x3<x1))&&(isCloseToTouchRectangle(y1,t))){
                 return true;
 
             }
@@ -551,6 +552,12 @@ public class SpatialRelationShipGenerator {
 
     public boolean isCloseToTouch(double p,double q){
         if((p<= q + 3.5 ) && (p>(q - 3.5))){
+            return true;
+        }
+        return false;
+    }
+    public boolean isCloseToTouchRectangle(double p,double q){
+        if((p<= q + 15 ) && (p>(q - 15))){
             return true;
         }
         return false;

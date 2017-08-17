@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+        <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="970" height="470" viewBox="0 0 970 470" xml:space="preserve">
+<desc>Created with Fabric.js 1.6.3</desc>
+<defs></defs>
+<line x1="-370" y1="0" x2="370" y2="0" style="stroke: rgb(0,0,0); stroke-width: 2; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(470 440)"/>
+<line x1="0" y1="-210" x2="0" y2="210" style="stroke: rgb(0,0,0); stroke-width: 2; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(101 230)"/>
+<line x1="0" y1="5" x2="0" y2="-5" style="stroke: rgb(0,0,0); stroke-width: 2; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(101 445)"/>
+<line x1="0" y1="215" x2="0" y2="-215" style="stroke: rgb(0,0,0); stroke-width: 1; stroke-dasharray: 5 5; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(100.5 235)"/>
+	<g transform="translate(103.75 463.48)">
+		<text font-family="Times New Roman" font-size="15" font-weight="normal" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" >
+			<tspan x="-3.75" y="4.72" fill="rgb(0,0,0)">0</tspan>
+		</text>
+	</g>
+<line x1="0" y1="5" x2="0" y2="-5" style="stroke: rgb(0,0,0); stroke-width: 2; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(173 445)"/>
+<line x1="0" y1="215" x2="0" y2="-215" style="stroke: rgb(0,0,0); stroke-width: 1; stroke-dasharray: 5 5; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(172.5 235)"/>
+	<g transform="translate(175.75 463.48)">
+		<text font-family="Times New Roman" font-size="15" font-weight="normal" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" >
+			<tspan x="-3.75" y="4.72" fill="rgb(0,0,0)">1</tspan>
+		</text>
+	</g>
+<line x1="0" y1="5" x2="0" y2="-5" style="stroke: rgb(0,0,0); stroke-width: 2; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(245 445)"/>
+<line x1="0" y1="215" x2="0" y2="-215" style="stroke: rgb(0,0,0); stroke-width: 1; stroke-dasharray: 5 5; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(244.5 235)"/>
+	<g transform="translate(247.75 463.48)">
+		<text font-family="Times New Roman" font-size="15" font-weight="normal" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" >
+			<tspan x="-3.75" y="4.72" fill="rgb(0,0,0)">2</tspan>
+		</text>
+	</g>
+<line x1="0" y1="5" x2="0" y2="-5" style="stroke: rgb(0,0,0); stroke-width: 2; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(317 445)"/>
+<line x1="0" y1="215" x2="0" y2="-215" style="stroke: rgb(0,0,0); stroke-width: 1; stroke-dasharray: 5 5; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(316.5 235)"/>
+	<g transform="translate(319.75 463.48)">
+		<text font-family="Times New Roman" font-size="15" font-weight="normal" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" >
+			<tspan x="-3.75" y="4.72" fill="rgb(0,0,0)">3</tspan>
+		</text>
+	</g>
+<line x1="0" y1="5" x2="0" y2="-5" style="stroke: rgb(0,0,0); stroke-width: 2; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(389 445)"/>
+<line x1="0" y1="215" x2="0" y2="-215" style="stroke: rgb(0,0,0); stroke-width: 1; stroke-dasharray: 5 5; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(388.5 235)"/>
+	<g transform="translate(391.75 463.48)">
+		<text font-family="Times New Roman" font-size="15" font-weight="normal" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" >
+			<tspan x="-3.75" y="4.72" fill="rgb(0,0,0)">4</tspan>
+		</text>
+	</g>
+<line x1="0" y1="5" x2="0" y2="-5" style="stroke: rgb(0,0,0); stroke-width: 2; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(461 445)"/>
+<line x1="0" y1="215" x2="0" y2="-215" style="stroke: rgb(0,0,0); stroke-width: 1; stroke-dasharray: 5 5; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(460.5 235)"/>
+	<g transform="translate(463.75 463.48)">
+		<text font-family="Times New Roman" font-size="15" font-weight="normal" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" >
+			<tspan x="-3.75" y="4.72" fill="rgb(0,0,0)">5</tspan>
+		</text>
+	</g>
+<line x1="0" y1="5" x2="0" y2="-5" style="stroke: rgb(0,0,0); stroke-width: 2; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(533 445)"/>
+<line x1="0" y1="215" x2="0" y2="-215" style="stroke: rgb(0,0,0); stroke-width: 1; stroke-dasharray: 5 5; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(532.5 235)"/>
+	<g transform="translate(535.75 463.48)">
+		<text font-family="Times New Roman" font-size="15" font-weight="normal" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" >
+			<tspan x="-3.75" y="4.72" fill="rgb(0,0,0)">6</tspan>
+		</text>
+	</g>
+<line x1="0" y1="5" x2="0" y2="-5" style="stroke: rgb(0,0,0); stroke-width: 2; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(605 445)"/>
+<line x1="0" y1="215" x2="0" y2="-215" style="stroke: rgb(0,0,0); stroke-width: 1; stroke-dasharray: 5 5; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(604.5 235)"/>
+	<g transform="translate(607.75 463.48)">
+		<text font-family="Times New Roman" font-size="15" font-weight="normal" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" >
+			<tspan x="-3.75" y="4.72" fill="rgb(0,0,0)">7</tspan>
+		</text>
+	</g>
+<line x1="0" y1="5" x2="0" y2="-5" style="stroke: rgb(0,0,0); stroke-width: 2; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(677 445)"/>
+<line x1="0" y1="215" x2="0" y2="-215" style="stroke: rgb(0,0,0); stroke-width: 1; stroke-dasharray: 5 5; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(676.5 235)"/>
+	<g transform="translate(679.75 463.48)">
+		<text font-family="Times New Roman" font-size="15" font-weight="normal" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" >
+			<tspan x="-3.75" y="4.72" fill="rgb(0,0,0)">8</tspan>
+		</text>
+	</g>
+<line x1="0" y1="5" x2="0" y2="-5" style="stroke: rgb(0,0,0); stroke-width: 2; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(749 445)"/>
+<line x1="0" y1="215" x2="0" y2="-215" style="stroke: rgb(0,0,0); stroke-width: 1; stroke-dasharray: 5 5; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(748.5 235)"/>
+	<g transform="translate(751.75 463.48)">
+		<text font-family="Times New Roman" font-size="15" font-weight="normal" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" >
+			<tspan x="-3.75" y="4.72" fill="rgb(0,0,0)">9</tspan>
+		</text>
+	</g>
+<line x1="0" y1="5" x2="0" y2="-5" style="stroke: rgb(0,0,0); stroke-width: 2; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(821 445)"/>
+<line x1="0" y1="215" x2="0" y2="-215" style="stroke: rgb(0,0,0); stroke-width: 1; stroke-dasharray: 5 5; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(820.5 235)"/>
+	<g transform="translate(827.5 463.48)">
+		<text font-family="Times New Roman" font-size="15" font-weight="normal" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" >
+			<tspan x="-7.5" y="4.72" fill="rgb(0,0,0)">10</tspan>
+		</text>
+	</g>
+<line x1="3.5" y1="0" x2="-3.5" y2="0" style="stroke: rgb(0,0,0); stroke-width: 2; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(96.5 441)"/>
+<line x1="-370" y1="0" x2="370" y2="0" style="stroke: rgb(0,0,0); stroke-width: 1; stroke-dasharray: 5 5; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(470 440.5)"/>
+	<g transform="translate(53.75 438.48)">
+		<text font-family="Times New Roman" font-size="15" font-weight="normal" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" >
+			<tspan x="-3.75" y="4.72" fill="rgb(0,0,0)">0</tspan>
+		</text>
+	</g>
+<line x1="3.5" y1="0" x2="-3.5" y2="0" style="stroke: rgb(0,0,0); stroke-width: 2; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(96.5 401)"/>
+<line x1="-370" y1="0" x2="370" y2="0" style="stroke: rgb(0,0,0); stroke-width: 1; stroke-dasharray: 5 5; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(470 400.5)"/>
+	<g transform="translate(53.75 398.48)">
+		<text font-family="Times New Roman" font-size="15" font-weight="normal" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" >
+			<tspan x="-3.75" y="4.72" fill="rgb(0,0,0)">2</tspan>
+		</text>
+	</g>
+<line x1="3.5" y1="0" x2="-3.5" y2="0" style="stroke: rgb(0,0,0); stroke-width: 2; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(96.5 361)"/>
+<line x1="-370" y1="0" x2="370" y2="0" style="stroke: rgb(0,0,0); stroke-width: 1; stroke-dasharray: 5 5; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(470 360.5)"/>
+	<g transform="translate(53.75 358.48)">
+		<text font-family="Times New Roman" font-size="15" font-weight="normal" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" >
+			<tspan x="-3.75" y="4.72" fill="rgb(0,0,0)">4</tspan>
+		</text>
+	</g>
+<line x1="3.5" y1="0" x2="-3.5" y2="0" style="stroke: rgb(0,0,0); stroke-width: 2; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(96.5 321)"/>
+<line x1="-370" y1="0" x2="370" y2="0" style="stroke: rgb(0,0,0); stroke-width: 1; stroke-dasharray: 5 5; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(470 320.5)"/>
+	<g transform="translate(53.75 318.48)">
+		<text font-family="Times New Roman" font-size="15" font-weight="normal" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" >
+			<tspan x="-3.75" y="4.72" fill="rgb(0,0,0)">6</tspan>
+		</text>
+	</g>
+<line x1="3.5" y1="0" x2="-3.5" y2="0" style="stroke: rgb(0,0,0); stroke-width: 2; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(96.5 281)"/>
+<line x1="-370" y1="0" x2="370" y2="0" style="stroke: rgb(0,0,0); stroke-width: 1; stroke-dasharray: 5 5; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(470 280.5)"/>
+	<g transform="translate(53.75 278.48)">
+		<text font-family="Times New Roman" font-size="15" font-weight="normal" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" >
+			<tspan x="-3.75" y="4.72" fill="rgb(0,0,0)">8</tspan>
+		</text>
+	</g>
+<line x1="3.5" y1="0" x2="-3.5" y2="0" style="stroke: rgb(0,0,0); stroke-width: 2; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(96.5 241)"/>
+<line x1="-370" y1="0" x2="370" y2="0" style="stroke: rgb(0,0,0); stroke-width: 1; stroke-dasharray: 5 5; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(470 240.5)"/>
+	<g transform="translate(57.5 238.47)">
+		<text font-family="Times New Roman" font-size="15" font-weight="normal" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" >
+			<tspan x="-7.5" y="4.72" fill="rgb(0,0,0)">10</tspan>
+		</text>
+	</g>
+<line x1="3.5" y1="0" x2="-3.5" y2="0" style="stroke: rgb(0,0,0); stroke-width: 2; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(96.5 201)"/>
+<line x1="-370" y1="0" x2="370" y2="0" style="stroke: rgb(0,0,0); stroke-width: 1; stroke-dasharray: 5 5; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(470 200.5)"/>
+	<g transform="translate(57.5 198.47)">
+		<text font-family="Times New Roman" font-size="15" font-weight="normal" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" >
+			<tspan x="-7.5" y="4.72" fill="rgb(0,0,0)">12</tspan>
+		</text>
+	</g>
+<line x1="3.5" y1="0" x2="-3.5" y2="0" style="stroke: rgb(0,0,0); stroke-width: 2; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(96.5 161)"/>
+<line x1="-370" y1="0" x2="370" y2="0" style="stroke: rgb(0,0,0); stroke-width: 1; stroke-dasharray: 5 5; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(470 160.5)"/>
+	<g transform="translate(57.5 158.47)">
+		<text font-family="Times New Roman" font-size="15" font-weight="normal" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" >
+			<tspan x="-7.5" y="4.72" fill="rgb(0,0,0)">14</tspan>
+		</text>
+	</g>
+<line x1="3.5" y1="0" x2="-3.5" y2="0" style="stroke: rgb(0,0,0); stroke-width: 2; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(96.5 121)"/>
+<line x1="-370" y1="0" x2="370" y2="0" style="stroke: rgb(0,0,0); stroke-width: 1; stroke-dasharray: 5 5; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(470 120.5)"/>
+	<g transform="translate(57.5 118.47)">
+		<text font-family="Times New Roman" font-size="15" font-weight="normal" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" >
+			<tspan x="-7.5" y="4.72" fill="rgb(0,0,0)">16</tspan>
+		</text>
+	</g>
+<line x1="3.5" y1="0" x2="-3.5" y2="0" style="stroke: rgb(0,0,0); stroke-width: 2; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(96.5 81)"/>
+<line x1="-370" y1="0" x2="370" y2="0" style="stroke: rgb(0,0,0); stroke-width: 1; stroke-dasharray: 5 5; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(470 80.5)"/>
+	<g transform="translate(57.5 78.47)">
+		<text font-family="Times New Roman" font-size="15" font-weight="normal" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" >
+			<tspan x="-7.5" y="4.72" fill="rgb(0,0,0)">18</tspan>
+		</text>
+	</g>
+<line x1="3.5" y1="0" x2="-3.5" y2="0" style="stroke: rgb(0,0,0); stroke-width: 2; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(96.5 41)"/>
+<line x1="-370" y1="0" x2="370" y2="0" style="stroke: rgb(0,0,0); stroke-width: 1; stroke-dasharray: 5 5; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(470 40.5)"/>
+	<g transform="translate(57.5 38.48)">
+		<text font-family="Times New Roman" font-size="15" font-weight="normal" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" >
+			<tspan x="-7.5" y="4.72" fill="rgb(0,0,0)">20</tspan>
+		</text>
+	</g>
+<rect x="-35" y="-150" rx="0" ry="0" width="70" height="300" style="stroke: rgb(0,0,0); stroke-width: 2.5; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,255); fill-rule: nonzero; opacity: 1;" transform="translate(210.25 290.25)"/>
+<rect x="-35" y="-150" rx="0" ry="0" width="70" height="300" style="stroke: rgb(0,0,0); stroke-width: 2.5; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,255); fill-rule: nonzero; opacity: 1;" transform="translate(351.25 340.75) scale(1 0.67)"/>
+<rect x="-35" y="-150" rx="0" ry="0" width="70" height="300" style="stroke: rgb(0,0,0); stroke-width: 2.5; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,255); fill-rule: nonzero; opacity: 1;" transform="translate(425.25 270.25) scale(1 1.13)"/>
+</svg>
