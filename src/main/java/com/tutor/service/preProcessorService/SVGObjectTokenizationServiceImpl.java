@@ -30,10 +30,10 @@ public class SVGObjectTokenizationServiceImpl implements SVGObjectTokenizationSe
                 fileName = "histogram\\test2.svg";
                 break;
             case TREEDIAGRAM:
-                fileName = "svgTreeDiagramResult";
+                fileName = "treeDiagram\\test1.svg";
                 break;
             case TRIGNOMETRICDIAGRAM:
-                fileName = "svgTrigonometryResult";
+                fileName = "";
                 break;
             default:
                 fileName = "svgResult";
