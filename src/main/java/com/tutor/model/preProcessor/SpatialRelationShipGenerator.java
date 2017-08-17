@@ -205,7 +205,9 @@ public class SpatialRelationShipGenerator {
             double y2=o2.getY2();
             double t1=Math.abs(x2-x1);
             double t2=Math.abs(y2-y1);
-            if(t1/t2<10){
+            if((t1>t2) && ((t1/t2)> 8 )){
+                return true;
+            }else if((t1< t2) && ((t2/t1)> 8 )){
                 return true;
             }
         }else if(o1.objectType== ObjectType.VERTICAL_LINE&& o2.objectType==ObjectType.HORIZONTAL_LINE){
@@ -215,7 +217,10 @@ public class SpatialRelationShipGenerator {
             double y2=o1.getY2();
             double t1=Math.abs(x2-x1);
             double t2=Math.abs(y2-y1);
-            if(t2/t1<10){
+
+            if((t1>t2) && ((t1/t2)> 8 )){
+                return true;
+            }else if((t1< t2) && ((t2/t1)> 8 )){
                 return true;
             }
         }
@@ -228,7 +233,6 @@ public class SpatialRelationShipGenerator {
             double x1=o1.getX1();
             double x2=o1.getX2();
             double x=o2.getX1();
-
 
             if(x1>x2){
                 if(((x-3) <= x1 ) && (x1<= x+3) ){
@@ -243,25 +247,6 @@ public class SpatialRelationShipGenerator {
                 return false;
             }
 
-
-
-        }else if(o1.objectType== ObjectType.VERTICAL_LINE&& o2.objectType==ObjectType.HORIZONTAL_LINE){
-
-            double y1=o1.getY1();
-            double y2=o1.getY2();
-            double y = o2.getY1();
-            if(y1<y2){
-                if(((y-3) <= y1 ) && ( y1<= y+3) ){
-                    return true;
-                }
-                return false;
-            }
-            else {
-                if(((y-3) <= y2 ) && ( y2<= y+3) ){
-                    return true;
-                }
-                return false;
-            }
         }
         return false;
     }
@@ -474,28 +459,20 @@ public class SpatialRelationShipGenerator {
             case HISTOGRAM:
 
                 if(rule.getRuleId()==0){
-                    int newItr1 =0;
-                    for(int oldItr = 0;oldItr < change.length; oldItr++){
-                        ArrayList<SpatialRelation>[] substitute = old[oldItr];
-                        if(!isInArray(Arrays.copyOfRange(redex,0,redex.length-1),oldItr)){
-                            int size = substitute.length-redex.length+1;
-                            if(size!=0){
-                                ArrayList<SpatialRelation>[] newSubstitute = new  ArrayList[size];
-                                int itrNew = 0;
-                                for (int i=0;i<substitute.length;i++){
-
-                                    if(i==redex[1] || !isInArray(redex,i)){
-                                        newSubstitute[itrNew] = substitute[i];
-                                        itrNew++;
-                                    }
-                                }
-                                newRelations[newItr1] = newSubstitute;
-                            }else {
-                                newRelations[newItr1] = substitute;
-                                newItr1++;
-                            }
-                        }
-                    }
+                   int newItr1 =0;
+                   for(int oldItr = 0;oldItr < change.length; oldItr++){
+                       ArrayList<SpatialRelation>[] substitute;
+                       if(oldItr==0){
+                          substitute = old[redex[1]];
+                       }
+                       else {
+                          substitute = old[oldItr];
+                       }
+                       if(!isInArray(Arrays.copyOfRange(redex,1,redex.length),oldItr)){
+                           newRelations[newItr1] = buildSubstituteArray(substitute,redex);
+                           newItr1++;
+                       }
+                   }
                 }
                 else {
                     int newItr1 =0;

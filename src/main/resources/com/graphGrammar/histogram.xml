@@ -66,7 +66,7 @@
                     <SpatialRelation>
                         <objectIdOne>0</objectIdOne>
                         <objectIdTwo>1</objectIdTwo>
-                        <spatialRelationId>S0</spatialRelationId>
+                        <spatialRelationId>S2</spatialRelationId>
                     </SpatialRelation>
                     <SpatialRelation>
                         <objectIdOne>0</objectIdOne>
@@ -114,7 +114,7 @@
                     <SpatialRelation>
                         <objectIdOne>0</objectIdOne>
                         <objectIdTwo>1</objectIdTwo>
-                        <spatialRelationId>S0</spatialRelationId>
+                        <spatialRelationId>S2</spatialRelationId>
                     </SpatialRelation>
                     <SpatialRelation>
                         <objectIdOne>0</objectIdOne>
@@ -162,7 +162,7 @@
                     <SpatialRelation>
                         <objectIdOne>0</objectIdOne>
                         <objectIdTwo>1</objectIdTwo>
-                        <spatialRelationId>S0</spatialRelationId>
+                        <spatialRelationId>S2</spatialRelationId>
                     </SpatialRelation>
                     <SpatialRelation>
                         <objectIdOne>0</objectIdOne>
@@ -210,7 +210,7 @@
                     <SpatialRelation>
                         <objectIdOne>0</objectIdOne>
                         <objectIdTwo>1</objectIdTwo>
-                        <spatialRelationId>S0</spatialRelationId>
+                        <spatialRelationId>S2</spatialRelationId>
                     </SpatialRelation>
                     <SpatialRelation>
                         <objectIdOne>0</objectIdOne>
@@ -323,11 +323,11 @@
                 <Objects>
                     <Object>
                         <id>0</id>
-                        <type>I5</type>
+                        <type>I3</type>
                     </Object>
                     <Object>
                         <id>1</id>
-                        <type>I3</type>
+                        <type>I5</type>
                     </Object>
                 </Objects>
                 <SpatialRelations>

@@ -27,7 +27,7 @@ public class SVGObjectTokenizationServiceImpl implements SVGObjectTokenizationSe
                 fileName = "numberLine\\test1.svg";
                 break;
             case HISTOGRAM:
-                fileName = "histogram\\test1.svg";
+                fileName = "histogram\\test2.svg";
                 break;
             case TREEDIAGRAM:
                 fileName = "svgTreeDiagramResult";
