@@ -66,7 +66,7 @@
                     <SpatialRelation>
                         <objectIdOne>0</objectIdOne>
                         <objectIdTwo>1</objectIdTwo>
-                        <spatialRelationId>S2</spatialRelationId>
+                        <spatialRelationId>S0</spatialRelationId>
                     </SpatialRelation>
                     <SpatialRelation>
                         <objectIdOne>0</objectIdOne>
@@ -103,18 +103,18 @@
                 <Objects>
                     <Object>
                         <id>0</id>
-                        <type>I0</type>
+                        <type>I3</type>
                     </Object>
                     <Object>
                         <id>1</id>
-                        <type>I3</type>
+                        <type>I0</type>
                     </Object>
                 </Objects>
                 <SpatialRelations>
                     <SpatialRelation>
                         <objectIdOne>0</objectIdOne>
                         <objectIdTwo>1</objectIdTwo>
-                        <spatialRelationId>S2</spatialRelationId>
+                        <spatialRelationId>S0</spatialRelationId>
                     </SpatialRelation>
                     <SpatialRelation>
                         <objectIdOne>0</objectIdOne>
@@ -162,7 +162,7 @@
                     <SpatialRelation>
                         <objectIdOne>0</objectIdOne>
                         <objectIdTwo>1</objectIdTwo>
-                        <spatialRelationId>S2</spatialRelationId>
+                        <spatialRelationId>S0</spatialRelationId>
                     </SpatialRelation>
                     <SpatialRelation>
                         <objectIdOne>0</objectIdOne>
@@ -210,7 +210,7 @@
                     <SpatialRelation>
                         <objectIdOne>0</objectIdOne>
                         <objectIdTwo>1</objectIdTwo>
-                        <spatialRelationId>S2</spatialRelationId>
+                        <spatialRelationId>S0</spatialRelationId>
                     </SpatialRelation>
                     <SpatialRelation>
                         <objectIdOne>0</objectIdOne>

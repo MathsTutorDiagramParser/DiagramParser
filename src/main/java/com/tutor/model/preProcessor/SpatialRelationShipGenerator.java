@@ -117,7 +117,10 @@ public class SpatialRelationShipGenerator {
 
         ArrayList<SpatialRelation> relations = new ArrayList<>();
         //identify touch
-        if(isTouch(o1,o2)){
+        if(isEndPointTouch(o1,o2)){
+            relations.add(SpatialRelation.TOUCH);
+        }
+        else if(isLineTough(o1,o2)) {
             relations.add(SpatialRelation.TOUCH);
         }
         //identify overlap
@@ -152,7 +155,7 @@ public class SpatialRelationShipGenerator {
         return relations;
     }
 
-    public boolean isTouch(GraphicalImageComponent o1,GraphicalImageComponent o2){
+    public boolean isEndPointTouch(GraphicalImageComponent o1,GraphicalImageComponent o2){
 
             if (!(o1.objectType == ObjectType.RECTANGLE || o2.objectType == ObjectType.RECTANGLE)&&((o1.superObjectType != ObjectType.LINE && o2.superObjectType != ObjectType.LINE && (isCloseToTouch(o1.getX(), o2.getX()) && isCloseToTouch(o1.getY(), o2.getY())))
                     || (o1.objectType != ObjectType.CIRCLE && o2.objectType != ObjectType.CIRCLE && (isCloseToTouch(o1.getX1(), o2.getX1()) && isCloseToTouch(o1.getY1(), o2.getY1())))
@@ -201,7 +204,7 @@ public class SpatialRelationShipGenerator {
             double y2=o2.getY2();
             double t1=Math.abs(x2-x1);
             double t2=Math.abs(y2-y1);
-            if(t2/t1<10){
+            if(t1/t2<10){
                 return true;
             }
         }else if(o1.objectType== ObjectType.VERTICAL_LINE&& o2.objectType==ObjectType.HORIZONTAL_LINE){
@@ -217,6 +220,52 @@ public class SpatialRelationShipGenerator {
         }
           return false;
     }
+
+    public boolean isLineTough(GraphicalImageComponent o1,GraphicalImageComponent o2){
+
+        if(o1.objectType== ObjectType.HORIZONTAL_LINE && o2.objectType==ObjectType.VERTICAL_LINE){
+            double x1=o1.getX1();
+            double x2=o1.getX2();
+            double x=o2.getX1();
+
+
+            if(x1>x2){
+                if(((x-3) <= x1 ) && (x1<= x+3) ){
+                    return true;
+                }
+                return false;
+            }
+            else {
+                if(((x-3) <= x2 ) && (x2<= x+3) ){
+                    return true;
+                }
+                return false;
+            }
+
+
+
+        }else if(o1.objectType== ObjectType.VERTICAL_LINE&& o2.objectType==ObjectType.HORIZONTAL_LINE){
+
+            double y1=o1.getY1();
+            double y2=o1.getY2();
+            double y = o2.getY1();
+            if(y1<y2){
+                if(((y-3) <= y1 ) && ( y1<= y+3) ){
+                    return true;
+                }
+                return false;
+            }
+            else {
+                if(((y-3) <= y2 ) && ( y2<= y+3) ){
+                    return true;
+                }
+                return false;
+            }
+        }
+        return false;
+    }
+
+
 
     public boolean isOnTheLine(GraphicalImageComponent o1,GraphicalImageComponent o2){
 
@@ -423,17 +472,43 @@ public class SpatialRelationShipGenerator {
 
             case HISTOGRAM:
 
-                int newItr1 =0;
-                for(int oldItr = 0;oldItr < change.length; oldItr++){
-                    ArrayList<SpatialRelation>[] substitute = old[oldItr];
-                    if(!isInArray(Arrays.copyOfRange(redex,1,redex.length),oldItr)){
-                        newRelations[newItr1] = buildSubstituteArray(substitute,redex);
-                        newItr1++;
+                if(rule.getRuleId()==0){
+                    int newItr1 =0;
+                    for(int oldItr = 0;oldItr < change.length; oldItr++){
+                        ArrayList<SpatialRelation>[] substitute = old[oldItr];
+                        if(!isInArray(Arrays.copyOfRange(redex,0,redex.length-1),oldItr)){
+                            int size = substitute.length-redex.length+1;
+                            if(size!=0){
+                                ArrayList<SpatialRelation>[] newSubstitute = new  ArrayList[size];
+                                int itrNew = 0;
+                                for (int i=0;i<substitute.length;i++){
+
+                                    if(i==redex[1] || !isInArray(redex,i)){
+                                        newSubstitute[itrNew] = substitute[i];
+                                        itrNew++;
+                                    }
+                                }
+                                newRelations[newItr1] = newSubstitute;
+                            }else {
+                                newRelations[newItr1] = substitute;
+                                newItr1++;
+                            }
+                        }
                     }
                 }
+                else {
+                    int newItr1 =0;
+                    for(int oldItr = 0;oldItr < change.length; oldItr++){
+                        ArrayList<SpatialRelation>[] substitute = old[oldItr];
+                        if(!isInArray(Arrays.copyOfRange(redex,1,redex.length),oldItr)){
+                            newRelations[newItr1] = buildSubstituteArray(substitute,redex);
+                            newItr1++;
+                        }
+                    }
+                }
+
                 host.setRelations(newRelations);
                 break;
-
 
             case TREEDIAGRAM:
                 host.setRelations(getNewTreeRelArray(newRelations, host, change,old, redex));
