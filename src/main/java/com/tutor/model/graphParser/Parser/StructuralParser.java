@@ -171,6 +171,8 @@ public class StructuralParser {
                if(afterRuleApplication){
                    objectType = host.getGraphicalImageComponents().get(first_checkIndex_afterRuleApplication).objectType;
                }
+
+               logger.info("host ob type: "+objectType +" req ob type: "+ruleGraph.getGraphicalImageComponents().get(i).objectType);
                 // first step of finding redex, match object type
                if(objectType == ruleGraph.getGraphicalImageComponents().get(i).objectType){
 
@@ -190,9 +192,9 @@ public class StructuralParser {
                      }
                      else {
 
-
                          // aftre finding first element of the redex it is needed compare spatial relations with the next matched element
                          if(host.getSpatialRelations(j,redex[i-1]) != null) {
+
                              // check whether required spatial relationships are exist
                              int contain_count=0;
 
@@ -209,6 +211,7 @@ public class StructuralParser {
                              }
 
                              logger.info("> rule Rlation: "+ruleGraph.getSpatialRelations(i,i-1).toString());
+                             logger.info("> host Rlation: "+host.getSpatialRelations(redex[i - 1],j).toString());
                              logger.info("Contain c : "+contain_count+" "+ruleGraph.getSpatialRelations(i, i - 1).size() );
 
                              if (contain_count >= ruleGraph.getSpatialRelations(i, i - 1).size()) {
@@ -310,6 +313,7 @@ public class StructuralParser {
                 return newObjectList;
             case HISTOGRAM:
                 newObjectList.add(substitute);
+                first_checkIndex_afterRuleApplication = redex[0];
                 return newObjectList;
             case TREEDIAGRAM:
                 return getSubstituteList(newObjectList, substitute, ruleId, host, redex);

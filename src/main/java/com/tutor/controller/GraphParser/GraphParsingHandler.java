@@ -100,7 +100,7 @@ public class GraphParsingHandler {
                 fileName = "numberLine.xml";
                 break;
             case HISTOGRAM:
-                fileName = "numberLine.xml";
+                fileName = "histogram.xml";
                 break;
             case TREEDIAGRAM:
                 fileName = "treeDiagram.xml";

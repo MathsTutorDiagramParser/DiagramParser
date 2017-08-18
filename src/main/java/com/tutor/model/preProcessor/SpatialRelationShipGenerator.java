@@ -119,7 +119,10 @@ public class SpatialRelationShipGenerator {
 
         ArrayList<SpatialRelation> relations = new ArrayList<>();
         //identify touch
-        if(isTouch(o1,o2)){
+        if(isEndPointTouch(o1,o2)){
+            relations.add(SpatialRelation.TOUCH);
+        }
+        else if(isLineTough(o1,o2)) {
             relations.add(SpatialRelation.TOUCH);
         }
         //identify overlap
@@ -134,6 +137,16 @@ public class SpatialRelationShipGenerator {
         if(isSameEnd(o1,o2)){
             relations.add(SpatialRelation.SAMEEND);
         }
+        if(isLong(o1,o2)){
+            relations.add(SpatialRelation.SHORT);
+        }
+        if(isPerpendicular(o1,o2)){
+            relations.add(SpatialRelation.PERPENDICULAR);
+        }
+        // For Rectangle
+        if(isOnTheLine(o1,o2)){
+            relations.add(SpatialRelation.TOUCH);
+        }
 
         if(isUp(o1,o2)){
             relations.add(SpatialRelation.UP);
@@ -145,18 +158,133 @@ public class SpatialRelationShipGenerator {
         return relations;
     }
 
-    public boolean isTouch(GraphicalImageComponent o1,GraphicalImageComponent o2){
-        if( (o1.superObjectType!= ObjectType.LINE && o2.superObjectType!=ObjectType.LINE && (isCloseToTouch(o1.getX(), o2.getX()) && isCloseToTouch(o1.getY(),o2.getY())))
-                || (o1.objectType!= ObjectType.CIRCLE && o2.objectType!=ObjectType.CIRCLE  && (isCloseToTouch(o1.getX1(),o2.getX1()) && isCloseToTouch(o1.getY1(),o2.getY1())))
-                || (o1.objectType!= ObjectType.CIRCLE && o2.objectType!=ObjectType.CIRCLE  && (isCloseToTouch(o1.getX2(),o2.getX2()) && isCloseToTouch(o1.getY2(),o2.getY2())))
-                || (o1.objectType!= ObjectType.CIRCLE && o2.objectType!=ObjectType.CIRCLE  && (isCloseToTouch(o1.getX1(),o2.getX2()) && isCloseToTouch(o1.getY1(),o2.getY2())))
-                || (o1.objectType!= ObjectType.CIRCLE && o2.objectType!=ObjectType.CIRCLE  && (isCloseToTouch(o1.getX2(),o2.getX1()) && isCloseToTouch(o1.getY2(),o2.getY1())))
-                || (o1.superObjectType!= ObjectType.LINE && o2.objectType!=ObjectType.CIRCLE  && (isCloseToTouch(o1.getX(),o2.getX1()) && isCloseToTouch(o1.getY(),o2.getY1()))||(isCloseToTouch(o1.getX(),o2.getX2()) && isCloseToTouch(o1.getY(),o2.getY2())))
-                || (o1.objectType!= ObjectType.CIRCLE && o2.superObjectType!=ObjectType.LINE  && (isCloseToTouch(o1.getX1(),o2.getX()) && isCloseToTouch(o1.getY1(),o2.getY()))||(isCloseToTouch(o1.getX2(),o2.getX()) && isCloseToTouch(o1.getY2(),o2.getY())))
-                ){
-            return true;
-        }
+    public boolean isEndPointTouch(GraphicalImageComponent o1,GraphicalImageComponent o2){
 
+            if (!(o1.objectType == ObjectType.RECTANGLE || o2.objectType == ObjectType.RECTANGLE)&&((o1.superObjectType != ObjectType.LINE && o2.superObjectType != ObjectType.LINE && (isCloseToTouch(o1.getX(), o2.getX()) && isCloseToTouch(o1.getY(), o2.getY())))
+                    || (o1.objectType != ObjectType.CIRCLE && o2.objectType != ObjectType.CIRCLE && (isCloseToTouch(o1.getX1(), o2.getX1()) && isCloseToTouch(o1.getY1(), o2.getY1())))
+                    || (o1.objectType != ObjectType.CIRCLE && o2.objectType != ObjectType.CIRCLE && (isCloseToTouch(o1.getX2(), o2.getX2()) && isCloseToTouch(o1.getY2(), o2.getY2())))
+                    || (o1.objectType != ObjectType.CIRCLE && o2.objectType != ObjectType.CIRCLE && (isCloseToTouch(o1.getX1(), o2.getX2()) && isCloseToTouch(o1.getY1(), o2.getY2())))
+                    || (o1.objectType != ObjectType.CIRCLE && o2.objectType != ObjectType.CIRCLE && (isCloseToTouch(o1.getX2(), o2.getX1()) && isCloseToTouch(o1.getY2(), o2.getY1())))
+                    || (o1.superObjectType != ObjectType.LINE && o2.objectType != ObjectType.CIRCLE && (isCloseToTouch(o1.getX(), o2.getX1()) && isCloseToTouch(o1.getY(), o2.getY1())) || (isCloseToTouch(o1.getX(), o2.getX2()) && isCloseToTouch(o1.getY(), o2.getY2())))
+                    || (o1.objectType != ObjectType.CIRCLE && o2.superObjectType != ObjectType.LINE && (isCloseToTouch(o1.getX1(), o2.getX()) && isCloseToTouch(o1.getY1(), o2.getY())) || (isCloseToTouch(o1.getX2(), o2.getX()) && isCloseToTouch(o1.getY2(), o2.getY()))))
+                    ) {
+                return true;
+            }
+
+
+        return false;
+    }
+    public boolean isPerpendicular(GraphicalImageComponent o1,GraphicalImageComponent o2){
+        if(o1.objectType== ObjectType.HORIZONTAL_LINE && o2.objectType==ObjectType.VERTICAL_LINE){
+            double y1=o1.getY1();
+            double y2=o1.getY2();
+            double x1=o2.getX1();
+            double x2=o2.getX2();
+            if(y1==y2 && x1==x2){
+                return true;
+            }
+
+
+        }else if(o1.objectType== ObjectType.VERTICAL_LINE&& o2.objectType==ObjectType.HORIZONTAL_LINE){
+            double x1=o1.getX1();
+            double x2=o1.getX2();
+            double y1=o2.getY1();
+            double y2=o2.getY2();
+            if(x1==x2 && y1==y2){
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+
+    public boolean isLong(GraphicalImageComponent o1,GraphicalImageComponent o2){
+        if(o1.objectType== ObjectType.HORIZONTAL_LINE && o2.objectType==ObjectType.VERTICAL_LINE){
+            double x1=o1.getX1();
+            double x2=o1.getX2();
+            double y1=o2.getY1();
+            double y2=o2.getY2();
+            double t1=Math.abs(x2-x1);
+            double t2=Math.abs(y2-y1);
+            if((t1>t2) && ((t1/t2)> 8 )){
+                return true;
+            }else if((t1< t2) && ((t2/t1)> 8 )){
+                return true;
+            }
+        }else if(o1.objectType== ObjectType.VERTICAL_LINE&& o2.objectType==ObjectType.HORIZONTAL_LINE){
+            double x1=o2.getX1();
+            double x2=o2.getX2();
+            double y1=o1.getY1();
+            double y2=o1.getY2();
+            double t1=Math.abs(x2-x1);
+            double t2=Math.abs(y2-y1);
+
+            if((t1>t2) && ((t1/t2)> 8 )){
+                return true;
+            }else if((t1< t2) && ((t2/t1)> 8 )){
+                return true;
+            }
+        }
+          return false;
+    }
+
+    public boolean isLineTough(GraphicalImageComponent o1,GraphicalImageComponent o2){
+
+        if(o1.objectType== ObjectType.HORIZONTAL_LINE && o2.objectType==ObjectType.VERTICAL_LINE){
+            double x1=o1.getX1();
+            double x2=o1.getX2();
+            double x=o2.getX1();
+
+            if(x1>x2){
+                if(((x-3) <= x1 ) && (x1<= x+3) ){
+                    return true;
+                }
+                return false;
+            }
+            else {
+                if(((x-3) <= x2 ) && (x2<= x+3) ){
+                    return true;
+                }
+                return false;
+            }
+
+        }
+        return false;
+    }
+
+
+
+    public boolean isOnTheLine(GraphicalImageComponent o1,GraphicalImageComponent o2){
+
+        if(o1.objectType== ObjectType.HORIZONTAL_LINE && o2.objectType==ObjectType.RECTANGLE ){
+            double x1=o1.getX1();
+            double y1=o1.getY1();
+            double x2=o1.getX2();
+            double x3=o2.getX();
+            double y3=o2.getY();
+            double h=o2.getH();
+            double t =y3+h;
+            // Check whether the bars are inside the horizontal line
+            if(((x1<x3 && x3<x2)||(x2<x3 && x3<x1))&&(isCloseToTouchRectangle(y1,t))){
+                return true;
+
+            }
+        }else if(o2.objectType== ObjectType.HORIZONTAL_LINE && o1.objectType==ObjectType.RECTANGLE){
+            double x1=o2.getX1();
+            double y1=o2.getY1();
+            double x2=o2.getX2();
+            double x3=o1.getX();
+            double y3=o1.getY();
+            double h=o1.getH();
+            double t =y3+h;
+            // Check whether the bars are inside the horizontal line
+            if(((x1<x3 && x3<x2)||(x2<x3 && x3<x1))&&(isCloseToTouchRectangle(y1,t))){
+                return true;
+
+            }
+
+        }
         return false;
     }
 
@@ -331,6 +459,37 @@ public class SpatialRelationShipGenerator {
                 break;
 
             case HISTOGRAM:
+
+                if(rule.getRuleId()==0){
+                   int newItr1 =0;
+                   for(int oldItr = 0;oldItr < change.length; oldItr++){
+                       ArrayList<SpatialRelation>[] substitute;
+                       if(oldItr==0){
+                          substitute = old[redex[1]];
+                       }
+                       else {
+                          substitute = old[oldItr];
+                       }
+                       if(!isInArray(Arrays.copyOfRange(redex,1,redex.length),oldItr)){
+                           newRelations[newItr1] = buildSubstituteArray(substitute,redex);
+                           newItr1++;
+                       }
+                   }
+                }
+                else {
+                    int newItr1 =0;
+                    for(int oldItr = 0;oldItr < change.length; oldItr++){
+                        ArrayList<SpatialRelation>[] substitute = old[oldItr];
+                        if(!isInArray(Arrays.copyOfRange(redex,1,redex.length),oldItr)){
+                            newRelations[newItr1] = buildSubstituteArray(substitute,redex);
+                            newItr1++;
+                        }
+                    }
+                }
+
+                host.setRelations(newRelations);
+                break;
+
             case TREEDIAGRAM:
                 host.setRelations(getNewTreeRelArray(newRelations, host, change,old, redex));
                 break;
@@ -372,6 +531,12 @@ public class SpatialRelationShipGenerator {
 
     public boolean isCloseToTouch(double p,double q){
         if((p<= q + 8 ) && (p>(q - 8))){
+            return true;
+        }
+        return false;
+    }
+    public boolean isCloseToTouchRectangle(double p,double q){
+        if((p<= q + 15 ) && (p>(q - 15))){
             return true;
         }
         return false;

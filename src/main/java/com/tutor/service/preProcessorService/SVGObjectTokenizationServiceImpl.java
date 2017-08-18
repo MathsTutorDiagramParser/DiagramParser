@@ -1,11 +1,14 @@
 package com.tutor.service.preProcessorService;
 
 import com.tutor.model.graphicalSVGObject.SVGImage;
+import com.tutor.model.graphicalSVGObject.SVGRectangle;
 import com.tutor.model.preProcessor.SVGtoPOJOMapper;
 import com.tutor.model.util.DiagramType;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+
+import java.util.ArrayList;
 
 /**
  * Created by Madhavi Ruwandika on 8/4/2017.
@@ -18,18 +21,19 @@ public class SVGObjectTokenizationServiceImpl implements SVGObjectTokenizationSe
         SVGImage svgImageStudentAnswer = new SVGImage();
         SVGReadPlatformService svgReader = new SVGReadPlatformServiceImpl();
         String fileName;
+
         switch (diagramType) {
             case NUMBRELINE:
-                fileName = "svgNumberLineResult";
+                fileName = "numberLine\\test1.svg";
                 break;
             case HISTOGRAM:
-                fileName = "svgHistogramResultResult";
+                fileName = "histogram\\test2.svg";
                 break;
             case TREEDIAGRAM:
-                fileName = "svgTreeDiagramResult";
+                fileName = "treeDiagram\\test1.svg";
                 break;
             case TRIGNOMETRICDIAGRAM:
-                fileName = "svgTrigonometryResult";
+                fileName = "";
                 break;
             default:
                 fileName = "svgResult";

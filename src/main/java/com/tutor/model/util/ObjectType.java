@@ -13,6 +13,11 @@ public enum  ObjectType {
     HORIZONTAL_LINE,
     MARKED_LINE,
     INITIAL_GRAPH,
+    RECTANGLE,
+    AXIS_LINE,
+    YAXIS,
+    XAXIS,
+    BARS,
     NODE;
 
 
