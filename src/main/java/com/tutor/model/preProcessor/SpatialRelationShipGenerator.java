@@ -119,7 +119,10 @@ public class SpatialRelationShipGenerator {
 
         ArrayList<SpatialRelation> relations = new ArrayList<>();
         //identify touch
-        if(isTouch(o1,o2)){
+        if(isEndPointTouch(o1,o2)){
+            relations.add(SpatialRelation.TOUCH);
+        }
+        else if(isLineTough(o1,o2)) {
             relations.add(SpatialRelation.TOUCH);
         }
         //identify overlap
@@ -140,6 +143,7 @@ public class SpatialRelationShipGenerator {
         if(isPerpendicular(o1,o2)){
             relations.add(SpatialRelation.PERPENDICULAR);
         }
+        // For Rectangle
         if(isOnTheLine(o1,o2)){
             relations.add(SpatialRelation.TOUCH);
         }
@@ -154,7 +158,7 @@ public class SpatialRelationShipGenerator {
         return relations;
     }
 
-    public boolean isTouch(GraphicalImageComponent o1,GraphicalImageComponent o2){
+    public boolean isEndPointTouch(GraphicalImageComponent o1,GraphicalImageComponent o2){
 
             if (!(o1.objectType == ObjectType.RECTANGLE || o2.objectType == ObjectType.RECTANGLE)&&((o1.superObjectType != ObjectType.LINE && o2.superObjectType != ObjectType.LINE && (isCloseToTouch(o1.getX(), o2.getX()) && isCloseToTouch(o1.getY(), o2.getY())))
                     || (o1.objectType != ObjectType.CIRCLE && o2.objectType != ObjectType.CIRCLE && (isCloseToTouch(o1.getX1(), o2.getX1()) && isCloseToTouch(o1.getY1(), o2.getY1())))
@@ -203,7 +207,9 @@ public class SpatialRelationShipGenerator {
             double y2=o2.getY2();
             double t1=Math.abs(x2-x1);
             double t2=Math.abs(y2-y1);
-            if(t2/t1<10){
+            if((t1>t2) && ((t1/t2)> 8 )){
+                return true;
+            }else if((t1< t2) && ((t2/t1)> 8 )){
                 return true;
             }
         }else if(o1.objectType== ObjectType.VERTICAL_LINE&& o2.objectType==ObjectType.HORIZONTAL_LINE){
@@ -213,12 +219,41 @@ public class SpatialRelationShipGenerator {
             double y2=o1.getY2();
             double t1=Math.abs(x2-x1);
             double t2=Math.abs(y2-y1);
-            if(t2/t1<10){
+
+            if((t1>t2) && ((t1/t2)> 8 )){
+                return true;
+            }else if((t1< t2) && ((t2/t1)> 8 )){
                 return true;
             }
         }
           return false;
     }
+
+    public boolean isLineTough(GraphicalImageComponent o1,GraphicalImageComponent o2){
+
+        if(o1.objectType== ObjectType.HORIZONTAL_LINE && o2.objectType==ObjectType.VERTICAL_LINE){
+            double x1=o1.getX1();
+            double x2=o1.getX2();
+            double x=o2.getX1();
+
+            if(x1>x2){
+                if(((x-3) <= x1 ) && (x1<= x+3) ){
+                    return true;
+                }
+                return false;
+            }
+            else {
+                if(((x-3) <= x2 ) && (x2<= x+3) ){
+                    return true;
+                }
+                return false;
+            }
+
+        }
+        return false;
+    }
+
+
 
     public boolean isOnTheLine(GraphicalImageComponent o1,GraphicalImageComponent o2){
 
@@ -231,7 +266,7 @@ public class SpatialRelationShipGenerator {
             double h=o2.getH();
             double t =y3+h;
             // Check whether the bars are inside the horizontal line
-            if(((x1<x3 && x3<x2)||(x2<x3 && x3<x1))&&(isCloseToTouch(y1,t))){
+            if(((x1<x3 && x3<x2)||(x2<x3 && x3<x1))&&(isCloseToTouchRectangle(y1,t))){
                 return true;
 
             }
@@ -244,7 +279,7 @@ public class SpatialRelationShipGenerator {
             double h=o1.getH();
             double t =y3+h;
             // Check whether the bars are inside the horizontal line
-            if(((x1<x3 && x3<x2)||(x2<x3 && x3<x1))&&(isCloseToTouch(y1,t))){
+            if(((x1<x3 && x3<x2)||(x2<x3 && x3<x1))&&(isCloseToTouchRectangle(y1,t))){
                 return true;
 
             }
@@ -425,17 +460,35 @@ public class SpatialRelationShipGenerator {
 
             case HISTOGRAM:
 
-                int newItr1 =0;
-                for(int oldItr = 0;oldItr < change.length; oldItr++){
-                    ArrayList<SpatialRelation>[] substitute = old[oldItr];
-                    if(!isInArray(Arrays.copyOfRange(redex,1,redex.length),oldItr)){
-                        newRelations[newItr1] = buildSubstituteArray(substitute,redex);
-                        newItr1++;
+                if(rule.getRuleId()==0){
+                   int newItr1 =0;
+                   for(int oldItr = 0;oldItr < change.length; oldItr++){
+                       ArrayList<SpatialRelation>[] substitute;
+                       if(oldItr==0){
+                          substitute = old[redex[1]];
+                       }
+                       else {
+                          substitute = old[oldItr];
+                       }
+                       if(!isInArray(Arrays.copyOfRange(redex,1,redex.length),oldItr)){
+                           newRelations[newItr1] = buildSubstituteArray(substitute,redex);
+                           newItr1++;
+                       }
+                   }
+                }
+                else {
+                    int newItr1 =0;
+                    for(int oldItr = 0;oldItr < change.length; oldItr++){
+                        ArrayList<SpatialRelation>[] substitute = old[oldItr];
+                        if(!isInArray(Arrays.copyOfRange(redex,1,redex.length),oldItr)){
+                            newRelations[newItr1] = buildSubstituteArray(substitute,redex);
+                            newItr1++;
+                        }
                     }
                 }
+
                 host.setRelations(newRelations);
                 break;
-
 
             case TREEDIAGRAM:
                 host.setRelations(getNewTreeRelArray(newRelations, host, change,old, redex));
@@ -520,6 +573,12 @@ public class SpatialRelationShipGenerator {
 
     public boolean isCloseToTouch(double p,double q){
         if((p<= q + 3.5 ) && (p>(q - 3.5))){
+            return true;
+        }
+        return false;
+    }
+    public boolean isCloseToTouchRectangle(double p,double q){
+        if((p<= q + 15 ) && (p>(q - 15))){
             return true;
         }
         return false;

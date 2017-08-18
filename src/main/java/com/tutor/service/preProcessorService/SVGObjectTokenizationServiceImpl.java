@@ -21,24 +21,26 @@ public class SVGObjectTokenizationServiceImpl implements SVGObjectTokenizationSe
         SVGImage svgImageStudentAnswer = new SVGImage();
         SVGReadPlatformService svgReader = new SVGReadPlatformServiceImpl();
         String fileName;
+
         switch (diagramType) {
             case NUMBRELINE:
-                fileName = "svgNumberLineResult";
+                fileName = "numberLine\\test1.svg";
                 break;
             case HISTOGRAM:
-                fileName = "svgHistogramResultResult";
+                fileName = "histogram\\test2.svg";
                 break;
             case TREEDIAGRAM:
-                fileName = "svgTreeDiagramResult";
+                fileName = "treeDiagram\\test1.svg";
                 break;
             case TRIGNOMETRICDIAGRAM:
-                fileName = "svgTrigonometryResult";
+                fileName = "";
                 break;
             default:
                 fileName = "svgResult";
         }
 
-        String studentAnswerPath = "F:\\Final year project\\version 1\\DiagramParser\\src\\main\\resources\\test\\histogram\\test1.svg";
+       // String studentAnswerPath = "E:\\FYP\\implementation\\parser2\\DiagramParser\\src\\main\\resources\\com\\answerFile\\"+fileName+".xml";
+        String studentAnswerPath = "D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\test\\"+fileName;
         System.out.println("===========================Start Executing Rules===================================");
         KieContainer kc = KieServices.Factory.get().getKieClasspathContainer();
         KieSession ksession = kc.newKieSession( "preprocessor");

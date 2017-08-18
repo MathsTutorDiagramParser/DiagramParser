@@ -100,7 +100,7 @@ public class GraphParsingHandler {
                 fileName = "numberLine.xml";
                 break;
             case HISTOGRAM:
-                fileName = "numberLine.xml";
+                fileName = "histogram.xml";
                 break;
             case TREEDIAGRAM:
                 fileName = "treeDiagram.xml";
@@ -112,7 +112,7 @@ public class GraphParsingHandler {
                 break;
         }
         try {
-            File file = new File("F:\\Final year project\\version 1\\DiagramParser\\src\\main\\resources\\com\\graphGrammar\\histogram.xml");
+            File file = new File("D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\com\\graphGrammar\\"+fileName);
 
             JAXBContext jaxbContext = JAXBContext.newInstance(XMLGraphGrammar.class);
 

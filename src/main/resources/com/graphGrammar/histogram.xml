@@ -103,11 +103,11 @@
                 <Objects>
                     <Object>
                         <id>0</id>
-                        <type>I0</type>
+                        <type>I3</type>
                     </Object>
                     <Object>
                         <id>1</id>
-                        <type>I3</type>
+                        <type>I0</type>
                     </Object>
                 </Objects>
                 <SpatialRelations>
@@ -323,11 +323,11 @@
                 <Objects>
                     <Object>
                         <id>0</id>
-                        <type>I5</type>
+                        <type>I3</type>
                     </Object>
                     <Object>
                         <id>1</id>
-                        <type>I3</type>
+                        <type>I5</type>
                     </Object>
                 </Objects>
                 <SpatialRelations>

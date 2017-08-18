@@ -106,6 +106,7 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
             String styl;
             String stkval;
             String trsfm;
+            String dash;
             Double x1=0.0;
             Double x2=0.0;
             Double y1=0.0;
@@ -119,6 +120,7 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
                 styl = lineElement.getAttribute("style");
                 // Transform Operation
                 trsfm=lineElement.getAttribute("transform");
+                dash=(styl.split("stroke-dasharray")[1].split(";")[0]).replace(": ", "");
                 x1= Double.parseDouble(lineElement.getAttribute("x1"))+Double.parseDouble(trsfm.substring(10,trsfm.length()-1).split(" ")[0]);
                 x2 =Double.parseDouble(lineElement.getAttribute("x2"))+Double.parseDouble(trsfm.substring(10,trsfm.length()-1).split(" ")[0]);
                 y1= Double.parseDouble(lineElement.getAttribute("y1"))+Double.parseDouble(trsfm.substring(10,trsfm.length()-1).split(" ")[1]);
@@ -130,16 +132,18 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
                    stkval =(styl.split("stroke-width")[1].split(";")[0]).replace(": ", "");
                 }
 
-                SVGLine line = new SVGLine(x1,y1,x2,y2,Integer.parseInt(stkval));
-                // If you want to check the values printing well, set the print
-                System.out.println("These are normal lines");
-                System.out.println(line.getX1());
-                System.out.println(line.getY1());
-                System.out.println(line.getX2());
-                System.out.println(line.getY2());
-                System.out.println(line.getStroke_width());
 
-                svgImage.addLine(line);
+                if(dash.equals("none")) {
+                    SVGLine line = new SVGLine(x1, y1, x2, y2, Integer.parseInt(stkval));
+                    // If you want to check the values printing well, set the print
+                    System.out.println(line.getX1());
+                    System.out.println(line.getY1());
+                    System.out.println(line.getX2());
+                    System.out.println(line.getY2());
+                    System.out.println(line.getStroke_width());
+
+                    svgImage.addLine(line);
+                }
             }
             for (int i = 0; i < glines.size(); i++)
             {
@@ -172,7 +176,23 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
 
             }
 
-
+            String t1;
+            String t2;
+            String tmp1;
+            String tmp2;
+            String c;
+            Double tr1;
+            Double tr2;
+            Double scl1;
+            Double scl2;
+            Double xR;
+            Double yR;
+            Double wR;
+            Double hR;
+            Double xRT;
+            Double yRT;
+            Double wRT;
+            Double hRT;
 
 
             for (int i = 0; i < rectangles.size(); i++)
@@ -180,15 +200,44 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
                 Element rectangleElement = rectangles.get(i);
                 //System.out.println(i+"***"+rectangles.get(i).getAttribute("width"));
                 //System.out.println(rectangles.get(i).getTagName());
-                System.out.println("Rectangles are ************");
-                System.out.println("x value is "+rectangleElement.getAttribute("x") );
-                System.out.println("y value is "+ rectangleElement.getAttribute("y"));
-                System.out.println("height value is "+ rectangleElement.getAttribute("height"));
-                System.out.println("width value is "+rectangleElement.getAttribute("width") );
-                SVGRectangle rectangle = new SVGRectangle(Double.parseDouble(rectangleElement.getAttribute("x")),
-                        Double.parseDouble(rectangleElement.getAttribute("y")),
-                        Double.parseDouble(rectangleElement.getAttribute("height")),
-                        Double.parseDouble(rectangleElement.getAttribute("width")));
+                trsfm=rectangleElement.getAttribute("transform");
+                System.out.println(trsfm);
+                if(trsfm.length()<25){
+                    t1=(trsfm.substring(10,trsfm.length()-1).split(" ")[0]);
+                    t2=(trsfm.substring(10,trsfm.length()-1).split(" ")[1]);
+                    tr1=Double.parseDouble(t1);
+                    tr2=Double.parseDouble(t2);
+                    scl1=1.0;
+                    scl2=1.0;
+                }else{
+                    t1=(trsfm.substring(10,trsfm.length()-1).split(" ")[0]);
+                    t2=(trsfm.substring(10,trsfm.length()-1).split(" ")[1]);
+                    tr1=Double.parseDouble(t1);
+                    tr2=Double.parseDouble(t2.substring(0,t2.length()-1));
+                    tmp1=trsfm.substring(10,trsfm.length()-1).split(" ")[2];
+                    scl1=Double.parseDouble(tmp1.substring(6,tmp1.length()));
+                    tmp2=trsfm.substring(10,trsfm.length()-1).split(" ")[3];
+                    scl2=Double.parseDouble(tmp2);
+                    System.out.println(tr1+" "+tr2+ " "+" "+scl1+" "+scl2 );
+
+                }
+                xRT=Double.parseDouble(rectangleElement.getAttribute("x"));
+                System.out.println(xRT);
+                yRT=Double.parseDouble(rectangleElement.getAttribute("y"));
+                System.out.println(yRT);
+                wRT=Double.parseDouble(rectangleElement.getAttribute("width"));
+                System.out.println(wRT);
+                hRT=Double.parseDouble(rectangleElement.getAttribute("height"));
+                System.out.println(hRT);
+
+
+
+                xR=getXvalue(xRT,wRT,tr1,scl1);
+                yR=getYvalue(yRT,hRT,tr2,scl2);
+                wR=getWvalue(wRT,scl1);
+                hR=getHvalue(hRT,scl2);
+                System.out.println("x-> "+xR+"      y-> "+yR+"      w-> "+wR+"      h-> "+hR);
+                SVGRectangle rectangle = new SVGRectangle(xR,yR,hR,wR);
 
                 svgImage.addRectangle(rectangle);
             }
@@ -266,6 +315,26 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
             e.printStackTrace();
             return null;
         }
+    }
+    public Double getXvalue(Double x, Double w,Double t1,Double s1){
+        Double answer;
+        answer=(x+t1)*s1-((w*s1)-w);
+        return answer;
+    }
+    public Double getYvalue(Double y, Double h,Double t2,Double s2){
+        Double answer;
+        answer=(y+t2)*s2-((h*s2)-h);
+        return answer;
+    }
+    public Double getWvalue(Double w,Double s1){
+        Double answer;
+        answer=w*s1;
+        return answer;
+    }
+    public Double getHvalue(Double h,Double s2){
+        Double answer;
+        answer=h*s2;
+        return answer;
     }
 
 
