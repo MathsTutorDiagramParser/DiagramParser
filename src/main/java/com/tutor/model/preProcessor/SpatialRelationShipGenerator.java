@@ -8,6 +8,8 @@ import com.tutor.model.util.DiagramType;
 import com.tutor.model.util.SpatialRelation;
 import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.model.util.ObjectType;
+import org.eclipse.persistence.internal.sessions.DirectCollectionChangeRecord;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -440,9 +442,50 @@ public class SpatialRelationShipGenerator {
                 break;
 
             case TRIGNOMETRICDIAGRAM:
-
+                int newItrTrig =0;
+                for(int oldItr = 0;oldItr < change.length; oldItr++){
+                    ArrayList<SpatialRelation>[] substitute = old[oldItr];
+                    if(!isInArray(Arrays.copyOfRange(redex,1,redex.length),oldItr)){
+                        newRelations[newItrTrig] = buildSubstituteArrayTrig(substitute,redex);
+                        newItrTrig++;
+                    }
+                }
+                host.setRelations(newRelations);
+                break;
         }
 
+    }
+
+    private static ArrayList<SpatialRelation>[] buildSubstituteArrayTrig(ArrayList<SpatialRelation>[] substitute, int[] redex) {
+        int size = substitute.length - redex.length + 1;
+
+        if (size == 0) {
+            return substitute;
+        }
+
+        ArrayList<SpatialRelation>[] newSubstitute = new ArrayList[size];
+        int itrNew = 0;
+        for (int i = 0; i < substitute.length; i++) {
+
+            if (i == redex[0]) {
+                ArrayList<SpatialRelation> substituteRelation = null;
+                if(substitute[redex[0]].equals(SpatialRelation.TOUCH )|| substitute[redex[1]].equals(SpatialRelation.TOUCH) ) {
+                    substituteRelation.add(SpatialRelation.TOUCH);
+                }
+                if (substitute[redex[0]].equals(SpatialRelation.OVERLAP )|| substitute[redex[1]].equals(SpatialRelation.OVERLAP)){
+                    substituteRelation.add(SpatialRelation.OVERLAP);
+                }
+
+                newSubstitute[itrNew] = substituteRelation;
+                itrNew++;
+            }
+            else if(( !isInArray(redex, i)) ){
+                newSubstitute[itrNew] = substitute[i];
+                itrNew++;
+            }
+
+        }
+        return null;
     }
 
 
@@ -464,6 +507,7 @@ public class SpatialRelationShipGenerator {
         }
         return newSubstitute;
     }
+
 
     public static boolean isInArray(int[] array, int element){
         for(int i=0;i<array.length;i++){

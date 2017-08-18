@@ -15,6 +15,8 @@ public class DiagramStructureGeneratorFactory {
                 return new HistogramStructureGenerator();
             case TREEDIAGRAM:
                 return new TreeDiagramStructureGenerator();
+            case TRIGNOMETRICDIAGRAM:
+                return new TrignometryStructureGenerator();
             default:
                 return null;
         }

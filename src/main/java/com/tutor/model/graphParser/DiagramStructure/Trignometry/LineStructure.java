@@ -1,12 +1,13 @@
 package com.tutor.model.graphParser.DiagramStructure.Trignometry;
 
+import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.model.graphicalPOJOObject.Text.Text;
 import com.tutor.model.graphicalPOJOObject.line.Line;
 
 /**
  * Created by Vithusha on 8/6/2017.
  */
-public class LineStructure  {
+public class LineStructure  extends GraphicalImageComponent {
 
     private Line line;
     private Text lengthText;

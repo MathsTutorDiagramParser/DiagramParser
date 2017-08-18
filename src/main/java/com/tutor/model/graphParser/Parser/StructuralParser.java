@@ -289,6 +289,11 @@ public class StructuralParser {
         {
             host.setInitialGraph(true);
         }else if ((host.getGraphicalImageComponents().get(0).objectType==ObjectType.INITIAL_GRAPH) && (host.getGraphicalImageComponents().size()!=1)){
+            if(diagramType == DiagramType.TRIGNOMETRICDIAGRAM){
+
+            }
+
+
             FeedBack feedBack= new FeedBack("INITIAL GRAPH WITH EXTRA OBJECTS");
             feedBack.setDescription(FeedBackMessage.INITIAL_GRAPH_WITH_EXTRA_OBJECTS);
             feedBacks.add(feedBack);
@@ -314,6 +319,7 @@ public class StructuralParser {
                 return getSubstituteList(newObjectList, substitute, ruleId, host, redex);
             case TRIGNOMETRICDIAGRAM:
                 newObjectList.add(substitute);
+                first_checkIndex_afterRuleApplication = redex[0];
                 return newObjectList;
             default:
                 return null;
