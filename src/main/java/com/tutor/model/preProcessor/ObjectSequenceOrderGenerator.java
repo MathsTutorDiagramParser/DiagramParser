@@ -111,7 +111,6 @@ public class ObjectSequenceOrderGenerator {
     public List<GraphicalImageComponent> getOrderedList(List<GraphicalImageComponent> unOderedList) {
 
         order(unOderedList);
-        System.out.println(orderedList.size());
         return orderedList;
     }
 }

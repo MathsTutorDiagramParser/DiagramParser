@@ -371,7 +371,7 @@ public class SpatialRelationShipGenerator {
     }
 
     public boolean isCloseToTouch(double p,double q){
-        if((p<= q + 3.5 ) && (p>(q - 3.5))){
+        if((p<= q + 8 ) && (p>(q - 8))){
             return true;
         }
         return false;

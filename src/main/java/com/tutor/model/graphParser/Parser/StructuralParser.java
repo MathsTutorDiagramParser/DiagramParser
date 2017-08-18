@@ -3,6 +3,7 @@ package com.tutor.model.graphParser.Parser;
 import com.tutor.model.graphParser.DiagramStructure.AbstractDiagramStructure;
 import com.tutor.model.graphParser.DiagramStructure.NumberLine.AbstractNumberLineStructure;
 import com.tutor.model.graphParser.DiagramStructure.FeedBack;
+import com.tutor.model.graphParser.DiagramStructure.TreeDiagram.AbstractTreeDiagramStructure;
 import com.tutor.model.graphParser.DiagramStructure.TreeDiagram.TreeBranch;
 import com.tutor.model.graphParser.DiagramStructure.TreeDiagram.TreeGraph;
 import com.tutor.model.graphParser.DiagramStructure.TreeDiagram.TreeNode;
@@ -341,14 +342,25 @@ public class StructuralParser {
     }
 
 
+
     public TreeNode getTreeNode( TreeNode treeNode, Graph host, int[] redex) {
-        TreeBranch leftTreeBranch = new TreeBranch((AngleLine) host.getGraphicalImageComponents().get(redex[0]));
+        TreeBranch leftTreeBranch = null;
+        TreeBranch rightTreeBranch = null;
+
+        if( ((AngleLine) host.getGraphicalImageComponents().get(redex[0])).getY2() <
+                ((AngleLine) host.getGraphicalImageComponents().get(redex[1])).getY2() ) {
+            leftTreeBranch = new TreeBranch((AngleLine) host.getGraphicalImageComponents().get(redex[0]));
+            rightTreeBranch = new TreeBranch((AngleLine) host.getGraphicalImageComponents().get(redex[1]));
+        } else {
+            leftTreeBranch = new TreeBranch((AngleLine) host.getGraphicalImageComponents().get(redex[1]));
+            rightTreeBranch = new TreeBranch((AngleLine) host.getGraphicalImageComponents().get(redex[0]));
+        }
+
         leftTreeBranch.setX1(leftTreeBranch.getAngleLine().getX1());
         leftTreeBranch.setY1(leftTreeBranch.getAngleLine().getY1());
         leftTreeBranch.setX2(leftTreeBranch.getAngleLine().getX2());
         leftTreeBranch.setY2(leftTreeBranch.getAngleLine().getY2());
 
-        TreeBranch rightTreeBranch = new TreeBranch((AngleLine) host.getGraphicalImageComponents().get(redex[1]));
         rightTreeBranch.setX1(rightTreeBranch.getAngleLine().getX1());
         rightTreeBranch.setY1(rightTreeBranch.getAngleLine().getY1());
         rightTreeBranch.setX2(rightTreeBranch.getAngleLine().getX2());

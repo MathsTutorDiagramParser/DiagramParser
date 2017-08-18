@@ -130,17 +130,21 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
                    stkval =(styl.split("stroke-width")[1].split(";")[0]).replace(": ", "");
                 }
 
-                SVGLine line = new SVGLine(x1,y1,x2,y2,Integer.parseInt(stkval));
-                // If you want to check the values printing well, set the print
-                System.out.println("These are normal lines");
-                System.out.println(line.getX1());
-                System.out.println(line.getY1());
-                System.out.println(line.getX2());
-                System.out.println(line.getY2());
-                System.out.println(line.getStroke_width());
+                // To eliminate line which has same start and end positions
+                if(!(x1.equals(x2) && y1.equals(y2))) {
+                    SVGLine line = new SVGLine(x1, y1, x2, y2, Integer.parseInt(stkval));
+                    // If you want to check the values printing well, set the print
+                    System.out.println("These are normal lines");
+                    System.out.println(line.getX1());
+                    System.out.println(line.getY1());
+                    System.out.println(line.getX2());
+                    System.out.println(line.getY2());
+                    System.out.println(line.getStroke_width());
 
-                svgImage.addLine(line);
+                    svgImage.addLine(line);
+                } else System.out.println("same");
             }
+            System.out.println("After: " + svgImage.getNumOfLines());
             for (int i = 0; i < glines.size(); i++)
             {
                 Element glineElement=glines.get(i);

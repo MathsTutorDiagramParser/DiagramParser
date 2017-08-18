@@ -1,5 +1,7 @@
 package com.tutor.model.graphParser.Parser;
 
+import com.tutor.model.graphParser.DiagramStructure.TreeDiagram.AbstractTreeDiagramStructure;
+import com.tutor.model.graphParser.DiagramStructure.TreeDiagram.TreeGraph;
 import com.tutor.model.graphParser.Parser.textAligner.TextAlignmentAssigner;
 import com.tutor.model.graphParser.DiagramStructure.AbstractDiagramStructure;
 import com.tutor.model.graphParser.DiagramStructure.DiagramStructureFactory;
@@ -15,6 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -84,6 +87,9 @@ public class Parser {
                     }
                 }
             }
+        }
+        else if (diagramType == DiagramType.TREEDIAGRAM) {
+            ((AbstractTreeDiagramStructure)abstractDiagramStructure).getTreeGraphArrayList();
         }
 
         return abstractDiagramStructure;
