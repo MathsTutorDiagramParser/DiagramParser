@@ -28,26 +28,27 @@ public class TreeDiagramTextAligner extends TextAligner{
         this.abstractTreeDiagramStructure = abstractTreeDiagramStructure;
         this.textList = textList;
         this.graphList = abstractTreeDiagramStructure.getTreeGraphArrayList();
+        if(graphList != null) {
+            for(int i=0; i<graphList.size(); i++) {
+                TreeGraph graph = graphList.get(i);
+                if(graph.getNode() == null) {
+                    this.distance = Math.abs(graph.getNodeOne().getX2() - graph.getNodeTwo().getX1());
+                    matchDescriptionText(graph.getNodeOne().getLeftTreeBranch());
+                    matchDescriptionText(graph.getNodeOne().getRightTreeBranch());
+                    matchProbabilityText(graph.getNodeOne().getLeftTreeBranch());
+                    matchProbabilityText(graph.getNodeOne().getRightTreeBranch());
 
-        for(int i=0; i<graphList.size(); i++) {
-            TreeGraph graph = graphList.get(i);
-            if(i==0) {
-                this.distance = Math.abs(graph.getNodeOne().getX2() - graph.getNodeTwo().getX1());
-                matchDescriptionText(graph.getNodeOne().getLeftTreeBranch());
-                matchDescriptionText(graph.getNodeOne().getRightTreeBranch());
-                matchProbabilityText(graph.getNodeOne().getLeftTreeBranch());
-                matchProbabilityText(graph.getNodeOne().getRightTreeBranch());
+                    matchDescriptionText(graph.getNodeTwo().getLeftTreeBranch());
+                    matchDescriptionText(graph.getNodeTwo().getRightTreeBranch());
+                    matchProbabilityText(graph.getNodeTwo().getLeftTreeBranch());
+                    matchProbabilityText(graph.getNodeTwo().getRightTreeBranch());
 
-                matchDescriptionText(graph.getNodeTwo().getLeftTreeBranch());
-                matchDescriptionText(graph.getNodeTwo().getRightTreeBranch());
-                matchProbabilityText(graph.getNodeTwo().getLeftTreeBranch());
-                matchProbabilityText(graph.getNodeTwo().getRightTreeBranch());
-
-            } else if(i == 1) {
-                matchDescriptionText(graph.getNode().getLeftTreeBranch());
-                matchDescriptionText(graph.getNode().getRightTreeBranch());
-                matchProbabilityText(graph.getNode().getLeftTreeBranch());
-                matchProbabilityText(graph.getNode().getRightTreeBranch());
+                } else {
+                    matchDescriptionText(graph.getNode().getLeftTreeBranch());
+                    matchDescriptionText(graph.getNode().getRightTreeBranch());
+                    matchProbabilityText(graph.getNode().getLeftTreeBranch());
+                    matchProbabilityText(graph.getNode().getRightTreeBranch());
+                }
             }
         }
         return abstractTreeDiagramStructure;

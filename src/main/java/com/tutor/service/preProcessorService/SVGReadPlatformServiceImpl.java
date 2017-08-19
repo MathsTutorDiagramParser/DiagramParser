@@ -121,10 +121,10 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
                 // Transform Operation
                 trsfm=lineElement.getAttribute("transform");
                 dash=(styl.split("stroke-dasharray")[1].split(";")[0]).replace(": ", "");
-                x1= Double.parseDouble(lineElement.getAttribute("x1"))+Double.parseDouble(trsfm.substring(10,trsfm.length()-1).split(" ")[0]);
-                x2 =Double.parseDouble(lineElement.getAttribute("x2"))+Double.parseDouble(trsfm.substring(10,trsfm.length()-1).split(" ")[0]);
-                y1= Double.parseDouble(lineElement.getAttribute("y1"))+Double.parseDouble(trsfm.substring(10,trsfm.length()-1).split(" ")[1]);
-                y2 =Double.parseDouble(lineElement.getAttribute("y2"))+Double.parseDouble(trsfm.substring(10,trsfm.length()-1).split(" ")[1]);
+                x1= Double.parseDouble(lineElement.getAttribute("x1"))+Double.parseDouble((trsfm.substring(10,trsfm.length()).split("\\)")[0]).split(" ")[0]);
+                x2 =Double.parseDouble(lineElement.getAttribute("x2"))+Double.parseDouble((trsfm.substring(10,trsfm.length()).split("\\)")[0]).split(" ")[0]);
+                y1= Double.parseDouble(lineElement.getAttribute("y1"))+Double.parseDouble((trsfm.substring(10,trsfm.length()).split("\\)")[0]).split(" ")[1]);
+                y2 =Double.parseDouble(lineElement.getAttribute("y2"))+Double.parseDouble((trsfm.substring(10,trsfm.length()).split("\\)")[0]).split(" ")[1]);
                 if(styl.equals(null)||styl.equals("")) {
                    stkval=lineElement.getAttribute("stroke-width");
 

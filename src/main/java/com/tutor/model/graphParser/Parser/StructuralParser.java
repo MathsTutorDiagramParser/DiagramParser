@@ -41,6 +41,7 @@ public class StructuralParser {
     AbstractDiagramStructure abstractDiagramStructure;
     DiagramSpecificSpatialRelationShipIdentifier relationShipIdentifier;
     boolean matched = false;
+    boolean isUnrelated = false;
     List<FeedBack>  feedBacks;
 
     // keep track of end of the iteration index when finding redex
@@ -82,6 +83,7 @@ public class StructuralParser {
                 // find redex which matched with the production rule
                 int[] redex =  findRedexForRApplication(host,productionRule);
 
+
                 // iterate through host graph until the end to find redex for finding host graph
                 while (redex != null){
                     // update the abstract representation before doing r reduction
@@ -113,15 +115,21 @@ public class StructuralParser {
             if(host.isInitialGraph()) {
                 logger.info("found Initial graph");
 
-                if (DiagramType.NUMBRELINE==diagramType) {
-                    logger.info("mark points: " + ((AbstractNumberLineStructure) this.abstractDiagramStructure).getMarkPointList().size());
-                    logger.info("tick points: " + ((AbstractNumberLineStructure) this.abstractDiagramStructure).getTickPointList().size());
-                }
                 FeedBack feedBack = new FeedBack("VALID_DIAGRAM_STRUCTURE");
                 feedBack.setDescription(FeedBackMessage.VALID_DIAGRAM_STRUCTURE);
                 feedBacks.add(feedBack);
+
+            } else if (host.getGraphicalImageComponents().size()!=1){
+                for (int itr = 0; itr<host.getGraphicalImageComponents().size(); itr++) {
+                    if(host.getGraphicalImageComponents().get(itr).objectType == ObjectType.INITIAL_GRAPH) {
+                        isUnrelated = true;
+                        FeedBack feedBack= new FeedBack("INITIAL GRAPH WITH EXTRA OBJECTS");
+                        feedBack.setDescription(FeedBackMessage.INITIAL_GRAPH_WITH_EXTRA_OBJECTS);
+                        feedBacks.add(feedBack);
+                    }
+                }
             }
-            else {
+            if(!isUnrelated && !host.isInitialGraph()){
                 FeedBack feedBack = new FeedBack("INVALID_DIAGRAM_STRUCTURE");
                 feedBack.setDescription(FeedBackMessage.INVALID_DIAGRAM_STRUCTURE);
                 feedBacks.add(feedBack);
@@ -178,6 +186,15 @@ public class StructuralParser {
 
                    // second step of finding redex, match spatial relations
                    if (i==0){
+                       // Check whether right graph has only one object and retun redex without checking spatial relationships
+                       if(total_number_of_objects == 1){
+                           redex[i] = j;
+                           stopPointOfHostGraph = 0;
+                           total_number_of_object_found += 1;
+                           if(total_number_of_object_found==total_number_of_objects){
+                               return redex;
+                           }
+                       }
                          if(afterRuleApplication){
                              redex[i]=first_checkIndex_afterRuleApplication;
                              stopPointOfHostGraph = j;
@@ -292,10 +309,6 @@ public class StructuralParser {
         if((host.getGraphicalImageComponents().size()==1) && (host.getGraphicalImageComponents().get(0).objectType==ObjectType.INITIAL_GRAPH))
         {
             host.setInitialGraph(true);
-        }else if ((host.getGraphicalImageComponents().get(0).objectType==ObjectType.INITIAL_GRAPH) && (host.getGraphicalImageComponents().size()!=1)){
-            FeedBack feedBack= new FeedBack("INITIAL GRAPH WITH EXTRA OBJECTS");
-            feedBack.setDescription(FeedBackMessage.INITIAL_GRAPH_WITH_EXTRA_OBJECTS);
-            feedBacks.add(feedBack);
         }
 
         SpatialRelationShipGenerator.updateSpatialRelationShipMatrix(host,redex,productionRule,diagramType);
@@ -331,13 +344,13 @@ public class StructuralParser {
             TreeNode treeNode = getTreeNode( treeNodeNew, host, redex);
             newObjectList.add(treeNode);
             first_checkIndex_afterRuleApplication = redex[0]+1;
-        } else if(ruleId == 1 || ruleId == 2) {
+        } else if(ruleId == 1 || ruleId == 2 || ruleId == 5) {
             TreeGraph treeGraphNew = new TreeGraph();
             treeGraphNew.objectType = substitute.objectType;
-            TreeGraph treeGraph = getTreeGraphWithTwoNodes(treeGraphNew, host, redex);
+            TreeGraph treeGraph = getInitialTreeGraph(treeGraphNew, host, redex);
             newObjectList.add(treeGraph);
             first_checkIndex_afterRuleApplication = redex[0];
-        } else {
+        } else if(ruleId == 3 || ruleId == 4){
             TreeGraph treeGraph = getTreeGraphWithOneNode(host, redex);
             newObjectList.add(treeGraph);
             first_checkIndex_afterRuleApplication = redex[0];
@@ -381,8 +394,13 @@ public class StructuralParser {
         return treeNode;
     }
 
-    public TreeGraph getTreeGraphWithTwoNodes(TreeGraph treeGraph, Graph host, int[] redex) {
-        TreeNode treeNodeOne = (TreeNode) host.getGraphicalImageComponents().get(redex[0]);
+    public TreeGraph getInitialTreeGraph(TreeGraph treeGraph, Graph host, int[] redex) {
+        TreeNode treeNodeOne = null;
+        for(int i=0; i<redex.length; i++) {
+            if(host.getGraphicalImageComponents().get(redex[i]).objectType == ObjectType.NODE) {
+                treeNodeOne = (TreeNode) host.getGraphicalImageComponents().get(redex[i]);
+            }
+        }
 
         treeGraph.setX1(treeNodeOne.getX1());
         treeGraph.setY1(treeNodeOne.getY1());
@@ -394,5 +412,4 @@ public class StructuralParser {
     public TreeGraph getTreeGraphWithOneNode(Graph host, int[] redex) {
         return  (TreeGraph) host.getGraphicalImageComponents().get(redex[0]);
     }
-
 }

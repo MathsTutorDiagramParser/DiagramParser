@@ -5,6 +5,7 @@ import com.tutor.model.graphParser.DiagramStructure.TreeDiagram.AbstractTreeDiag
 import com.tutor.model.graphParser.DiagramStructure.TreeDiagram.TreeGraph;
 import com.tutor.model.graphParser.DiagramStructure.TreeDiagram.TreeNode;
 import com.tutor.model.graphParser.GraphGrammarGenerator.graphGrammarObject.Graph;
+import com.tutor.model.util.ObjectType;
 
 import java.util.ArrayList;
 
@@ -46,6 +47,20 @@ public class TreeDiagramStructureGenerator extends DiagramStructureGenerator {
             }
             TreeGraph treeGraphNew = new TreeGraph(treeNode, treeGraphArrayList.size()-1);
             treeGraphArrayList.add(treeGraphNew);
+            diagramStructure.setTreeGraphArrayList(treeGraphArrayList);
+        }
+        if (ruleID == 5){
+            TreeNode treeNode = null;
+            for(int i=0; i<objects.length; i++) {
+                if(host.getGraphicalImageComponents().get(objects[i]).objectType == ObjectType.NODE) {
+                    treeNode = (TreeNode) host.getGraphicalImageComponents().get(objects[i]);
+                    treeNode.setLevel("0:0");
+                }
+            }
+
+            TreeGraph treeGraph = new TreeGraph(treeNode,0);
+            ArrayList<TreeGraph> treeGraphArrayList = new ArrayList<>();
+            treeGraphArrayList.add(treeGraph);
             diagramStructure.setTreeGraphArrayList(treeGraphArrayList);
         }
         return diagramStructure;

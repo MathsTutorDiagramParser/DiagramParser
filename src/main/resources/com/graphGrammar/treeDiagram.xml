@@ -216,6 +216,33 @@
                 </RuleOperation>
             </RuleOperations>
         </Rule>
+        <Rule>
+            <RuleId>5</RuleId>
+            <LeftGraph>
+                <Objects>
+                    <Object>
+                        <id>0</id>
+                        <type>I2</type>
+                    </Object>
+                </Objects>
+            </LeftGraph>
+            <RightGraph>
+                <Objects>
+                    <Object>
+                        <id>0</id>
+                        <type>I1</type>
+                    </Object>
+                </Objects>
+            </RightGraph>
+            <RuleOperations>
+                <RuleOperation>
+                    <ObjectList>
+                        <Object>0</Object>
+                    </ObjectList>
+                    <id>o_p1</id>
+                </RuleOperation>
+            </RuleOperations>
+        </Rule>
     </Rules>
     <Relations>
         <SpatialRelationType>
