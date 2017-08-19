@@ -43,12 +43,15 @@ public class TextAligner {
         double label_X = lengthLabel.getX();
         double label_Y = lengthLabel.getY();
 
-        double radius =  Math.sqrt(Math.pow((endTwo_X - endOne_X),2)+Math.pow((endTwo_Y - endTwo_Y),2));
+        double a = (endTwo_X - endOne_X);
+        double b = (endTwo_Y - endOne_Y);
+
+        double radius =  Math.sqrt(Math.pow(a,2)+Math.pow(b,2))*3/4;
         double center_X = (endOne_X + endTwo_X) / 2;
         double center_Y = (endOne_Y + endTwo_Y) / 2;
 
         double closeCircle = (Math.pow((label_X-center_X), 2) +
-                Math.pow((label_Y-center_Y), 2))/ radius;
+                Math.pow((label_Y-center_Y), 2))/Math.pow(radius,2);
 
         if(closeCircle <= 1){
             return  true;
@@ -79,7 +82,7 @@ public class TextAligner {
 
     public boolean isInsideCircle(double textCordinate_X, double textCordinate_Y, double center_X, double center_Y, double radius) {
         double circleBoundary = (Math.pow((textCordinate_X-center_X), 2) +
-                Math.pow((textCordinate_Y-center_Y), 2))/ radius;
+                Math.pow((textCordinate_Y-center_Y), 2))/ Math.pow(radius,2);
         if (circleBoundary <= 1) {
             return true;
         } else {
@@ -98,18 +101,14 @@ public class TextAligner {
         double center_Y;
 
         end_X = getEndOfLine_X(line);
-        end_Y = getEndOfLine_X(line);
+        end_Y = getEndOfLine_Y(line);
 
         lengthOfLine = findPointToPointDistance(end_X,end_Y,textPoint_X,textPoint_Y);
-        radius = lengthOfLine / 3;
+        radius = lengthOfLine;
         center_X = end_X +radius;
         center_Y = end_Y;
 
         return isInsideCircle(textPoint_X, textPoint_Y, center_X, center_Y,radius);
-
-
-
-
     }
 
     public double findPointToPointDistance(double pointOne_X,double pointOne_Y,double pointTwo_X,double pointTwo_Y ){
@@ -132,11 +131,9 @@ public class TextAligner {
         double end_X;
         if(line.getX1() > line.getX2() ){
             end_X = line.getX1();
-
         }
         else {
             end_X = line.getX2();
-
         }
         return end_X;
     }

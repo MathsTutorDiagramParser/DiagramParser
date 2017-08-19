@@ -36,8 +36,8 @@ public class TextAlignmentAssigner {
                 return trignometryTextAligner.alignTextToTrignometry((AbstractTrignometryStructure) abstractDiagramStructure,textList);
 
             case TREEDIAGRAM:
-                //TreeDiagramTextAligner treeDiagramTextAligner = new TreeDiagramTextAligner();
-               // return treeDiagramTextAligner.alignTextToTreeDiagram((AbstractTreeDiagramStructure) abstractDiagramStructure, textList);
+                TreeDiagramTextAligner treeDiagramTextAligner = new TreeDiagramTextAligner();
+                return treeDiagramTextAligner.alignTextToTreeDiagram((AbstractTreeDiagramStructure) abstractDiagramStructure, textList);
 
                 default:
                 return null;

@@ -39,8 +39,9 @@ public class SVGObjectTokenizationServiceImpl implements SVGObjectTokenizationSe
                 fileName = "svgResult";
         }
 
-       // String studentAnswerPath = "E:\\FYP\\implementation\\parser2\\DiagramParser\\src\\main\\resources\\com\\answerFile\\"+fileName+".xml";
-        String studentAnswerPath = "D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\test\\"+fileName;
+        //String studentAnswerPath = "E:\\FYP\\implementation\\parser2\\DiagramParser\\src\\main\\resources\\com\\answerFile\\"+fileName+".svg";
+        String studentAnswerPath = "E:\\FYP\\implementation\\parser2\\DiagramParser\\src\\main\\resources\\test\\"+fileName;
+
         System.out.println("===========================Start Executing Rules===================================");
         KieContainer kc = KieServices.Factory.get().getKieClasspathContainer();
         KieSession ksession = kc.newKieSession( "preprocessor");
@@ -50,9 +51,6 @@ public class SVGObjectTokenizationServiceImpl implements SVGObjectTokenizationSe
         SVGImage svgImage = svgReader.parse(svgImageStudentAnswer, studentAnswerPath);
 
         svgtoPOJOMapper = new SVGtoPOJOMapper(svgImage);
-        for(int i=0;i<svgtoPOJOMapper.getGraphicalImageComponents().size();i++) {
-            System.out.println(svgtoPOJOMapper.getGraphicalImageComponents().get(i).objectType);
-        }
         ksession.insert(svgtoPOJOMapper);
         ksession.fireAllRules();
 

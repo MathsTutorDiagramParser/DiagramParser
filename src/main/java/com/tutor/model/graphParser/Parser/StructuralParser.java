@@ -3,6 +3,7 @@ package com.tutor.model.graphParser.Parser;
 import com.tutor.model.graphParser.DiagramStructure.AbstractDiagramStructure;
 import com.tutor.model.graphParser.DiagramStructure.NumberLine.AbstractNumberLineStructure;
 import com.tutor.model.graphParser.DiagramStructure.FeedBack;
+import com.tutor.model.graphParser.DiagramStructure.TreeDiagram.AbstractTreeDiagramStructure;
 import com.tutor.model.graphParser.DiagramStructure.TreeDiagram.TreeBranch;
 import com.tutor.model.graphParser.DiagramStructure.TreeDiagram.TreeGraph;
 import com.tutor.model.graphParser.DiagramStructure.TreeDiagram.TreeNode;
@@ -40,6 +41,7 @@ public class StructuralParser {
     AbstractDiagramStructure abstractDiagramStructure;
     DiagramSpecificSpatialRelationShipIdentifier relationShipIdentifier;
     boolean matched = false;
+    boolean isUnrelated = false;
     List<FeedBack>  feedBacks;
 
     // keep track of end of the iteration index when finding redex
@@ -81,6 +83,7 @@ public class StructuralParser {
                 // find redex which matched with the production rule
                 int[] redex =  findRedexForRApplication(host,productionRule);
 
+
                 // iterate through host graph until the end to find redex for finding host graph
                 while (redex != null){
                     // update the abstract representation before doing r reduction
@@ -120,8 +123,18 @@ public class StructuralParser {
                 FeedBack feedBack = new FeedBack("VALID_DIAGRAM_STRUCTURE");
                 feedBack.setDescription(FeedBackMessage.VALID_DIAGRAM_STRUCTURE);
                 feedBacks.add(feedBack);
+
+            } else if (host.getGraphicalImageComponents().size()!=1){
+                for (int itr = 0; itr<host.getGraphicalImageComponents().size(); itr++) {
+                    if(host.getGraphicalImageComponents().get(itr).objectType == ObjectType.INITIAL_GRAPH) {
+                        isUnrelated = true;
+                        FeedBack feedBack= new FeedBack("INITIAL GRAPH WITH EXTRA OBJECTS");
+                        feedBack.setDescription(FeedBackMessage.INITIAL_GRAPH_WITH_EXTRA_OBJECTS);
+                        feedBacks.add(feedBack);
+                    }
+                }
             }
-            else {
+            if(!isUnrelated && !host.isInitialGraph()){
                 FeedBack feedBack = new FeedBack("INVALID_DIAGRAM_STRUCTURE");
                 feedBack.setDescription(FeedBackMessage.INVALID_DIAGRAM_STRUCTURE);
                 feedBacks.add(feedBack);
@@ -178,6 +191,15 @@ public class StructuralParser {
 
                    // second step of finding redex, match spatial relations
                    if (i==0){
+                       // Check whether right graph has only one object and retun redex without checking spatial relationships
+                       if(total_number_of_objects == 1){
+                           redex[i] = j;
+                           stopPointOfHostGraph = 0;
+                           total_number_of_object_found += 1;
+                           if(total_number_of_object_found==total_number_of_objects){
+                               return redex;
+                           }
+                       }
                          if(afterRuleApplication){
                              redex[i]=first_checkIndex_afterRuleApplication;
                              stopPointOfHostGraph = j;
@@ -292,11 +314,6 @@ public class StructuralParser {
         if((host.getGraphicalImageComponents().size()==1) && (host.getGraphicalImageComponents().get(0).objectType==ObjectType.INITIAL_GRAPH))
         {
             host.setInitialGraph(true);
-
-        }else if ((host.getGraphicalImageComponents().get(0).objectType==ObjectType.INITIAL_GRAPH) && (host.getGraphicalImageComponents().size()!=1)){
-            FeedBack feedBack= new FeedBack("INITIAL GRAPH WITH EXTRA OBJECTS");
-            feedBack.setDescription(FeedBackMessage.INITIAL_GRAPH_WITH_EXTRA_OBJECTS);
-            feedBacks.add(feedBack);
         }
 
         SpatialRelationShipGenerator.updateSpatialRelationShipMatrix(host,redex,productionRule,diagramType);
@@ -317,7 +334,7 @@ public class StructuralParser {
                 first_checkIndex_afterRuleApplication = redex[0];
                 return newObjectList;
             case TREEDIAGRAM:
-                return getSubstituteList(newObjectList, substitute, ruleId, host, redex);
+                return getSubstituteListOfTreeDiagram(newObjectList, substitute, ruleId, host, redex);
             case TRIGNOMETRICDIAGRAM:
                 return newObjectList;
             default:
@@ -325,20 +342,20 @@ public class StructuralParser {
         }
     }
 
-    public List<GraphicalImageComponent> getSubstituteList(List<GraphicalImageComponent> newObjectList, GraphicalImageComponent substitute, int ruleId, Graph host, int[] redex) {
+    public List<GraphicalImageComponent> getSubstituteListOfTreeDiagram(List<GraphicalImageComponent> newObjectList, GraphicalImageComponent substitute, int ruleId, Graph host, int[] redex) {
         if (ruleId == 0) {
             TreeNode treeNodeNew = new TreeNode();
             treeNodeNew.objectType = substitute.objectType;
             TreeNode treeNode = getTreeNode( treeNodeNew, host, redex);
             newObjectList.add(treeNode);
             first_checkIndex_afterRuleApplication = redex[0]+1;
-        } else if(ruleId == 1 || ruleId == 2) {
+        } else if(ruleId == 1 || ruleId == 2 || ruleId == 5) {
             TreeGraph treeGraphNew = new TreeGraph();
             treeGraphNew.objectType = substitute.objectType;
-            TreeGraph treeGraph = getTreeGraphWithTwoNodes(treeGraphNew, host, redex);
+            TreeGraph treeGraph = getInitialTreeGraph(treeGraphNew, host, redex);
             newObjectList.add(treeGraph);
             first_checkIndex_afterRuleApplication = redex[0];
-        } else {
+        } else if(ruleId == 3 || ruleId == 4){
             TreeGraph treeGraph = getTreeGraphWithOneNode(host, redex);
             newObjectList.add(treeGraph);
             first_checkIndex_afterRuleApplication = redex[0];
@@ -347,14 +364,25 @@ public class StructuralParser {
     }
 
 
+
     public TreeNode getTreeNode( TreeNode treeNode, Graph host, int[] redex) {
-        TreeBranch leftTreeBranch = new TreeBranch((AngleLine) host.getGraphicalImageComponents().get(redex[0]));
+        TreeBranch leftTreeBranch = null;
+        TreeBranch rightTreeBranch = null;
+
+        if( ((AngleLine) host.getGraphicalImageComponents().get(redex[0])).getY2() <
+                ((AngleLine) host.getGraphicalImageComponents().get(redex[1])).getY2() ) {
+            leftTreeBranch = new TreeBranch((AngleLine) host.getGraphicalImageComponents().get(redex[0]));
+            rightTreeBranch = new TreeBranch((AngleLine) host.getGraphicalImageComponents().get(redex[1]));
+        } else {
+            leftTreeBranch = new TreeBranch((AngleLine) host.getGraphicalImageComponents().get(redex[1]));
+            rightTreeBranch = new TreeBranch((AngleLine) host.getGraphicalImageComponents().get(redex[0]));
+        }
+
         leftTreeBranch.setX1(leftTreeBranch.getAngleLine().getX1());
         leftTreeBranch.setY1(leftTreeBranch.getAngleLine().getY1());
         leftTreeBranch.setX2(leftTreeBranch.getAngleLine().getX2());
         leftTreeBranch.setY2(leftTreeBranch.getAngleLine().getY2());
 
-        TreeBranch rightTreeBranch = new TreeBranch((AngleLine) host.getGraphicalImageComponents().get(redex[1]));
         rightTreeBranch.setX1(rightTreeBranch.getAngleLine().getX1());
         rightTreeBranch.setY1(rightTreeBranch.getAngleLine().getY1());
         rightTreeBranch.setX2(rightTreeBranch.getAngleLine().getX2());
@@ -371,8 +399,13 @@ public class StructuralParser {
         return treeNode;
     }
 
-    public TreeGraph getTreeGraphWithTwoNodes(TreeGraph treeGraph, Graph host, int[] redex) {
-        TreeNode treeNodeOne = (TreeNode) host.getGraphicalImageComponents().get(redex[0]);
+    public TreeGraph getInitialTreeGraph(TreeGraph treeGraph, Graph host, int[] redex) {
+        TreeNode treeNodeOne = null;
+        for(int i=0; i<redex.length; i++) {
+            if(host.getGraphicalImageComponents().get(redex[i]).objectType == ObjectType.NODE) {
+                treeNodeOne = (TreeNode) host.getGraphicalImageComponents().get(redex[i]);
+            }
+        }
 
         treeGraph.setX1(treeNodeOne.getX1());
         treeGraph.setY1(treeNodeOne.getY1());
@@ -384,5 +417,4 @@ public class StructuralParser {
     public TreeGraph getTreeGraphWithOneNode(Graph host, int[] redex) {
         return  (TreeGraph) host.getGraphicalImageComponents().get(redex[0]);
     }
-
 }

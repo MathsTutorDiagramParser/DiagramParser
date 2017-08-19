@@ -525,7 +525,7 @@ public class SpatialRelationShipGenerator {
     }
 
     public boolean isCloseToTouch(double p,double q){
-        if((p <= q + 3.5 ) && (p>(q - 3.5))){
+        if((p<= q + 8 ) && (p>(q - 8))){
             return true;
         }
         return false;
@@ -596,7 +596,30 @@ public class SpatialRelationShipGenerator {
 
                 }
                 row++;
-            } else if (itr != redex[1]) {
+            } else if (redex.length != 1) {
+                if (itr != redex[1]) {
+                    //Get old relationship list
+                    ArrayList<SpatialRelation>[] oldRelationList = old[itr];
+                    //To keep the new host relation iteration
+                    int count = 0;
+                    //To assign each relation with other objects according to the old relation list
+                    for (int k = 0; k < oldRelationList.length; k++) {
+                        // Skip when relation is already define during adding new relation between newly added element and other elements
+                        if (k != redex[0]) {
+                            //Skip relation if the object is removed when reducing host graph
+                            if (redex.length != 1){
+                                if (k != redex[1]) {
+                                newRelations[row][count] = oldRelationList[k];
+                                count++;
+                            }
+                            }
+                        } else {
+                            count++;
+                        }
+                    }
+                    row++;
+                }
+            } else {
                 //Get old relationship list
                 ArrayList<SpatialRelation>[] oldRelationList = old[itr];
                 //To keep the new host relation iteration
@@ -605,11 +628,9 @@ public class SpatialRelationShipGenerator {
                 for (int k = 0; k < oldRelationList.length; k++) {
                     // Skip when relation is already define during adding new relation between newly added element and other elements
                     if (k != redex[0]) {
-                        //Skip relation if the object is removed when reducing host graph
-                        if (k != redex[1]) {
-                            newRelations[row][count] = oldRelationList[k];
-                            count++;
-                        }
+                        newRelations[row][count] = oldRelationList[k];
+                        count++;
+
                     } else {
                         count++;
                     }

@@ -5,6 +5,7 @@ import com.tutor.model.graphParser.DiagramStructure.TreeDiagram.AbstractTreeDiag
 import com.tutor.model.graphParser.DiagramStructure.TreeDiagram.TreeGraph;
 import com.tutor.model.graphParser.DiagramStructure.TreeDiagram.TreeNode;
 import com.tutor.model.graphParser.GraphGrammarGenerator.graphGrammarObject.Graph;
+import com.tutor.model.util.ObjectType;
 
 import java.util.ArrayList;
 
@@ -22,14 +23,10 @@ public class TreeDiagramStructureGenerator extends DiagramStructureGenerator {
             TreeNode treeNodeTwo = (TreeNode) host.getGraphicalImageComponents().get(objects[1]);
             treeNodeOne.setLevel("0:0");
 
-            System.out.println("Node one"+treeNodeOne.getY1()+","+treeNodeOne.getY2());
-            System.out.println("Node two"+treeNodeTwo.getY1()+","+treeNodeTwo.getY2());
 
             if(((treeNodeOne.getY1()+treeNodeOne.getY2())/2) > ((treeNodeTwo.getY1()+treeNodeTwo.getY2())/2)) {
-                System.out.println("///////////////// Rule One Abs set upper node//////////");
                 treeNodeTwo.setLevel("1:0");
             } else {
-                System.out.println("///////////////// Rule One Abs set lower node//////////");
                 treeNodeTwo.setLevel("1:1");
             }
 
@@ -43,19 +40,27 @@ public class TreeDiagramStructureGenerator extends DiagramStructureGenerator {
             TreeNode treeNode = (TreeNode) host.getGraphicalImageComponents().get(objects[1]);
             ArrayList<TreeGraph> treeGraphArrayList = diagramStructure.getTreeGraphArrayList();
 
-            System.out.println("Tree"+treeGraph.getY1()+","+treeGraph.getY2());
-            System.out.println("Node"+treeNode.getY1()+","+treeNode.getY2());
-
             if(((treeGraph.getY1()+treeGraph.getY2())/2) > ((treeNode.getY1()+treeNode.getY2())/2)) {
-                System.out.println("///////////////// Rule two Abs set upper node//////////");
-                treeNode.setLevel("1:0");
+               treeNode.setLevel("1:0");
             } else {
-                System.out.println("///////////////// Rule two Abs set lower node//////////");
                 treeNode.setLevel("1:1");
             }
-
             TreeGraph treeGraphNew = new TreeGraph(treeNode, treeGraphArrayList.size()-1);
             treeGraphArrayList.add(treeGraphNew);
+            diagramStructure.setTreeGraphArrayList(treeGraphArrayList);
+        }
+        if (ruleID == 5){
+            TreeNode treeNode = null;
+            for(int i=0; i<objects.length; i++) {
+                if(host.getGraphicalImageComponents().get(objects[i]).objectType == ObjectType.NODE) {
+                    treeNode = (TreeNode) host.getGraphicalImageComponents().get(objects[i]);
+                    treeNode.setLevel("0:0");
+                }
+            }
+
+            TreeGraph treeGraph = new TreeGraph(treeNode,0);
+            ArrayList<TreeGraph> treeGraphArrayList = new ArrayList<>();
+            treeGraphArrayList.add(treeGraph);
             diagramStructure.setTreeGraphArrayList(treeGraphArrayList);
         }
         return diagramStructure;

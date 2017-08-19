@@ -64,36 +64,9 @@ public class main {
 //        objectSequenceGeneratorService.order(svGtoPOJOMapper.getTexts());
         List<GraphicalImageComponent> textList = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapper.getTexts());
 
-        System.out.println("size of ordered list"+orderedList.size());
-        for (int j=0; j<orderedList.size(); j++){
-            System.out.println("++++++++++++++++++++++++");
-            System.out.println( "x: "+orderedList.get(j).getX());
-            System.out.println( "y: "+orderedList.get(j).getY());
-            System.out.println( "X1: "+orderedList.get(j).getX1());
-            System.out.println( "Y2: "+orderedList.get(j).getY1());
-            System.out.println( "X2: "+orderedList.get(j).getX2());
-            System.out.println( "Y2: "+orderedList.get(j).getY2());
-            System.out.println(orderedList.get(j).objectType);
-            System.out.println("++++++++++++++++++++++++");
-
-        }
-        System.out.println("//////////////////////////////////done ordering//////////////////////////////////");
 
         ArrayList<SpatialRelation>[][] relations =
                 spatialRelationShipGenerator.getSpatialRelationshipMatrixOfObject(orderedList);
-        //   print Spatial relationship
-        for (int i=0; i< relations.length;i++){
-            System.out.println("======"+i+" "+orderedList.get(i).getX1()+"===== "+orderedList.get(i).getX2());
-           for (int j=0;j<orderedList.size();j++){
-                System.out.print( "j="+j+ " "+orderedList.get(i).objectType+"=>"+orderedList.get(j).objectType+" are ");
-
-                for(int k=0;k< relations[i][j].size();k++){
-                   System.out.print(relations[i][j].get(k)+"   ");
-                }
-                System.out.println("\n");
-           }
-
-        }
 
         logger.info("//////////////////////////////////done relationship identification//////////////////////////////////");
 
