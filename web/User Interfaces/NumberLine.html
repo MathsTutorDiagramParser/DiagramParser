@@ -17,7 +17,7 @@
     </div>
     <div>
       <INPUT type = "Button" value = '&#9899'  onclick="createArrowWithFilledDot()"/> 
-	  <INPUT type = "Button" value = '&#9898'  onclick="createArrowWithDot()"/> 
+	  <INPUT type = "Button" value = '&#9898'  onclick="createArrowWithDot()"/>
       <INPUT type = "Button" value = "Undo" onclick="undo()"/>  
       <INPUT type = "Button" value = "Clear Plane" onclick="clearPlane()"/> 
       <button id ="save">Save</button>
@@ -156,17 +156,17 @@
 			return groupArrow;
 			  
 		}
-		
-		
-		
+
+
+
 		//reset All
 		function clearPlane(){
 			canvas.clear();
 			drawNumLine();
 		}
-		
-		
-		
+
+
+
 		//create arrow with filled dot
 		function createArrowWithFilledDot(){
 			canvas.off();
@@ -191,10 +191,10 @@
 					else{
 						dotPlaced = false;
 					}
-					
+
 				},
 				'mouse:move': function(e) {
-				
+
 					if (dotPlaced){
 						//draw arrow to left
 						if (getItemByMyID('filledDot').left < e.e.clientX){
@@ -208,10 +208,10 @@
 							canvas.add(createLineArrow([getItemByMyID('filledDot').left, getItemByMyID('filledDot').top, e.e.clientX, getItemByMyID('filledDot').top],'right'));
 						}
 					}
-				}				
+				}
 			});
 		}
-		
+
 		//get object by custom id
 		function getItemByMyID(myID) {
 			var object = null,
@@ -224,11 +224,11 @@
 		}
 		return object;
 		};
-		
+
 		//create arrow with dot (not filled)
 		function createArrowWithDot(){
 			canvas.off();
-				
+
 			canvas.on({
 				'mouse:down': function(e) {
 					pointX = e.e.clientX;
@@ -241,7 +241,7 @@
 						canvas.renderAll();
 					}
 					else if (dotPlaced){
-						
+
 						dotPlaced = false;
 						saveObject('arrow');
 						saveObject('dot');
@@ -250,7 +250,7 @@
 					else{
 						dotPlaced = false;
 					}
-					
+
 				},
 				'mouse:move': function(e) {
 					if(dotPlaced){
@@ -266,13 +266,13 @@
 							canvas.add(createLineArrow([getItemByMyID('dot').left, getItemByMyID('dot').top, e.e.clientX, getItemByMyID('dot').top],'right'));
 						}
 					}
-					
+
 				}
-			
+
 			});
 		}
-		
-		
+
+
 		//set xy to dot
 		function placeDot(x,y,fill,id){
 			var dot = new fabric.Circle({
@@ -317,7 +317,7 @@
            
 		})
 
-		
+
 		function undo(){
 			var canvas_objects = canvas._objects;
 			if(canvas_objects.length !== 0)

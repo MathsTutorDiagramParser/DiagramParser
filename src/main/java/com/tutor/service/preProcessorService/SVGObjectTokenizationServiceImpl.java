@@ -24,7 +24,7 @@ public class SVGObjectTokenizationServiceImpl implements SVGObjectTokenizationSe
 
         switch (diagramType) {
             case NUMBRELINE:
-                fileName = "numberLine\\test1.svg";
+                fileName = "numberLine\\test13.svg";
                 break;
             case HISTOGRAM:
                 fileName = "histogram\\test2.svg";
@@ -33,7 +33,7 @@ public class SVGObjectTokenizationServiceImpl implements SVGObjectTokenizationSe
                 fileName = "treeDiagram\\test1.svg";
                 break;
             case TRIGNOMETRICDIAGRAM:
-                fileName = "";
+                fileName = "trignometricDiagram\\test1.svg";
                 break;
             default:
                 fileName = "svgResult";
@@ -57,6 +57,7 @@ public class SVGObjectTokenizationServiceImpl implements SVGObjectTokenizationSe
         ksession.fireAllRules();
 
         return svgtoPOJOMapper;
+
 
     }
 }

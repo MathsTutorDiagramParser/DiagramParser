@@ -111,11 +111,12 @@ public class StructuralParser {
 
             if(host.isInitialGraph()) {
                 logger.info("found Initial graph");
-
                 if (DiagramType.NUMBRELINE==diagramType) {
                     logger.info("mark points: " + ((AbstractNumberLineStructure) this.abstractDiagramStructure).getMarkPointList().size());
                     logger.info("tick points: " + ((AbstractNumberLineStructure) this.abstractDiagramStructure).getTickPointList().size());
                 }
+
+
                 FeedBack feedBack = new FeedBack("VALID_DIAGRAM_STRUCTURE");
                 feedBack.setDescription(FeedBackMessage.VALID_DIAGRAM_STRUCTURE);
                 feedBacks.add(feedBack);
@@ -291,6 +292,7 @@ public class StructuralParser {
         if((host.getGraphicalImageComponents().size()==1) && (host.getGraphicalImageComponents().get(0).objectType==ObjectType.INITIAL_GRAPH))
         {
             host.setInitialGraph(true);
+
         }else if ((host.getGraphicalImageComponents().get(0).objectType==ObjectType.INITIAL_GRAPH) && (host.getGraphicalImageComponents().size()!=1)){
             FeedBack feedBack= new FeedBack("INITIAL GRAPH WITH EXTRA OBJECTS");
             feedBack.setDescription(FeedBackMessage.INITIAL_GRAPH_WITH_EXTRA_OBJECTS);
