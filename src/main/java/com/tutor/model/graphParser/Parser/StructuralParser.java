@@ -228,11 +228,11 @@ public class StructuralParser {
                                  //end
 
                                  if(host.getSpatialRelations( redex[i - 1],j).contains(ruleGraph.getSpatialRelations(i-1, i ).get(k))){
-                                     contain_count+=1;
+                                     contain_count += 1;
                                  }
                              }
 
-                             logger.info("> rule Rlation: "+ruleGraph.getSpatialRelations(i,i-1).toString());
+                             logger.info("> rule Rlation: "+ruleGraph.getSpatialRelations(i-1,i).toString());
                              logger.info("> host Rlation: "+host.getSpatialRelations(redex[i - 1],j).toString());
                              logger.info("Contain c : "+contain_count+" "+ruleGraph.getSpatialRelations(i, i - 1).size() );
 

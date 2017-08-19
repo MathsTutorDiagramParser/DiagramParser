@@ -14,6 +14,6 @@ public class HistogramRelationShipIdentifier implements DiagramSpecificSpatialRe
 
     @Override
     public int identifySpecificRelations(SpatialRelation ruleRelation, int contain_count, List<FeedBack> feedBacks, AbstractDiagramStructure diagramStructure, Graph host, int o_1, int o_2) {
-        return 0;
+        return contain_count;
     }
 }
