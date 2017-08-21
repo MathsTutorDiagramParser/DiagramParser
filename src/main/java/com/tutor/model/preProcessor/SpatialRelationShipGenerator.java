@@ -551,8 +551,8 @@ public class SpatialRelationShipGenerator {
         }
         return false;
     }
-    public boolean isCloseToTouchRectangle(double p,double q){
-        if((p<= q + 20 ) && (p>(q - 20))){
+    public boolean isCloseToTouchRectangle(double y1,double t){
+        if((y1<= t + 50 ) && (y1>(t- 20))){
             return true;
         }
         return false;

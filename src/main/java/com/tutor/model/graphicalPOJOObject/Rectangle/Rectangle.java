@@ -10,6 +10,7 @@ public class Rectangle extends GraphicalImageComponent {
     public Rectangle(Double x, Double y, Double height, Double width){
         super(x,y,height);
         this.width=width;
+        this.height=height;
         this.objectType= ObjectType.RECTANGLE;
     }
 
