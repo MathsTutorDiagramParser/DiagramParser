@@ -104,4 +104,6 @@ public class SVGImage {
         return this.texts;
     }
 
+
+
 }

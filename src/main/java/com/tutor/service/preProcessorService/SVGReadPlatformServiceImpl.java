@@ -260,8 +260,16 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
                     fill =(styl.split("fill")[1].split(";")[0]).replace(": ", "");
                 }
                 SVGCircle circle = new SVGCircle(x1,y1,fill);
+                boolean isoverlapped = false;
+                for (int j=0;j<svgImage.getCircles().size();j++){
+                    if((svgImage.getCircles().get(j).getCx() <= circle.getCx()+5) && (svgImage.getCircles().get(j).getCx() >= circle.getCx()-5) ){
+                        isoverlapped = true;
+                    }
+                }
+                if(!isoverlapped){
+                    svgImage.addCircle(circle);
+                }
 
-                svgImage.addCircle(circle);
             }
 
             for (int i = 0; i < ellipses.size(); i++)

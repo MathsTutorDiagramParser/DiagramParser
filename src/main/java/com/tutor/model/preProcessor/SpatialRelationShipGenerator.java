@@ -370,24 +370,24 @@ public class SpatialRelationShipGenerator {
                 double o2_highest = o2.getHighestXCoordinate();
 
                 if( o1_lowest <= o2_lowest ){
-                    if((o2_lowest-o1_lowest)<=30){
+                    if((o2_lowest-o1_lowest)<=15){
                         return true;
                     }
 
                 }
                 else if(o1_lowest >= o2_lowest){
-                    if( (o1_lowest- o2_lowest)<=30){
+                    if( (o1_lowest- o2_lowest)<=15){
                         return true;
                     }
                 }
                 if (o1_highest>=o2_highest){
-                    if( (o1_highest-o2_highest)<=30){
+                    if( (o1_highest-o2_highest)<=15){
                         return true;
                     }
 
                 }
                 else if(o1_highest <=o2_highest){
-                    if( (o2_highest-o1_highest)<=30){
+                    if( (o2_highest-o1_highest)<=15){
                         return true;
                     }
                 }
@@ -441,14 +441,35 @@ public class SpatialRelationShipGenerator {
                 new ArrayList[host.getGraphicalImageComponents().size()][host.getGraphicalImageComponents().size()];
 
         switch (diagramType){
+
             case NUMBRELINE:
-                int newItr =0;
-                for(int oldItr = 0;oldItr < change.length; oldItr++){
-                    ArrayList<SpatialRelation>[] substitute = old[oldItr];
-                    if(!isInArray(Arrays.copyOfRange(redex,1,redex.length),oldItr)){
-                        newRelations[newItr] = buildSubstituteArray(substitute,redex);
-                        newItr++;
+
+                if(rule.getRuleId() == 3){
+                    int newItr1 =0;
+                    for(int oldItr = 0;oldItr < change.length; oldItr++){
+                        ArrayList<SpatialRelation>[] substitute;
+                        if(oldItr==redex[0]){
+                            substitute = old[redex[1]];
+                        }
+                        else {
+                            substitute = old[oldItr];
+                        }
+                        if(!isInArray(Arrays.copyOfRange(redex,1,redex.length),oldItr)){
+                            newRelations[newItr1] = buildSubstituteArray(substitute,redex);
+                            newItr1++;
+                        }
                     }
+                }
+                else {
+                    int newItr =0;
+                    for(int oldItr = 0;oldItr < change.length; oldItr++){
+                        ArrayList<SpatialRelation>[] substitute = old[oldItr];
+                        if(!isInArray(Arrays.copyOfRange(redex,1,redex.length),oldItr)){
+                            newRelations[newItr] = buildSubstituteArray(substitute,redex);
+                            newItr++;
+                        }
+                    }
+
                 }
                 host.setRelations(newRelations);
                 break;
@@ -525,7 +546,7 @@ public class SpatialRelationShipGenerator {
     }
 
     public boolean isCloseToTouch(double p,double q){
-        if((p<= q + 8 ) && (p>(q - 8))){
+        if((p<= q + 17 ) && (p>(q - 17))){
             return true;
         }
         return false;

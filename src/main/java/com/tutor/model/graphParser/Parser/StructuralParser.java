@@ -113,12 +113,8 @@ public class StructuralParser {
             }
 
             if(host.isInitialGraph()) {
-                logger.info("found Initial graph");
-                if (DiagramType.NUMBRELINE==diagramType) {
-                    logger.info("mark points: " + ((AbstractNumberLineStructure) this.abstractDiagramStructure).getMarkPointList().size());
-                    logger.info("tick points: " + ((AbstractNumberLineStructure) this.abstractDiagramStructure).getTickPointList().size());
-                }
 
+                logger.info("found Initial graph");
 
                 FeedBack feedBack = new FeedBack("VALID_DIAGRAM_STRUCTURE");
                 feedBack.setDescription(FeedBackMessage.VALID_DIAGRAM_STRUCTURE);
@@ -135,9 +131,13 @@ public class StructuralParser {
                 }
             }
             if(!isUnrelated && !host.isInitialGraph()){
+
                 FeedBack feedBack = new FeedBack("INVALID_DIAGRAM_STRUCTURE");
                 feedBack.setDescription(FeedBackMessage.INVALID_DIAGRAM_STRUCTURE);
                 feedBacks.add(feedBack);
+
+                // unrelated object analysis
+
             }
 
             return this.abstractDiagramStructure;
@@ -159,6 +159,7 @@ public class StructuralParser {
 
         // keep track whether the object which matched with object type had required relations
         boolean isRelationMatched = true;
+
         // access right graph of the production rule
         Graph ruleGraph = p.getRightGraph();
         //get the total number of objects in right graph of the rule
@@ -170,11 +171,11 @@ public class StructuralParser {
 
         // iterate through object of rule graph
         for (int i=0; i < total_number_of_objects ;i++){
+            boolean isObjectTypeMatched = false;
             /*
                 when same rule is applying,it need to start iteration from the stop point(not from the start again)
                 by assigning 'j' to 'stopPointOfHostGraph' iteration will start from the previous stop point
              */
-
             int j=stopPointOfHostGraph;
            //iterate through object of host graph
             while ( j < host.getGraphicalImageComponents().size()){
@@ -188,7 +189,7 @@ public class StructuralParser {
                logger.info("host ob type: "+objectType +" req ob type: "+ruleGraph.getGraphicalImageComponents().get(i).objectType);
                 // first step of finding redex, match object type
                if(objectType == ruleGraph.getGraphicalImageComponents().get(i).objectType){
-
+                   isObjectTypeMatched = true;
                    // second step of finding redex, match spatial relations
                    if (i==0){
                        // Check whether right graph has only one object and retun redex without checking spatial relationships
@@ -224,11 +225,13 @@ public class StructuralParser {
 
                                  //specific relationship checking conditions
                                  contain_count = relationShipIdentifier.identifySpecificRelations(ruleGraph.getSpatialRelations(i,i-1).get(k),
-                                         contain_count,feedBacks,this.abstractDiagramStructure,host,j,redex[i-1]);
+                                         contain_count,feedBacks,this.abstractDiagramStructure,host,j,redex[i-1],redex);
                                  //end
 
-                                 if(host.getSpatialRelations( redex[i - 1],j).contains(ruleGraph.getSpatialRelations(i-1, i ).get(k))){
-                                     contain_count += 1;
+                                 if(host.getSpatialRelations(redex[i - 1],j)!=null) {
+                                     if (host.getSpatialRelations(redex[i - 1], j).contains(ruleGraph.getSpatialRelations(i - 1, i).get(k))) {
+                                         contain_count += 1;
+                                     }
                                  }
                              }
 
@@ -240,6 +243,7 @@ public class StructuralParser {
                                  redex[i] = j;
                                  stopPointOfHostGraph = j;
                                  total_number_of_object_found += 1;
+                                 i++;
                                  if(total_number_of_object_found==total_number_of_objects){
                                      return redex;
                                  }
@@ -254,6 +258,9 @@ public class StructuralParser {
                              return null;
                          }
                      }
+                 }
+                 else {
+
                  }
                  j++;
             }
@@ -270,6 +277,10 @@ public class StructuralParser {
                 }
             }
 
+            if(!isObjectTypeMatched){
+                break;
+
+            }
             // if no matched redex found in first iteration break the loop
             if(total_number_of_object_found==0){
                break;

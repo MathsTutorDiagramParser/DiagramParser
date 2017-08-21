@@ -14,7 +14,7 @@ public class TrigDiagramRelationIdentifier implements DiagramSpecificSpatialRela
 
 
     @Override
-    public int identifySpecificRelations(SpatialRelation ruleRelation, int contain_count, List<FeedBack> feedBacks, AbstractDiagramStructure diagramStructure, Graph host, int o_1, int o_2) {
+    public int identifySpecificRelations(SpatialRelation ruleRelation, int contain_count, List<FeedBack> feedBacks, AbstractDiagramStructure diagramStructure, Graph host, int o_1, int o_2,int[] redex) {
         return contain_count;
     }
 }

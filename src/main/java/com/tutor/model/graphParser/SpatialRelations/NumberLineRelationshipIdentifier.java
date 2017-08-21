@@ -17,23 +17,20 @@ public class NumberLineRelationshipIdentifier implements DiagramSpecificSpatialR
 
     @Override
     public int identifySpecificRelations(SpatialRelation ruleRelation, int contain_count, List<FeedBack> feedBacks,
-                                         AbstractDiagramStructure diagramStructure, Graph host,int o_1,int o_2) {
-
+                                         AbstractDiagramStructure diagramStructure, Graph host,int o_1,int o_2,int[] redex) {
 
         if(ruleRelation==SpatialRelation.SAMEEND){
             if(  host.getRelations()[o_1][o_1].contains(SpatialRelation.SAMEEND) || host.getRelations()[o_2][o_2].contains(SpatialRelation.SAMEEND) ){
                 contain_count +=1;
 
             }else {
-
-                System.out.println("Not Same End");
                 if(host.getGraphicalImageComponents().get(o_1).objectType== ObjectType.CIRCLE){
                     diagramStructure.updateAbstractRepresentation(host.getGraphicalImageComponents().get(o_1));
                 }
                 else diagramStructure.updateAbstractRepresentation(host.getGraphicalImageComponents().get(o_2));
 
                 FeedBack feedBack = new FeedBack("INCORECT_END_POINTS_OF_MARKED_LINE");
-                feedBack.setDescription(FeedBackMessage.INCORECT_END_OF_MARKED_LINE);
+                feedBack.setDescription(FeedBackMessage.END_OF_MARKED_LINE_NOT_SET_TO_INFINITY);
                 feedBacks.add(feedBack);
             }
         }
@@ -44,7 +41,14 @@ public class NumberLineRelationshipIdentifier implements DiagramSpecificSpatialR
             }
         }
         if (ruleRelation==SpatialRelation.NOT_THICK_LINE){
-            if(  host.getRelations()[o_2][o_2].contains(SpatialRelation.NOT_THICK_LINE) || host.getRelations()[o_2][o_2].contains(SpatialRelation.NOT_THICK_LINE) ){
+            if(  host.getRelations()[o_1][o_1].contains(SpatialRelation.NOT_THICK_LINE) || host.getRelations()[o_2][o_2].contains(SpatialRelation.NOT_THICK_LINE) ){
+                contain_count +=1;
+            }
+        }
+
+        if(ruleRelation==SpatialRelation.ALIGNED_0){
+            int preElement = redex[0];
+            if(  host.getRelations()[preElement][o_2].contains(SpatialRelation.TOUCH)){
                 contain_count +=1;
             }
         }
