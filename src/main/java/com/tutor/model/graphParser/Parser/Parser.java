@@ -1,5 +1,7 @@
 package com.tutor.model.graphParser.Parser;
 
+import com.tutor.model.graphParser.DiagramStructure.Histogram.AbstractHistogramStructure;
+import com.tutor.model.graphParser.DiagramStructure.Histogram.Bar;
 import com.tutor.model.graphParser.DiagramStructure.TreeDiagram.AbstractTreeDiagramStructure;
 import com.tutor.model.graphParser.DiagramStructure.TreeDiagram.TreeGraph;
 import com.tutor.model.graphParser.Parser.textAligner.TextAlignmentAssigner;
@@ -90,6 +92,18 @@ public class Parser {
         }
         else if (diagramType == DiagramType.TREEDIAGRAM) {
             ((AbstractTreeDiagramStructure)abstractDiagramStructure).getTreeGraphArrayList();
+        }else if(diagramType == DiagramType.HISTOGRAM){
+            List<Bar> bar=((AbstractHistogramStructure) this.abstractDiagramStructure).getBar();
+            int k=((AbstractHistogramStructure) this.abstractDiagramStructure).getBar().size();
+            Double yRatio=((AbstractHistogramStructure) this.abstractDiagramStructure).getyAxisratio();
+            logger.info("Found "+k+" Bars ");
+
+            for(int l=0;l<k;l++) {
+                logger.info(l+"th Bar -> Y Value is : "+bar.get(l).rectangle.getHeight()*yRatio);
+            }
+
+
+
         }
 
         return abstractDiagramStructure;

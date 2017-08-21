@@ -1,6 +1,8 @@
 package com.tutor.model.graphParser.Parser;
 
 import com.tutor.model.graphParser.DiagramStructure.AbstractDiagramStructure;
+import com.tutor.model.graphParser.DiagramStructure.Histogram.AbstractHistogramStructure;
+import com.tutor.model.graphParser.DiagramStructure.Histogram.Bar;
 import com.tutor.model.graphParser.DiagramStructure.NumberLine.AbstractNumberLineStructure;
 import com.tutor.model.graphParser.DiagramStructure.FeedBack;
 import com.tutor.model.graphParser.DiagramStructure.TreeDiagram.AbstractTreeDiagramStructure;
@@ -114,9 +116,17 @@ public class StructuralParser {
 
             if(host.isInitialGraph()) {
                 logger.info("found Initial graph");
+
                 if (DiagramType.NUMBRELINE==diagramType) {
                     logger.info("mark points: " + ((AbstractNumberLineStructure) this.abstractDiagramStructure).getMarkPointList().size());
                     logger.info("tick points: " + ((AbstractNumberLineStructure) this.abstractDiagramStructure).getTickPointList().size());
+                }else if(DiagramType.HISTOGRAM==diagramType){
+                    List<Bar> bar=((AbstractHistogramStructure) this.abstractDiagramStructure).getBar();
+                    int k=((AbstractHistogramStructure) this.abstractDiagramStructure).getBar().size();
+                    logger.info(k+" Bars are found");
+                    for(int l=0;l<k;l++) {
+                        logger.info(l+"th Bar -> height: "+bar.get(l).rectangle.getHeight()+" width: "+bar.get(l).rectangle.getWidth()); }
+
                 }
 
 

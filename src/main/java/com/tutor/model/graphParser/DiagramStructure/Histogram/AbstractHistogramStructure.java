@@ -17,6 +17,9 @@ public class AbstractHistogramStructure extends AbstractDiagramStructure {
     List<Bar> abstractBar;
     public String xLegend;
     public String yLegend;
+    public Double xAxisratio;
+    public Double yAxisratio;
+
     public AbstractHistogramStructure() {
         bar =new ArrayList<>();
         xLegend=null;
@@ -24,6 +27,30 @@ public class AbstractHistogramStructure extends AbstractDiagramStructure {
     }
     public void updateBarList(Bar barItem){
         bar.add(barItem);
+    }
+
+    public List<Bar> getAbstractBar() {
+        return abstractBar;
+    }
+
+    public List<Bar> getBar() {
+        return bar;
+    }
+
+    public Double getxAxisratio() {
+        return xAxisratio;
+    }
+
+    public Double getyAxisratio() {
+        return yAxisratio;
+    }
+
+    public void setxAxisratio(Double xAxisratio) {
+        this.xAxisratio = xAxisratio;
+    }
+
+    public void setyAxisratio(Double yAxisratio) {
+        this.yAxisratio = yAxisratio;
     }
 
     public String getxLegend() {
