@@ -122,7 +122,11 @@ public class SpatialRelationShipGenerator {
         if(isEndPointTouch(o1,o2)){
             relations.add(SpatialRelation.TOUCH);
         }
-        else if(isLineTough(o1,o2)) {
+        else if(isLineTouch(o1,o2)) {
+            relations.add(SpatialRelation.TOUCH);
+        }
+        // For Rectangle
+        if(isOnTheLine(o1,o2)){
             relations.add(SpatialRelation.TOUCH);
         }
         //identify overlap
@@ -143,10 +147,6 @@ public class SpatialRelationShipGenerator {
         if(isPerpendicular(o1,o2)){
             relations.add(SpatialRelation.PERPENDICULAR);
         }
-        // For Rectangle
-        if(isOnTheLine(o1,o2)){
-            relations.add(SpatialRelation.TOUCH);
-        }
 
         if(isUp(o1,o2)){
             relations.add(SpatialRelation.UP);
@@ -165,8 +165,8 @@ public class SpatialRelationShipGenerator {
                     || (o1.objectType != ObjectType.CIRCLE && o2.objectType != ObjectType.CIRCLE && (isCloseToTouch(o1.getX2(), o2.getX2()) && isCloseToTouch(o1.getY2(), o2.getY2())))
                     || (o1.objectType != ObjectType.CIRCLE && o2.objectType != ObjectType.CIRCLE && (isCloseToTouch(o1.getX1(), o2.getX2()) && isCloseToTouch(o1.getY1(), o2.getY2())))
                     || (o1.objectType != ObjectType.CIRCLE && o2.objectType != ObjectType.CIRCLE && (isCloseToTouch(o1.getX2(), o2.getX1()) && isCloseToTouch(o1.getY2(), o2.getY1())))
-                    || (o1.superObjectType != ObjectType.LINE && o2.objectType != ObjectType.CIRCLE && (isCloseToTouch(o1.getX(), o2.getX1()) && isCloseToTouch(o1.getY(), o2.getY1())) || (isCloseToTouch(o1.getX(), o2.getX2()) && isCloseToTouch(o1.getY(), o2.getY2())))
-                    || (o1.objectType != ObjectType.CIRCLE && o2.superObjectType != ObjectType.LINE && (isCloseToTouch(o1.getX1(), o2.getX()) && isCloseToTouch(o1.getY1(), o2.getY())) || (isCloseToTouch(o1.getX2(), o2.getX()) && isCloseToTouch(o1.getY2(), o2.getY()))))
+                    || ( (o1.superObjectType != ObjectType.LINE && o2.objectType != ObjectType.CIRCLE) && ( (isCloseToTouch(o1.getX(), o2.getX1()) && isCloseToTouch(o1.getY(), o2.getY1())) || (isCloseToTouch(o1.getX(), o2.getX2()) && isCloseToTouch(o1.getY(), o2.getY2()))))
+                    || (o1.objectType != ObjectType.CIRCLE && o2.superObjectType != ObjectType.LINE && ((isCloseToTouch(o1.getX1(), o2.getX()) && isCloseToTouch(o1.getY1(), o2.getY())) || (isCloseToTouch(o1.getX2(), o2.getX()) && isCloseToTouch(o1.getY2(), o2.getY())))))
                     ) {
                 return true;
             }
@@ -229,7 +229,7 @@ public class SpatialRelationShipGenerator {
           return false;
     }
 
-    public boolean isLineTough(GraphicalImageComponent o1,GraphicalImageComponent o2){
+    public boolean isLineTouch(GraphicalImageComponent o1,GraphicalImageComponent o2){
 
         if(o1.objectType== ObjectType.HORIZONTAL_LINE && o2.objectType==ObjectType.VERTICAL_LINE){
             double x1=o1.getX1();
@@ -320,8 +320,6 @@ public class SpatialRelationShipGenerator {
                     cross_x = (c2-c1)/(m1-m2);
                     cross_y = ((m2*c1) - (m1*c2)) / (m2-m1);
                 }
-
-
 
                 if(pointOnLineSegment(o1.getX1(),o1.getX2(),o1.getY1(),o1.getY2(),cross_x,cross_y)){
                     return true;
@@ -421,12 +419,11 @@ public class SpatialRelationShipGenerator {
             }
         }else {
              if(y1==y2) {
-                if(((y1+5)>=y ) || ((y1-5)<=y)){
+                if(((y1+5)>=y ) && ((y1-5)<=y)){
                     return true;
                 }
             }
         }
-
 
         return false;
 
@@ -572,13 +569,13 @@ public class SpatialRelationShipGenerator {
     }
 
     public boolean isCloseToTouch(double p,double q){
-        if((p<= q + 3.5 ) && (p>(q - 3.5))){
+        if((p<= q + 8 ) && (p>(q - 8))){
             return true;
         }
         return false;
     }
-    public boolean isCloseToTouchRectangle(double p,double q){
-        if((p<= q + 15 ) && (p>(q - 15))){
+    public boolean isCloseToTouchRectangle(double y1,double t){
+        if((y1<= t + 50 ) && (y1>(t- 20))){
             return true;
         }
         return false;
@@ -643,7 +640,30 @@ public class SpatialRelationShipGenerator {
 
                 }
                 row++;
-            } else if (itr != redex[1]) {
+            } else if (redex.length != 1) {
+                if (itr != redex[1]) {
+                    //Get old relationship list
+                    ArrayList<SpatialRelation>[] oldRelationList = old[itr];
+                    //To keep the new host relation iteration
+                    int count = 0;
+                    //To assign each relation with other objects according to the old relation list
+                    for (int k = 0; k < oldRelationList.length; k++) {
+                        // Skip when relation is already define during adding new relation between newly added element and other elements
+                        if (k != redex[0]) {
+                            //Skip relation if the object is removed when reducing host graph
+                            if (redex.length != 1){
+                                if (k != redex[1]) {
+                                newRelations[row][count] = oldRelationList[k];
+                                count++;
+                            }
+                            }
+                        } else {
+                            count++;
+                        }
+                    }
+                    row++;
+                }
+            } else {
                 //Get old relationship list
                 ArrayList<SpatialRelation>[] oldRelationList = old[itr];
                 //To keep the new host relation iteration
@@ -652,11 +672,9 @@ public class SpatialRelationShipGenerator {
                 for (int k = 0; k < oldRelationList.length; k++) {
                     // Skip when relation is already define during adding new relation between newly added element and other elements
                     if (k != redex[0]) {
-                        //Skip relation if the object is removed when reducing host graph
-                        if (k != redex[1]) {
-                            newRelations[row][count] = oldRelationList[k];
-                            count++;
-                        }
+                        newRelations[row][count] = oldRelationList[k];
+                        count++;
+
                     } else {
                         count++;
                     }

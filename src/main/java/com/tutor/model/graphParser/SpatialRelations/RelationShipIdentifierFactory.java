@@ -16,7 +16,7 @@ public class RelationShipIdentifierFactory {
             case TREEDIAGRAM:
                 return new TreeDiagramRelationshipIdentifier();
             case HISTOGRAM:
-                return new NumberLineRelationshipIdentifier();
+                return new HistogramRelationShipIdentifier();
             default:
                 return null;
         }

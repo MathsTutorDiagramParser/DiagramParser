@@ -32,7 +32,7 @@ public class NumberLineRelationshipIdentifier implements DiagramSpecificSpatialR
                 }
                 else diagramStructure.updateAbstractRepresentation(host.getGraphicalImageComponents().get(o_2));
 
-                FeedBack feedBack = new FeedBack("INCORECT_END_OF_MARKED_LINE");
+                FeedBack feedBack = new FeedBack("INCORECT_END_POINTS_OF_MARKED_LINE");
                 feedBack.setDescription(FeedBackMessage.INCORECT_END_OF_MARKED_LINE);
                 feedBacks.add(feedBack);
             }

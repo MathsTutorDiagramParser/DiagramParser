@@ -38,7 +38,6 @@ public class MainController {
 
 
         Parser parser = new Parser(diagramType);
-        System.out.println("$$$$$$$$$$"+textArrayList.size());
         parser.parse(host,textArrayList);
     }
 }

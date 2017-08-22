@@ -24,23 +24,24 @@ public class SVGObjectTokenizationServiceImpl implements SVGObjectTokenizationSe
 
         switch (diagramType) {
             case NUMBRELINE:
-                fileName = "numberLine\\test1.svg";
+                fileName = "numberLine\\test13.svg";
                 break;
             case HISTOGRAM:
-                fileName = "histogram\\test2.svg";
+                fileName = "histogram\\test3.svg";
                 break;
             case TREEDIAGRAM:
                 fileName = "treeDiagram\\test1.svg";
                 break;
             case TRIGNOMETRICDIAGRAM:
-                fileName = "";
+                fileName = "trignometricDiagram\\test1.svg";
                 break;
             default:
                 fileName = "svgResult";
         }
 
-       // String studentAnswerPath = "E:\\FYP\\implementation\\parser2\\DiagramParser\\src\\main\\resources\\com\\answerFile\\"+fileName+".xml";
-        String studentAnswerPath = "D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\test\\"+fileName;
+        //String studentAnswerPath = "E:\\FYP\\implementation\\parser2\\DiagramParser\\src\\main\\resources\\com\\answerFile\\"+fileName+".svg";
+        String studentAnswerPath = "F:\\Final year project\\version 2\\DiagramParser\\src\\main\\resources\\test\\"+fileName;
+
         System.out.println("===========================Start Executing Rules===================================");
         KieContainer kc = KieServices.Factory.get().getKieClasspathContainer();
         KieSession ksession = kc.newKieSession( "preprocessor");
@@ -50,13 +51,11 @@ public class SVGObjectTokenizationServiceImpl implements SVGObjectTokenizationSe
         SVGImage svgImage = svgReader.parse(svgImageStudentAnswer, studentAnswerPath);
 
         svgtoPOJOMapper = new SVGtoPOJOMapper(svgImage);
-        for(int i=0;i<svgtoPOJOMapper.getGraphicalImageComponents().size();i++) {
-            System.out.println(svgtoPOJOMapper.getGraphicalImageComponents().get(i).objectType);
-        }
         ksession.insert(svgtoPOJOMapper);
         ksession.fireAllRules();
 
         return svgtoPOJOMapper;
+
 
     }
 }

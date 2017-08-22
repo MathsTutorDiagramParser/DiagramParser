@@ -22,16 +22,34 @@ public class TreeDiagramTextAligner extends TextAligner{
     public List<GraphicalImageComponent> textList;
     TextAligner aligner = new TextAligner();
     List<TreeGraph> graphList;
+    Double distance = 0.0;
 
     public AbstractDiagramStructure alignTextToTreeDiagram(AbstractTreeDiagramStructure abstractTreeDiagramStructure, List<GraphicalImageComponent> textList){
         this.abstractTreeDiagramStructure = abstractTreeDiagramStructure;
         this.textList = textList;
         this.graphList = abstractTreeDiagramStructure.getTreeGraphArrayList();
-        for(TreeGraph graph: graphList) {
-            matchDescriptionText(graph.getNode().getLeftTreeBranch());
-            matchProbabilityText(graph.getNode().getLeftTreeBranch());
-            matchDescriptionText(graph.getNode().getRightTreeBranch());
-            matchProbabilityText(graph.getNode().getRightTreeBranch());
+        if(graphList != null) {
+            for(int i=0; i<graphList.size(); i++) {
+                TreeGraph graph = graphList.get(i);
+                if(graph.getNode() == null) {
+                    this.distance = Math.abs(graph.getNodeOne().getX2() - graph.getNodeTwo().getX1());
+                    matchDescriptionText(graph.getNodeOne().getLeftTreeBranch());
+                    matchDescriptionText(graph.getNodeOne().getRightTreeBranch());
+                    matchProbabilityText(graph.getNodeOne().getLeftTreeBranch());
+                    matchProbabilityText(graph.getNodeOne().getRightTreeBranch());
+
+                    matchDescriptionText(graph.getNodeTwo().getLeftTreeBranch());
+                    matchDescriptionText(graph.getNodeTwo().getRightTreeBranch());
+                    matchProbabilityText(graph.getNodeTwo().getLeftTreeBranch());
+                    matchProbabilityText(graph.getNodeTwo().getRightTreeBranch());
+
+                } else {
+                    matchDescriptionText(graph.getNode().getLeftTreeBranch());
+                    matchDescriptionText(graph.getNode().getRightTreeBranch());
+                    matchProbabilityText(graph.getNode().getLeftTreeBranch());
+                    matchProbabilityText(graph.getNode().getRightTreeBranch());
+                }
+            }
         }
         return abstractTreeDiagramStructure;
     }
@@ -43,21 +61,21 @@ public class TreeDiagramTextAligner extends TextAligner{
         Double minDistance = Double.POSITIVE_INFINITY;
         for(GraphicalImageComponent textComponent: textList){
             Text desText = (Text) textComponent;
-            boolean isInside = isInsideLengthTolerance(line, desText);
+            boolean isInside = aligner.isInsideLengthTolerance(line, desText);
             if(isInside){
                 if(minDistance > findLineToPointDistance(line, desText)){
-                    minDistance = findLineToPointDistance(line, desText);
+                    minDistance = aligner.findLineToPointDistance(line, desText);
                     text = desText;
                 }
             }
         }
 
-        if (minDistance != Double.POSITIVE_INFINITY & text.isAttached() ==false ){
-           branch.setOutCome(text);
-            text.setAttached(true);
+        if(text != null) {
+            if (minDistance != Double.POSITIVE_INFINITY & text.isAttached() == false) {
+                branch.setOutCome(text);
+                text.setAttached(true);
+            }
         }
-
-
     }
 
     public void matchProbabilityText(TreeBranch branch){
@@ -76,9 +94,11 @@ public class TreeDiagramTextAligner extends TextAligner{
             }
         }
 
-        if (minDistance != Double.POSITIVE_INFINITY & text.isAttached() ==false ){
-            branch.setProbability(text);
-            text.setAttached(true);
+        if(text != null) {
+            if (minDistance != Double.POSITIVE_INFINITY & text.isAttached() == false) {
+                branch.setProbability(text);
+                text.setAttached(true);
+            }
         }
     }
 
@@ -94,13 +114,26 @@ public class TreeDiagramTextAligner extends TextAligner{
             return true;
         }
         else {return false;}
-
     }
 
+    public boolean isProbabilityMatch(Line line ,Text text){
+        double end_X;
+        double end_Y;
+        double textPoint_X = text.getX();
+        double textPoint_Y = text.getY();
+        double radius;
+        double center_X;
+        double center_Y;
+
+        end_X = getEndOfLine_X(line);
+        end_Y = getEndOfLine_Y(line);
+
+        radius = distance*3/4;
+        center_X = end_X;
+        center_Y = end_Y;
+
+        return isInsideCircle(textPoint_X, textPoint_Y, center_X, center_Y,radius);
 
 
-
-
-
-
+    }
 }

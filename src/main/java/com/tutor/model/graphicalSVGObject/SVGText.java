@@ -19,6 +19,10 @@ public class SVGText extends SVGComponent {
         this.text = text;
     }
 
+    public void setText(String text) {
+        this.text = text;
+    }
+
     public SVGText(double x, double y, String text, int fontSize){
         this.x = x;
         this.y = y;

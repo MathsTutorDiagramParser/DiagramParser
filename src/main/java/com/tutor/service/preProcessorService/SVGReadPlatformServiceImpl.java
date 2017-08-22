@@ -121,10 +121,10 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
                 // Transform Operation
                 trsfm=lineElement.getAttribute("transform");
                 dash=(styl.split("stroke-dasharray")[1].split(";")[0]).replace(": ", "");
-                x1= Double.parseDouble(lineElement.getAttribute("x1"))+Double.parseDouble(trsfm.substring(10,trsfm.length()-1).split(" ")[0]);
-                x2 =Double.parseDouble(lineElement.getAttribute("x2"))+Double.parseDouble(trsfm.substring(10,trsfm.length()-1).split(" ")[0]);
-                y1= Double.parseDouble(lineElement.getAttribute("y1"))+Double.parseDouble(trsfm.substring(10,trsfm.length()-1).split(" ")[1]);
-                y2 =Double.parseDouble(lineElement.getAttribute("y2"))+Double.parseDouble(trsfm.substring(10,trsfm.length()-1).split(" ")[1]);
+                x1= Double.parseDouble(lineElement.getAttribute("x1"))+Double.parseDouble((trsfm.substring(10,trsfm.length()).split("\\)")[0]).split(" ")[0]);
+                x2 =Double.parseDouble(lineElement.getAttribute("x2"))+Double.parseDouble((trsfm.substring(10,trsfm.length()).split("\\)")[0]).split(" ")[0]);
+                y1= Double.parseDouble(lineElement.getAttribute("y1"))+Double.parseDouble((trsfm.substring(10,trsfm.length()).split("\\)")[0]).split(" ")[1]);
+                y2 =Double.parseDouble(lineElement.getAttribute("y2"))+Double.parseDouble((trsfm.substring(10,trsfm.length()).split("\\)")[0]).split(" ")[1]);
                 if(styl.equals(null)||styl.equals("")) {
                    stkval=lineElement.getAttribute("stroke-width");
 
@@ -134,15 +134,17 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
 
 
                 if(dash.equals("none")) {
-                    SVGLine line = new SVGLine(x1, y1, x2, y2, Integer.parseInt(stkval));
-                    // If you want to check the values printing well, set the print
-                    System.out.println(line.getX1());
-                    System.out.println(line.getY1());
-                    System.out.println(line.getX2());
-                    System.out.println(line.getY2());
-                    System.out.println(line.getStroke_width());
+                    if(!(x1.equals(x2) && y1.equals(y2))) {
+                        SVGLine line = new SVGLine(x1, y1, x2, y2, Integer.parseInt(stkval));
+                        // If you want to check the values printing well, set the print
+                        System.out.println(line.getX1());
+                        System.out.println(line.getY1());
+                        System.out.println(line.getX2());
+                        System.out.println(line.getY2());
+                        System.out.println(line.getStroke_width());
 
-                    svgImage.addLine(line);
+                        svgImage.addLine(line);
+                    }  else System.out.println("same");
                 }
             }
             for (int i = 0; i < glines.size(); i++)
