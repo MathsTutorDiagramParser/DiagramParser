@@ -1,13 +1,13 @@
 package com.tutor;
 
 
-import com.tutor.model.graphParser.GraphGrammarGenerator.graphGrammarObject.Graph;
-import com.tutor.model.graphParser.Parser.Parser;
-import com.tutor.model.preProcessor.SVGtoPOJOMapper;
-import com.tutor.model.util.DiagramType;
-import com.tutor.model.util.SpatialRelation;
-import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
-import com.tutor.service.preProcessorService.*;
+import com.tutor.parser.model.graphParser.GraphGrammarGenerator.graphGrammarObject.Graph;
+import com.tutor.parser.model.graphParser.Parser.Parser;
+import com.tutor.parser.model.preProcessor.SVGtoPOJOMapper;
+import com.tutor.parser.model.util.DiagramType;
+import com.tutor.parser.model.util.SpatialRelation;
+import com.tutor.parser.model.graphicalPOJOObject.GraphicalImageComponent;
+import com.tutor.parser.service.preProcessorService.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,10 +76,7 @@ public class main {
 
         }
 
-
         List<GraphicalImageComponent> textList = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapper.getTexts());
-
-
         ArrayList<SpatialRelation>[][] relations =
                 spatialRelationShipGenerator.getSpatialRelationshipMatrixOfObject(orderedList);
         //   print Spatial relationship
@@ -94,10 +91,7 @@ public class main {
              }
         }
 
-
-
         logger.info("//////////////////////////////////done relationship identification//////////////////////////////////");
-
 
         Graph host  = new Graph();
         host.setGraphicalImageComponents(orderedList);
