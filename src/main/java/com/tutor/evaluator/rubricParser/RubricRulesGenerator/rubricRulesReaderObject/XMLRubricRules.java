@@ -8,35 +8,35 @@ import java.util.ArrayList;
 @XmlRootElement(name = "RubricRules")
 public class XMLRubricRules {
 
-    private XMLTaggedValue xmlTaggedValue;
-    private ArrayList<XMLCondition> xmlConditions;
+    private XMLTaggedValue TaggedValue;
+    private ArrayList<XMLSubQuestion> subQuestions;
 
     public XMLRubricRules() {  }
 
-    public XMLRubricRules(XMLTaggedValue xmlTaggedValue, ArrayList<XMLCondition> xmlConditions) {
+    public XMLRubricRules(XMLTaggedValue TaggedValue, ArrayList<XMLSubQuestion> xmlSubQuestions) {
         super();
-        this.xmlTaggedValue = xmlTaggedValue;
-        this.xmlConditions= xmlConditions;
+        this.TaggedValue = TaggedValue;
+        this.subQuestions = xmlSubQuestions;
     }
 
 
     @XmlElement(name="TaggedValue")
     public XMLTaggedValue getXMLTaggedValue() {
-        return xmlTaggedValue;
+        return TaggedValue;
     }
 
     public void setXMLTaggedValue(XMLTaggedValue xmlTaggedValue) {
-        this.xmlTaggedValue = xmlTaggedValue;
+        this.TaggedValue = xmlTaggedValue;
     }
 
-    @XmlElementWrapper(name="Conditions")
-    @XmlElement(name="Condition")
-    public ArrayList<XMLCondition> getXmlConditions() {
-        return xmlConditions;
+    @XmlElementWrapper(name="Question")
+    @XmlElement(name="SubQuestion")
+    public ArrayList<XMLSubQuestion> getSubQuestions() {
+        return subQuestions;
     }
 
-    public void setXmlConditions(ArrayList<XMLCondition> xmlConditions) {
-        this.xmlConditions = xmlConditions;
+    public void setSubQuestions(ArrayList<XMLSubQuestion> subQuestions) {
+        this.subQuestions = subQuestions;
     }
 
 }

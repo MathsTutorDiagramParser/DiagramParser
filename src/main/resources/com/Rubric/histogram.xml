@@ -7,10 +7,10 @@
     <Question>
         <SubQuestion>
             <id>01</id>
-            <Conditions>
-                <Condition>
+            <Steps>
+                <Step>
                     <id>01</id>
-                    <conditionName>BAR VALUES</conditionName>
+                    <name>BAR VALUES</name>
                     <totalMarks>03</totalMarks>
                     <MarkSet>
                         <MarkMethod>
@@ -24,10 +24,10 @@
                             <method>ANY</method>
                         </MarkMethod>
                     </MarkSet>
-                </Condition>
-                <Condition>
+                </Step>
+                <Step>
                     <id>02</id>
-                    <conditionName>MARKING THE AXIS</conditionName>
+                    <name>MARKING THE AXIS</name>
                     <totalMarks>2</totalMarks>
                     <MarkSet>
                         <MarkMethod>
@@ -41,8 +41,8 @@
                             <method>ANY</method>
                         </MarkMethod>
                     </MarkSet>
-                </Condition>
-            </Conditions>
+                </Step>
+            </Steps>
         </SubQuestion>
     </Question>
 </RubricRules>

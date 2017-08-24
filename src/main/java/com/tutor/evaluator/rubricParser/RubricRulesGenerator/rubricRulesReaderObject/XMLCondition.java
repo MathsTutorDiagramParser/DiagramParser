@@ -9,7 +9,7 @@ public class XMLCondition {
     private int id;
     private String name;
     private int totalMarks;
-    private ArrayList<XMLMarkMethods> xmlMarkSet = new ArrayList<>();
+    private ArrayList<XMLMarkMethods> markingMethods = new ArrayList<>();
 
     public XMLCondition(){
 
@@ -20,7 +20,7 @@ public class XMLCondition {
         this.id=id;
         this.name=name;
         this.totalMarks=totalMarks;
-        this.xmlMarkSet=xmlMarkSet;
+        this.markingMethods =xmlMarkSet;
     }
     @XmlElement(name="id")
     public int getId() {
@@ -31,7 +31,7 @@ public class XMLCondition {
         this.id = id;
     }
 
-    @XmlElement(name="conditionName")
+    @XmlElement(name="name")
     public String getName(){ return name;}
 
     public void setName(String name) {
@@ -46,9 +46,9 @@ public class XMLCondition {
     }
     @XmlElementWrapper(name="MarkSet")
     @XmlElement(name="MarkMethod")
-    public ArrayList<XMLMarkMethods> getXmlMarkSet(){return xmlMarkSet;}
+    public ArrayList<XMLMarkMethods> getMarkingMethods(){return markingMethods;}
 
-    public void setXmlMarkSet(ArrayList<XMLMarkMethods> xmlMarkSet) {
-        this.xmlMarkSet = xmlMarkSet;
+    public void setMarkingMethods(ArrayList<XMLMarkMethods> markingMethods) {
+        this.markingMethods = markingMethods;
     }
 }
