@@ -109,7 +109,7 @@ public class Parser {
         FeedBackGenerator feedBackGenerator = FeedbackGeneratorFactory.getFeedbackGenerator(diagramType);
 
         logger.info("*****************************************************");
-        logger.info(feedBackGenerator.generateFinalFeedback(feedBacks,abstractDiagramStructure));
+    //    logger.info(feedBackGenerator.generateFinalFeedback(feedBacks,abstractDiagramStructure));
         logger.info("*****************************************************");
 
         return abstractDiagramStructure;

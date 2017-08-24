@@ -1,6 +1,7 @@
 package com.tutor;
-
-
+import com.tutor.evaluator.model.GradeParser;
+import com.tutor.evaluator.rubricParser.MarkingStructure.MarkingStructure;
+import com.tutor.parser.model.graphParser.DiagramStructure.AbstractDiagramStructure;
 import com.tutor.parser.model.graphParser.GraphGrammarGenerator.graphGrammarObject.Graph;
 import com.tutor.parser.model.graphParser.Parser.Parser;
 import com.tutor.parser.model.preProcessor.SVGtoPOJOMapper;
@@ -61,36 +62,7 @@ public class main {
         logger.info("//////////////////////////////////done seperation//////////////////////////////////");
 
 
-        List<GraphicalImageComponent> orderedList = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapper.getGraphicalImageComponents());
 
-        System.out.println("size of ordered list"+orderedList.size());
-        for (int j=0; j<orderedList.size(); j++){
-            System.out.println("++++++++++++++++++++++++");
-            System.out.println( "x: "+orderedList.get(j).getX());
-            System.out.println( "y: "+orderedList.get(j).getY());
-            System.out.println( "X1: "+orderedList.get(j).getX1());
-            System.out.println( "Y2: "+orderedList.get(j).getY1());
-            System.out.println( "X2: "+orderedList.get(j).getX2());
-            System.out.println( "Y2: "+orderedList.get(j).getY2());
-            System.out.println(orderedList.get(j).objectType);
-            System.out.println("++++++++++++++++++++++++");
-
-        }
-
-        List<GraphicalImageComponent> textList = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapper.getTexts());
-        ArrayList<SpatialRelation>[][] relations =
-                spatialRelationShipGenerator.getSpatialRelationshipMatrixOfObject(orderedList);
-        //   print Spatial relationship
-             for (int i=0; i< orderedList.size();i++){
-                   System.out.println("======"+i+"=====");
-                   for (int j=0;j<orderedList.size();j++){
-                    System.out.print( "j="+j+ "=>");
-                    for(int k=0;k< relations[i][j].size();k++){
-                        System.out.print(relations[i][j].get(k)+"   ");
-                    }
-                    System.out.println("\n");
-             }
-        }
         List<GraphicalImageComponent> orderedListS = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapperS.getGraphicalImageComponents());
         List<GraphicalImageComponent> orderedListT = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapperT.getGraphicalImageComponents());
 //        objectSequenceGeneratorService.order(svGtoPOJOMapper.getTexts());
@@ -105,10 +77,6 @@ public class main {
                 spatialRelationShipGenerator.getSpatialRelationshipMatrixOfObject(orderedListS);
 
         logger.info("//////////////////////////////////done relationship identification//////////////////////////////////");
-
-        Graph host  = new Graph();
-        host.setGraphicalImageComponents(orderedList);
-        host.setRelations(relations);
 
         Graph hostS  = new Graph();
         hostS.setGraphicalImageComponents(orderedListS);

@@ -4,40 +4,45 @@
         <tag>Graph Type</tag>
         <tagValue>HISTOGRAM</tagValue>
     </TaggedValue>
-    <Conditions>
-        <Condition>
+    <Question>
+        <SubQuestion>
             <id>01</id>
-            <conditionName>BAR VALUES</conditionName>
-            <totalMarks>03</totalMarks>
-            <MarkSet>
-                <MarkMethod>
+            <Conditions>
+                <Condition>
                     <id>01</id>
-                    <gainedMarks>03</gainedMarks>
-                    <method>ALL</method>
-                </MarkMethod>
-                <MarkMethod>
+                    <conditionName>BAR VALUES</conditionName>
+                    <totalMarks>03</totalMarks>
+                    <MarkSet>
+                        <MarkMethod>
+                            <id>01</id>
+                            <gainedMarks>03</gainedMarks>
+                            <method>ALL</method>
+                        </MarkMethod>
+                        <MarkMethod>
+                            <id>02</id>
+                            <gainedMarks>2</gainedMarks>
+                            <method>ANY</method>
+                        </MarkMethod>
+                    </MarkSet>
+                </Condition>
+                <Condition>
                     <id>02</id>
-                    <gainedMarks>2</gainedMarks>
-                    <method>ANY</method>
-                </MarkMethod>
-            </MarkSet>
-        </Condition>
-        <Condition>
-            <id>02</id>
-            <conditionName>MARKING THE AXIS</conditionName>
-            <totalMarks>2</totalMarks>
-            <MarkSet>
-                <MarkMethod>
-                    <id>01</id>
-                    <gainedMarks>2</gainedMarks>
-                    <method>ALL</method>
-                </MarkMethod>
-                <MarkMethod>
-                    <id>02</id>
-                    <gainedMarks>1</gainedMarks>
-                    <method>ANY</method>
-                </MarkMethod>
-            </MarkSet>
-        </Condition>
-    </Conditions>
+                    <conditionName>MARKING THE AXIS</conditionName>
+                    <totalMarks>2</totalMarks>
+                    <MarkSet>
+                        <MarkMethod>
+                            <id>01</id>
+                            <gainedMarks>2</gainedMarks>
+                            <method>ALL</method>
+                        </MarkMethod>
+                        <MarkMethod>
+                            <id>02</id>
+                            <gainedMarks>1</gainedMarks>
+                            <method>ANY</method>
+                        </MarkMethod>
+                    </MarkSet>
+                </Condition>
+            </Conditions>
+        </SubQuestion>
+    </Question>
 </RubricRules>

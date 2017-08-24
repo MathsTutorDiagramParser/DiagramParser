@@ -1,19 +1,16 @@
-package com.tutor.model.graphParser.Parser;
+package com.tutor.evaluator.model;
 
-import com.tutor.model.graphParser.DiagramStructure.AbstractDiagramStructure;
-import com.tutor.model.rubricParser.MarkingStructure.MarkingStructure;
-import com.tutor.model.rubricParser.RubricRules.RubricRulesFactory;
-import com.tutor.model.rubricParser.RubricRulesGenerator.rubricRulesReaderObject.XMLRubricRules;
-import com.tutor.model.util.DiagramType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tutor.evaluator.rubricParser.MarkingStructure.MarkingStructure;
+import com.tutor.evaluator.rubricParser.RubricRules.RubricRulesFactory;
+import com.tutor.evaluator.rubricParser.RubricRulesGenerator.rubricRulesReaderObject.XMLRubricRules;
+import com.tutor.parser.model.graphParser.DiagramStructure.AbstractDiagramStructure;
+import com.tutor.parser.model.util.DiagramType;
 
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
 
 public class GradeParser {
 
-    private Logger logger = LoggerFactory.getLogger(GradeParser.class);
     XMLRubricRules rubricRules;
     AbstractDiagramStructure abstractDiagramStructureStudent;
     AbstractDiagramStructure abstractDiagramStructureTeacher;

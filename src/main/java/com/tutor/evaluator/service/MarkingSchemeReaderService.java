@@ -1,16 +1,17 @@
-package com.tutor.controller.RubricParser;
+package com.tutor.evaluator.service;
 
-import com.tutor.model.rubricParser.RubricRulesGenerator.rubricRulesReaderObject.XMLRubricRules;
-import com.tutor.model.util.DiagramType;
+
+import com.tutor.evaluator.rubricParser.RubricRulesGenerator.rubricRulesReaderObject.XMLRubricRules;
+import com.tutor.parser.model.util.DiagramType;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 
-public class RubricParsingHandler {
+public class MarkingSchemeReaderService {
 
-    public RubricParsingHandler(){
+    public MarkingSchemeReaderService(){
 
     }
 
