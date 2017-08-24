@@ -231,6 +231,7 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
                 System.out.println(wRT);
                 hRT=Double.parseDouble(rectangleElement.getAttribute("height"));
                 System.out.println(hRT);
+                System.out.println("Rectangle values are x: "+xRT+" y: "+yRT);
 
 
 
