@@ -27,7 +27,7 @@ public class SVGObjectTokenizationServiceImpl implements SVGObjectTokenizationSe
                 fileName = "histogram\\test3.svg";
                 break;
             case TREEDIAGRAM:
-                fileName = "treeDiagram\\test1.svg";
+                fileName = "treeDiagram\\answer2.svg";
                 break;
             case TRIGNOMETRICDIAGRAM:
                 fileName = "trignometricDiagram\\test1.svg";
@@ -37,7 +37,7 @@ public class SVGObjectTokenizationServiceImpl implements SVGObjectTokenizationSe
         }
 
         //String studentAnswerPath = "E:\\FYP\\implementation\\parser2\\DiagramParser\\src\\main\\resources\\com\\answerFile\\"+fileName+".svg";
-        String studentAnswerPath = "F:\\Final year project\\version 2\\DiagramParser\\src\\main\\resources\\test\\"+fileName;
+        String studentAnswerPath = "E:\\FYP\\implementation\\parser2\\DiagramParser\\src\\main\\resources\\testNew\\"+fileName;
 
         System.out.println("===========================Start Executing Rules===================================");
         KieContainer kc = KieServices.Factory.get().getKieClasspathContainer();
