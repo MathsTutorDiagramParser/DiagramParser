@@ -19,7 +19,6 @@ public class XMLRubricRules {
         this.subQuestions = xmlSubQuestions;
     }
 
-
     @XmlElement(name="TaggedValue")
     public XMLTaggedValue getXMLTaggedValue() {
         return TaggedValue;

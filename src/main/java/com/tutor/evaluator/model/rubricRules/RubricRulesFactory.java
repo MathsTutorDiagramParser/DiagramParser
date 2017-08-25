@@ -14,8 +14,30 @@ public class RubricRulesFactory {
     }
 
     public static XMLRubricRules loadBuiltRubricRules(DiagramType type) throws JAXBException, FileNotFoundException {
+
+        String filename = "";
+
+        switch (type){
+            case TRIGNOMETRICDIAGRAM:
+                filename = "";
+                break;
+            case TREEDIAGRAM:
+                filename="";
+                break;
+            case NUMBRELINE:
+                filename="numberLine.xml";
+                break;
+            case HISTOGRAM:
+                filename="histogram.xml";
+                break;
+            default:
+                break;
+        }
         MarkingSchemeReaderService rubricParsingHandler=new MarkingSchemeReaderService();
-        XMLRubricRules xmlRubric=rubricParsingHandler.readFromXML(type);
+        XMLRubricRules xmlRubric=rubricParsingHandler.readFromXML(filename);
         return xmlRubric;
+
+
+
  }
 }

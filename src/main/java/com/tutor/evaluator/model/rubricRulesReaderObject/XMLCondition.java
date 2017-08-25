@@ -12,8 +12,6 @@ public class XMLCondition {
     private ArrayList<XMLMarkMethods> markingMethods = new ArrayList<>();
 
     public XMLCondition(){
-
-
     }
 
     public XMLCondition(int id, String name, int totalMarks, ArrayList<XMLMarkMethods> xmlMarkSet){

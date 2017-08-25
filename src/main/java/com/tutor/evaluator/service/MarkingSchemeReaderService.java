@@ -15,12 +15,12 @@ public class MarkingSchemeReaderService {
 
     }
 
-    public XMLRubricRules readFromXML(DiagramType diagramType){
+    public XMLRubricRules readFromXML(String filename){
         XMLRubricRules rubricRules = new XMLRubricRules();
         String fileName = "";
 
         try {
-            File file = new File("F:\\Final year project\\version 2\\DiagramParser\\src\\main\\resources\\com\\Rubric\\histogram.xml");
+            File file = new File("F:\\Final year project\\version 2\\DiagramParser\\src\\main\\resources\\com\\Rubric\\"+fileName);
 
             JAXBContext jaxbContext = JAXBContext.newInstance(XMLRubricRules.class);
 
