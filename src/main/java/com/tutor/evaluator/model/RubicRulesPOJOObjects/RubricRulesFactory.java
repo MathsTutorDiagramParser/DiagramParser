@@ -1,4 +1,4 @@
-package com.tutor.evaluator.model.rubricRules;
+package com.tutor.evaluator.model.RubicRulesPOJOObjects;
 
 
 import com.tutor.evaluator.model.rubricRulesReaderObject.XMLRubricRules;

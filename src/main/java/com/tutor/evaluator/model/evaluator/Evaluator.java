@@ -1,7 +1,7 @@
 package com.tutor.evaluator.model.evaluator;
 
 import com.tutor.evaluator.model.markingStructure.MarkSheet;
-import com.tutor.evaluator.model.rubricRules.RubricRules;
+import com.tutor.evaluator.model.RubicRulesPOJOObjects.RubricRules;
 import com.tutor.parser.model.feedback.FeedBack;
 import com.tutor.parser.model.graphParser.DiagramStructure.AbstractDiagramStructure;
 
