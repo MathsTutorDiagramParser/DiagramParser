@@ -1,6 +1,6 @@
-package com.tutor.evaluator.model;
+package com.tutor.evaluator.service;
 
-import com.tutor.evaluator.rubricParser.MarkingStructure.MarkingStructure;
+import com.tutor.evaluator.model.markingStructure.MarkSheet;
 import com.tutor.evaluator.rubricParser.RubricRules.RubricRulesFactory;
 import com.tutor.evaluator.rubricParser.RubricRulesGenerator.rubricRulesReaderObject.XMLRubricRules;
 import com.tutor.parser.model.graphParser.DiagramStructure.AbstractDiagramStructure;
@@ -9,25 +9,25 @@ import com.tutor.parser.model.util.DiagramType;
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
 
-public class GradeParser {
+public class EvaluatorServiceImpl {
 
     XMLRubricRules rubricRules;
     AbstractDiagramStructure abstractDiagramStructureStudent;
     AbstractDiagramStructure abstractDiagramStructureTeacher;
     DiagramType diagramType;
-    MarkingStructure markingStructure;
+    MarkSheet markSheet;
 
-    public GradeParser(DiagramType diagramType) throws JAXBException, FileNotFoundException {
+    public EvaluatorServiceImpl(DiagramType diagramType) throws JAXBException, FileNotFoundException {
         this.diagramType=diagramType;
     }
 
-    public MarkingStructure parse(AbstractDiagramStructure abstractDiagramStructureStudent,AbstractDiagramStructure abstractDiagramStructureTeacher)throws JAXBException, FileNotFoundException{
+    public MarkSheet parse(AbstractDiagramStructure abstractDiagramStructureStudent, AbstractDiagramStructure abstractDiagramStructureTeacher)throws JAXBException, FileNotFoundException{
         this.abstractDiagramStructureStudent=abstractDiagramStructureStudent;
         this.abstractDiagramStructureTeacher=abstractDiagramStructureTeacher;
-        this.markingStructure=new MarkingStructure();
+       // this.markingStructure=new MarkSheet();
         this.rubricRules= RubricRulesFactory.loadBuiltRubricRules(diagramType);
         System.out.println(rubricRules);
-        return markingStructure;
+        return markSheet;
     }
 
 }
