@@ -1,9 +1,11 @@
-package com.tutor.model.evaluation.StringMatching;
+package com.tutor.evaluator.service;
+
+import com.tutor.evaluator.algorithm.LevenshteinDistance;
 
 /**
  * Created by Wiranji Dinelka on 8/24/2017.
  */
-public class StringMatcher {
+public class StringMatcherServiceImpl {
 
     public static double getSimilarity(String str1, String str2){
         double totalSimilarity = 0;

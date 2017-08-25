@@ -1,13 +1,12 @@
-package com.tutor.model.evaluation.AnswerEvaluator;
-
-import com.tutor.model.evaluation.StringMatching.StringMatcher;
+package com.tutor.evaluator.service;
 
 import java.util.ArrayList;
 
 /**
- * Created by Wiranji Dinelka on 8/24/2017.
+ * Created by Wiranji Dinelka on 8/25/2017.
  */
-public class AnswerEvaluatorServiceImpl {
+public class AnswerEvaluationServiceImpl {
+
     public void evaluate() {
 
         //රතු පාට බෝලයක් ගැනීම
@@ -15,18 +14,18 @@ public class AnswerEvaluatorServiceImpl {
         //පලමු ගැනීම
 
         ArrayList<String> setLabelModel = new ArrayList<String>(){{
-    		add("රතු");
-    		add("රතු පාට");
-    		add("රතු පාට බෝලයක්");
-    		add("රතු පාට බෝලයක් ගැනීම");
+            add("රතු");
+            add("රතු පාට");
+            add("රතු පාට බෝලයක්");
+            add("රතු පාට බෝලයක් ගැනීම");
             add("නිල්");
             add("නිල් පාට");
             add("");
             add("නිල් පාට බෝලයක් ගැනීම");
             add("පලමු ගැනීම");
-    	}};
-    	ArrayList<String> setLabelAnswer = new ArrayList<>();
-    	setLabelAnswer.add("රතු පාට බෝලයක් ගැනීම");
+        }};
+        ArrayList<String> setLabelAnswer = new ArrayList<>();
+        setLabelAnswer.add("රතු පාට බෝලයක් ගැනීම");
 //    	setLabelAnswer.add("දේශීය");
 //    	setLabelAnswer.add("වට්ටම් ලබා දෙන")නිල් පාට බෝලයක්;
 
@@ -38,7 +37,7 @@ public class AnswerEvaluatorServiceImpl {
 
             for(int answerLabelIndex=0; answerLabelIndex<setLabelAnswer.size(); answerLabelIndex++){
 
-                double similarityTemp = StringMatcher.getSimilarity(setLabelModel.get(modelLabelIndex), setLabelAnswer.get(answerLabelIndex));
+                double similarityTemp = StringMatcherServiceImpl.getSimilarity(setLabelModel.get(modelLabelIndex), setLabelAnswer.get(answerLabelIndex));
                 similarity[modelLabelIndex][answerLabelIndex] = similarityTemp;
                 System.out.println("Value :"+modelLabelIndex+"--"+answerLabelIndex+"=="+similarityTemp);
 

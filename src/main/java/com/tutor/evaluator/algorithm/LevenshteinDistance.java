@@ -1,4 +1,4 @@
-package com.tutor.model.evaluation.StringMatching;
+package com.tutor.evaluator.algorithm;
 
 /**
  * Created by Wiranji Dinelka on 8/24/2017.
