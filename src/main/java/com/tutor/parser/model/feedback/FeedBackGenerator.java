@@ -1,5 +1,6 @@
 package com.tutor.parser.model.feedback;
 
+import com.tutor.parser.model.graphParser.DiagramStructure.AbstractDiagramStructure;
 import com.tutor.parser.model.graphParser.GraphGrammarGenerator.graphGrammarObject.Graph;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public class FeedBackGenerator {
         return feedBacks;
     }
 
-    public String generateFinalFeedback(List<FeedBack> feedBacks){
+    public String generateFinalFeedback(List<FeedBack> feedBacks, AbstractDiagramStructure abstractDiagramStructure){
         String feedback="";
         return feedback;
     }

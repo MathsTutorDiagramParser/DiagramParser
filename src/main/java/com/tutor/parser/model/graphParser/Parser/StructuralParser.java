@@ -113,7 +113,13 @@ public class StructuralParser {
 
             if(host.isInitialGraph()) {
 
-                logger.info("found Initial graph");
+                if(host.getGraphicalImageComponents().size()!=1){
+                    isUnrelated = true;
+                    FeedBack feedBack2= new FeedBack("INITIAL GRAPH WITH EXTRA OBJECTS");
+                    feedBack2.setDescription(FeedBackMessage.INITIAL_GRAPH_WITH_EXTRA_OBJECTS);
+                    feedBacks.add(feedBack2);
+                }
+
                 FeedBack feedBack = new FeedBack("VALID_DIAGRAM_STRUCTURE");
                 feedBack.setDescription(FeedBackMessage.VALID_DIAGRAM_STRUCTURE);
                 feedBacks.add(feedBack);
@@ -128,6 +134,7 @@ public class StructuralParser {
                     }
                 }
             }
+
             if(!isUnrelated && !host.isInitialGraph()){
 
                 FeedBack feedBack = new FeedBack("INVALID_DIAGRAM_STRUCTURE");

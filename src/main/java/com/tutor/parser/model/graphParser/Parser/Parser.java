@@ -1,5 +1,7 @@
 package com.tutor.parser.model.graphParser.Parser;
 
+import com.tutor.parser.model.feedback.FeedBackGenerator;
+import com.tutor.parser.model.feedback.FeedbackGeneratorFactory;
 import com.tutor.parser.model.graphParser.DiagramStructure.Histogram.AbstractHistogramStructure;
 import com.tutor.parser.model.graphParser.DiagramStructure.Histogram.Bar;
 import com.tutor.parser.model.graphParser.DiagramStructure.TreeDiagram.AbstractTreeDiagramStructure;
@@ -103,6 +105,12 @@ public class Parser {
 
 
         }
+
+        FeedBackGenerator feedBackGenerator = FeedbackGeneratorFactory.getFeedbackGenerator(diagramType);
+
+        logger.info("*****************************************************");
+        logger.info(feedBackGenerator.generateFinalFeedback(feedBacks,abstractDiagramStructure));
+        logger.info("*****************************************************");
 
         return abstractDiagramStructure;
 
