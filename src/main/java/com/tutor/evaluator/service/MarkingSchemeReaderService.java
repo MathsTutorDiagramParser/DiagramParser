@@ -1,7 +1,7 @@
 package com.tutor.evaluator.service;
 
 
-import com.tutor.evaluator.rubricParser.RubricRulesGenerator.rubricRulesReaderObject.XMLRubricRules;
+import com.tutor.evaluator.model.rubricRulesReaderObject.XMLRubricRules;
 import com.tutor.parser.model.util.DiagramType;
 
 import javax.xml.bind.JAXBContext;
@@ -15,12 +15,12 @@ public class MarkingSchemeReaderService {
 
     }
 
-    public XMLRubricRules readFromXML(DiagramType diagramType){
+    public XMLRubricRules readFromXML(String filename){
         XMLRubricRules rubricRules = new XMLRubricRules();
         String fileName = "";
 
         try {
-            File file = new File("F:\\Final year project\\version 2\\DiagramParser\\src\\main\\resources\\com\\Rubric\\histogram.xml");
+            File file = new File("F:\\Final year project\\version 2\\DiagramParser\\src\\main\\resources\\com\\Rubric\\"+fileName);
 
             JAXBContext jaxbContext = JAXBContext.newInstance(XMLRubricRules.class);
 

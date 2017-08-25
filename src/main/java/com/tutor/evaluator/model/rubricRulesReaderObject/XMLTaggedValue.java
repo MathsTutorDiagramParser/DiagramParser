@@ -1,4 +1,4 @@
-package com.tutor.evaluator.rubricParser.RubricRulesGenerator.rubricRulesReaderObject;
+package com.tutor.evaluator.model.rubricRulesReaderObject;
 
 public class XMLTaggedValue {
     private String tag;
