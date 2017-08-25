@@ -1,6 +1,7 @@
 package com.tutor;
 
 
+import com.tutor.model.evaluation.AnswerEvaluator.AnswerEvaluatorServiceImpl;
 import com.tutor.model.graphParser.GraphGrammarGenerator.graphGrammarObject.Graph;
 import com.tutor.model.graphParser.Parser.Parser;
 import com.tutor.model.preProcessor.SVGtoPOJOMapper;
@@ -77,5 +78,8 @@ public class main {
 
         Parser parser = new Parser(diagramType);
         parser.parse(host,textList);
+
+//        AnswerEvaluatorServiceImpl answerEvaluatorService = new AnswerEvaluatorServiceImpl();
+//        answerEvaluatorService.evaluate();
     }
 }

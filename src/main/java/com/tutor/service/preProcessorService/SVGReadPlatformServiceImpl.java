@@ -300,8 +300,8 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
                 x1=x1/count;
                 y1=y1/count;
                 trsfm=e.getAttribute("transform");
-               x1= x1+Double.parseDouble(trsfm.substring(10,trsfm.length()-1).split(" ")[0]);
-               y1 =y1+Double.parseDouble(trsfm.substring(10,trsfm.length()-1).split(" ")[1]);
+               x1= x1+Double.parseDouble((trsfm.substring(10,trsfm.length()).split("\\)")[0]).split(" ")[0]);
+               y1 =y1+Double.parseDouble((trsfm.substring(10,trsfm.length()).split("\\)")[0]).split(" ")[1]);
 
               SVGText text = new SVGText(x1,y1,tspanConcate);
                 System.out.println("For text labels x , y and labels are");
