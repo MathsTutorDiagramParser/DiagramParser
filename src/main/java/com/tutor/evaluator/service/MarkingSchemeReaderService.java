@@ -1,7 +1,7 @@
 package com.tutor.evaluator.service;
 
 
-import com.tutor.evaluator.rubricParser.RubricRulesGenerator.rubricRulesReaderObject.XMLRubricRules;
+import com.tutor.evaluator.model.rubricRulesReaderObject.XMLRubricRules;
 import com.tutor.parser.model.util.DiagramType;
 
 import javax.xml.bind.JAXBContext;

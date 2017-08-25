@@ -1,4 +1,4 @@
-package com.tutor.evaluator.rubricParser.RubricRules;
+package com.tutor.evaluator.model.rubricRules;
 
 
 import com.tutor.parser.model.util.DiagramType;

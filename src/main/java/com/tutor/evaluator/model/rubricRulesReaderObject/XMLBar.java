@@ -1,4 +1,4 @@
-package com.tutor.evaluator.rubricParser.RubricRulesGenerator.rubricRulesReaderObject;
+package com.tutor.evaluator.model.rubricRulesReaderObject;
 
 import javax.xml.bind.annotation.XmlElement;
 
