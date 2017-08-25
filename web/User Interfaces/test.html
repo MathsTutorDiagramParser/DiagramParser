@@ -1,0 +1,317 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8"/>
+
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+    </style>
+    <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src = "http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.6.3/fabric.min.js"></script>
+</head>
+<body>
+
+    <div id='c1'>
+        <canvas id="myCanvas" width="800" height="500" style="border:1px solid #000000;"></canvas>
+    </div>
+
+    <div class="col-lg-10">
+        <INPUT type = "Button" value = '&#9899'  onclick="createFilledDot()"/>
+        <INPUT type = "Button" value = '&#9898'  onclick="createNotFilledDot()"/>
+        <INPUT type = "Button" value = 'Mark Line'  onclick="createMarkLine()"/>
+        <!--<button id="markLine" >Mark Line</button>-->
+        <INPUT type = "Button" value = "Undo" onclick="undo()"/>
+        <INPUT type = "Button" value = "Clear Plane" onclick="clearPlane()"/>
+        <button id ="save">Save</button>
+    </div>
+
+<script type="text/javascript">
+
+    var canvas = new fabric.Canvas('myCanvas', {
+        isDrawingMode : false,
+        selectable : false,
+    });
+
+    canvas.selection = false;
+    var mark_line_clicked = false, filled_circle_clicked = false, not_filled_circle_clicked=false;
+    var isDown = false, isMoving = false;
+    var originX, originY, startX, startY, lastX, lastY;
+    var line, arrow, dot, branch;
+
+
+    var scale = 40;
+    var numberLinePos = [50, 200, 600, 200]; // **if numberLinePos[1],numberLinePos[3] should be equal.
+    var dotPlaced = false; // check dot placed before draw arrow
+
+    function drawNumLine(){
+
+        //main line
+        var numLine = new fabric.Line(numberLinePos, {
+            strokeWidth: 2,
+            fill: 'black',
+            stroke: 'black',
+            originX: 'center',
+            originY: 'center',
+            targetFindTolerance: true,
+            selectable: false
+        });
+
+
+
+        //small scale line
+        sclPos = 100 - scale;
+        unit = -5;
+        while(sclPos > 50 && sclPos < 600){
+            tick = new fabric.Line([sclPos, 190, sclPos, 210], {
+                selectable: false,
+                strokeWidth: 2,
+                fill: 'black',
+                stroke: 'black',
+                originX: 'center',
+                originY: 'center',
+                targetFindTolerance: true
+            });
+            st = unit.toString() + '';
+            text = new fabric.IText(st, {
+                fontFamily: 'Arial',
+                left: sclPos,
+                top: 213,
+                fontSize: 10,
+                fontWeight: 'bold',
+                textAlign: "center",
+                fill: "#000000"
+            });
+            canvas.add(tick);
+            canvas.add(text);
+            unit += 1;
+            sclPos = sclPos + scale;
+        }
+
+        //arrow heads
+        var triLeft = new fabric.Triangle({
+            angle: 270,
+            fill: 'black',
+            top: 205,
+            left: 40,
+            height: 10,
+            width: 10,
+            selectable: false
+        });
+
+        var triRight = new fabric.Triangle({
+            angle: 90,
+            fill: 'black',
+            top: 195,
+            left: 605,
+            height: 10,
+            width: 10,
+            selectable: false
+        });
+
+        canvas.add(numLine);
+        canvas.add(triLeft);
+        canvas.add(triRight);
+
+
+    }
+
+    //draw number Line
+    drawNumLine();
+
+    //reset All
+    function clearPlane(){
+        canvas.clear();
+        drawNumLine();
+    }
+
+
+    function createMarkLine() {
+
+        mark_line_clicked = true;
+        filled_circle_clicked = false;
+        not_filled_circle_clicked=false;
+//    mouse pointer operation for drowing mark line
+        canvas.on('mouse:down', function(o){
+
+            isDown = true;
+            var pointer = canvas.getPointer(o.e);
+
+            //creating branches. This is for tree diagrams
+            if (mark_line_clicked) {
+                points = [pointer.x, pointer.y, pointer.x, pointer.y];
+                branch = new fabric.Line(points, {
+                    strokeWidth: 5,
+                    fill: 'black',
+                    stroke: 'black',
+                    originX: 'center',
+                    originY: 'center',
+                    selectable:false,
+                    hasBorders:false,
+                    hasControls:false,
+                    id: 'branch'
+                });
+                canvas.add(branch);
+            }
+        });
+
+        canvas.on('mouse:move', function(o){
+
+            isMoving = true;
+            var pointer = canvas.getPointer(o.e);
+            if (!isDown) return;
+
+            //for tree diagrams
+            if (mark_line_clicked) {
+                branch.set({x2:pointer.x, y2:pointer.y});
+                canvas.renderAll();
+            }
+
+        });
+
+        canvas.on('mouse:up', function(o){
+            isDown = false;
+            isMoving = false;
+            var pointer = canvas.getPointer(o.e);
+            lastX = pointer.x;
+            lastY = pointer.y;
+
+            var points = [startX, startY, lastX, lastY];
+
+            //for tree diagram
+            if (mark_line_clicked) {
+                var pointer = canvas.getPointer(o.e);
+                branch.setCoords();
+                //branch.set('selectable', true);
+            }
+
+        });
+
+    }
+
+    //create arrow with filled dot
+    function createFilledDot(){
+
+        mark_line_clicked = false;
+        filled_circle_clicked = true;
+        not_filled_circle_clicked=false;
+
+        canvas.on({
+            'mouse:down': function (e) {
+                pointX = e.e.clientX;
+                pointY = e.e.clientY;
+                //appear dot where click
+                if (!dotPlaced && checkDotPlace(pointX, pointY)) {
+                    filledDot = placeDot(e.e.clientX, e.e.clientY, 'blue', 'filledDot');
+                    canvas.add(filledDot);
+                    dotPlaced = true;
+                    canvas.renderAll();
+                }
+                else if (dotPlaced) {
+                    dotPlaced = false;
+                    saveObject('arrow');
+                    saveObject('filledDot');
+                    canvas.renderAll();
+                }
+                else {
+                    dotPlaced = false;
+                }
+
+            }
+        });
+    }
+
+
+    //create arrow with dot (not filled)
+    function createNotFilledDot(){
+        mark_line_clicked = false;
+        filled_circle_clicked = false;
+        not_filled_circle_clicked=true;
+
+        canvas.on({
+            'mouse:down': function (e) {
+                pointX = e.e.clientX;
+                pointY = e.e.clientY;
+                //appear dot where click
+                if (!dotPlaced && checkDotPlace(pointX, pointY)) {
+                    var dot = placeDot(pointX, pointY, 'transparent', 'dot');
+                    canvas.add(dot);
+                    dotPlaced = true;
+                    canvas.renderAll();
+                }
+                else if (dotPlaced) {
+
+                    dotPlaced = false;
+                    saveObject('dot');
+                    canvas.renderAll();
+                }
+                else {
+                    dotPlaced = false;
+                }
+
+            }
+        });
+    }
+
+
+    //set xy to dot
+    function placeDot(x,y,fill,id){
+        var dot = new fabric.Circle({
+            strokeWidth: 2,
+            stroke: 'blue',
+            fill: fill,
+            radius: 8,
+            originX: 'center',
+            originY: 'center',
+            top : numberLinePos[1],
+            left: x,
+            id: id,
+            selectable: false
+
+        });
+        return dot;
+    }
+
+    //check whether dot place is on the line
+    function checkDotPlace(x,y){
+        if(y < numberLinePos[1]+5 && y > numberLinePos[1]-5 && x<numberLinePos[2] && x>numberLinePos[0] ){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    $('#save').click(function (e){
+
+        var svg = canvas.toSVG();
+        fabric.log(svg);
+
+        $.ajax({
+            crossDomain: true,
+            url: 'http://localhost:8080/webapi/svg/save/number_line',
+            type: 'POST',
+            data: {
+                svg,
+            },
+            success: function(){alert('POST completed');}
+        });
+
+    })
+
+    function undo(){
+        var canvas_objects = canvas._objects;
+        if(canvas_objects.length !== 0)
+        {
+            var last = canvas_objects[canvas_objects.length -1]; //Get last object
+            canvas.remove(last);
+            canvas.renderAll();
+        }
+    }
+
+
+
+</script>
+</body>

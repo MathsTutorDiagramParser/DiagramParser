@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RubricRules>
+    <TaggedValue>
+        <tag>Graph Type</tag>
+        <tagValue>HISTOGRAM</tagValue>
+    </TaggedValue>
+    <Question>
+        <SubQuestion>
+            <id>01</id>
+            <Steps>
+                <Step>
+                    <id>01</id>
+                    <name>BAR VALUES</name>
+                    <totalMarks>03</totalMarks>
+                    <MarkSet>
+                        <MarkMethod>
+                            <id>01</id>
+                            <gainedMarks>03</gainedMarks>
+                            <method>ALL</method>
+                        </MarkMethod>
+                        <MarkMethod>
+                            <id>02</id>
+                            <gainedMarks>2</gainedMarks>
+                            <method>ANY</method>
+                        </MarkMethod>
+                    </MarkSet>
+                </Step>
+                <Step>
+                    <id>02</id>
+                    <name>MARKING THE AXIS</name>
+                    <totalMarks>2</totalMarks>
+                    <MarkSet>
+                        <MarkMethod>
+                            <id>01</id>
+                            <gainedMarks>2</gainedMarks>
+                            <method>ALL</method>
+                        </MarkMethod>
+                        <MarkMethod>
+                            <id>02</id>
+                            <gainedMarks>1</gainedMarks>
+                            <method>ANY</method>
+                        </MarkMethod>
+                    </MarkSet>
+                </Step>
+            </Steps>
+        </SubQuestion>
+    </Question>
+</RubricRules>

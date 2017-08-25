@@ -1,19 +1,19 @@
 package  com.preprocessor;
 
-import com.tutor.model.graphicalSVGObject.SVGComponent;
-import com.tutor.model.graphicalSVGObject.SVGLine;
-import com.tutor.model.graphicalSVGObject.SVGCircle;
-import com.tutor.model.graphicalSVGObject.SVGRectangle;
-import com.tutor.model.graphicalSVGObject.SVGText;
-import com.tutor.model.graphicalSVGObject.SVGImage;
-import com.tutor.model.preProcessor.SVGtoPOJOMapper;
+import com.tutor.parser.model.graphicalSVGObject.SVGComponent;
+import com.tutor.parser.model.graphicalSVGObject.SVGLine;
+import com.tutor.parser.model.graphicalSVGObject.SVGCircle;
+import com.tutor.parser.model.graphicalSVGObject.SVGRectangle;
+import com.tutor.parser.model.graphicalSVGObject.SVGText;
+import com.tutor.parser.model.graphicalSVGObject.SVGImage;
+import com.tutor.parser.model.preProcessor.SVGtoPOJOMapper;
 import java.util.ArrayList;
-import com.tutor.model.graphicalPOJOObject.line.VerticalLine;
-import com.tutor.model.graphicalPOJOObject.line.HorizontalLine;
-import com.tutor.model.graphicalPOJOObject.line.AngleLine;
-import com.tutor.model.graphicalPOJOObject.Circle.Circle;
-import com.tutor.model.graphicalPOJOObject.Text.Text;
-import com.tutor.model.graphicalPOJOObject.Rectangle.Rectangle;
+import com.tutor.parser.model.graphicalPOJOObject.line.VerticalLine;
+import com.tutor.parser.model.graphicalPOJOObject.line.HorizontalLine;
+import com.tutor.parser.model.graphicalPOJOObject.line.AngleLine;
+import com.tutor.parser.model.graphicalPOJOObject.Circle.Circle;
+import com.tutor.parser.model.graphicalPOJOObject.Text.Text;
+import com.tutor.parser.model.graphicalPOJOObject.Rectangle.Rectangle;
 
 
 rule "Horizontal line identifier"

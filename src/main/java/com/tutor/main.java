@@ -1,14 +1,14 @@
 package com.tutor;
-
-
-import com.tutor.model.evaluation.AnswerEvaluator.AnswerEvaluatorServiceImpl;
-import com.tutor.model.graphParser.GraphGrammarGenerator.graphGrammarObject.Graph;
-import com.tutor.model.graphParser.Parser.Parser;
-import com.tutor.model.preProcessor.SVGtoPOJOMapper;
-import com.tutor.model.util.DiagramType;
-import com.tutor.model.util.SpatialRelation;
-import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
-import com.tutor.service.preProcessorService.*;
+import com.tutor.evaluator.model.GradeParser;
+import com.tutor.evaluator.rubricParser.MarkingStructure.MarkingStructure;
+import com.tutor.parser.model.graphParser.DiagramStructure.AbstractDiagramStructure;
+import com.tutor.parser.model.graphParser.GraphGrammarGenerator.graphGrammarObject.Graph;
+import com.tutor.parser.model.graphParser.Parser.Parser;
+import com.tutor.parser.model.preProcessor.SVGtoPOJOMapper;
+import com.tutor.parser.model.util.DiagramType;
+import com.tutor.parser.model.util.SpatialRelation;
+import com.tutor.parser.model.graphicalPOJOObject.GraphicalImageComponent;
+import com.tutor.parser.service.preProcessorService.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,29 +57,46 @@ public class main {
         SpatialRelationshipGeneratorService spatialRelationShipGenerator = new SpatialRelationshipGeneratorServiceImpl();
 
 
-        SVGtoPOJOMapper svGtoPOJOMapper = svgObjectTokenizationService.tokenize(diagramType);
+        SVGtoPOJOMapper svGtoPOJOMapperS = svgObjectTokenizationService.tokenize(diagramType);
+        SVGtoPOJOMapper svGtoPOJOMapperT = svgObjectTokenizationService.tokenize(diagramType);
         logger.info("//////////////////////////////////done seperation//////////////////////////////////");
 
 
-        List<GraphicalImageComponent> orderedList = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapper.getGraphicalImageComponents());
+
+        List<GraphicalImageComponent> orderedListS = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapperS.getGraphicalImageComponents());
+        List<GraphicalImageComponent> orderedListT = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapperT.getGraphicalImageComponents());
 //        objectSequenceGeneratorService.order(svGtoPOJOMapper.getTexts());
-        List<GraphicalImageComponent> textList = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapper.getTexts());
+        List<GraphicalImageComponent> textListS = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapperS.getTexts());
+        List<GraphicalImageComponent> textListT = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapperT.getTexts());
 
 
-        ArrayList<SpatialRelation>[][] relations =
-                spatialRelationShipGenerator.getSpatialRelationshipMatrixOfObject(orderedList);
+        ArrayList<SpatialRelation>[][] relationsS =
+                spatialRelationShipGenerator.getSpatialRelationshipMatrixOfObject(orderedListS);
+
+        ArrayList<SpatialRelation>[][] relationsT =
+                spatialRelationShipGenerator.getSpatialRelationshipMatrixOfObject(orderedListS);
 
         logger.info("//////////////////////////////////done relationship identification//////////////////////////////////");
 
+        Graph hostS  = new Graph();
+        hostS.setGraphicalImageComponents(orderedListS);
+        hostS.setRelations(relationsS);
 
-        Graph host  = new Graph();
-        host.setGraphicalImageComponents(orderedList);
-        host.setRelations(relations);
+        Graph hostT  = new Graph();
+        hostT.setGraphicalImageComponents(orderedListT);
+        hostT.setRelations(relationsT);
 
-        Parser parser = new Parser(diagramType);
-        parser.parse(host,textList);
 
-//        AnswerEvaluatorServiceImpl answerEvaluatorService = new AnswerEvaluatorServiceImpl();
-//        answerEvaluatorService.evaluate();
+        Parser parserS = new Parser(diagramType);
+        Parser parserT = new Parser(diagramType);
+        AbstractDiagramStructure abstractDiagramStructureS=parserS.parse(hostS,textListS);
+        AbstractDiagramStructure abstractDiagramStructureT=parserT.parse(hostT,textListT);
+
+        logger.info("//////////////////////////////////Starting Grading Module//////////////////////////////////");
+
+        GradeParser gradeParser=new GradeParser(diagramType);
+        MarkingStructure markingStructure= gradeParser.parse(abstractDiagramStructureS,abstractDiagramStructureT);
+        System.out.println("Set A debugger here and go up.. do the implemenation there");
+
     }
 }
