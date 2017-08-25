@@ -1,6 +1,6 @@
 package com.tutor;
-import com.tutor.evaluator.model.GradeParser;
-import com.tutor.evaluator.rubricParser.MarkingStructure.MarkingStructure;
+import com.tutor.evaluator.service.EvaluatorServiceImpl;
+import com.tutor.evaluator.model.markingStructure.MarkSheet;
 import com.tutor.parser.model.graphParser.DiagramStructure.AbstractDiagramStructure;
 import com.tutor.parser.model.graphParser.GraphGrammarGenerator.graphGrammarObject.Graph;
 import com.tutor.parser.model.graphParser.Parser.Parser;
@@ -94,8 +94,8 @@ public class main {
 
         logger.info("//////////////////////////////////Starting Grading Module//////////////////////////////////");
 
-        GradeParser gradeParser=new GradeParser(diagramType);
-        MarkingStructure markingStructure= gradeParser.parse(abstractDiagramStructureS,abstractDiagramStructureT);
+        EvaluatorServiceImpl gradeParser=new EvaluatorServiceImpl(diagramType);
+        MarkSheet markingStructure= gradeParser.parse(abstractDiagramStructureS,abstractDiagramStructureT);
         System.out.println("Set A debugger here and go up.. do the implemenation there");
 
     }
