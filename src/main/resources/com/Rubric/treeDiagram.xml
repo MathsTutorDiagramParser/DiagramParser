@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RubricRules>
+    <TaggedValue>
+        <tag>Graph Type</tag>
+        <tagValue>TREEDIAGRAM</tagValue>
+    </TaggedValue>
+    <Question>
+        <SubQuestion>
+            <id>0</id>
+            <Steps>
+                <Step>
+                    <id>0</id>
+                    <name>MARKING UP BRANCH</name>
+                    <totalMarks>1</totalMarks>
+                    <MarkSet>
+                        <MarkMethod>
+                            <id>0</id>
+                            <gainedMarks>1</gainedMarks>
+                            <method>MATCH_O_AND_P</method>
+                        </MarkMethod>
+                        <MarkMethod>
+                            <id>1</id>
+                            <gainedMarks>0.5</gainedMarks>
+                            <method>WRITE_ANY</method>
+                        </MarkMethod>
+                    </MarkSet>
+                </Step>
+                <Step>
+                    <id>1</id>
+                    <name>MARKING DOWN BRANCH</name>
+                    <totalMarks>1</totalMarks>
+                    <MarkSet>
+                        <MarkMethod>
+                            <id>0</id>
+                            <gainedMarks>1</gainedMarks>
+                            <method>MATCH_O_AND_P</method>
+                        </MarkMethod>
+                        <MarkMethod>
+                            <id>1</id>
+                            <gainedMarks>0.5</gainedMarks>
+                            <method>WRITE_ANY</method>
+                        </MarkMethod>
+                    </MarkSet>
+                </Step>
+            </Steps>
+        </SubQuestion>
+        <SubQuestion>
+            <id>1</id>
+            <Steps>
+                <Step>
+                    <id>0</id>
+                    <name>MARKING LEVEL TWO</name>
+                    <totalMarks>1</totalMarks>
+                    <MarkSet>
+                        <MarkMethod>
+                            <id>0</id>
+                            <gainedMarks>1</gainedMarks>
+                            <method>ENTIRE_LEVEL</method>
+                        </MarkMethod>
+                        <MarkMethod>
+                            <id>1</id>
+                            <gainedMarks>0.5</gainedMarks>
+                            <method>ONE_BRANCH</method>
+                        </MarkMethod>
+                    </MarkSet>
+                </Step>
+            </Steps>
+        </SubQuestion>
+    </Question>
+</RubricRules>
