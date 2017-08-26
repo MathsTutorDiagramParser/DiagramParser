@@ -1,6 +1,10 @@
 package com.tutor;
+import com.tutor.common.FileReaderSupportService;
+import com.tutor.common.FileReaderSupportServiceImpl;
 import com.tutor.evaluator.service.EvaluatorServiceImpl;
 import com.tutor.evaluator.model.markingStructure.MarkSheet;
+import com.tutor.evaluator.service.ModelAnswerService;
+import com.tutor.evaluator.service.ModelAnswerServiceImpl;
 import com.tutor.parser.model.feedback.FeedBackGenerator;
 import com.tutor.parser.model.feedback.FeedbackGeneratorFactory;
 import com.tutor.parser.model.graphParser.DiagramStructure.AbstractDiagramStructure;
@@ -57,54 +61,38 @@ public class main {
         SVGObjectTokenizationService svgObjectTokenizationService = new SVGObjectTokenizationServiceImpl();
         ObjectSequenceGeneratorService objectSequenceGeneratorService = new ObjectSequenceGeneratorServiceImpl();
         SpatialRelationshipGeneratorService spatialRelationShipGenerator = new SpatialRelationshipGeneratorServiceImpl();
+        FileReaderSupportService fileReaderSupportService = new FileReaderSupportServiceImpl();
 
+        SVGtoPOJOMapper svGtoPOJOMapperS = svgObjectTokenizationService.tokenize(fileReaderSupportService.readStudetAnswer(diagramType));
 
-        SVGtoPOJOMapper svGtoPOJOMapperS = svgObjectTokenizationService.tokenize(diagramType);
-        SVGtoPOJOMapper svGtoPOJOMapperT = svgObjectTokenizationService.tokenize(diagramType);
         logger.info("//////////////////////////////////done seperation//////////////////////////////////");
 
-
-
         List<GraphicalImageComponent> orderedListS = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapperS.getGraphicalImageComponents());
-        List<GraphicalImageComponent> orderedListT = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapperT.getGraphicalImageComponents());
-//        objectSequenceGeneratorService.order(svGtoPOJOMapper.getTexts());
         List<GraphicalImageComponent> textListS = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapperS.getTexts());
-        List<GraphicalImageComponent> textListT = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapperT.getTexts());
-
-
         ArrayList<SpatialRelation>[][] relationsS =
                 spatialRelationShipGenerator.getSpatialRelationshipMatrixOfObject(orderedListS);
-
-        ArrayList<SpatialRelation>[][] relationsT =
-                spatialRelationShipGenerator.getSpatialRelationshipMatrixOfObject(orderedListS);
-
         logger.info("//////////////////////////////////done relationship identification//////////////////////////////////");
+
 
         Graph hostS  = new Graph();
         hostS.setGraphicalImageComponents(orderedListS);
         hostS.setRelations(relationsS);
-
-        Graph hostT  = new Graph();
-        hostT.setGraphicalImageComponents(orderedListT);
-        hostT.setRelations(relationsT);
-
-
         Parser parserS = new Parser(diagramType);
-        Parser parserT = new Parser(diagramType);
         AbstractDiagramStructure abstractDiagramStructureS=parserS.parse(hostS,textListS);
-        AbstractDiagramStructure abstractDiagramStructureT=parserT.parse(hostT,textListT);
 
         logger.info("//////////////////////////////////Starting Grading Module//////////////////////////////////");
+        ModelAnswerService modelAnswerService = new ModelAnswerServiceImpl();
+        AbstractDiagramStructure  modelAnswer = modelAnswerService.getModelAnswer(fileReaderSupportService.ModelAnswer(diagramType),diagramType,1);
 
         EvaluatorServiceImpl evaluatorService=new EvaluatorServiceImpl(diagramType);
-        MarkSheet[] markingStructure = evaluatorService.evaluate(abstractDiagramStructureS,abstractDiagramStructureT,abstractDiagramStructureS.getFeedBackList());
+        MarkSheet[] markingStructure = evaluatorService.evaluate(abstractDiagramStructureS,modelAnswer,abstractDiagramStructureS.getFeedBackList());
 
+        logger.info("//////////////////////////////////Feedback//////////////////////////////////");
         FeedBackGenerator feedBackGenerator = FeedbackGeneratorFactory.getFeedbackGenerator(diagramType);
         logger.info("*****************************************************");
         logger.info(feedBackGenerator.generateFinalFeedback(abstractDiagramStructureS.getFeedBackList(),abstractDiagramStructureS));
         logger.info(markingStructure[0].getFeebback());
         logger.info("*****************************************************");
-
 
     }
 }

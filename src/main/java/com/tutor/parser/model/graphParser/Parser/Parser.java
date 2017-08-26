@@ -49,50 +49,44 @@ public class Parser {
         structuralParser.parse(host,abstractDiagramStructure);
         logger.info("------------------------------finish structural parsing for diagram----------------------------");
 
-        logger.info(">>>>>>>>>>>>>>> FeedBacks >>>>>>>>>>>>>>>>>");
-
-        List<FeedBack> feedBacks= structuralParser.feedBacks;
-        for (int i=0;i<feedBacks.size();i++){
-            logger.info(feedBacks.get(i).getDescription());
-        }
-        logger.info(">>>>>>>>>>>>>>> FeedBacks >>>>>>>>>>>>>>>>>");
-
         logger.info("------------------------------Started textuaral parsing for diagram----------------------------");
         // validate the diagram through text associator
         TextAlignmentAssigner assigner = new TextAlignmentAssigner();
         assigner.assignTextAligner(abstractDiagramStructure,diagramType,textList);
 
+        logger.info("------------------------------Finished textuaral parsing for diagram----------------------------");
+
         if(diagramType==DiagramType.NUMBRELINE){
 
-            logger.info(" ==============Represented value================ ");
-            List<MarkPoint> markPoints = ((AbstractNumberLineStructure)abstractDiagramStructure).getMarkPointList();
-            List<TickPoint> tickPoints = ((AbstractNumberLineStructure)abstractDiagramStructure).getTickPointList();
-            List<MarkPoint> extra = ((AbstractNumberLineStructure)abstractDiagramStructure).getExtraPointList();
-            logger.info("tick points");
-            for (int i=0;i<tickPoints.size();i++){
-                logger.info("tick "+i+" :"+tickPoints.get(i).getText().getText());
-            }
-
-            logger.info("mark points");
-            for (int j=0;j<markPoints.size();j++){
-
-                logger.info("mark point "+j+" :"+markPoints.get(j).getCircle().getX()+" "+markPoints.get(j).getCircle().getY());
-
-                if(markPoints.get(j).endOFTheThickLine=="LEFT"){
-                    logger.info("LeftEnd :"+ markPoints.get(j).getText().getText()+" -> is_Filled : "+markPoints.get(j).isFilled);
-                }
-                if(markPoints.get(j).endOFTheThickLine=="RIGHT"){
-                    logger.info("RightEnd :"+ markPoints.get(j).getText().getText()+"-> is_Filled : "+markPoints.get(j).isFilled);
-                }
-            }
-            logger.info("extra mark points");
-            if(extra!=null){
-                for (int k=0 ; k<extra.size();k++){
-                    if(extra.get(k).getText()!=null){
-                        logger.info("point :"+ extra.get(k).getText().getText()+" -> is_Filled : "+extra.get(k).isFilled);
-                    }
-                }
-            }
+//            logger.info(" ==============Represented value================ ");
+//            List<MarkPoint> markPoints = ((AbstractNumberLineStructure)abstractDiagramStructure).getMarkPointList();
+//            List<TickPoint> tickPoints = ((AbstractNumberLineStructure)abstractDiagramStructure).getTickPointList();
+//            List<MarkPoint> extra = ((AbstractNumberLineStructure)abstractDiagramStructure).getExtraPointList();
+//            logger.info("tick points");
+//            for (int i=0;i<tickPoints.size();i++){
+//                logger.info("tick "+i+" :"+tickPoints.get(i).getText().getText());
+//            }
+//
+//            logger.info("mark points");
+//            for (int j=0;j<markPoints.size();j++){
+//
+//                logger.info("mark point "+j+" :"+markPoints.get(j).getCircle().getX()+" "+markPoints.get(j).getCircle().getY());
+//
+//                if(markPoints.get(j).endOFTheThickLine=="LEFT"){
+//                    logger.info("LeftEnd :"+ markPoints.get(j).getText().getText()+" -> is_Filled : "+markPoints.get(j).isFilled);
+//                }
+//                if(markPoints.get(j).endOFTheThickLine=="RIGHT"){
+//                    logger.info("RightEnd :"+ markPoints.get(j).getText().getText()+"-> is_Filled : "+markPoints.get(j).isFilled);
+//                }
+//            }
+//            logger.info("extra mark points");
+//            if(extra!=null){
+//                for (int k=0 ; k<extra.size();k++){
+//                    if(extra.get(k).getText()!=null){
+//                        logger.info("point :"+ extra.get(k).getText().getText()+" -> is_Filled : "+extra.get(k).isFilled);
+//                    }
+//                }
+//            }
         }
         else if (diagramType == DiagramType.TREEDIAGRAM) {
             AbstractTreeDiagramStructure abstractTreeDiagramStructure = (AbstractTreeDiagramStructure)abstractDiagramStructure;

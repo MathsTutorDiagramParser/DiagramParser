@@ -1,5 +1,7 @@
 package com.tutor.web.controller.preprocessor;
 
+import com.tutor.common.FileReaderSupportService;
+import com.tutor.common.FileReaderSupportServiceImpl;
 import com.tutor.parser.model.preProcessor.SVGtoPOJOMapper;
 import com.tutor.parser.model.util.DiagramType;
 import com.tutor.parser.model.util.SpatialRelation;
@@ -20,17 +22,19 @@ public class PreProcessingHandler {
     SVGObjectTokenizationService svgObjectTokenizationService;
     ObjectSequenceGeneratorService objectSequenceGeneratorService;
     SpatialRelationshipGeneratorService spatialRelationShipGenerator;
+    FileReaderSupportService fileReaderSupportService;
     SVGtoPOJOMapper svGtoPOJOMapper;
 
     public PreProcessingHandler() {
         this.svgObjectTokenizationService = new SVGObjectTokenizationServiceImpl();
         this.objectSequenceGeneratorService = new ObjectSequenceGeneratorServiceImpl();
         this.spatialRelationShipGenerator = new SpatialRelationshipGeneratorServiceImpl();
+        fileReaderSupportService = new FileReaderSupportServiceImpl();
     }
 
     public List<GraphicalImageComponent> getOrderedList (DiagramType diagramType) throws JAXBException, FileNotFoundException {
 
-        this.svGtoPOJOMapper = svgObjectTokenizationService.tokenize(diagramType);
+        this.svGtoPOJOMapper = svgObjectTokenizationService.tokenize(fileReaderSupportService.readStudetAnswer(diagramType));
         List<GraphicalImageComponent> orderedList = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapper.getGraphicalImageComponents());
 
 

@@ -8,6 +8,6 @@ import com.tutor.parser.model.util.DiagramType;
  */
 public interface SVGObjectTokenizationService {
 
-    public SVGtoPOJOMapper tokenize(DiagramType diagramType);
+    public SVGtoPOJOMapper tokenize(String filename);
 
 }

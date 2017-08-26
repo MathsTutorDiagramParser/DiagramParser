@@ -14,30 +14,13 @@ public class SVGObjectTokenizationServiceImpl implements SVGObjectTokenizationSe
 
     SVGtoPOJOMapper svgtoPOJOMapper;
 
-    public SVGtoPOJOMapper tokenize(DiagramType diagramType) {
+    public SVGtoPOJOMapper tokenize(String filename) {
         SVGImage svgImageStudentAnswer = new SVGImage();
         SVGReadPlatformService svgReader = new SVGReadPlatformServiceImpl();
-        String fileName;
 
-        switch (diagramType) {
-            case NUMBRELINE:
-                fileName = "numberLine\\test13.svg";
-                break;
-            case HISTOGRAM:
-                fileName = "histogram\\test3.svg";
-                break;
-            case TREEDIAGRAM:
-                fileName = "treeDiagram\\answer2.svg";
-                break;
-            case TRIGNOMETRICDIAGRAM:
-                fileName = "trignometricDiagram\\test1.svg";
-                break;
-            default:
-                fileName = "svgResult";
-        }
 
         //String studentAnswerPath = "E:\\FYP\\implementation\\parser2\\DiagramParser\\src\\main\\resources\\com\\answerFile\\"+fileName+".svg";
-        String studentAnswerPath = "D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\test\\"+fileName;
+        String studentAnswerPath = "D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\test\\"+filename;
 
         System.out.println("===========================Start Executing Rules===================================");
         KieContainer kc = KieServices.Factory.get().getKieClasspathContainer();
