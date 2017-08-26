@@ -144,6 +144,7 @@ public class StructuralParser {
                 feedBacks = FeedbackGeneratorFactory.getFeedbackGenerator(diagramType).generateFeedbackByAnalyzingUnrelatedObjects(feedBacks,host);
             }
 
+            this.abstractDiagramStructure.setFeedBackList(feedBacks);
             return this.abstractDiagramStructure;
     }
 

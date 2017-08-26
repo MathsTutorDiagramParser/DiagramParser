@@ -12,9 +12,9 @@ import java.util.List;
  */
 public  class Evaluator {
 
-    public MarkSheet evaluate(MarkSheet markSheet, AbstractDiagramStructure studentStructure,
+    public MarkSheet[] evaluate(AbstractDiagramStructure studentStructure,
                               AbstractDiagramStructure teacherStructure, RubricRules rubricRules, List<FeedBack> feedBacks){
-        return markSheet;
+        return null;
     }
 
 

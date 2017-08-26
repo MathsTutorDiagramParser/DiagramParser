@@ -10,6 +10,9 @@ public class XMLMarkingMethodType {
     private String id;
     private String name;
 
+    public XMLMarkingMethodType() {
+    }
+
     public XMLMarkingMethodType(String id, String name) {
         this.id = id;
         this.name = name;

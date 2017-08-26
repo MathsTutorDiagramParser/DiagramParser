@@ -9,6 +9,10 @@ public class XMLConditionType {
     private String id;
     private String name;
 
+    public XMLConditionType() {
+
+    }
+
     public XMLConditionType(String id, String name) {
         this.id = id;
         this.name = name;

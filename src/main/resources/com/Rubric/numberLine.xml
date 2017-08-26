@@ -13,7 +13,6 @@
             <id>C1</id>
             <name>FINAL_ANSWER</name>
         </ConditionType>
-
         <ConditionType>
             <id>C2</id>
             <name>MARK_INEQUALITY</name>
@@ -41,7 +40,7 @@
     <Question>
         <SubQuestion>
             <id>0</id>
-            <name>N1</name>
+            <name>N0</name>
             <Conditions>
                 <Condition>
                     <conditionName>C2</conditionName>

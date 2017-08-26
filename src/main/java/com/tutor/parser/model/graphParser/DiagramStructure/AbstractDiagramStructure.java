@@ -10,6 +10,7 @@ import java.util.List;
  */
 public abstract class AbstractDiagramStructure {
 
+
     List<FeedBack> feedBackList;
 
     /*
@@ -27,5 +28,14 @@ public abstract class AbstractDiagramStructure {
     public AbstractDiagramStructure() {}
 
     public abstract void updateAbstractRepresentation(GraphicalImageComponent graphicalImageComponent);
+
+
+    public List<FeedBack> getFeedBackList() {
+        return feedBackList;
+    }
+
+    public void setFeedBackList(List<FeedBack> feedBackList) {
+        this.feedBackList = feedBackList;
+    }
 
 }

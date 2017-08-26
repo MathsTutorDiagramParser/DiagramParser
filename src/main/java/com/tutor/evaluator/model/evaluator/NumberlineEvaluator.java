@@ -6,6 +6,7 @@ import com.tutor.evaluator.model.constants.StepConstant;
 import com.tutor.evaluator.model.markingStructure.Mark;
 import com.tutor.evaluator.model.markingStructure.MarkSheet;
 import com.tutor.evaluator.model.rubicRulesPOJOObjects.RubricRules;
+import com.tutor.parser.model.feedback.FeedBack;
 import com.tutor.parser.model.graphParser.DiagramStructure.AbstractDiagramStructure;
 import com.tutor.parser.model.graphParser.DiagramStructure.NumberLine.AbstractNumberLineStructure;
 import com.tutor.parser.model.graphParser.DiagramStructure.NumberLine.MarkPoint;
@@ -23,8 +24,8 @@ public class NumberlineEvaluator extends Evaluator {
     String subQfeedback ;
     int totalSubQ = 0;
 
-    public MarkSheet[] evaluate(MarkSheet markSheet, AbstractDiagramStructure studentStructure,
-                              AbstractDiagramStructure teacherStructure, RubricRules rubricRules) {
+    public MarkSheet[] evaluate(AbstractDiagramStructure studentStructure,
+                              AbstractDiagramStructure teacherStructure, RubricRules rubricRules,List<FeedBack> feedBacks) {
         MarkSheet[] markSheets = new MarkSheet[rubricRules.getSubQuestions().size()];
 
         this.studentStructure = studentStructure;
@@ -64,7 +65,7 @@ public class NumberlineEvaluator extends Evaluator {
         List<MarkPoint> studentMarkPoints = ((AbstractNumberLineStructure)studentStructure).getMarkPointList();
         List<MarkPoint> teacherMarkPoints = ((AbstractNumberLineStructure)teacherStructure).getMarkPointList();
 
-        if(studentMarkPoints != null) {
+        if(studentMarkPoints != null && studentMarkPoints.size()!=0 ) {
             for (int k = 0; k < 2; k++) {
                 if(isFoundLeftEnd) {
                     if (studentMarkPoints.get(k).endOFTheThickLine.equals("LEFT")) {
@@ -128,7 +129,7 @@ public class NumberlineEvaluator extends Evaluator {
                 }
             }
         } else {
-            subQfeedback = "You haven't mark inequality to give mark.";
+            subQfeedback = "No valid inequality to give mark.";
             return null;
         }
 

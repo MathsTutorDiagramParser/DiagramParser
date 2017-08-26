@@ -10,6 +10,9 @@ public class XMLSubQuestionType {
     private String Id;
     private String name;
 
+    public XMLSubQuestionType() {
+    }
+
     public XMLSubQuestionType(String id, String name) {
         Id = id;
         this.name = name;

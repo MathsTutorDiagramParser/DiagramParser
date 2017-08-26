@@ -6,8 +6,6 @@ import com.tutor.evaluator.model.rubicRulesPOJOObjects.MarkingMethod;
 import com.tutor.evaluator.model.rubicRulesPOJOObjects.RubricRules;
 import com.tutor.evaluator.model.rubicRulesPOJOObjects.SubQuestion;
 import com.tutor.evaluator.model.rubricRulesReaderObject.*;
-import com.tutor.parser.model.util.DiagramType;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -23,17 +21,14 @@ public class MarkingSchemeReaderServiceImpl {
 
     public RubricRules readFromXML(String filename){
         XMLRubricRules rubricRules = new XMLRubricRules();
-        String fileName = "";
-
         try {
-            File file = new File("D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\com\\Rubric\\"+fileName);
+            File file = new File("D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\com\\Rubric\\"+filename);
 
             JAXBContext jaxbContext = JAXBContext.newInstance(XMLRubricRules.class);
 
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             rubricRules =(XMLRubricRules) jaxbUnmarshaller.unmarshal(file);
         } catch (JAXBException e) {e.printStackTrace(); }
-
         return convertTo(rubricRules) ;
     }
 

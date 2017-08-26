@@ -1,6 +1,8 @@
 package com.tutor;
 import com.tutor.evaluator.service.EvaluatorServiceImpl;
 import com.tutor.evaluator.model.markingStructure.MarkSheet;
+import com.tutor.parser.model.feedback.FeedBackGenerator;
+import com.tutor.parser.model.feedback.FeedbackGeneratorFactory;
 import com.tutor.parser.model.graphParser.DiagramStructure.AbstractDiagramStructure;
 import com.tutor.parser.model.graphParser.GraphGrammarGenerator.graphGrammarObject.Graph;
 import com.tutor.parser.model.graphParser.Parser.Parser;
@@ -94,9 +96,15 @@ public class main {
 
         logger.info("//////////////////////////////////Starting Grading Module//////////////////////////////////");
 
-        EvaluatorServiceImpl gradeParser=new EvaluatorServiceImpl(diagramType);
-        MarkSheet markingStructure= gradeParser.parse(abstractDiagramStructureS,abstractDiagramStructureT);
-        System.out.println("Set A debugger here and go up.. do the implemenation there");
+        EvaluatorServiceImpl evaluatorService=new EvaluatorServiceImpl(diagramType);
+        MarkSheet[] markingStructure = evaluatorService.evaluate(abstractDiagramStructureS,abstractDiagramStructureT,abstractDiagramStructureS.getFeedBackList());
+
+        FeedBackGenerator feedBackGenerator = FeedbackGeneratorFactory.getFeedbackGenerator(diagramType);
+        logger.info("*****************************************************");
+        logger.info(feedBackGenerator.generateFinalFeedback(abstractDiagramStructureS.getFeedBackList(),abstractDiagramStructureS));
+        logger.info(markingStructure[0].getFeebback());
+        logger.info("*****************************************************");
+
 
     }
 }
