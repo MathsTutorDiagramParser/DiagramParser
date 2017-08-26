@@ -13,11 +13,8 @@ import java.util.List;
 public  class Evaluator {
 
     public MarkSheet evaluate(MarkSheet markSheet, AbstractDiagramStructure studentStructure,
-                              AbstractDiagramStructure teacherStructure, RubricRules rubricRules, List<FeedBack> feedBacks){
+                              AbstractDiagramStructure teacherStructure, RubricRules rubricRules){
         return markSheet;
     }
-
-
-
 
 }

@@ -108,7 +108,7 @@ public class GraphParsingHandler {
                 break;
         }
         try {
-            File file = new File("F:\\Final year project\\version 2\\DiagramParser\\src\\main\\resources\\com\\graphGrammar\\"+fileName);
+            File file = new File("E:\\FYP\\implementation\\parser2\\DiagramParser\\src\\main\\resources\\com\\graphGrammar\\"+fileName);
 
             JAXBContext jaxbContext = JAXBContext.newInstance(XMLGraphGrammar.class);
 

@@ -9,6 +9,13 @@ public class RubricRules {
 
     List<SubQuestion> subQuestions;
 
+    public RubricRules() {
+    }
+
+    public RubricRules(List<SubQuestion> subQuestions) {
+        this.subQuestions = subQuestions;
+    }
+
     public List<SubQuestion> getSubQuestions() {
         return subQuestions;
     }

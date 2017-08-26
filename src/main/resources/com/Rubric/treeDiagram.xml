@@ -4,67 +4,114 @@
         <tag>Graph Type</tag>
         <tagValue>TREEDIAGRAM</tagValue>
     </TaggedValue>
+    <ConditionTypes>
+        <ConditionType>
+            <id>C0</id>
+            <name>MARKING UP BRANCH</name>
+        </ConditionType>
+        <ConditionType>
+            <id>C1</id>
+            <name>MARKING DOWN BRANCH</name>
+        </ConditionType>
+        <ConditionType>
+            <id>C2</id>
+            <name>MARKING UPPER NODE</name>
+        </ConditionType>
+        <ConditionType>
+            <id>C3</id>
+            <name>MARKING LOWER NODE</name>
+        </ConditionType>
+    </ConditionTypes>
+    <MarkingMethodsTypes>
+        <MarkingMethodType>
+            <id>M0</id>
+            <name>MATCH_O_AND_P</name>
+        </MarkingMethodType>
+        <MarkingMethodType>
+            <id>M1</id>
+            <name>ENTIRE_NODE</name>
+        </MarkingMethodType>
+        <MarkingMethodType>
+            <id>M2</id>
+            <name>PROBABILITY_ONLY</name>
+        </MarkingMethodType>
+    </MarkingMethodsTypes>
+    <SubQuestionTypes>
+        <SubQuestionType>
+            <id>N0</id>
+            <name>MARKING ROOT NODE</name>
+        </SubQuestionType>
+        <SubQuestionType>
+            <id>N1</id>
+            <name>MARKING SECOND LEVEL</name>
+        </SubQuestionType>
+    </SubQuestionTypes>
     <Question>
         <SubQuestion>
             <id>0</id>
-            <Steps>
-                <Step>
-                    <id>0</id>
-                    <name>MARKING UP BRANCH</name>
-                    <totalMarks>1</totalMarks>
-                    <MarkSet>
+            <name>N0</name>
+            <Conditions>
+                <Condition>
+                    <conditionName>C0</conditionName>
+                    <totalMarks>01</totalMarks>
+                    <MarkMethods>
                         <MarkMethod>
                             <id>0</id>
                             <gainedMarks>1</gainedMarks>
-                            <method>MATCH_O_AND_P</method>
+                            <method>M0</method>
                         </MarkMethod>
-                        <MarkMethod>
-                            <id>1</id>
-                            <gainedMarks>0.5</gainedMarks>
-                            <method>WRITE_ANY</method>
-                        </MarkMethod>
-                    </MarkSet>
-                </Step>
-                <Step>
-                    <id>1</id>
-                    <name>MARKING DOWN BRANCH</name>
-                    <totalMarks>1</totalMarks>
-                    <MarkSet>
+                    </MarkMethods>
+                </Condition>
+                <Condition>
+                    <conditionName>C1</conditionName>
+                    <totalMarks>01</totalMarks>
+                    <MarkMethods>
                         <MarkMethod>
                             <id>0</id>
                             <gainedMarks>1</gainedMarks>
-                            <method>MATCH_O_AND_P</method>
+                            <method>M0</method>
                         </MarkMethod>
-                        <MarkMethod>
-                            <id>1</id>
-                            <gainedMarks>0.5</gainedMarks>
-                            <method>WRITE_ANY</method>
-                        </MarkMethod>
-                    </MarkSet>
-                </Step>
-            </Steps>
+                    </MarkMethods>
+                </Condition>
+            </Conditions>
         </SubQuestion>
         <SubQuestion>
             <id>1</id>
-            <Steps>
-                <Step>
-                    <id>0</id>
-                    <name>MARKING LEVEL TWO</name>
-                    <totalMarks>1</totalMarks>
-                    <MarkSet>
+            <name>N1</name>
+            <Conditions>
+                <Condition>
+                    <conditionName>C2</conditionName>
+                    <totalMarks>2</totalMarks>
+                    <MarkMethods>
                         <MarkMethod>
                             <id>0</id>
-                            <gainedMarks>1</gainedMarks>
-                            <method>ENTIRE_LEVEL</method>
+                            <gainedMarks>2</gainedMarks>
+                            <method>M1</method>
                         </MarkMethod>
                         <MarkMethod>
                             <id>1</id>
-                            <gainedMarks>0.5</gainedMarks>
-                            <method>ONE_BRANCH</method>
+                            <gainedMarks>1</gainedMarks>
+                            <method>M2</method>
                         </MarkMethod>
-                    </MarkSet>
-                </Step>
-            </Steps>
+                    </MarkMethods>
+                </Condition>
+                <Condition>
+                    <conditionName>C3</conditionName>
+                    <totalMarks>2</totalMarks>
+                    <MarkMethods>
+                        <MarkMethod>
+                            <id>0</id>
+                            <gainedMarks>2</gainedMarks>
+                            <method>M1</method>
+                        </MarkMethod>
+                        <MarkMethod>
+                            <id>1</id>
+                            <gainedMarks>1</gainedMarks>
+                            <method>M2</method>
+                        </MarkMethod>
+                    </MarkMethods>
+                </Condition>
+            </Conditions>
         </SubQuestion>
     </Question>
 </RubricRules>

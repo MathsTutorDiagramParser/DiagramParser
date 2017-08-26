@@ -17,7 +17,7 @@ public class NumberlineEvaluator extends Evaluator {
 
 
     public MarkSheet evaluate(MarkSheet markSheet, AbstractDiagramStructure studentStructure,
-                              AbstractDiagramStructure teacherStructure, RubricRules rubricRules, List<FeedBack> feedBacks){
+                              AbstractDiagramStructure teacherStructure, RubricRules rubricRules){
 
 
 
