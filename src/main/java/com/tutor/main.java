@@ -90,8 +90,9 @@ public class main {
         logger.info("//////////////////////////////////Feedback//////////////////////////////////");
         FeedBackGenerator feedBackGenerator = FeedbackGeneratorFactory.getFeedbackGenerator(diagramType);
         logger.info("*****************************************************");
-        logger.info(feedBackGenerator.generateFinalFeedback(abstractDiagramStructureS.getFeedBackList(),abstractDiagramStructureS));
-        logger.info(markingStructure[0].getFeebback());
+        logger.info( "Structural feedback: "+feedBackGenerator.generateFinalFeedback(abstractDiagramStructureS.getFeedBackList(),abstractDiagramStructureS));
+        logger.info( "Evaluator feedback: "+markingStructure[0].getFeebback());
+        logger.info( "marks : "+markingStructure[0].getTotalMark());
         logger.info("*****************************************************");
 
     }
