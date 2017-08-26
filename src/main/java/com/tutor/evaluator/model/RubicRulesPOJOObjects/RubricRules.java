@@ -12,7 +12,6 @@ public class RubricRules {
     public List<SubQuestion> getSubQuestions() {
         return subQuestions;
     }
-
     public void setSubQuestions(List<SubQuestion> subQuestions) {
         this.subQuestions = subQuestions;
     }

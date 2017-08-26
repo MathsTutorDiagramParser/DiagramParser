@@ -16,7 +16,7 @@ public class XMLSubQuestion {
         this.steps =xmlConditions;
     }
     @XmlElementWrapper(name="Steps")
-    @XmlElement(name="Step")
+    @XmlElement(name="StepConstant")
     public ArrayList<XMLCondition> getSteps() {
         return steps;
     }

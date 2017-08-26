@@ -7,7 +7,10 @@ public class MarkSheet {
     int checkedConditionCount = 0;
     private String feebback="";
 
-    public MarkSheet(int totalMark, Mark[] partitialMark,String feebback) {
+    public MarkSheet() {
+    }
+
+    public MarkSheet(int totalMark, Mark[] partitialMark, String feebback) {
         this.totalMark = totalMark;
         this.partitialMark = partitialMark;
         this.feebback = feebback;

@@ -34,6 +34,8 @@ public class Parser {
     AbstractDiagramStructure abstractDiagramStructure;
     DiagramType diagramType;
 
+
+
     public Parser(DiagramType diagramType) {
         this.diagramType = diagramType;
         this.abstractDiagramStructure = DiagramStructureFactory.getAbstractDiagramStructure(diagramType);
@@ -161,8 +163,6 @@ public class Parser {
                 logger.info(l+"th Bar -> Y Value is : "+bar.get(l).rectangle.getHeight()*yRatio);
             }
 
-
-
         }
 
         FeedBackGenerator feedBackGenerator = FeedbackGeneratorFactory.getFeedbackGenerator(diagramType);
@@ -174,6 +174,7 @@ public class Parser {
         return abstractDiagramStructure;
 
     }
+
 
 
 }

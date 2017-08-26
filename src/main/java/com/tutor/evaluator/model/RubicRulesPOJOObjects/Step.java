@@ -12,4 +12,28 @@ public class Step {
     private String name;
     private int totalMarks;
     private ArrayList<MarkingMethod> markingMethods = new ArrayList<>();
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getTotalMarks() {
+        return totalMarks;
+    }
+
+    public void setTotalMarks(int totalMarks) {
+        this.totalMarks = totalMarks;
+    }
+
+    public ArrayList<MarkingMethod> getMarkingMethods() {
+        return markingMethods;
+    }
+
+    public void setMarkingMethods(ArrayList<MarkingMethod> markingMethods) {
+        this.markingMethods = markingMethods;
+    }
 }

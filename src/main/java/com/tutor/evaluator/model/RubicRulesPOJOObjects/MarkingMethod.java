@@ -9,6 +9,27 @@ public class MarkingMethod {
     private int gainedMarks;
     private String method;
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
+    public int getGainedMarks() {
+        return gainedMarks;
+    }
+
+    public void setGainedMarks(int gainedMarks) {
+        this.gainedMarks = gainedMarks;
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
+    }
 }

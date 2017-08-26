@@ -20,7 +20,7 @@ public class MarkingSchemeReaderService {
         String fileName = "";
 
         try {
-            File file = new File("F:\\Final year project\\version 2\\DiagramParser\\src\\main\\resources\\com\\Rubric\\"+fileName);
+            File file = new File("D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\com\\Rubric\\"+fileName);
 
             JAXBContext jaxbContext = JAXBContext.newInstance(XMLRubricRules.class);
 

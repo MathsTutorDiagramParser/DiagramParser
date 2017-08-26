@@ -12,5 +12,19 @@ public class SubQuestion {
     private int id;
     private ArrayList<Step> steps;
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public ArrayList<Step> getSteps() {
+        return steps;
+    }
+
+    public void setSteps(ArrayList<Step> steps) {
+        this.steps = steps;
+    }
 }

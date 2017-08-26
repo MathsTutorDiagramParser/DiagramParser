@@ -8,7 +8,7 @@
         <SubQuestion>
             <id> 0 </id>
             <condition>
-                <conditionName>OPERATION_IN_TWO_SIDE</conditionName>
+                <conditionName>CORRECT_OPERATION_IN_TWO_SIDE</conditionName>
                 <totalMarks>0.5</totalMarks>
                 <MarkSet>
                     <MarkMethod>
