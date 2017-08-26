@@ -6,34 +6,26 @@ import java.util.ArrayList;
 
 public class XMLCondition {
 
-    private int id;
-    private String name;
+    private String conditionName;
     private int totalMarks;
-    private ArrayList<XMLMarkMethods> markingMethods = new ArrayList<>();
+    private ArrayList<XMLMarkMethod> markingMethods = new ArrayList<>();
 
     public XMLCondition(){
     }
 
-    public XMLCondition(int id, String name, int totalMarks, ArrayList<XMLMarkMethods> xmlMarkSet){
-        this.id=id;
-        this.name=name;
+    public XMLCondition(String id, String name, int totalMarks, ArrayList<XMLMarkMethod> xmlMarkSet){
+        this.conditionName=id;
         this.totalMarks=totalMarks;
         this.markingMethods =xmlMarkSet;
     }
-    @XmlElement(name="id")
-    public int getId() {
-        return id;
+
+    @XmlElement(name="conditionName")
+    public String getId() {
+        return conditionName;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    @XmlElement(name="name")
-    public String getName(){ return name;}
-
-    public void setName(String name) {
-        this.name = name;
+    public void setId(String id) {
+        this.conditionName= id;
     }
 
     @XmlElement(name="totalMarks")
@@ -42,11 +34,12 @@ public class XMLCondition {
     public void setTotalMarks(int totalMarks) {
         this.totalMarks = totalMarks;
     }
-    @XmlElementWrapper(name="MarkSet")
-    @XmlElement(name="MarkMethod")
-    public ArrayList<XMLMarkMethods> getMarkingMethods(){return markingMethods;}
 
-    public void setMarkingMethods(ArrayList<XMLMarkMethods> markingMethods) {
+    @XmlElementWrapper(name="MarkMethods")
+    @XmlElement(name="MarkMethod")
+    public ArrayList<XMLMarkMethod> getMarkingMethods(){return markingMethods;}
+
+    public void setMarkingMethods(ArrayList<XMLMarkMethod> markingMethods) {
         this.markingMethods = markingMethods;
     }
 }

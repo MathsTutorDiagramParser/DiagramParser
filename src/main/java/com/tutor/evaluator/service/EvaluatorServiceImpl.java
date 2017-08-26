@@ -1,8 +1,7 @@
 package com.tutor.evaluator.service;
 
-import com.tutor.evaluator.model.evaluator.EvaluatorFactory;
 import com.tutor.evaluator.model.markingStructure.MarkSheet;
-import com.tutor.evaluator.model.RubicRulesPOJOObjects.RubricRulesFactory;
+import com.tutor.evaluator.model.rubicRulesPOJOObjects.RubricRulesFactory;
 import com.tutor.evaluator.model.rubricRulesReaderObject.XMLRubricRules;
 import com.tutor.parser.model.graphParser.DiagramStructure.AbstractDiagramStructure;
 import com.tutor.parser.model.util.DiagramType;
@@ -27,9 +26,6 @@ public class EvaluatorServiceImpl implements EvaluatorService {
         this.abstractDiagramStructureTeacher=abstractDiagramStructureTeacher;
         //this.markingStructure=new MarkSheet();
         this.rubricRules= RubricRulesFactory.loadBuiltRubricRules(diagramType);
-
-        markSheet = EvaluatorFactory.getEvaluator(diagramType).evaluate()
-
 
         System.out.println(rubricRules);
         return markSheet;

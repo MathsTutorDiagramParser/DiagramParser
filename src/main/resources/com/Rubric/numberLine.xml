@@ -1,51 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <RubricRules>
     <TaggedValue>
         <tag>Graph Type</tag>
         <tagValue>NUMBRELINE</tagValue>
     </TaggedValue>
+    <ConditionTypes>
+        <ConditionType>
+            <id>C0</id>
+            <name>CORRECT_OPERATION_IN_TWO_SIDE</name>
+        </ConditionType>
+        <ConditionType>
+            <id>C1</id>
+            <name>FINAL_ANSWER</name>
+        </ConditionType>
+
+        <ConditionType>
+            <id>C2</id>
+            <name>MARK_INEQUALITY</name>
+        </ConditionType>
+    </ConditionTypes>
+    <MarkingMethodsTypes>
+        <MarkingMethodType>
+            <id>M0</id>
+            <name>ALL</name>
+        </MarkingMethodType>
+        <MarkingMethodType>
+            <id>M1</id>
+            <name>ANY</name>
+        </MarkingMethodType>
+    </MarkingMethodsTypes>
+
+    <SubQuestionTypes>
+        <SubQuestionType>
+            <id>N0</id>
+            <name>MARKING_INEQUALITY</name>
+        </SubQuestionType>
+
+    </SubQuestionTypes>
 
     <Question>
         <SubQuestion>
-            <id> 0 </id>
-            <condition>
-                <conditionName>CORRECT_OPERATION_IN_TWO_SIDE</conditionName>
-                <totalMarks>0.5</totalMarks>
-                <MarkSet>
-                    <MarkMethod>
-                        <id>01</id>
-                        <gainedMarks>0.5</gainedMarks>
-                        <method>ALL</method>
-                    </MarkMethod>
-                </MarkSet>
-            </condition>
-            <condition>
-                <conditionName>FINAL_ANSWER</conditionName>
-                <totalMarks>0.5</totalMarks>
-                <MarkSet>
-                    <MarkMethod>
-                        <id>01</id>
-                        <gainedMarks>0.5</gainedMarks>
-                        <method>ALL</method>
-                    </MarkMethod>
-                </MarkSet>
-            </condition>
+            <id>0</id>
+            <name>N1</name>
+            <Conditions>
+                <Condition>
+                    <conditionName>C2</conditionName>
+                    <totalMarks>01</totalMarks>
+                    <MarkMethods>
+                        <MarkMethod>
+                            <id>1</id>
+                            <gainedMarks>01</gainedMarks>
+                            <method>M0</method>
+                        </MarkMethod>
+                    </MarkMethods>
+                </Condition>
+            </Conditions>
         </SubQuestion>
-
-        <SubQuestion>
-            <id> 1 </id>
-            <condition>
-                <conditionName>MARK_INEQUALITY</conditionName>
-                <totalMarks>01</totalMarks>
-                <MarkSet>
-                    <MarkMethod>
-                        <id>01</id>
-                        <gainedMarks>01</gainedMarks>
-                        <method>ALL</method>
-                    </MarkMethod>
-                </MarkSet>
-            </condition>
-        </SubQuestion>
-
     </Question>
-
 </RubricRules>

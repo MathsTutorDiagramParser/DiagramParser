@@ -1,13 +1,11 @@
-package com.tutor.evaluator.model.RubicRulesPOJOObjects;
-
-import com.tutor.evaluator.model.rubricRulesReaderObject.XMLMarkMethods;
+package com.tutor.evaluator.model.rubicRulesPOJOObjects;
 
 import java.util.ArrayList;
 
 /**
  * Created by Madhavi Ruwandika on 8/25/2017.
  */
-public class Step {
+public class Condition {
 
     private String name;
     private int totalMarks;

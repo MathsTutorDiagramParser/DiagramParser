@@ -1,13 +1,16 @@
-package com.tutor.evaluator.model.RubicRulesPOJOObjects;
+package com.tutor.evaluator.model.rubicRulesPOJOObjects;
 
 
-import com.tutor.parser.model.util.DiagramType;
-
+import java.util.ArrayList;
 import java.util.List;
 
 public class RubricRules {
 
     List<SubQuestion> subQuestions;
+
+    public RubricRules() {
+        this.subQuestions = new ArrayList<>();
+    }
 
     public List<SubQuestion> getSubQuestions() {
         return subQuestions;

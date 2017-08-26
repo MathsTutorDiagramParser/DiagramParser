@@ -1,8 +1,8 @@
-package com.tutor.evaluator.model.RubicRulesPOJOObjects;
+package com.tutor.evaluator.model.rubicRulesPOJOObjects;
 
 
 import com.tutor.evaluator.model.rubricRulesReaderObject.XMLRubricRules;
-import com.tutor.evaluator.service.MarkingSchemeReaderService;
+import com.tutor.evaluator.service.MarkingSchemeReaderServiceImpl;
 import com.tutor.parser.model.util.DiagramType;
 
 import javax.xml.bind.JAXBException;
@@ -33,7 +33,7 @@ public class RubricRulesFactory {
             default:
                 break;
         }
-        MarkingSchemeReaderService rubricParsingHandler=new MarkingSchemeReaderService();
+        MarkingSchemeReaderServiceImpl rubricParsingHandler=new MarkingSchemeReaderServiceImpl();
         XMLRubricRules xmlRubric=rubricParsingHandler.readFromXML(filename);
         return xmlRubric;
 

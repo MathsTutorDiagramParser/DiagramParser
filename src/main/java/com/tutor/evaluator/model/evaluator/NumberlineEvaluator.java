@@ -1,17 +1,15 @@
 package com.tutor.evaluator.model.evaluator;
 
-import com.tutor.evaluator.model.RubicRulesPOJOObjects.Step;
-import com.tutor.evaluator.model.RubicRulesPOJOObjects.SubQuestion;
+import com.tutor.evaluator.model.rubicRulesPOJOObjects.Condition;
+import com.tutor.evaluator.model.rubicRulesPOJOObjects.SubQuestion;
 import com.tutor.evaluator.model.constants.StepConstant;
 import com.tutor.evaluator.model.markingStructure.Mark;
 import com.tutor.evaluator.model.markingStructure.MarkSheet;
-import com.tutor.evaluator.model.RubicRulesPOJOObjects.RubricRules;
-import com.tutor.parser.model.feedback.FeedBack;
+import com.tutor.evaluator.model.rubicRulesPOJOObjects.RubricRules;
 import com.tutor.parser.model.graphParser.DiagramStructure.AbstractDiagramStructure;
 import com.tutor.parser.model.graphParser.DiagramStructure.NumberLine.AbstractNumberLineStructure;
 import com.tutor.parser.model.graphParser.DiagramStructure.NumberLine.MarkPoint;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,19 +32,19 @@ public class NumberlineEvaluator extends Evaluator {
 
 
         for (SubQuestion subQuestion : rubricRules.getSubQuestions()){
-            List<Step> steps = subQuestion.getSteps();
+
+            List<Condition> conditions = subQuestion.getConditions();
             totalSubQ = 0;
             subQfeedback = "";
             MarkSheet subQmarkSheet = new MarkSheet();
 
-            for (int i = 0; i < steps.size(); i++) {
+            for (int i = 0; i < conditions.size(); i++) {
+                marks = new Mark[conditions.size()];
+                Condition condition = conditions.get(i);
 
-                marks = new Mark[steps.size()];
-                Step step = steps.get(i);
-
-                if (step.getName().equals(StepConstant.NUMBERLINE_MARK_INEQUALITY)) {
-                    marks[i] = inequalityCheck(step);
-                } else if (step.getName().equals(StepConstant.NUMBERLINE_FINAL_ANSWER)) {
+                if (condition.getName().equals(StepConstant.NUMBERLINE_MARK_INEQUALITY)) {
+                    marks[i] = inequalityCheck(condition);
+                } else if (condition.getName().equals(StepConstant.NUMBERLINE_FINAL_ANSWER)) {
 
                 }
                 subQmarkSheet = new MarkSheet(totalSubQ, marks, subQfeedback);
@@ -57,7 +55,7 @@ public class NumberlineEvaluator extends Evaluator {
     }
 
 
-    public Mark inequalityCheck(Step step){
+    public Mark inequalityCheck(Condition condition){
         boolean isCorrectLeftEnd = false;
         boolean isCorrectRightEnd = false;
         boolean isFoundLeftEnd = false;
@@ -119,11 +117,11 @@ public class NumberlineEvaluator extends Evaluator {
                     }
                 }
             }
-            for(int x=0;x<step.getMarkingMethods().size();x++) {
-                if (step.getMarkingMethods().get(x).equals("ALL")) {
+            for(int x = 0; x< condition.getMarkingMethods().size(); x++) {
+                if (condition.getMarkingMethods().get(x).equals("ALL")) {
                     if (isCorrectLeftEnd && isCorrectRightEnd) {
-                        totalSubQ += step.getMarkingMethods().get(x).getGainedMarks();
-                        return new Mark(step.getName(), step.getMarkingMethods().get(x).getGainedMarks());
+                        totalSubQ += condition.getMarkingMethods().get(x).getGainedMarks();
+                        return new Mark(condition.getName(), condition.getMarkingMethods().get(x).getGainedMarks());
                     } else {
                         return null;
                     }

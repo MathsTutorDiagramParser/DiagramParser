@@ -2,16 +2,16 @@ package com.tutor.evaluator.model.rubricRulesReaderObject;
 
 import javax.xml.bind.annotation.XmlElement;
 
-public class XMLMarkMethods {
+public class XMLMarkMethod {
 
-    private int id;
+    private int  id;
     private int gainedMarks;
     private String method;
 
-    public XMLMarkMethods(){
+    public XMLMarkMethod(){
 
     }
-    public XMLMarkMethods(int id, int gainedMarks, String method,XMLData data){
+    public XMLMarkMethod(int  id, int gainedMarks, String method){
         this.id=id;
         this.gainedMarks=gainedMarks;
         this.method=method;
