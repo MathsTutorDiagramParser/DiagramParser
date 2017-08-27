@@ -4,9 +4,9 @@ package com.tutor.evaluator.model.constants;
  * Created by Wiranji Dinelka on 8/26/2017.
  */
 public final class TreeDiagramMarkingSteps {
+
     public final static String MARKING_UP_BRANCH = "MARKING UP BRANCH";
     public final static String MARKING_DOWN_BRANCH = "MARKING DOWN BRANCH";
-
 
     public final static String MATCH_O_AND_P = "MATCH_O_AND_P";
     public final static String WRITE_ANY = "WRITE_ANY";

@@ -91,8 +91,8 @@ public class main {
         FeedBackGenerator feedBackGenerator = FeedbackGeneratorFactory.getFeedbackGenerator(diagramType);
         logger.info("*****************************************************");
         logger.info( "Structural feedback: "+feedBackGenerator.generateFinalFeedback(abstractDiagramStructureS.getFeedBackList(),abstractDiagramStructureS));
-        logger.info( "Evaluator feedback: "+markingStructure[0].getFeebback());
-        logger.info( "marks : "+markingStructure[0].getTotalMark());
+        logger.info( "Evaluator feedback: "+markingStructure.getSubMarkSheets().get(0).getFeedBack());
+        logger.info( "marks : "+markingStructure.getSubMarkSheets().get(0).getTotalMark());
         logger.info("*****************************************************");
 
     }
