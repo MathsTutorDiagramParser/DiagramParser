@@ -11,8 +11,9 @@ public class MarkingMethod {
     private int gainedMarks;
     private String method;
 
+    public MarkingMethod() {
+    }
 
-    @XmlElement(name="id")
     public int getId() {
         return id;
     }
@@ -21,7 +22,6 @@ public class MarkingMethod {
         this.id = id;
     }
 
-    @XmlElement(name="gainedMarks")
     public int getGainedMarks() {
         return gainedMarks;
     }
@@ -29,8 +29,6 @@ public class MarkingMethod {
     public void setGainedMarks(int gainedMarks) {
         this.gainedMarks = gainedMarks;
     }
-
-    @XmlElement(name="name")
     public String getMethod() {
         return method;
     }

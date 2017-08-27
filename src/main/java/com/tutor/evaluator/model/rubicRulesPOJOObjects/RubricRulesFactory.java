@@ -22,7 +22,7 @@ public class RubricRulesFactory {
                 filename = "";
                 break;
             case TREEDIAGRAM:
-                filename="";
+                filename="treeDiagram.xml";
                 break;
             case NUMBRELINE:
                 filename="numberLine.xml";

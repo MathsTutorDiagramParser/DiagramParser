@@ -85,7 +85,7 @@ public class main {
         AbstractDiagramStructure  modelAnswer = modelAnswerService.getModelAnswer(fileReaderSupportService.ModelAnswer(diagramType),diagramType,1);
 
         EvaluatorServiceImpl evaluatorService=new EvaluatorServiceImpl(diagramType);
-        MarkSheet[] markingStructure = evaluatorService.evaluate(abstractDiagramStructureS,modelAnswer,abstractDiagramStructureS.getFeedBackList());
+        MarkSheet markingStructure = evaluatorService.evaluate(abstractDiagramStructureS,modelAnswer,abstractDiagramStructureS.getFeedBackList());
 
         logger.info("//////////////////////////////////Feedback//////////////////////////////////");
         FeedBackGenerator feedBackGenerator = FeedbackGeneratorFactory.getFeedbackGenerator(diagramType);
