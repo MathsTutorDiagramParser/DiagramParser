@@ -286,6 +286,62 @@
                 <Objects>
                     <Object>
                         <id>0</id>
+                        <type>I5</type>
+                    </Object>
+                </Objects>
+            </LeftGraph>
+            <RightGraph>
+                <Objects>
+                    <Object>
+                        <id>0</id>
+                        <type>I0</type>
+                    </Object>
+                    <Object>
+                        <id>1</id>
+                        <type>I3</type>
+                    </Object>
+                    <Object>
+                        <id>2</id>
+                        <type>I3</type>
+                    </Object>
+                </Objects>
+                <SpatialRelations>
+                    <SpatialRelation>
+                        <objectIdOne>0</objectIdOne>
+                        <objectIdTwo>1</objectIdTwo>
+                        <spatialRelationId>S0</spatialRelationId>
+                    </SpatialRelation>
+                    <SpatialRelation>
+                        <objectIdOne>0</objectIdOne>
+                        <objectIdTwo>1</objectIdTwo>
+                        <spatialRelationId>S4</spatialRelationId>
+                    </SpatialRelation>
+                    <SpatialRelation>
+                        <objectIdOne>1</objectIdOne>
+                        <objectIdTwo>2</objectIdTwo>
+                        <spatialRelationId>S6</spatialRelationId>
+                    </SpatialRelation>
+                </SpatialRelations>
+            </RightGraph>
+            <RuleOperations>
+                <RuleOperation>
+                    <id>o_p1</id>
+                    <ObjectList>
+                        <Object>1</Object>
+                    </ObjectList>
+                </RuleOperation>
+            </RuleOperations>
+        </Rule>
+
+
+
+
+        <Rule>
+            <RuleId>6</RuleId>
+            <LeftGraph>
+                <Objects>
+                    <Object>
+                        <id>0</id>
                         <type>I6</type>
                     </Object>
                 </Objects>
@@ -320,7 +376,7 @@
         </Rule>
 
         <Rule>
-            <RuleId>6</RuleId>
+            <RuleId>7</RuleId>
             <LeftGraph>
                 <Objects>
                     <Object>
@@ -383,6 +439,10 @@
         <SpatialRelationType>
             <id>S5</id>
             <name>NOT_THICK_LINE</name>
+        </SpatialRelationType>
+        <SpatialRelationType>
+            <id>S6</id>
+            <name>ALIGNED_0</name>
         </SpatialRelationType>
     </Relations>
     <TaggedValue>
