@@ -21,7 +21,8 @@ public class SVGObjectTokenizationServiceImpl implements SVGObjectTokenizationSe
 
         //String studentAnswerPath = "E:\\FYP\\implementation\\parser2\\DiagramParser\\src\\main\\resources\\com\\answerFile\\"+fileName+".svg";
         //String studentAnswerPath = "D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\test\\"+filename;
-        String studentAnswerPath = "D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\test\\"+filename;
+        //String studentAnswerPath = "F:\\Final year project\\version 3\\DiagramParser\\src\\main\\resources\\test\\"+filename;
+        String studentAnswerPath = "F:\\Final year project\\version 3\\DiagramParser\\src\\main\\resources\\test\\"+filename;
 
         System.out.println("===========================Start Executing Rules===================================");
         KieContainer kc = KieServices.Factory.get().getKieClasspathContainer();

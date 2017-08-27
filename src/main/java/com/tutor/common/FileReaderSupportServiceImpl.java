@@ -15,7 +15,7 @@ public class FileReaderSupportServiceImpl implements FileReaderSupportService {
                 fileName = "numberLine\\test5.svg";
                 break;
             case HISTOGRAM:
-                fileName = "histogram\\test3.svg";
+                fileName = "histogram\\test5.svg";
                 break;
             case TREEDIAGRAM:
                 fileName = "treeDiagram\\answer2.svg";
@@ -40,6 +40,9 @@ public class FileReaderSupportServiceImpl implements FileReaderSupportService {
                 break;
             case TREEDIAGRAM:
                 fileName = "modelAnswer\\treeDiagram\\answer2.svg";
+                break;
+            case HISTOGRAM:
+                fileName = "modelAnswer\\histogram\\test3.svg";
                 break;
             default:
                 fileName = "svgResult";

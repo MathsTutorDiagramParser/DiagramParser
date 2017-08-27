@@ -28,7 +28,7 @@ public class NumberlineEvaluator extends Evaluator {
     int totalSubQ = 0;
 
     public MarkSheet evaluate(AbstractDiagramStructure studentStructure,
-                              AbstractDiagramStructure teacherStructure, RubricRules rubricRules,List<FeedBack> feedBacks) {
+                                                                            AbstractDiagramStructure teacherStructure, RubricRules rubricRules,List<FeedBack> feedBacks) {
         MarkSheet markSheet = new MarkSheet();
 
         this.studentStructure = studentStructure;
