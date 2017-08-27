@@ -24,8 +24,9 @@ public class NumberlineEvaluator extends Evaluator {
     String subQfeedback ;
     int totalSubQ = 0;
 
-    public MarkSheet[] evaluate(AbstractDiagramStructure studentStructure,
+    public MarkSheet evaluate(AbstractDiagramStructure studentStructure,
                               AbstractDiagramStructure teacherStructure, RubricRules rubricRules,List<FeedBack> feedBacks) {
+        MarkSheet markSheet = null;
         MarkSheet[] markSheets = new MarkSheet[rubricRules.getSubQuestions().size()];
 
         this.studentStructure = studentStructure;
@@ -48,11 +49,11 @@ public class NumberlineEvaluator extends Evaluator {
                 } else if (condition.getName().equals(StepConstant.NUMBERLINE_FINAL_ANSWER)) {
 
                 }
-                subQmarkSheet = new MarkSheet(totalSubQ, marks, subQfeedback);
+                //subQmarkSheet = new MarkSheet(totalSubQ, marks, subQfeedback);
             }
             markSheets[subQuestion.getId()] =  subQmarkSheet;
         }
-        return markSheets;
+        return markSheet;
     }
 
 

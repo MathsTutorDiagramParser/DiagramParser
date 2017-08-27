@@ -38,6 +38,9 @@ public class FileReaderSupportServiceImpl implements FileReaderSupportService {
             case NUMBRELINE:
                 fileName = "modelAnswer\\numberline\\numberlineModel.svg";
                 break;
+            case TREEDIAGRAM:
+                fileName = "modelAnswer\\treeDiagram\\answer2.svg";
+                break;
             default:
                 fileName = "svgResult";
         }
