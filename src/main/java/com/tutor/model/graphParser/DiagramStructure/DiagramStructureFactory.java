@@ -3,6 +3,7 @@ package com.tutor.model.graphParser.DiagramStructure;
 import com.tutor.model.graphParser.DiagramStructure.Histogram.AbstractHistogramStructure;
 import com.tutor.model.graphParser.DiagramStructure.NumberLine.AbstractNumberLineStructure;
 import com.tutor.model.graphParser.DiagramStructure.TreeDiagram.AbstractTreeDiagramStructure;
+import com.tutor.model.graphParser.DiagramStructure.Trignometry.AbstractTrignometryStructure;
 import com.tutor.model.util.DiagramType;
 
 /**
@@ -20,7 +21,7 @@ public class DiagramStructureFactory {
             case TREEDIAGRAM:
                 return new AbstractTreeDiagramStructure();
             case TRIGNOMETRICDIAGRAM:
-                return null;
+                return new AbstractTrignometryStructure();
             default:
                 return null;
         }

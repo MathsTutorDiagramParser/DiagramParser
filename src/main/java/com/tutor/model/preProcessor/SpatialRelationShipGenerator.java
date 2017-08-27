@@ -442,6 +442,7 @@ public class SpatialRelationShipGenerator {
         ArrayList<SpatialRelation>[][] newRelations =
                 new ArrayList[host.getGraphicalImageComponents().size()][host.getGraphicalImageComponents().size()];
 
+
         switch (diagramType){
             case NUMBRELINE:
                 int newItr =0;
@@ -495,10 +496,21 @@ public class SpatialRelationShipGenerator {
                 int newItrTrig =0;
                 for(int oldItr = 0;oldItr < change.length; oldItr++){
                     ArrayList<SpatialRelation>[] substitute = old[oldItr];
+
                     if(!isInArray(Arrays.copyOfRange(redex,1,redex.length),oldItr)){
+                        if(oldItr == redex[0]){
+                            for(int j=0;j<substitute.length;j++){
+                                for(ArrayList<SpatialRelation> relationList:old[oldItr+1]) {
+                                    for(SpatialRelation relation:relationList) {
+                                        substitute[j].add(relation);
+                                    }
+                                }
+                            }
+                        }
                         newRelations[newItrTrig] = buildSubstituteArrayTrig(substitute,redex);
                         newItrTrig++;
                     }
+
                 }
                 host.setRelations(newRelations);
                 break;
@@ -518,13 +530,21 @@ public class SpatialRelationShipGenerator {
         for (int i = 0; i < substitute.length; i++) {
 
             if (i == redex[0]) {
+
                 ArrayList<SpatialRelation> substituteRelation = null;
-                if(substitute[redex[0]].equals(SpatialRelation.TOUCH )|| substitute[redex[1]].equals(SpatialRelation.TOUCH) ) {
+                substituteRelation = substitute[i];
+
+                if(substitute[redex[0]].contains(SpatialRelation.TOUCH )|| substitute[redex[1]].contains(SpatialRelation.TOUCH) ) {
                     substituteRelation.add(SpatialRelation.TOUCH);
                 }
-                if (substitute[redex[0]].equals(SpatialRelation.OVERLAP )|| substitute[redex[1]].equals(SpatialRelation.OVERLAP)){
+                if (substitute[redex[0]].contains(SpatialRelation.OVERLAP )|| substitute[redex[1]].contains(SpatialRelation.OVERLAP)){
                     substituteRelation.add(SpatialRelation.OVERLAP);
                 }
+                if (substitute[redex[0]].contains(SpatialRelation.SAME )|| substitute[redex[1]].contains(SpatialRelation.SAME)){
+                    substituteRelation.add(SpatialRelation.SAME);
+                }
+
+
 
                 newSubstitute[itrNew] = substituteRelation;
                 itrNew++;
@@ -535,7 +555,7 @@ public class SpatialRelationShipGenerator {
             }
 
         }
-        return null;
+        return newSubstitute;
     }
 
 

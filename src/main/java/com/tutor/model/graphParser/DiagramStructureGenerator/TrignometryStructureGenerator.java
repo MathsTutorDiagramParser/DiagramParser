@@ -29,6 +29,7 @@ public class TrignometryStructureGenerator extends DiagramStructureGenerator{
 
             LineConnection connection = new LineConnection(lineOne,lineTwo);
             abstractTrignometryStructure.updateConnectionList(connection);
+
         }
 
         if(ruleID == 1){
@@ -39,10 +40,11 @@ public class TrignometryStructureGenerator extends DiagramStructureGenerator{
         }
 
         if(ruleID == 2){
-            LineConnection connection = (LineConnection) host.getGraphicalImageComponents().get(objects[0]);
-            LineStructure line = (LineStructure) host.getGraphicalImageComponents().get(objects[1]);
-            FigureStructure figure = new FigureStructure(connection , line);
-            abstractTrignometryStructure.updateFigureList(figure);
+
+           // LineConnection connection = new (LineConnection) host.getGraphicalImageComponents().get(objects[0]);
+            LineStructure line = new LineStructure((Line) host.getGraphicalImageComponents().get(objects[1]));
+            //FigureStructure figure = new FigureStructure(connection , line);
+            //abstractTrignometryStructure.updateFigureList(figure);
         }
 
         if(ruleID == 3){

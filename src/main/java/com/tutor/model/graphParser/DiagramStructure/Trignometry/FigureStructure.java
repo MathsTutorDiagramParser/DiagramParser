@@ -1,6 +1,7 @@
 package com.tutor.model.graphParser.DiagramStructure.Trignometry;
 
 import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
+import com.tutor.model.util.ObjectType;
 
 /**
  * Created by Vithusha on 8/16/2017.
@@ -11,9 +12,11 @@ public class FigureStructure extends GraphicalImageComponent {
     private LineConnection connectionTwo;
     private LineStructure line;
 
+
     public FigureStructure(LineConnection connectionOne,LineConnection connectionTwo){
         this.connectionOne = connectionOne;
         this.connectionTwo = connectionTwo;
+        this.objectType = ObjectType.FIGURE;
 
     }
     public FigureStructure(FigureStructure figureStructure,LineStructure line){

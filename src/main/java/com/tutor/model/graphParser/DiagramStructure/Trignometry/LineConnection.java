@@ -4,6 +4,8 @@ package com.tutor.model.graphParser.DiagramStructure.Trignometry;
 import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.model.graphicalPOJOObject.line.Line;
 import com.tutor.model.graphicalPOJOObject.Text.Text;
+import com.tutor.model.util.ObjectType;
+
 /**
  * Created by Vithusha on 8/6/2017.
  */
@@ -20,7 +22,9 @@ public class LineConnection  extends GraphicalImageComponent{
     public LineConnection(LineStructure lineOne , LineStructure lineTwo) {
         this.lineOne = lineOne;
         this.lineTwo = lineTwo;
+        this.objectType = ObjectType.CONNECTION;
     }
+
 
     public void setAngleText(Text angleText) {
         this.angleText = angleText;
@@ -68,4 +72,17 @@ public class LineConnection  extends GraphicalImageComponent{
         }
         return connectionPoint_Y;
     }
+    public double getLowerEnd_X(){
+        return Double.parseDouble(null);
+    }
+    public double getLowerEnd_Y(){
+        return Double.parseDouble(null);
+    }
+    public double getHigherEnd_X(){
+        return Double.parseDouble(null);
+    }
+    public double getHigherEnd_Y(){
+        return Double.parseDouble(null);
+    }
+
 }

@@ -18,6 +18,7 @@ public class AbstractTrignometryStructure extends AbstractDiagramStructure {
     public AbstractTrignometryStructure() {
         connectionList = new ArrayList<>();
         lineList = new ArrayList<>();
+        figureList = new ArrayList<>();
     }
 
     public void setConnectionList(List<LineConnection> connectionList) {
@@ -49,6 +50,7 @@ public class AbstractTrignometryStructure extends AbstractDiagramStructure {
     }
 
     public void updateFigureList(FigureStructure figure){
+
         figureList.add(figure);
     }
 

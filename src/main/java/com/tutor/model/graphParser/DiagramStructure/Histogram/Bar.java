@@ -6,9 +6,9 @@ public class Bar {
     public Rectangle rectangle;
     public Text text;
     // this should be updated by text association
-    // In a bar the low x value alligned with bar
+    // In a bar the low x value aligned with bar
     public double xlow;
-    // In a bar the  high x value alligned with bar (I can get this value by adding the width to xlow as well)
+    // In a bar the  high x value aligned with bar (I can get this value by adding the width to xlow as well)
     public double xhigh;
     // Identify two text(numeric) values in Y axis and then get the length of the line then divide as (numeric value diffrence)/line length.. In which we can get the ratio so I can multiply this value from Bar heigth and get the actual y value
     public double ratio;

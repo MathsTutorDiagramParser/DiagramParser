@@ -3,6 +3,7 @@ package com.tutor;
 
 import com.tutor.model.graphParser.GraphGrammarGenerator.graphGrammarObject.Graph;
 import com.tutor.model.graphParser.Parser.Parser;
+import com.tutor.model.preProcessor.DiagramSpecificOrderGenerator;
 import com.tutor.model.preProcessor.SVGtoPOJOMapper;
 import com.tutor.model.util.DiagramType;
 import com.tutor.model.util.SpatialRelation;
@@ -54,6 +55,7 @@ public class main {
         SVGObjectTokenizationService svgObjectTokenizationService = new SVGObjectTokenizationServiceImpl();
         ObjectSequenceGeneratorService objectSequenceGeneratorService = new ObjectSequenceGeneratorServiceImpl();
         SpatialRelationshipGeneratorService spatialRelationShipGenerator = new SpatialRelationshipGeneratorServiceImpl();
+        DiagramSpecificOrderGenerator diagramSpecificOrderGenerator = new DiagramSpecificOrderGenerator();
 
 
         SVGtoPOJOMapper svGtoPOJOMapper = svgObjectTokenizationService.tokenize(diagramType);
@@ -62,6 +64,7 @@ public class main {
 
         List<GraphicalImageComponent> orderedList = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapper.getGraphicalImageComponents());
 //        objectSequenceGeneratorService.order(svGtoPOJOMapper.getTexts());
+        orderedList = diagramSpecificOrderGenerator.getDiagramSpecificOrderedList(orderedList, diagramType);
         List<GraphicalImageComponent> textList = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapper.getTexts());
 
 

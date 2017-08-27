@@ -49,6 +49,7 @@ public class GrammarGrammarFactory {
                 break;
             case TRIGNOMETRICDIAGRAM:
                 graphGrammar = new TrignometricDGrammar();
+                break;
             default:
                 graphGrammar = null;
                 break;

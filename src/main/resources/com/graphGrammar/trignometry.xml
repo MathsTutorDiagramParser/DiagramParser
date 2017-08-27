@@ -229,7 +229,7 @@
             </RuleOperations>
         </Rule>
         <Rule>
-            <RuleId>4</RuleId>
+            <RuleId>5</RuleId>
             <LeftGraph>
                 <Objects>
                     <Object>
@@ -268,7 +268,7 @@
             </RuleOperations>
         </Rule>
         <Rule>
-            <RuleId>5</RuleId>
+            <RuleId>6</RuleId>
             <LeftGraph>
                 <Objects>
                     <Object>
@@ -307,7 +307,7 @@
             </RuleOperations>
         </Rule>
        <Rule>
-            <RuleId>6</RuleId>
+            <RuleId>7</RuleId>
             <LeftGraph>
                 <Objects>
                     <Object>
