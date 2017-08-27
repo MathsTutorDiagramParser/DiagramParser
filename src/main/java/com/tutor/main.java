@@ -95,5 +95,19 @@ public class main {
         logger.info( "marks : "+markingStructure.getSubMarkSheets().get(0).getTotalMark());
         logger.info("*****************************************************");
 
+        if(diagramType == DiagramType.TREEDIAGRAM) {
+            System.out.println("Total Marks : "+markingStructure.getTotalMark());
+
+            for (int i = 0; i < markingStructure.getSubMarkSheets().size(); i++) {
+                System.out.println("\nSub question : " + i);
+                System.out.println("Total Mark : " + markingStructure.getSubMarkSheets().get(i).getTotalMark());
+
+                for (int k = 0; k < markingStructure.getSubMarkSheets().get(i).getPartitialMark().length; k++) {
+                    System.out.println("Condition : " + k);
+                    System.out.println("Mark is : " + markingStructure.getSubMarkSheets().get(i).getPartitialMark()[k].getValue());
+                    System.out.println("feedback is : " + markingStructure.getSubMarkSheets().get(i).getPartitialMark()[k].getFeedBack());
+                }
+            }
+        }
     }
 }
