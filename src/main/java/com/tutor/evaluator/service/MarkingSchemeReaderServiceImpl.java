@@ -22,7 +22,9 @@ public class MarkingSchemeReaderServiceImpl {
     public RubricRules readFromXML(String filename){
         XMLRubricRules rubricRules = new XMLRubricRules();
         try {
-            File file = new File("D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\com\\Rubric\\"+filename);
+            //File file = new File("E:\\FYP\\implementation\\parser3\\DiagramParser\\src\\main\\resources\\com\\Rubric\\"+filename);
+            //File file = new File("F:\\Final year project\\version 3\\DiagramParser\\src\\main\\resources\\com\\Rubric\\"+filename);
+            File file = new File("F:\\Final year project\\version 3\\DiagramParser\\src\\main\\resources\\com\\Rubric\\"+filename);
 
             JAXBContext jaxbContext = JAXBContext.newInstance(XMLRubricRules.class);
 

@@ -190,7 +190,6 @@ public class StructuralParser {
 
         // keep track whether the object which matched with object type had required relations
         boolean isRelationMatched = true;
-
         // access right graph of the production rule
         Graph ruleGraph = p.getRightGraph();
         //get the total number of objects in right graph of the rule
