@@ -1,19 +1,21 @@
 package com.tutor.model.graphParser.DiagramStructureGenerator;
 
-import com.tutor.model.graphParser.DiagramStructure.AbstractDiagramStructure;
-import com.tutor.model.graphParser.DiagramStructure.NumberLine.TickPoint;
-import com.tutor.model.graphParser.DiagramStructure.Trignometry.AbstractTrignometryStructure;
+
 import com.tutor.model.graphParser.DiagramStructure.Trignometry.FigureStructure;
-import com.tutor.model.graphParser.DiagramStructure.Trignometry.LineConnection;
-import com.tutor.model.graphParser.DiagramStructure.Trignometry.LineStructure;
-import com.tutor.model.graphParser.GraphGrammarGenerator.graphGrammarObject.Graph;
-import com.tutor.model.graphicalPOJOObject.line.Line;
-import com.tutor.model.graphicalPOJOObject.line.VerticalLine;
+
+import com.tutor.parser.model.graphParser.DiagramStructure.AbstractDiagramStructure;
+import com.tutor.parser.model.graphParser.DiagramStructure.Trignometry.AbstractTrignometryStructure;
+import com.tutor.parser.model.graphParser.DiagramStructure.Trignometry.LineConnection;
+import com.tutor.parser.model.graphParser.DiagramStructure.Trignometry.LineStructure;
+import com.tutor.parser.model.graphParser.DiagramStructureGenerator.DiagramStructureGenerator;
+import com.tutor.parser.model.graphParser.GraphGrammarGenerator.graphGrammarObject.Graph;
+import com.tutor.parser.model.graphicalPOJOObject.line.Line;
+
 
 /**
  * Created by Vithusha on 8/16/2017.
  */
-public class TrignometryStructureGenerator extends DiagramStructureGenerator{
+public class TrignometryStructureGenerator extends DiagramStructureGenerator {
     public TrignometryStructureGenerator(){
 
     }
@@ -41,15 +43,15 @@ public class TrignometryStructureGenerator extends DiagramStructureGenerator{
 
         if(ruleID == 2){
 
-           // LineConnection connection = new (LineConnection) host.getGraphicalImageComponents().get(objects[0]);
+            LineConnection connection = (LineConnection) host.getGraphicalImageComponents().get(objects[0]);
             LineStructure line = new LineStructure((Line) host.getGraphicalImageComponents().get(objects[1]));
-            //FigureStructure figure = new FigureStructure(connection , line);
-            //abstractTrignometryStructure.updateFigureList(figure);
+            FigureStructure figure = new FigureStructure(connection , line);
+            abstractTrignometryStructure.updateFigureList(figure);
         }
 
         if(ruleID == 3){
             FigureStructure figure = (FigureStructure) host.getGraphicalImageComponents().get(objects[0]);
-            LineStructure line = (LineStructure) host.getGraphicalImageComponents().get(objects[1]);
+            LineStructure line = new LineStructure((Line) host.getGraphicalImageComponents().get(objects[1]));
             FigureStructure newFigure = new FigureStructure(figure , line);
             abstractTrignometryStructure.updateFigureList(newFigure);
         }

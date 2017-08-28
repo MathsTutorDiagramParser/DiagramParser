@@ -1,10 +1,12 @@
-package com.tutor.model.graphParser.DiagramStructure;
+package com.tutor.parser.model.graphParser.DiagramStructure;
 
-import com.tutor.model.graphParser.DiagramStructure.Histogram.AbstractHistogramStructure;
-import com.tutor.model.graphParser.DiagramStructure.NumberLine.AbstractNumberLineStructure;
-import com.tutor.model.graphParser.DiagramStructure.TreeDiagram.AbstractTreeDiagramStructure;
-import com.tutor.model.graphParser.DiagramStructure.Trignometry.AbstractTrignometryStructure;
-import com.tutor.model.util.DiagramType;
+
+import com.tutor.parser.model.graphParser.DiagramStructure.AbstractDiagramStructure;
+import com.tutor.parser.model.graphParser.DiagramStructure.Histogram.AbstractHistogramStructure;
+import com.tutor.parser.model.graphParser.DiagramStructure.NumberLine.AbstractNumberLineStructure;
+import com.tutor.parser.model.graphParser.DiagramStructure.TreeDiagram.AbstractTreeDiagramStructure;
+import com.tutor.parser.model.graphParser.DiagramStructure.Trignometry.AbstractTrignometryStructure;
+import com.tutor.parser.model.util.DiagramType;
 
 /**
  * Created by Madhavi Ruwandika on 8/4/2017.

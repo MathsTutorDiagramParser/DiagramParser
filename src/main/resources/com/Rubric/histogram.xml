@@ -4,60 +4,45 @@
         <tag>Graph Type</tag>
         <tagValue>HISTOGRAM</tagValue>
     </TaggedValue>
-    <ConditionTypes>
-        <ConditionType>
-            <id>C0</id>
-            <name>MARKING THE AXIS</name>
-        </ConditionType>
-        <ConditionType>
-            <id>C1</id>
-            <name>CORRECT BAR VALUES</name>
-        </ConditionType>
-    </ConditionTypes>
-    <MarkingMethodsTypes>
-        <MarkingMethodType>
-            <id>M0</id>
-            <name>ALL</name>
-        </MarkingMethodType>
-        <MarkingMethodType>
-            <id>M1</id>
-            <name>ANY</name>
-        </MarkingMethodType>
-    </MarkingMethodsTypes>
-    <SubQuestionTypes>
-        <SubQuestionType>
-            <id>N0</id>
-            <name>CORRECT HISTOGRAM</name>
-        </SubQuestionType>
-    </SubQuestionTypes>
     <Question>
         <SubQuestion>
-            <id>0</id>
-            <name>N0</name>
-            <Conditions>
-                <Condition>
-                    <conditionName>C0</conditionName>
-                    <totalMarks>2</totalMarks>
-                    <MarkMethods>
+            <id>01</id>
+            <Steps>
+                <Step>
+                    <id>01</id>
+                    <name>BAR VALUES</name>
+                    <totalMarks>03</totalMarks>
+                    <MarkSet>
                         <MarkMethod>
-                            <id>1</id>
+                            <id>01</id>
+                            <gainedMarks>03</gainedMarks>
+                            <method>ALL</method>
+                        </MarkMethod>
+                        <MarkMethod>
+                            <id>02</id>
                             <gainedMarks>2</gainedMarks>
-                            <method>M0</method>
+                            <method>ANY</method>
                         </MarkMethod>
-                    </MarkMethods>
-                </Condition>
-                <Condition>
-                    <conditionName>C1</conditionName>
-                    <totalMarks>3</totalMarks>
-                    <MarkMethods>
+                    </MarkSet>
+                </Step>
+                <Step>
+                    <id>02</id>
+                    <name>MARKING THE AXIS</name>
+                    <totalMarks>2</totalMarks>
+                    <MarkSet>
                         <MarkMethod>
-                            <id>1</id>
-                            <gainedMarks>3</gainedMarks>
-                            <method>M0</method>
+                            <id>01</id>
+                            <gainedMarks>2</gainedMarks>
+                            <method>ALL</method>
                         </MarkMethod>
-                    </MarkMethods>
-                </Condition>
-            </Conditions>
+                        <MarkMethod>
+                            <id>02</id>
+                            <gainedMarks>1</gainedMarks>
+                            <method>ANY</method>
+                        </MarkMethod>
+                    </MarkSet>
+                </Step>
+            </Steps>
         </SubQuestion>
     </Question>
 </RubricRules>

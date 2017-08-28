@@ -14,7 +14,7 @@ public class FeedbackGeneratorFactory {
             case TRIGNOMETRICDIAGRAM:
                 return null;
             case HISTOGRAM:
-                return new HistogramFeedbackGenerator();
+                return null;
             case TREEDIAGRAM:
                 return null;
             default:

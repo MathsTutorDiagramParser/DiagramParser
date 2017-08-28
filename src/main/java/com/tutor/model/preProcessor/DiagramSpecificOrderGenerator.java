@@ -1,8 +1,9 @@
 package com.tutor.model.preProcessor;
 
-import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
-import com.tutor.model.util.DiagramType;
-import com.tutor.model.util.ObjectType;
+
+import com.tutor.parser.model.graphicalPOJOObject.GraphicalImageComponent;
+import com.tutor.parser.model.util.DiagramType;
+import com.tutor.parser.model.util.ObjectType;
 
 import java.util.List;
 

@@ -1,16 +1,14 @@
-package com.tutor.controller.GraphParser;
+package com.tutor.web.controller.GraphParser;
 
-import com.tutor.model.graphParser.GraphGrammarGenerator.GraphGrammarReaderObject.*;
-import com.tutor.model.util.DiagramType;
+
+import com.tutor.parser.model.graphParser.GraphGrammarGenerator.GraphGrammarReaderObject.XMLGraphGrammar;
+import com.tutor.parser.model.util.DiagramType;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.util.ArrayList;
+
 
 /**
  * Created by Madhavi Ruwandika on 8/4/2017.

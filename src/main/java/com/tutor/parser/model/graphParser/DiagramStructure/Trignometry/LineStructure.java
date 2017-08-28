@@ -1,9 +1,10 @@
-package com.tutor.model.graphParser.DiagramStructure.Trignometry;
+package com.tutor.parser.model.graphParser.DiagramStructure.Trignometry;
 
-import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
-import com.tutor.model.graphicalPOJOObject.Text.Text;
-import com.tutor.model.graphicalPOJOObject.line.Line;
-import com.tutor.model.util.ObjectType;
+
+import com.tutor.parser.model.graphicalPOJOObject.GraphicalImageComponent;
+import com.tutor.parser.model.graphicalPOJOObject.Text.Text;
+import com.tutor.parser.model.graphicalPOJOObject.line.Line;
+import com.tutor.parser.model.util.ObjectType;
 
 /**
  * Created by Vithusha on 8/6/2017.

@@ -1,22 +1,22 @@
-package com.tutor.model.graphParser.Parser.textAligner;
+package com.tutor.parser.model.graphParser.Parser.textAligner;
 
 
-import com.tutor.model.graphParser.DiagramStructure.AbstractDiagramStructure;
-import com.tutor.model.graphParser.DiagramStructure.Trignometry.AbstractTrignometryStructure;
-import com.tutor.model.graphParser.DiagramStructure.Trignometry.LineConnection;
-import com.tutor.model.graphParser.DiagramStructure.Trignometry.LineStructure;
+import com.tutor.parser.model.graphParser.DiagramStructure.AbstractDiagramStructure;
+import com.tutor.parser.model.graphParser.DiagramStructure.Trignometry.AbstractTrignometryStructure;
+import com.tutor.parser.model.graphParser.DiagramStructure.Trignometry.LineConnection;
+import com.tutor.parser.model.graphParser.DiagramStructure.Trignometry.LineStructure;
+import com.tutor.parser.model.graphParser.Parser.textAligner.TextAligner;
+import com.tutor.parser.model.graphicalPOJOObject.GraphicalImageComponent;
+import com.tutor.parser.model.graphicalPOJOObject.Text.Text;
+import com.tutor.parser.model.graphicalPOJOObject.line.Line;
 
-
-import com.tutor.model.graphicalPOJOObject.GraphicalImageComponent;
-import com.tutor.model.graphicalPOJOObject.line.Line;
-import com.tutor.model.graphicalPOJOObject.Text.Text;
-
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Vithusha on 8/5/2017.
  */
-public class TrignometryTextAligner extends TextAligner{
+public class TrignometryTextAligner extends TextAligner {
 // TODO: 8/7/2017 Add the regex patterns correctly
 
     AbstractTrignometryStructure abstractTrignometryStructure;
@@ -31,7 +31,7 @@ public class TrignometryTextAligner extends TextAligner{
     String lengthRegex = "\\d{1,3}(\\.\\d{1,3})?";
     String labelRegex =  "^[a-zA-Z]$";
     String angleRegex = " ";
-    double vertexToleranceRadius;
+    double vertexToleranceRadius = 500;
     double angleToleranceRadius;
 
     public AbstractDiagramStructure alignTextToTrignometry(AbstractTrignometryStructure abstractTrignometryStructure, List<GraphicalImageComponent> textList) {
@@ -50,8 +50,10 @@ public class TrignometryTextAligner extends TextAligner{
             matchAngleText(angleTextList, connection);
         }
 
-        for(Text lengthText : lengthTextList){
-            matchLengthText(lengthText,lineList);
+        if(lengthTextList!=null) {
+            for (Text lengthText : lengthTextList) {
+                matchLengthText(lengthText, lineList);
+            }
         }
 
         return abstractTrignometryStructure;
@@ -64,7 +66,7 @@ public class TrignometryTextAligner extends TextAligner{
     //Get the list of angles from the text list using regex patterns
     public  List<Text> getSubList(List<GraphicalImageComponent> textList, String regex){
         String textValue;
-        List<Text> subTextList = null;
+        List<Text> subTextList = new ArrayList<>();
         for (GraphicalImageComponent textComponent : textList){
             Text text = (Text) textComponent;
             textValue = text.getText().trim();
@@ -77,22 +79,24 @@ public class TrignometryTextAligner extends TextAligner{
     }
     //Match the correct label texts with the line connection and sets the label to the connection
     public void matchLabelText(List<Text> labelTextList, LineConnection lineConnection){
-        for(Text angleText: labelTextList){
-            if (angleText.isAttached()) {
-                Boolean matched = isInsideCircle(lineConnection, angleText);
-                if (matched) {
-                    angleInside.add(angleText);
+        if(labelTextList != null) {
+            for (Text labelText : labelTextList) {
+                if (!labelText.isAttached()) {
+                    Boolean matched = isInsideCircle(lineConnection, labelText);
+                    if (matched) {
+                        angleInside.add(labelText);
+                    }
                 }
             }
-        }
 
-        if (labelsInside.size() ==1){
-            lineConnection.setVertexLabel(labelsInside.get(0));
-        }
-        else if(labelsInside.size() > 1) {
-            Text closestText = findClosestMatching(labelsInside , lineConnection);
-            lineConnection.setVertexLabel(closestText);
-            closestText.isAttached();
+
+            if ((labelsInside!=null)&&(labelsInside.size() == 1)) {
+                lineConnection.setVertexLabel(labelsInside.get(0));
+            } else if ((labelsInside!=null)&&(labelsInside.size() > 1) ){
+                Text closestText = findClosestMatching(labelsInside, lineConnection);
+                lineConnection.setVertexLabel(closestText);
+                closestText.isAttached();
+            }
         }
     }
 
@@ -147,23 +151,23 @@ public class TrignometryTextAligner extends TextAligner{
 
     //Matches a line connection with the closest possible angle text.
     public void matchAngleText(List<Text> angleTextList, LineConnection lineConnection){
-
-        for(Text angletext: angleTextList){
-            if(! angletext.isAttached()) {
-                Boolean matched = isInsideSector(lineConnection, angletext);
-                if (matched) {
-                    angleInside.add(angletext);
+        if(angleTextList!=null) {
+            for (Text angletext : angleTextList) {
+                if (!angletext.isAttached()) {
+                    Boolean matched = isInsideSector(lineConnection, angletext);
+                    if (matched) {
+                        angleInside.add(angletext);
+                    }
                 }
             }
-        }
 
-        if (angleInside.size() ==1){
-            lineConnection.setAngleText(angleInside.get(0));
-        }
-        else if(angleInside.size() > 1) {
-            Text closestText = findClosestMatching(angleInside , lineConnection);
-            lineConnection.setAngleText(closestText);
-            closestText.setAttached(true);
+            if ((labelsInside!=null)&&(angleInside.size() == 1) ){
+                lineConnection.setAngleText(angleInside.get(0));
+            } else if ((labelsInside!=null)&&(angleInside.size() > 1)) {
+                Text closestText = findClosestMatching(angleInside, lineConnection);
+                lineConnection.setAngleText(closestText);
+                closestText.setAttached(true);
+            }
         }
     }
 

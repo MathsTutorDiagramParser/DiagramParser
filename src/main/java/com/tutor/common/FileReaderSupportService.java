@@ -9,4 +9,5 @@ public interface FileReaderSupportService {
 
     public String readStudetAnswer(DiagramType diagramType);
     public String ModelAnswer(DiagramType diagramType);
+
 }

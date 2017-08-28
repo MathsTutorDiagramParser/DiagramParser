@@ -1,5 +1,6 @@
 package com.tutor.parser.model.graphParser.DiagramStructure.Trignometry;
 
+import com.tutor.model.graphParser.DiagramStructure.Trignometry.FigureStructure;
 import com.tutor.parser.model.graphParser.DiagramStructure.AbstractDiagramStructure;
 import com.tutor.parser.model.graphicalPOJOObject.GraphicalImageComponent;
 
