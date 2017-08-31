@@ -27,7 +27,7 @@ public class TrignometryTextAligner extends TextAligner {
     List<Text> labelTextList = null;
     List<Text> lengthTextList = null;
     List<Text> labelsInside =null;
-    List<Text> angleInside =null;
+    List<Text> angleInside = new ArrayList<>();
     String lengthRegex = "\\d{1,3}(\\.\\d{1,3})?";
     String labelRegex =  "^[a-zA-Z]$";
     String angleRegex = " ";

@@ -4,7 +4,10 @@ package com.tutor.model.graphParser.DiagramStructure.Trignometry;
 import com.tutor.parser.model.graphParser.DiagramStructure.Trignometry.LineConnection;
 import com.tutor.parser.model.graphParser.DiagramStructure.Trignometry.LineStructure;
 import com.tutor.parser.model.graphicalPOJOObject.GraphicalImageComponent;
+import com.tutor.parser.model.graphicalPOJOObject.line.Line;
 import com.tutor.parser.model.util.ObjectType;
+
+import java.util.ArrayList;
 
 /**
  * Created by Vithusha on 8/16/2017.
@@ -14,6 +17,7 @@ public class FigureStructure extends GraphicalImageComponent {
     private LineConnection connectionOne;
     private LineConnection connectionTwo;
     private LineStructure line;
+    private ArrayList<LineConnection> connectionList;
 
 
     public FigureStructure(LineConnection connectionOne,LineConnection connectionTwo){
@@ -41,6 +45,21 @@ public class FigureStructure extends GraphicalImageComponent {
     public LineStructure getLine() {
         return line;
     }
+    public FigureStructure(ArrayList<LineConnection> connections){
+        this.connectionList = connections;
+        this.objectType = ObjectType.FIGURE;
+
+    }
+    public void updateConnectionList(ArrayList<LineConnection> connections){
+       for(LineConnection connection : connections) {
+           connectionList.add(connection);
+       }
+    }
+
+    public ArrayList<LineConnection> getConnectionList() {
+        return connectionList;
+    }
+
 
 
 }

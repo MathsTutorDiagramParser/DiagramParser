@@ -54,5 +54,9 @@ public class AbstractTrignometryStructure extends AbstractDiagramStructure {
 
         figureList.add(figure);
     }
+    public  void changeFigureStructure(FigureStructure oldFigure,FigureStructure newFigure){
+        figureList.remove(oldFigure);
+        figureList.add(newFigure);
+    }
 
 }
