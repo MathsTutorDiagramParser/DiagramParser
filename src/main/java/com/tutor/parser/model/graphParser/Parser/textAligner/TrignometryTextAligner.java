@@ -31,7 +31,7 @@ public class TrignometryTextAligner extends TextAligner {
     String lengthRegex = "\\d{1,3}(\\.\\d{1,3})?";
     String labelRegex =  "^[a-zA-Z]$";
     String angleRegex = " ";
-    double vertexToleranceRadius = 500;
+    double vertexToleranceRadius = 900;
     double angleToleranceRadius;
 
     public AbstractDiagramStructure alignTextToTrignometry(AbstractTrignometryStructure abstractTrignometryStructure, List<GraphicalImageComponent> textList) {
@@ -80,11 +80,13 @@ public class TrignometryTextAligner extends TextAligner {
     //Match the correct label texts with the line connection and sets the label to the connection
     public void matchLabelText(List<Text> labelTextList, LineConnection lineConnection){
         if(labelTextList != null) {
+            labelsInside = new ArrayList<>();
+
             for (Text labelText : labelTextList) {
                 if (!labelText.isAttached()) {
                     Boolean matched = isInsideCircle(lineConnection, labelText);
                     if (matched) {
-                        angleInside.add(labelText);
+                        labelsInside.add(labelText);
                     }
                 }
             }
@@ -161,7 +163,7 @@ public class TrignometryTextAligner extends TextAligner {
                 }
             }
 
-            if ((labelsInside!=null)&&(angleInside.size() == 1) ){
+            if ((angleInside!=null)&&(angleInside.size() == 1) ){
                 lineConnection.setAngleText(angleInside.get(0));
             } else if ((labelsInside!=null)&&(angleInside.size() > 1)) {
                 Text closestText = findClosestMatching(angleInside, lineConnection);
@@ -235,6 +237,5 @@ public class TrignometryTextAligner extends TextAligner {
     public void setAngleToleranceRadius(double angleToleranceRadius){
         this.angleToleranceRadius = angleToleranceRadius ;
     }
-
 }
 
