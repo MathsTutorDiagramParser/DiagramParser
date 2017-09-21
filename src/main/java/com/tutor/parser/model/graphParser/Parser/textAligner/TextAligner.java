@@ -147,4 +147,44 @@ public class TextAligner {
         }
         return end_Y;
     }
+
+
+    public void insideSectorClosed(Line line1,Line line2, int x, int y){
+
+        boolean sameEnd = false;
+        boolean is_inside_Connection=false;
+        boolean is_outside_Connection=false;
+        double center_x = 0;
+        double center_y = 0;
+        double radious = 0;
+        boolean l1_higher = false ;
+        boolean l2_higher =false;
+
+
+        if((line1.getX1()==line2.getX1())&& line1.getY1()==line2.getY1()){
+            sameEnd = true;
+            center_x = line1.getX1();
+            center_y = line2.getY1();
+            radious = Math.sqrt(Math.pow((line1.getX1()-line1.getX2()),2)+Math.pow((line1.getY1()-line1.getY2()),2));
+
+        }else if((line1.getX2()==line2.getX2())&& (line1.getY2()==line2.getY2())){
+            sameEnd = true;
+            center_x = line1.getX1();
+            center_y = line2.getY1();
+            radious = Math.sqrt(Math.pow((line1.getX1()-line1.getX2()),2)+Math.pow((line1.getY1()-line1.getY2()),2));
+        }
+        // assume line one is the left aligned of first found line in ordering
+        // inside_connection - within small sector
+        // outside_connection - within large sector
+        if(sameEnd){
+            if(isInsideCircle(x,y,center_x,center_y,radious)){
+
+            }
+        }
+
+    }
+
+
+
+
 }

@@ -27,13 +27,13 @@ public class EvaluatorServiceImpl implements EvaluatorService {
         this.evaluator = EvaluatorFactory.getEvaluator(diagramType);
     }
 
-    public MarkSheet[] evaluate(AbstractDiagramStructure abstractDiagramStructureStudent, AbstractDiagramStructure abstractDiagramStructureTeacher, List<FeedBack> feedBacks)throws JAXBException, FileNotFoundException{
+    public MarkSheet evaluate(AbstractDiagramStructure abstractDiagramStructureStudent, AbstractDiagramStructure abstractDiagramStructureTeacher, List<FeedBack> feedBacks)throws JAXBException, FileNotFoundException{
         this.abstractDiagramStructureStudent=abstractDiagramStructureStudent;
         this.abstractDiagramStructureTeacher=abstractDiagramStructureTeacher;
         //this.markingStructure=new MarkSheet();
         this.rubricRules= RubricRulesFactory.loadBuiltRubricRules(diagramType);
 
-        MarkSheet[] markSheets = evaluator.evaluate(abstractDiagramStructureStudent,abstractDiagramStructureTeacher,rubricRules,feedBacks);
+        MarkSheet markSheets = evaluator.evaluate(abstractDiagramStructureStudent,abstractDiagramStructureTeacher,rubricRules,feedBacks);
 
         return markSheets;
     }

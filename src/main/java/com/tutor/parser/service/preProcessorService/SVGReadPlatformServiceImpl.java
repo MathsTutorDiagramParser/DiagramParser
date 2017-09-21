@@ -312,7 +312,7 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
                y1 =y1+Double.parseDouble((trsfm.substring(10,trsfm.length()).split("\\)")[0]).split(" ")[1]);
 
               SVGText text = new SVGText(x1,y1,tspanConcate);
-                System.out.println("For text labels x , y and labels are");
+                System.out.println("For text.svg labels x , y and labels are");
                 System.out.println(x1);
                 System.out.println(y1);
                 System.out.println(tspanConcate);
