@@ -28,9 +28,7 @@ public class SVGObjectTokenizationServiceImpl implements SVGObjectTokenizationSe
         KieSession ksession = kc.newKieSession( "preprocessor");
         System.out.println("============================Finish Executing Rules==================================");
 
-
         SVGImage svgImage = svgReader.parse(svgImageStudentAnswer, studentAnswerPath);
-
         svgtoPOJOMapper = new SVGtoPOJOMapper(svgImage);
         ksession.insert(svgtoPOJOMapper);
         ksession.fireAllRules();

@@ -50,7 +50,7 @@ public class Parser {
         logger.info("------------------------------finish structural parsing for diagram----------------------------");
 
         logger.info("------------------------------Started textuaral parsing for diagram----------------------------");
-        // validate the diagram through text associator
+        // validate the diagram through text.svg associator
         TextAlignmentAssigner assigner = new TextAlignmentAssigner();
         assigner.assignTextAligner(abstractDiagramStructure,diagramType,textList);
 
