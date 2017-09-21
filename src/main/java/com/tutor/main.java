@@ -107,6 +107,7 @@ public class main {
                     System.out.println("Mark is : " + markingStructure.getSubMarkSheets().get(i).getPartitialMark()[k].getValue());
                     System.out.println("feedback is : " + markingStructure.getSubMarkSheets().get(i).getPartitialMark()[k].getFeedBack());
                 }
+                
             }
         }
     }
