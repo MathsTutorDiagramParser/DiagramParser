@@ -40,19 +40,4 @@ public class StringMatcherServiceImpl {
 
         return totalSimilarity;
     }
-
-    public boolean isSimilarText (String outcomeS, String outcomeT) {
-        boolean isSimilar = false;
-
-        String[] tokens = outcomeS.trim().split("\\s+|-|\\.");
-        System.out.println("Outcome T : "+ outcomeT);
-        System.out.println("Outcome S : "+outcomeS);
-
-        for (String token:tokens) {
-
-        }
-
-        return isSimilar;
-
-    }
 }

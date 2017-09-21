@@ -25,8 +25,8 @@ public class SVGText extends SVGComponent {
         this.x = x;
         this.y = y;
         this.text = text;
-        //this.text = StringEscapeUtils.unescapeHtml4(text);
-        //System.out.println("Text :"+text+" Converted: "+this.text);
+        //this.text.svg = StringEscapeUtils.unescapeHtml4(text.svg);
+        //System.out.println("Text :"+text.svg+" Converted: "+this.text.svg);
         this.fontSize = fontSize;
 
         if(_isNumeric()){

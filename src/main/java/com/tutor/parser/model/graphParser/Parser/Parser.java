@@ -1,18 +1,14 @@
 package com.tutor.parser.model.graphParser.Parser;
 
-import com.tutor.parser.model.feedback.FeedBackGenerator;
-import com.tutor.parser.model.feedback.FeedbackGeneratorFactory;
+
+import com.tutor.parser.model.graphParser.DiagramStructure.DiagramStructureFactory;
 import com.tutor.parser.model.graphParser.DiagramStructure.Histogram.AbstractHistogramStructure;
 import com.tutor.parser.model.graphParser.DiagramStructure.Histogram.Bar;
 import com.tutor.parser.model.graphParser.DiagramStructure.TreeDiagram.AbstractTreeDiagramStructure;
 import com.tutor.parser.model.graphParser.DiagramStructure.TreeDiagram.TreeGraph;
 import com.tutor.parser.model.graphParser.Parser.textAligner.TextAlignmentAssigner;
 import com.tutor.parser.model.graphParser.DiagramStructure.AbstractDiagramStructure;
-import com.tutor.parser.model.graphParser.DiagramStructure.DiagramStructureFactory;
-import com.tutor.parser.model.feedback.FeedBack;
-import com.tutor.parser.model.graphParser.DiagramStructure.NumberLine.AbstractNumberLineStructure;
-import com.tutor.parser.model.graphParser.DiagramStructure.NumberLine.MarkPoint;
-import com.tutor.parser.model.graphParser.DiagramStructure.NumberLine.TickPoint;
+
 import com.tutor.parser.model.graphParser.GraphGrammarGenerator.graphGrammarObject.Graph;
 import com.tutor.parser.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.parser.model.util.DiagramType;
@@ -50,7 +46,7 @@ public class Parser {
         logger.info("------------------------------finish structural parsing for diagram----------------------------");
 
         logger.info("------------------------------Started textuaral parsing for diagram----------------------------");
-        // validate the diagram through text associator
+        // validate the diagram through text.svg associator
         TextAlignmentAssigner assigner = new TextAlignmentAssigner();
         assigner.assignTextAligner(abstractDiagramStructure,diagramType,textList);
 
