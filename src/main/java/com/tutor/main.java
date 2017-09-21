@@ -88,26 +88,28 @@ public class main {
         MarkSheet markingStructure = evaluatorService.evaluate(abstractDiagramStructureS,modelAnswer,abstractDiagramStructureS.getFeedBackList());
 
         logger.info("//////////////////////////////////Feedback//////////////////////////////////");
-        FeedBackGenerator feedBackGenerator = FeedbackGeneratorFactory.getFeedbackGenerator(diagramType);
-        logger.info("*****************************************************");
-        logger.info( "Structural feedback: "+feedBackGenerator.generateFinalFeedback(abstractDiagramStructureS.getFeedBackList(),abstractDiagramStructureS));
-        logger.info( "Evaluator feedback: "+markingStructure.getSubMarkSheets().get(0).getFeedBack());
-        logger.info( "marks : "+markingStructure.getSubMarkSheets().get(0).getTotalMark());
-        logger.info("*****************************************************");
+
+        if(diagramType == DiagramType.NUMBRELINE) {
+            FeedBackGenerator feedBackGenerator = FeedbackGeneratorFactory.getFeedbackGenerator(diagramType);
+            logger.info("*****************************************************");
+            logger.info("Structural feedback: " + feedBackGenerator.generateFinalFeedback(abstractDiagramStructureS.getFeedBackList(), abstractDiagramStructureS));
+            logger.info("Evaluator feedback: " + markingStructure.getSubMarkSheets().get(0).getFeedBack());
+            logger.info("marks : " + markingStructure.getSubMarkSheets().get(0).getTotalMark());
+            logger.info("*****************************************************");
+        }
 
         if(diagramType == DiagramType.TREEDIAGRAM) {
-            System.out.println("Total Marks : "+markingStructure.getTotalMark());
+            logger.info("Total Marks : "+markingStructure.getTotalMark());
 
             for (int i = 0; i < markingStructure.getSubMarkSheets().size(); i++) {
-                System.out.println("\nSub question : " + i);
-                System.out.println("Total Mark : " + markingStructure.getSubMarkSheets().get(i).getTotalMark());
+                logger.info("Sub question : " + (i+1));
+                logger.info("Total Mark : " + markingStructure.getSubMarkSheets().get(i).getTotalMark());
 
-                for (int k = 0; k < markingStructure.getSubMarkSheets().get(i).getPartitialMark().length; k++) {
-                    System.out.println("Condition : " + k);
-                    System.out.println("Mark is : " + markingStructure.getSubMarkSheets().get(i).getPartitialMark()[k].getValue());
-                    System.out.println("feedback is : " + markingStructure.getSubMarkSheets().get(i).getPartitialMark()[k].getFeedBack());
-                }
-                
+//                for (int k = 0; k < markingStructure.getSubMarkSheets().get(i).getPartitialMark().length; k++) {
+//                    logger.info("Condition : " + k);
+//                    logger.info("Mark is : " + markingStructure.getSubMarkSheets().get(i).getPartitialMark()[k].getValue());
+//                    logger.info("feedback is : " + markingStructure.getSubMarkSheets().get(i).getPartitialMark()[k].getFeedBack());
+//                }
             }
         }
     }
