@@ -1,15 +1,19 @@
 package com.tutor;
-
 import com.tutor.common.FileReaderSupportService;
 import com.tutor.common.FileReaderSupportServiceImpl;
-import com.tutor.model.preProcessor.DiagramSpecificOrderGenerator;
-
+import com.tutor.evaluator.service.EvaluatorServiceImpl;
+import com.tutor.evaluator.model.markingStructure.MarkSheet;
+import com.tutor.evaluator.service.ModelAnswerService;
+import com.tutor.evaluator.service.ModelAnswerServiceImpl;
+import com.tutor.parser.model.feedback.FeedBackGenerator;
+import com.tutor.parser.model.feedback.FeedbackGeneratorFactory;
+import com.tutor.parser.model.graphParser.DiagramStructure.AbstractDiagramStructure;
 import com.tutor.parser.model.graphParser.GraphGrammarGenerator.graphGrammarObject.Graph;
 import com.tutor.parser.model.graphParser.Parser.Parser;
-import com.tutor.parser.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.parser.model.preProcessor.SVGtoPOJOMapper;
 import com.tutor.parser.model.util.DiagramType;
 import com.tutor.parser.model.util.SpatialRelation;
+import com.tutor.parser.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.parser.service.preProcessorService.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,30 +61,38 @@ public class main {
         SVGObjectTokenizationService svgObjectTokenizationService = new SVGObjectTokenizationServiceImpl();
         ObjectSequenceGeneratorService objectSequenceGeneratorService = new ObjectSequenceGeneratorServiceImpl();
         SpatialRelationshipGeneratorService spatialRelationShipGenerator = new SpatialRelationshipGeneratorServiceImpl();
-        DiagramSpecificOrderGenerator diagramSpecificOrderGenerator = new DiagramSpecificOrderGenerator();
-
         FileReaderSupportService fileReaderSupportService = new FileReaderSupportServiceImpl();
-        SVGtoPOJOMapper svGtoPOJOMapper = svgObjectTokenizationService.tokenize(fileReaderSupportService.readStudetAnswer(diagramType));
+
+        SVGtoPOJOMapper svGtoPOJOMapperS = svgObjectTokenizationService.tokenize(fileReaderSupportService.readStudetAnswer(diagramType));
+
         logger.info("//////////////////////////////////done seperation//////////////////////////////////");
 
-
-        List<GraphicalImageComponent> orderedList = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapper.getGraphicalImageComponents());
-//        objectSequenceGeneratorService.order(svGtoPOJOMapper.getTexts());
-        orderedList = diagramSpecificOrderGenerator.getDiagramSpecificOrderedList(orderedList, diagramType);
-        List<GraphicalImageComponent> textList = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapper.getTexts());
-
-
-        ArrayList<SpatialRelation>[][] relations =
-                spatialRelationShipGenerator.getSpatialRelationshipMatrixOfObject(orderedList);
-
+        List<GraphicalImageComponent> orderedListS = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapperS.getGraphicalImageComponents());
+        List<GraphicalImageComponent> textListS = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapperS.getTexts());
+        ArrayList<SpatialRelation>[][] relationsS =
+                spatialRelationShipGenerator.getSpatialRelationshipMatrixOfObject(orderedListS);
         logger.info("//////////////////////////////////done relationship identification//////////////////////////////////");
 
 
-        Graph host  = new Graph();
-        host.setGraphicalImageComponents(orderedList);
-        host.setRelations(relations);
+        Graph hostS  = new Graph();
+        hostS.setGraphicalImageComponents(orderedListS);
+        hostS.setRelations(relationsS);
+        Parser parserS = new Parser(diagramType);
+        AbstractDiagramStructure abstractDiagramStructureS=parserS.parse(hostS,textListS);
 
-        Parser parser = new Parser(diagramType);
-        parser.parse(host,textList);
+        logger.info("//////////////////////////////////Starting Grading Module//////////////////////////////////");
+        ModelAnswerService modelAnswerService = new ModelAnswerServiceImpl();
+        AbstractDiagramStructure  modelAnswer = modelAnswerService.getModelAnswer(fileReaderSupportService.ModelAnswer(diagramType),diagramType,1);
+
+        EvaluatorServiceImpl evaluatorService=new EvaluatorServiceImpl(diagramType);
+        MarkSheet[] markingStructure = evaluatorService.evaluate(abstractDiagramStructureS,modelAnswer,abstractDiagramStructureS.getFeedBackList());
+
+        logger.info("//////////////////////////////////Feedback//////////////////////////////////");
+        FeedBackGenerator feedBackGenerator = FeedbackGeneratorFactory.getFeedbackGenerator(diagramType);
+        logger.info("*****************************************************");
+        logger.info(feedBackGenerator.generateFinalFeedback(abstractDiagramStructureS.getFeedBackList(),abstractDiagramStructureS));
+        logger.info(markingStructure[0].getFeebback());
+        logger.info("*****************************************************");
+
     }
 }
