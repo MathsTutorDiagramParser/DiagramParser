@@ -9,6 +9,9 @@ public class Mark {
     private int value;
     private String feedBack = "";
 
+    public Mark() {
+    }
+
     public Mark(String condition, int value) {
         this.condition = condition;
         this.value = value;
@@ -28,5 +31,13 @@ public class Mark {
 
     public void setValue(int value) {
         this.value = value;
+    }
+
+    public String getFeedBack() {
+        return feedBack;
+    }
+
+    public void setFeedBack(String feedBack) {
+        this.feedBack = feedBack;
     }
 }
