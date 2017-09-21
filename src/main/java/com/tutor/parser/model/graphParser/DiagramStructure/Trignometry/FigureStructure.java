@@ -1,10 +1,7 @@
-package com.tutor.model.graphParser.DiagramStructure.Trignometry;
+package com.tutor.parser.model.graphParser.DiagramStructure.Trignometry;
 
 
-import com.tutor.parser.model.graphParser.DiagramStructure.Trignometry.LineConnection;
-import com.tutor.parser.model.graphParser.DiagramStructure.Trignometry.LineStructure;
 import com.tutor.parser.model.graphicalPOJOObject.GraphicalImageComponent;
-import com.tutor.parser.model.graphicalPOJOObject.line.Line;
 import com.tutor.parser.model.util.ObjectType;
 
 import java.util.ArrayList;

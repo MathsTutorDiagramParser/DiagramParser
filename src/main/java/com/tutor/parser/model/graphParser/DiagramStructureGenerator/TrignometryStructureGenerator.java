@@ -1,8 +1,7 @@
-package com.tutor.model.graphParser.DiagramStructureGenerator;
+package com.tutor.parser.model.graphParser.DiagramStructureGenerator;
 
 
-import com.sun.xml.internal.bind.v2.TODO;
-import com.tutor.model.graphParser.DiagramStructure.Trignometry.FigureStructure;
+import com.tutor.parser.model.graphParser.DiagramStructure.Trignometry.FigureStructure;
 
 import com.tutor.parser.model.graphParser.DiagramStructure.AbstractDiagramStructure;
 import com.tutor.parser.model.graphParser.DiagramStructure.Trignometry.AbstractTrignometryStructure;
@@ -12,7 +11,6 @@ import com.tutor.parser.model.graphParser.DiagramStructureGenerator.DiagramStruc
 import com.tutor.parser.model.graphParser.GraphGrammarGenerator.graphGrammarObject.Graph;
 import com.tutor.parser.model.graphicalPOJOObject.line.Line;
 import com.tutor.parser.model.preProcessor.SpatialRelationShipGenerator;
-import com.tutor.parser.model.util.SpatialRelation;
 
 import java.util.ArrayList;
 import java.util.List;

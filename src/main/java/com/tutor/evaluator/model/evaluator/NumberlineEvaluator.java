@@ -81,7 +81,7 @@ public class NumberlineEvaluator extends Evaluator {
                                     isFoundLeftEnd = true;
                                 } else {
                                     if (teacherMarkPoints.get(j).isInfinity()) {
-                                        subQfeedback = "Left end of the mark line should goes to negetive infinity.";
+                                        subQfeedback = "Left end of the mark line should goes to negative infinity.";
                                     } else {
                                         subQfeedback = "Left end point of the mark line should be " + teacherMarkPoints.get(j).getText()+".";
                                     }

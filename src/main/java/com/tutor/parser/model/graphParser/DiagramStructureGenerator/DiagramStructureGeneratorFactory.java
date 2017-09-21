@@ -1,6 +1,5 @@
 package com.tutor.parser.model.graphParser.DiagramStructureGenerator;
 
-import com.tutor.model.graphParser.DiagramStructureGenerator.TrignometryStructureGenerator;
 import com.tutor.parser.model.util.DiagramType;
 
 /**

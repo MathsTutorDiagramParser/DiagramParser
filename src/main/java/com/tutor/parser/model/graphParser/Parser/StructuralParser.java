@@ -22,7 +22,7 @@ import com.tutor.parser.model.preProcessor.SpatialRelationShipGenerator;
 import com.tutor.parser.model.util.DiagramType;
 import com.tutor.parser.model.util.FeedBackMessage;
 import com.tutor.parser.model.util.ObjectType;
-import com.tutor.model.graphParser.DiagramStructure.Trignometry.FigureStructure;
+import com.tutor.parser.model.graphParser.DiagramStructure.Trignometry.FigureStructure;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import javax.xml.bind.JAXBException;

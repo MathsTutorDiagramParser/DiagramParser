@@ -60,9 +60,6 @@ public class TrignometryTextAligner extends TextAligner {
     }
 
 
-
-
-
     //Get the list of angles from the text list using regex patterns
     public  List<Text> getSubList(List<GraphicalImageComponent> textList, String regex){
         String textValue;
