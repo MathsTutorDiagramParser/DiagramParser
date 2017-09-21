@@ -6,6 +6,8 @@ import com.tutor.parser.model.feedback.FeedBack;
 import com.tutor.parser.model.graphParser.DiagramStructure.TreeDiagram.TreeBranch;
 import com.tutor.parser.model.graphParser.DiagramStructure.TreeDiagram.TreeGraph;
 import com.tutor.parser.model.graphParser.DiagramStructure.TreeDiagram.TreeNode;
+import com.tutor.parser.model.graphParser.DiagramStructure.Trignometry.LineConnection;
+import com.tutor.parser.model.graphParser.DiagramStructure.Trignometry.LineStructure;
 import com.tutor.parser.model.graphParser.DiagramStructureGenerator.DiagramStructureGenerator;
 import com.tutor.parser.model.graphParser.DiagramStructureGenerator.DiagramStructureGeneratorFactory;
 import com.tutor.parser.model.graphParser.GraphGrammar.*;
@@ -15,13 +17,14 @@ import com.tutor.parser.model.graphParser.SpatialRelations.DiagramSpecificSpatia
 import com.tutor.parser.model.graphParser.SpatialRelations.RelationShipIdentifierFactory;
 import com.tutor.parser.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.parser.model.graphicalPOJOObject.line.AngleLine;
+import com.tutor.parser.model.graphicalPOJOObject.line.Line;
 import com.tutor.parser.model.preProcessor.SpatialRelationShipGenerator;
 import com.tutor.parser.model.util.DiagramType;
 import com.tutor.parser.model.util.FeedBackMessage;
 import com.tutor.parser.model.util.ObjectType;
+import com.tutor.model.graphParser.DiagramStructure.Trignometry.FigureStructure;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -164,6 +167,7 @@ public class StructuralParser {
 
         // keep track whether the object which matched with object type had required relations
         boolean isRelationMatched = true;
+
         // access right graph of the production rule
         Graph ruleGraph = p.getRightGraph();
         //get the total number of objects in right graph of the rule
@@ -348,11 +352,71 @@ public class StructuralParser {
             case TREEDIAGRAM:
                 return getSubstituteListOfTreeDiagram(newObjectList, substitute, ruleId, host, redex);
             case TRIGNOMETRICDIAGRAM:
-                return newObjectList;
+
+                return  getSubstituteHostForTrignometry(newObjectList, substitute,ruleId,host,redex);
+
             default:
                 return null;
         }
     }
+
+    private List<GraphicalImageComponent> getSubstituteHostForTrignometry(List<GraphicalImageComponent> newObjectList, GraphicalImageComponent substitute, int ruleId, Graph host, int[] redex) {
+
+        if(ruleId==0){
+            LineStructure lineOne = new LineStructure((Line) host.getGraphicalImageComponents().get(redex[0]));
+            LineStructure lineTwo = new LineStructure((Line) host.getGraphicalImageComponents().get(redex[1]));
+            LineConnection connection = new LineConnection(lineOne,lineTwo);
+            connection.objectType = ObjectType.CONNECTION;
+            newObjectList.add(connection);
+            first_checkIndex_afterRuleApplication = redex[0]+1;
+        }
+        if(ruleId==1){
+            LineConnection connectionOne = (LineConnection) host.getGraphicalImageComponents().get(redex[0]);
+            LineConnection connectionTwo = (LineConnection) host.getGraphicalImageComponents().get(redex[1]);
+            FigureStructure figure = new FigureStructure(connectionOne,connectionTwo);
+            figure.objectType = ObjectType.FIGURE;
+            newObjectList.add(figure);
+            first_checkIndex_afterRuleApplication = redex[0]+1;
+        }
+        if(ruleId==2){
+            LineConnection connection = (LineConnection) host.getGraphicalImageComponents().get(redex[0]);
+            LineStructure line = new LineStructure((Line) host.getGraphicalImageComponents().get(redex[1]));
+            FigureStructure figure = new FigureStructure(connection,line);
+            figure.objectType = ObjectType.FIGURE;
+            newObjectList.add(figure);
+            first_checkIndex_afterRuleApplication = redex[0];
+        }
+        if(ruleId==3){
+            FigureStructure figureIn = (FigureStructure) host.getGraphicalImageComponents().get(redex[0]);
+            LineStructure line = new LineStructure((Line) host.getGraphicalImageComponents().get(redex[1]));
+            FigureStructure figure = new FigureStructure(figureIn,line);
+            figure.objectType = ObjectType.FIGURE;
+            newObjectList.add(figure);
+            first_checkIndex_afterRuleApplication = redex[0];
+        }
+        if(ruleId==4){
+
+            newObjectList.add(substitute);
+            first_checkIndex_afterRuleApplication = redex[0]+1;
+        }
+        if(ruleId==5){
+            newObjectList.add(substitute);
+            first_checkIndex_afterRuleApplication = redex[0];
+        }
+        if(ruleId==6){
+            newObjectList.add(substitute);
+            first_checkIndex_afterRuleApplication = redex[0];
+        }
+        if(ruleId==7){
+
+                newObjectList.add(substitute);
+                first_checkIndex_afterRuleApplication = redex[0]+1;
+
+        }
+        return newObjectList;
+
+    }
+
 
     public List<GraphicalImageComponent> getSubstituteListOfTreeDiagram(List<GraphicalImageComponent> newObjectList, GraphicalImageComponent substitute, int ruleId, Graph host, int[] redex) {
         if (ruleId == 0) {

@@ -1,5 +1,6 @@
 package com.tutor.parser.model.graphParser.DiagramStructureGenerator;
 
+import com.tutor.model.graphParser.DiagramStructureGenerator.TrignometryStructureGenerator;
 import com.tutor.parser.model.util.DiagramType;
 
 /**
@@ -15,6 +16,8 @@ public class DiagramStructureGeneratorFactory {
                 return new HistogramStructureGenerator();
             case TREEDIAGRAM:
                 return new TreeDiagramStructureGenerator();
+            case TRIGNOMETRICDIAGRAM:
+                return new TrignometryStructureGenerator();
             default:
                 return null;
         }

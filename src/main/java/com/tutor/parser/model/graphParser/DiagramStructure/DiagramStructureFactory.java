@@ -1,8 +1,11 @@
 package com.tutor.parser.model.graphParser.DiagramStructure;
 
+
+import com.tutor.parser.model.graphParser.DiagramStructure.AbstractDiagramStructure;
 import com.tutor.parser.model.graphParser.DiagramStructure.Histogram.AbstractHistogramStructure;
 import com.tutor.parser.model.graphParser.DiagramStructure.NumberLine.AbstractNumberLineStructure;
 import com.tutor.parser.model.graphParser.DiagramStructure.TreeDiagram.AbstractTreeDiagramStructure;
+import com.tutor.parser.model.graphParser.DiagramStructure.Trignometry.AbstractTrignometryStructure;
 import com.tutor.parser.model.util.DiagramType;
 
 /**
@@ -20,7 +23,7 @@ public class DiagramStructureFactory {
             case TREEDIAGRAM:
                 return new AbstractTreeDiagramStructure();
             case TRIGNOMETRICDIAGRAM:
-                return null;
+                return new AbstractTrignometryStructure();
             default:
                 return null;
         }
