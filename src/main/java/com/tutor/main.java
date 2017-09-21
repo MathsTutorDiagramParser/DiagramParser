@@ -85,14 +85,30 @@ public class main {
         AbstractDiagramStructure  modelAnswer = modelAnswerService.getModelAnswer(fileReaderSupportService.ModelAnswer(diagramType),diagramType,1);
 
         EvaluatorServiceImpl evaluatorService=new EvaluatorServiceImpl(diagramType);
-        MarkSheet[] markingStructure = evaluatorService.evaluate(abstractDiagramStructureS,modelAnswer,abstractDiagramStructureS.getFeedBackList());
+        MarkSheet markingStructure = evaluatorService.evaluate(abstractDiagramStructureS,modelAnswer,abstractDiagramStructureS.getFeedBackList());
 
         logger.info("//////////////////////////////////Feedback//////////////////////////////////");
         FeedBackGenerator feedBackGenerator = FeedbackGeneratorFactory.getFeedbackGenerator(diagramType);
         logger.info("*****************************************************");
-        logger.info(feedBackGenerator.generateFinalFeedback(abstractDiagramStructureS.getFeedBackList(),abstractDiagramStructureS));
-        logger.info(markingStructure[0].getFeebback());
+        logger.info( "Structural feedback: "+feedBackGenerator.generateFinalFeedback(abstractDiagramStructureS.getFeedBackList(),abstractDiagramStructureS));
+        logger.info( "Evaluator feedback: "+markingStructure.getSubMarkSheets().get(0).getFeedBack());
+        logger.info( "marks : "+markingStructure.getSubMarkSheets().get(0).getTotalMark());
         logger.info("*****************************************************");
 
+        if(diagramType == DiagramType.TREEDIAGRAM) {
+            System.out.println("Total Marks : "+markingStructure.getTotalMark());
+
+            for (int i = 0; i < markingStructure.getSubMarkSheets().size(); i++) {
+                System.out.println("\nSub question : " + i);
+                System.out.println("Total Mark : " + markingStructure.getSubMarkSheets().get(i).getTotalMark());
+
+                for (int k = 0; k < markingStructure.getSubMarkSheets().get(i).getPartitialMark().length; k++) {
+                    System.out.println("Condition : " + k);
+                    System.out.println("Mark is : " + markingStructure.getSubMarkSheets().get(i).getPartitialMark()[k].getValue());
+                    System.out.println("feedback is : " + markingStructure.getSubMarkSheets().get(i).getPartitialMark()[k].getFeedBack());
+                }
+                
+            }
+        }
     }
 }
