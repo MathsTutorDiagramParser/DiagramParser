@@ -123,6 +123,9 @@ public class SpatialRelationShipGenerator {
         else if(isLineTouch(o1,o2)) {
             relations.add(SpatialRelation.TOUCH);
         }
+        else if(isAnyLineTouch(o1,o2)){
+            relations.add(SpatialRelation.TOUCH);
+        }
         // For Rectangle
         if(isOnTheLine(o1,o2)){
             relations.add(SpatialRelation.TOUCH);
@@ -251,6 +254,32 @@ public class SpatialRelationShipGenerator {
         return false;
     }
 
+    public boolean isAnyLineTouch(GraphicalImageComponent o1,GraphicalImageComponent o2){
+    boolean value = false;
+        if(o1.objectType== ObjectType.LINE && o2.objectType==ObjectType.LINE) {
+            double x11 = o1.getX1();
+            double x12 = o1.getX2();
+            double x21 = o2.getX1();
+            double x22 = o2.getX2();
+            double y11 = o1.getY1();
+            double y12 = o1.getY2();
+            double y21 = o2.getY1();
+            double y22 = o2.getY2();
+
+            if ((findMagnitude(x11, x12, x21, y11, y12, y21) <= 0.5) || (findMagnitude(x11, x12, x22, y11, y12, y22) <= 0.5) ||
+                    (findMagnitude(x11, x21, x22, y11, y21, y22) <= 0.5) || (findMagnitude(x12, x21, x22, y12, y21, y21) <= 0.5)) {
+                value = true;
+            }
+        }
+
+        return value;
+
+    }
+
+    private double findMagnitude(double x1, double x2, double x3,double y1, double y2, double y3) {
+        double magnitude= Math.abs(((y2-y1)/(x2-x1))-((y3-y1)/(x3-x1)));
+        return  magnitude;
+    }
 
 
     public boolean isOnTheLine(GraphicalImageComponent o1,GraphicalImageComponent o2){
@@ -440,6 +469,7 @@ public class SpatialRelationShipGenerator {
         ArrayList<SpatialRelation>[][] newRelations =
                 new ArrayList[host.getGraphicalImageComponents().size()][host.getGraphicalImageComponents().size()];
 
+
         switch (diagramType){
 
             case NUMBRELINE:
@@ -511,9 +541,73 @@ public class SpatialRelationShipGenerator {
                 break;
 
             case TRIGNOMETRICDIAGRAM:
+                int newItrTrig =0;
+                for(int oldItr = 0;oldItr < change.length; oldItr++){
+                    ArrayList<SpatialRelation>[] substitute = old[oldItr];
 
+                    if(!isInArray(Arrays.copyOfRange(redex,1,redex.length),oldItr)){
+                        if(oldItr == redex[0]){
+                            if(redex.length!=1) {
+                                for (int j = 0; j < substitute.length; j++) {
+                                    for (ArrayList<SpatialRelation> relationList : old[oldItr + 1]) {
+                                        for (SpatialRelation relation : relationList) {
+                                            substitute[j].add(relation);
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+                        newRelations[newItrTrig] = buildSubstituteArrayTrig(substitute,redex);
+                        newItrTrig++;
+                    }
+
+                }
+                host.setRelations(newRelations);
+                break;
         }
 
+    }
+
+    private static ArrayList<SpatialRelation>[] buildSubstituteArrayTrig(ArrayList<SpatialRelation>[] substitute, int[] redex) {
+        int size = substitute.length - redex.length + 1;
+
+        if (size == 0) {
+            return substitute;
+        }
+
+        ArrayList<SpatialRelation>[] newSubstitute = new ArrayList[size];
+        int itrNew = 0;
+        for (int i = 0; i < substitute.length; i++) {
+
+            if (i == redex[0]) {
+
+                ArrayList<SpatialRelation> substituteRelation = null;
+                substituteRelation = substitute[i];
+
+                if(redex.length !=1) {
+                    if (substitute[redex[1]].contains(SpatialRelation.TOUCH)) {
+                        substituteRelation.add(SpatialRelation.TOUCH);
+                    }
+                    if ( substitute[redex[1]].contains(SpatialRelation.OVERLAP)) {
+                        substituteRelation.add(SpatialRelation.OVERLAP);
+                    }
+                    if ( substitute[redex[1]].contains(SpatialRelation.SAME)) {
+                        substituteRelation.add(SpatialRelation.SAME);
+                    }
+                }
+
+
+                newSubstitute[itrNew] = substituteRelation;
+                itrNew++;
+            }
+            else if(( !isInArray(redex, i)) ){
+                newSubstitute[itrNew] = substitute[i];
+                itrNew++;
+            }
+
+        }
+        return newSubstitute;
     }
 
 
@@ -535,6 +629,7 @@ public class SpatialRelationShipGenerator {
         }
         return newSubstitute;
     }
+
 
     public static boolean isInArray(int[] array, int element){
         for(int i=0;i<array.length;i++){

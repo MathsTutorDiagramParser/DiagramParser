@@ -1,12 +1,14 @@
 package com.tutor.web.controller.GraphParser;
 
-import com.tutor.parser.model.graphParser.GraphGrammarGenerator.GraphGrammarReaderObject.*;
+
+import com.tutor.parser.model.graphParser.GraphGrammarGenerator.GraphGrammarReaderObject.XMLGraphGrammar;
 import com.tutor.parser.model.util.DiagramType;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
+
 
 /**
  * Created by Madhavi Ruwandika on 8/4/2017.
@@ -102,15 +104,14 @@ public class GraphParsingHandler {
                 fileName = "treeDiagram.xml";
                 break;
             case TRIGNOMETRICDIAGRAM:
-                fileName = "trigDiagram.xml";
+                fileName = "trignometry.xml";
+                break;
             default:
-                fileName = "numberLine.xml";
+                fileName = "trignometry.xml";
                 break;
         }
         try {
-            //File file = new File("E:\\FYP\\implementation\\parser3\\DiagramParser\\src\\main\\resources\\com\\graphGrammar\\"+fileName);
-            //File file = new File("D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\com\\graphGrammar\\"+fileName);
-            File file = new File("D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\com\\graphGrammar\\"+fileName);
+            File file = new File("E:\\UoM\\FYP\\DiagramParser\\src\\main\\resources\\com\\graphGrammar\\"+fileName);
 
             JAXBContext jaxbContext = JAXBContext.newInstance(XMLGraphGrammar.class);
 

@@ -1,35 +1,39 @@
 package com.tutor.parser.model.graphParser.DiagramStructure.Trignometry;
 
 
-import com.tutor.parser.model.graphicalPOJOObject.line.Line;
+import com.tutor.parser.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.parser.model.graphicalPOJOObject.Text.Text;
+import com.tutor.parser.model.util.ObjectType;
+
 /**
  * Created by Vithusha on 8/6/2017.
  */
-public class LineConnection  {
+public class LineConnection  extends GraphicalImageComponent {
 
-    private Line lineOne;
-    private Line lineTwo;
+    private LineStructure lineOne;
+    private LineStructure lineTwo;
     private Text angleText;
     private  Text vertexLabel;
     double connectionPoint_X;
     double connectionPoint_Y;
 
 
-    public void setLines(Line lineOne , Line lineTwo) {
+    public LineConnection(LineStructure lineOne , LineStructure lineTwo) {
         this.lineOne = lineOne;
         this.lineTwo = lineTwo;
+        this.objectType = ObjectType.CONNECTION;
     }
+
 
     public void setAngleText(Text angleText) {
         this.angleText = angleText;
     }
 
-    public Line getLineOne() {
+    public LineStructure getLineOne() {
         return lineOne;
     }
 
-    public Line getLineTwo() {
+    public LineStructure getLineTwo() {
         return lineTwo;
     }
 
@@ -47,24 +51,37 @@ public class LineConnection  {
 
     public double getConnectionPoint_X() {
 
-        if((lineOne.getX1()) == lineTwo.getX1() | (lineOne.getX1()) == lineTwo.getX2()){
-            connectionPoint_X = lineOne.getX1();
+        if((lineOne.getLine().getX1()) == lineTwo.getLine().getX1() | (lineOne.getLine().getX1()) == lineTwo.getLine().getX2()){
+            connectionPoint_X = lineOne.getLine().getX1();
         }
 
         else{
-            connectionPoint_X = lineOne.getX2();
+            connectionPoint_X = lineOne.getLine().getX2();
         }
         return connectionPoint_X;
     }
 
     public double getConnectionPoint_Y() {
 
-        if((lineOne.getY1()) == lineTwo.getY1() | (lineOne.getY1()) == lineTwo.getY2()){
-            connectionPoint_Y = lineOne.getY1();
+        if((lineOne.getLine().getY1()) == lineTwo.getLine().getY1() | (lineOne.getLine().getY1()) == lineTwo.getLine().getY2()){
+            connectionPoint_Y = lineOne.getLine().getY1();
         }
         else{
-            connectionPoint_Y = lineOne.getY2();
+            connectionPoint_Y = lineOne.getLine().getY2();
         }
         return connectionPoint_Y;
     }
+    public double getLowerEnd_X(){
+        return Double.parseDouble(null);
+    }
+    public double getLowerEnd_Y(){
+        return Double.parseDouble(null);
+    }
+    public double getHigherEnd_X(){
+        return Double.parseDouble(null);
+    }
+    public double getHigherEnd_Y(){
+        return Double.parseDouble(null);
+    }
+
 }

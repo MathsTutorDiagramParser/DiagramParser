@@ -18,7 +18,9 @@ public enum  ObjectType {
     YAXIS,
     XAXIS,
     BARS,
-    NODE;
+    NODE,
+    CONNECTION,
+    FIGURE ;
 
 
 }
