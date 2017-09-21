@@ -187,7 +187,7 @@ public class NumberlineEvaluator extends Evaluator {
                         subQfeedback = NumberLineEvaluatorConstant.CORRECT_ANS;
                         return new Mark(condition.getName(), condition.getMarkingMethods().get(x).getGainedMarks());
                     } else {
-                        return null;
+                        return new Mark(condition.getName(), 0);
                     }
                 }
             }
