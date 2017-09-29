@@ -1,8 +1,10 @@
 package com.tutor.evaluator.model.evaluator;
 
+import com.tutor.evaluator.model.constants.MarkingCondition;
+import com.tutor.evaluator.model.constants.NumberLineEvaluatorConstant;
+import com.tutor.evaluator.model.markingStructure.SubMarkSheet;
 import com.tutor.evaluator.model.rubicRulesPOJOObjects.Condition;
 import com.tutor.evaluator.model.rubicRulesPOJOObjects.SubQuestion;
-import com.tutor.evaluator.model.constants.StepConstant;
 import com.tutor.evaluator.model.markingStructure.Mark;
 import com.tutor.evaluator.model.markingStructure.MarkSheet;
 import com.tutor.evaluator.model.rubicRulesPOJOObjects.RubricRules;
@@ -11,6 +13,7 @@ import com.tutor.parser.model.graphParser.DiagramStructure.AbstractDiagramStruct
 import com.tutor.parser.model.graphParser.DiagramStructure.NumberLine.AbstractNumberLineStructure;
 import com.tutor.parser.model.graphParser.DiagramStructure.NumberLine.MarkPoint;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,35 +27,36 @@ public class NumberlineEvaluator extends Evaluator {
     String subQfeedback ;
     int totalSubQ = 0;
 
-    public MarkSheet[] evaluate(AbstractDiagramStructure studentStructure,
+    public MarkSheet evaluate(AbstractDiagramStructure studentStructure,
                               AbstractDiagramStructure teacherStructure, RubricRules rubricRules,List<FeedBack> feedBacks) {
-        MarkSheet[] markSheets = new MarkSheet[rubricRules.getSubQuestions().size()];
+        MarkSheet markSheet = new MarkSheet();
 
         this.studentStructure = studentStructure;
         this.teacherStructure = teacherStructure;
 
-
+        ArrayList<SubMarkSheet> subMarkSheets = new ArrayList<>();
         for (SubQuestion subQuestion : rubricRules.getSubQuestions()){
 
             List<Condition> conditions = subQuestion.getConditions();
             totalSubQ = 0;
             subQfeedback = "";
-            MarkSheet subQmarkSheet = new MarkSheet();
+            SubMarkSheet subQmarkSheet = new SubMarkSheet();
 
             for (int i = 0; i < conditions.size(); i++) {
                 marks = new Mark[conditions.size()];
                 Condition condition = conditions.get(i);
-
-                if (condition.getName().equals(StepConstant.NUMBERLINE_MARK_INEQUALITY)) {
+                if (condition.getName().equals(MarkingCondition.NUMBERLINE_MARK_INEQUALITY)) {
                     marks[i] = inequalityCheck(condition);
-                } else if (condition.getName().equals(StepConstant.NUMBERLINE_FINAL_ANSWER)) {
+                } else if (condition.getName().equals(MarkingCondition.NUMBERLINE_FINAL_ANSWER)) {
 
                 }
-                subQmarkSheet = new MarkSheet(totalSubQ, marks, subQfeedback);
+                subQmarkSheet = new SubMarkSheet(totalSubQ, marks, subQfeedback);
             }
-            markSheets[subQuestion.getId()] =  subQmarkSheet;
+            subMarkSheets.add(subQmarkSheet);
         }
-        return markSheets;
+
+        markSheet.setSubMarkSheets(subMarkSheets);
+        return markSheet;
     }
 
 
@@ -67,23 +71,61 @@ public class NumberlineEvaluator extends Evaluator {
 
         if(studentMarkPoints != null && studentMarkPoints.size()!=0 ) {
             for (int k = 0; k < 2; k++) {
-                if(isFoundLeftEnd) {
-                    if (studentMarkPoints.get(k).endOFTheThickLine.equals("LEFT")) {
+                if(!isFoundLeftEnd) {
+                    if (studentMarkPoints.get(k).endOFTheThickLine.equals(NumberLineEvaluatorConstant.LEFT)) {
                         for (int j = 0; j < 2; j++) {
-                            if (teacherMarkPoints.get(j).endOFTheThickLine.equals("LEFT")) {
+                            if (teacherMarkPoints.get(j).endOFTheThickLine.equals(NumberLineEvaluatorConstant.LEFT)) {
                                 if ((studentMarkPoints.get(k).isInfinity() == teacherMarkPoints.get(j).isInfinity())) {
-                                    if(studentMarkPoints.get(k).getText().equals(teacherMarkPoints.get(j).getText())){
+                                    if(!studentMarkPoints.get(k).isInfinity()) {
+                                        try {
+                                            if(studentMarkPoints.get(k).getText()!=null){
+                                                double val = Double.parseDouble(studentMarkPoints.get(k).getText().getText());
+                                                if (studentMarkPoints.get(k).getText().getText().equals(teacherMarkPoints.get(j).getText().getText())) {
+                                                    if (studentMarkPoints.get(k).isFilled == teacherMarkPoints.get(j).isFilled) {
+                                                        isCorrectLeftEnd = true;
+                                                    } else {
+                                                        isCorrectLeftEnd = false;
+                                                        String filledValue = ((teacherMarkPoints.get(j).isFilled == true) ? NumberLineEvaluatorConstant.FILLED : NumberLineEvaluatorConstant.NON_FILLED);
+                                                        if (isFoundRightEnd && isCorrectRightEnd) {
+                                                            subQfeedback = NumberLineEvaluatorConstant.LEFT_VALUE_CORRECT_ISFILLED_INCORRECT + filledValue;
+                                                        } else {
+                                                            subQfeedback = subQfeedback + NumberLineEvaluatorConstant.LEFT_VALUE_CORRECT_ISFILLED_INCORRECT + filledValue;
+                                                        }
+                                                    }
+                                                } else {
+                                                    isCorrectLeftEnd = false;
+                                                    if (isFoundRightEnd && isCorrectRightEnd) {
+                                                        subQfeedback = NumberLineEvaluatorConstant.LEFT_VALUE_INCORRECT + teacherMarkPoints.get(j).getText().getText() + ".";
+                                                    } else {
+                                                        subQfeedback = subQfeedback + NumberLineEvaluatorConstant.LEFT_VALUE_INCORRECT + teacherMarkPoints.get(j).getText().getText() + ".";
+                                                    }
+                                                }
+                                            }
+                                            else {
+                                                isCorrectLeftEnd = false;
+                                                subQfeedback = "Though You have placed the dot in left end point no number or verticle line aligned with it.";
+                                            }
+                                        } catch (NumberFormatException e) {
+                                            subQfeedback = NumberLineEvaluatorConstant.NO_STRING_VALUES;
+                                        }
+                                    }
+                                    else {
                                         isCorrectLeftEnd = true;
-                                    }else {
-                                        isCorrectLeftEnd = false;
-                                        subQfeedback = "Left end of the mark line should have value of "+teacherMarkPoints.get(j).getText()+".";
                                     }
                                     isFoundLeftEnd = true;
                                 } else {
                                     if (teacherMarkPoints.get(j).isInfinity()) {
-                                        subQfeedback = "Left end of the mark line should goes to negetive infinity.";
+                                        if(isFoundRightEnd && isCorrectRightEnd) {
+                                            subQfeedback = NumberLineEvaluatorConstant.LEFT_VALUE_IS_NEGETIVE_INFINITY+" and you have marked it as ("+studentMarkPoints.get(k).getText().getText()+").";
+                                        }else {
+                                            subQfeedback = subQfeedback+NumberLineEvaluatorConstant.LEFT_VALUE_IS_NEGETIVE_INFINITY +"and you have marked it as ("+studentMarkPoints.get(k).getText().getText()+").";
+                                        }
                                     } else {
-                                        subQfeedback = "Left end point of the mark line should be " + teacherMarkPoints.get(j).getText()+".";
+                                        if(isFoundRightEnd && isCorrectRightEnd) {
+                                            subQfeedback = NumberLineEvaluatorConstant.LEFT_VALUE_OF_THE_MARKED_LINE + teacherMarkPoints.get(j).getText() + " and you have marked it as ("+studentMarkPoints.get(k).getText().getText()+").";
+                                        }else {
+                                            subQfeedback = subQfeedback +NumberLineEvaluatorConstant.LEFT_VALUE_OF_THE_MARKED_LINE + teacherMarkPoints.get(j).getText() + " and you have marked it as (" +studentMarkPoints.get(k).getText().getText()+").";
+                                        }
                                     }
                                 }
                                 break;
@@ -91,25 +133,60 @@ public class NumberlineEvaluator extends Evaluator {
                         }
                     }
                 }
-                if(isFoundRightEnd){
-                    if (studentMarkPoints.get(k).endOFTheThickLine.equals("RIGHT")) {
+                if(!isFoundRightEnd){
+                    if (studentMarkPoints.get(k).endOFTheThickLine.equals(NumberLineEvaluatorConstant.RIGHT)) {
                         for (int j = 0; j < 2; j++) {
-                            if (teacherMarkPoints.get(j).endOFTheThickLine.equals("RIGHT")) {
+                            if (teacherMarkPoints.get(j).endOFTheThickLine.equals(NumberLineEvaluatorConstant.RIGHT)) {
                                 if ((studentMarkPoints.get(k).isInfinity() == teacherMarkPoints.get(j).isInfinity())) {
                                     if(!studentMarkPoints.get(k).isInfinity()){
-                                        if(studentMarkPoints.get(k).getText().equals(teacherMarkPoints.get(j).getText())){
-                                            isCorrectRightEnd = true;
-                                        }else {
-                                            isCorrectRightEnd = false;
-                                            subQfeedback = "Right end of the mark line should have value of "+teacherMarkPoints.get(j).getText()+".";
+                                        try {
+                                            if(studentMarkPoints.get(k).getText()!=null){
+                                                double val = Double.parseDouble(studentMarkPoints.get(k).getText().getText());
+                                                if(studentMarkPoints.get(k).getText().getText().equals(teacherMarkPoints.get(j).getText().getText())){
+                                                    if(studentMarkPoints.get(k).isFilled==teacherMarkPoints.get(j).isFilled){
+                                                        isCorrectRightEnd = true;
+                                                    }else {
+                                                        isCorrectRightEnd = false;
+                                                        String filledValue = ((teacherMarkPoints.get(j).isFilled == true) ? NumberLineEvaluatorConstant.FILLED : NumberLineEvaluatorConstant.NON_FILLED);
+                                                        if (isFoundLeftEnd && isCorrectLeftEnd) {
+                                                            subQfeedback = NumberLineEvaluatorConstant.RIGHT_VALUE_CORRECT_ISFILLED_INCORRECT+filledValue;
+                                                        } else {
+                                                            subQfeedback = subQfeedback+ NumberLineEvaluatorConstant.RIGHT_VALUE_CORRECT_ISFILLED_INCORRECT + filledValue;
+                                                        }
+                                                    }
+                                                }else {
+                                                    isCorrectRightEnd = false;
+                                                    if(isFoundLeftEnd && isCorrectLeftEnd){
+                                                        subQfeedback = NumberLineEvaluatorConstant.RIGHT_VALUE_INCORRECT +teacherMarkPoints.get(j).getText().getText()+" and you have marked it as ("+studentMarkPoints.get(k).getText().getText()+").";
+                                                    }else {
+                                                        subQfeedback = subQfeedback+NumberLineEvaluatorConstant.RIGHT_VALUE_INCORRECT+teacherMarkPoints.get(j).getText().getText()+" and you have marked it as ("+studentMarkPoints.get(k).getText().getText()+").";
+                                                    }
+                                                }
+                                            } else {
+                                               isCorrectRightEnd = false;
+                                               subQfeedback = "Though You have placed the dot in right end point no number or verticle line aligned with it.";
+                                            }
+                                        }catch (NumberFormatException e){
+                                            subQfeedback = NumberLineEvaluatorConstant.NO_STRING_VALUES;
                                         }
+                                    } else {
+                                        isCorrectRightEnd = true;
                                     }
                                     isFoundRightEnd = true;
                                 } else {
                                     if (teacherMarkPoints.get(j).isInfinity()) {
-                                        subQfeedback = "Right end of the mark line should goes to positive infinity.";
+                                        if(isFoundLeftEnd && isCorrectLeftEnd){
+                                            subQfeedback = NumberLineEvaluatorConstant.RIGHT_VALUE_IS_POSITIVE_INFINITY + " and you have marked it as ("+studentMarkPoints.get(k).getText().getText()+").";
+                                        }else {
+                                            subQfeedback = subQfeedback+NumberLineEvaluatorConstant.RIGHT_VALUE_IS_POSITIVE_INFINITY + " and you have marked it as ("+studentMarkPoints.get(k).getText().getText()+").";
+                                        }
+
                                     } else {
-                                        subQfeedback = "Right end point of the mark line should be " + teacherMarkPoints.get(j).getText()+".";
+                                        if(isFoundLeftEnd && isCorrectLeftEnd) {
+                                            subQfeedback = NumberLineEvaluatorConstant.RIGHT_VALUE_OF_THE_MARKED_LINE + teacherMarkPoints.get(j).getText().getText() + " and you have marked it as ("+studentMarkPoints.get(k).getText().getText()+").";
+                                        }else {
+                                            subQfeedback = subQfeedback+ NumberLineEvaluatorConstant.RIGHT_VALUE_OF_THE_MARKED_LINE + teacherMarkPoints.get(j).getText().getText() + "and you have marked it as ("+studentMarkPoints.get(k).getText().getText()+").";
+                                        }
                                     }
                                 }
                                 break;
@@ -119,9 +196,10 @@ public class NumberlineEvaluator extends Evaluator {
                 }
             }
             for(int x = 0; x< condition.getMarkingMethods().size(); x++) {
-                if (condition.getMarkingMethods().get(x).equals("ALL")) {
+                if (condition.getMarkingMethods().get(x).getMethod().equals("ALL")) {
                     if (isCorrectLeftEnd && isCorrectRightEnd) {
                         totalSubQ += condition.getMarkingMethods().get(x).getGainedMarks();
+                        subQfeedback = NumberLineEvaluatorConstant.CORRECT_ANS;
                         return new Mark(condition.getName(), condition.getMarkingMethods().get(x).getGainedMarks());
                     } else {
                         return null;
@@ -129,10 +207,9 @@ public class NumberlineEvaluator extends Evaluator {
                 }
             }
         } else {
-            subQfeedback = "No valid inequality to give mark.";
+            subQfeedback = NumberLineEvaluatorConstant.INCORRECT_ANS ;
             return null;
         }
-
         return null;
     }
 
