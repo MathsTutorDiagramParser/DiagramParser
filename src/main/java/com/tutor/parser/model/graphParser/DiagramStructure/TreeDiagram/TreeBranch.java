@@ -4,19 +4,21 @@ import com.tutor.parser.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.parser.model.graphicalPOJOObject.line.AngleLine;
 import com.tutor.parser.model.graphicalPOJOObject.Text.Text;
 
+import java.util.ArrayList;
+
 /**
  * Created by Wiranji Dinelka on 8/5/2017.
  */
 public class TreeBranch extends GraphicalImageComponent {
     private AngleLine angleLine;
-    private Text outCome;
+    private ArrayList<Text> outCome;
     private Text probability;
 
     public TreeBranch(AngleLine angleLine) {
         this.angleLine = angleLine;
     }
 
-    public TreeBranch(AngleLine angleLine, Text outCome, Text probability) {
+    public TreeBranch(AngleLine angleLine, ArrayList<Text> outCome, Text probability) {
         this.angleLine = angleLine;
         this.outCome = outCome;
         this.probability = probability;
@@ -30,11 +32,11 @@ public class TreeBranch extends GraphicalImageComponent {
         this.angleLine = angleLine;
     }
 
-    public Text getOutCome() {
+    public ArrayList<Text> getOutCome() {
         return outCome;
     }
 
-    public void setOutCome(Text outCome) {
+    public void setOutCome(ArrayList<Text> outCome) {
         this.outCome = outCome;
     }
 
