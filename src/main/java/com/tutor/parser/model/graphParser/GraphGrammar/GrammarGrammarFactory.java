@@ -1,6 +1,7 @@
 package com.tutor.parser.model.graphParser.GraphGrammar;
 
-import com.tutor.web.controller.GraphParser.GraphParsingHandler;
+import com.tutor.parser.service.XMLReader.XMLReaderService;
+import com.tutor.parser.service.XMLReader.XMLRederServiceImpl;
 import com.tutor.parser.model.graphParser.GraphGrammarGenerator.GraphGrammarReaderObject.*;
 import com.tutor.parser.model.graphParser.GraphGrammarGenerator.graphGrammarObject.Graph;
 import com.tutor.parser.model.graphParser.GraphGrammarGenerator.graphGrammarObject.ProductionRule;
@@ -27,7 +28,7 @@ public class GrammarGrammarFactory {
     public static GraphGrammar loadBuiltGrammar(DiagramType type) throws JAXBException, FileNotFoundException {
 
         // Read and write grammar xml file
-        GraphParsingHandler graphParsingHandler = new GraphParsingHandler();
+        XMLReaderService graphParsingHandler = new XMLRederServiceImpl();
         //graphParsingHandler.writeToXML();
         XMLGraphGrammar xmlGraphGrammar = graphParsingHandler.readFromXML(type);
         return convertXMLGraphGrammar(xmlGraphGrammar, type);

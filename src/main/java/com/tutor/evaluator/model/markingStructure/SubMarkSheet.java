@@ -4,6 +4,10 @@ package com.tutor.evaluator.model.markingStructure;
  * Created by Wiranji Dinelka on 8/25/2017.
  */
 public class SubMarkSheet {
+
+
+    private int QNo = 1 ;
+    private int gainedMark;
     private int totalMark = 0;
     private Mark[] partitialMark;
     int checkedConditionCount = 0;
@@ -13,10 +17,29 @@ public class SubMarkSheet {
     public SubMarkSheet() {
     }
 
-    public SubMarkSheet(int totalMark, Mark[] partitialMark, String feedBack) {
+    public SubMarkSheet(int totalMark, Mark[] partitialMark, String feedBack,int gainedMark,int QNo) {
+        this.gainedMark = gainedMark;
+        this.QNo  = QNo;
         this.totalMark = totalMark;
         this.partitialMark = partitialMark;
         this.feedBack = feedBack;
+    }
+
+
+    public int getQNo() {
+        return QNo;
+    }
+
+    public void setQNo(int QNo) {
+        this.QNo = QNo;
+    }
+
+    public int getGainedMark() {
+        return gainedMark;
+    }
+
+    public void setGainedMark(int gainedMark) {
+        this.gainedMark = gainedMark;
     }
 
     public int getTotalMark() {

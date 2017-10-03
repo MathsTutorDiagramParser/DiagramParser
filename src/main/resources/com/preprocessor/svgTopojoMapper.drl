@@ -18,6 +18,8 @@ import com.tutor.parser.model.graphicalPOJOObject.Rectangle.Rectangle;
 dialect "mvel";
 dialect "java";
 
+
+
 rule "Horizontal line identifier"
   when
     svgpojomapper : SVGtoPOJOMapper($listOfComponent : svgImage.getLines(),

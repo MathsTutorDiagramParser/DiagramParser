@@ -105,11 +105,6 @@ public class main {
                 logger.info("Sub question : " + (i+1));
                 logger.info("Total Mark : " + markingStructure.getSubMarkSheets().get(i).getTotalMark());
 
-//                for (int k = 0; k < markingStructure.getSubMarkSheets().get(i).getPartitialMark().length; k++) {
-//                    logger.info("Condition : " + k);
-//                    logger.info("Mark is : " + markingStructure.getSubMarkSheets().get(i).getPartitialMark()[k].getValue());
-//                    logger.info("feedback is : " + markingStructure.getSubMarkSheets().get(i).getPartitialMark()[k].getFeedBack());
-//                }
             }
         }
     }

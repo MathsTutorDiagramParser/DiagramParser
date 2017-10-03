@@ -25,37 +25,43 @@ public class NumberlineEvaluator extends Evaluator {
     AbstractDiagramStructure studentStructure;
     AbstractDiagramStructure teacherStructure;
     String subQfeedback ;
-    int totalSubQ = 0;
+    int totalQMark = 0;
+    int totalQGainMark = 0;
+    int totalSubQMark = 0;
+    int totalSubQGainMark = 0;
 
     public MarkSheet evaluate(AbstractDiagramStructure studentStructure,
                               AbstractDiagramStructure teacherStructure, RubricRules rubricRules,List<FeedBack> feedBacks) {
-        MarkSheet markSheet = new MarkSheet();
 
+        MarkSheet markSheet = new MarkSheet();
         this.studentStructure = studentStructure;
         this.teacherStructure = teacherStructure;
 
         ArrayList<SubMarkSheet> subMarkSheets = new ArrayList<>();
+        int itr=1;
         for (SubQuestion subQuestion : rubricRules.getSubQuestions()){
-
             List<Condition> conditions = subQuestion.getConditions();
-            totalSubQ = 0;
+            totalSubQMark = 0;
+            totalSubQGainMark = 0;
             subQfeedback = "";
-            SubMarkSheet subQmarkSheet = new SubMarkSheet();
-
+            marks = new Mark[conditions.size()];
             for (int i = 0; i < conditions.size(); i++) {
-                marks = new Mark[conditions.size()];
+                totalSubQGainMark += conditions.get(i).getTotalMarks();
                 Condition condition = conditions.get(i);
                 if (condition.getName().equals(MarkingCondition.NUMBERLINE_MARK_INEQUALITY)) {
                     marks[i] = inequalityCheck(condition);
-                } else if (condition.getName().equals(MarkingCondition.NUMBERLINE_FINAL_ANSWER)) {
-
                 }
-                subQmarkSheet = new SubMarkSheet(totalSubQ, marks, subQfeedback);
             }
+            SubMarkSheet subQmarkSheet= new SubMarkSheet(totalSubQMark, marks, subQfeedback,totalSubQGainMark,itr);
+            itr++;
             subMarkSheets.add(subQmarkSheet);
+            totalQGainMark+=totalSubQGainMark;
+            totalQMark+=totalSubQMark;
         }
 
         markSheet.setSubMarkSheets(subMarkSheets);
+        markSheet.setTotalMark_gainMark(totalQGainMark);
+        markSheet.setTotalMark(totalQMark);
         return markSheet;
     }
 
@@ -198,7 +204,7 @@ public class NumberlineEvaluator extends Evaluator {
             for(int x = 0; x< condition.getMarkingMethods().size(); x++) {
                 if (condition.getMarkingMethods().get(x).getMethod().equals("ALL")) {
                     if (isCorrectLeftEnd && isCorrectRightEnd) {
-                        totalSubQ += condition.getMarkingMethods().get(x).getGainedMarks();
+                        totalSubQMark += condition.getMarkingMethods().get(x).getGainedMarks();
                         subQfeedback = NumberLineEvaluatorConstant.CORRECT_ANS;
                         return new Mark(condition.getName(), condition.getMarkingMethods().get(x).getGainedMarks());
                     } else {

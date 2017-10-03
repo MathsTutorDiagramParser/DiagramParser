@@ -19,8 +19,8 @@ public class SVGObjectTokenizationServiceImpl implements SVGObjectTokenizationSe
         SVGReadPlatformService svgReader = new SVGReadPlatformServiceImpl();
 
 
-        String studentAnswerPath = "D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\test\\"+filename;
-        //String studentAnswerPath = "D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\test\\"+filename;
+        String studentAnswerPath = filename;
+//        String studentAnswerPath = "D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\test\\"+filename;
         //String studentAnswerPath = "D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\test\\"+filename;
 
         System.out.println("===========================Start Executing Rules===================================");
