@@ -8,6 +8,7 @@ public class MarkSheet {
     private double totalMark_gainMark;
 
     ArrayList<SubMarkSheet> subMarkSheets;
+    String feedback;
 
     public MarkSheet() {
     }
@@ -34,5 +35,13 @@ public class MarkSheet {
 
     public void setSubMarkSheets(ArrayList<SubMarkSheet> subMarkSheets) {
         this.subMarkSheets = subMarkSheets;
+    }
+
+    public String getFeedback() {
+        return feedback;
+    }
+
+    public void setFeedback(String feedback) {
+        this.feedback = feedback;
     }
 }

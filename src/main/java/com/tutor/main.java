@@ -100,11 +100,17 @@ public class main {
 
         if(diagramType == DiagramType.TREEDIAGRAM) {
             logger.info("Total Marks : "+markingStructure.getTotalMark());
+            logger.info("Structure feedback :"+markingStructure.getFeedback());
 
             for (int i = 0; i < markingStructure.getSubMarkSheets().size(); i++) {
                 logger.info("Sub question : " + (i+1));
                 logger.info("Total Mark : " + markingStructure.getSubMarkSheets().get(i).getTotalMark());
 
+                for (int k = 0; k < markingStructure.getSubMarkSheets().get(i).getPartitialMark().length; k++) {
+                    logger.info("Condition : " + k);
+                    logger.info("Mark is : " + markingStructure.getSubMarkSheets().get(i).getPartitialMark()[k].getValue());
+                    logger.info("feedback is : " + markingStructure.getSubMarkSheets().get(i).getPartitialMark()[k].getFeedBack());
+                }
             }
         }
     }

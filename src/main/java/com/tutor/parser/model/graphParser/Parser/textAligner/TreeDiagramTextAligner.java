@@ -10,6 +10,7 @@ import com.tutor.parser.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.parser.model.graphicalPOJOObject.Text.Text;
 import com.tutor.parser.model.graphicalPOJOObject.line.Line;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,6 +28,7 @@ public class TreeDiagramTextAligner extends TextAligner{
     Text levelTwoDesc;
     boolean isLevel1DesSet;
     boolean isLevel2DesSet;
+
 
     public TreeDiagramTextAligner() {
         this.distance = 0.0;
@@ -142,7 +144,13 @@ public class TreeDiagramTextAligner extends TextAligner{
 
         if(text != null) {
             if (minDistance != Double.POSITIVE_INFINITY & text.isAttached() == false) {
-                branch.setOutCome(text);
+                ArrayList<Text> outcomeList;
+                outcomeList = branch.getOutCome();
+                if(outcomeList == null) {
+                    outcomeList = new ArrayList<>();
+                }
+                outcomeList.add(text);
+                branch.setOutCome(outcomeList);
                 text.setAttached(true);
             }
         }
