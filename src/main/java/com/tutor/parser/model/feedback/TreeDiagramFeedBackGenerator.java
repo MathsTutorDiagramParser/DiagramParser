@@ -16,12 +16,6 @@ import java.util.Set;
  * Created by Wiranji Dinelka on 10/24/2017.
  */
 public class TreeDiagramFeedBackGenerator extends FeedBackGenerator {
-    int countValidDiagram = 0;
-    int countInvalidDagram = 0;
-    int conutIncorrectEncOfML = 0;
-    int countExtraObWithValid = 0;
-    int countExtraObWithValidMP = 0;
-    int countExtraObwithInvalid = 0;
 
     public List<FeedBack> generateFeedbackByAnalyzingUnrelatedObjects(List<FeedBack> feedBacks, Graph host){
         return feedBacks;
