@@ -25,14 +25,17 @@ public class NumberlineEvaluator extends Evaluator {
     AbstractDiagramStructure studentStructure;
     AbstractDiagramStructure teacherStructure;
     String subQfeedback ;
+    MarkSheet markSheet;
     int totalSubQ = 0;
 
     public MarkSheet evaluate(AbstractDiagramStructure studentStructure,
-                              AbstractDiagramStructure teacherStructure, RubricRules rubricRules,List<FeedBack> feedBacks) {
-        MarkSheet markSheet = new MarkSheet();
+                              AbstractDiagramStructure teacherStructure, RubricRules rubricRules,String structureFeedBack) {
+        markSheet = new MarkSheet();
 
         this.studentStructure = studentStructure;
         this.teacherStructure = teacherStructure;
+
+
 
         ArrayList<SubMarkSheet> subMarkSheets = new ArrayList<>();
         for (SubQuestion subQuestion : rubricRules.getSubQuestions()){
@@ -56,6 +59,9 @@ public class NumberlineEvaluator extends Evaluator {
         }
 
         markSheet.setSubMarkSheets(subMarkSheets);
+        //To set structure feedback
+        setStructuralFeedback(structureFeedBack);
+
         return markSheet;
     }
 
@@ -211,6 +217,10 @@ public class NumberlineEvaluator extends Evaluator {
             return null;
         }
         return null;
+    }
+
+    private void setStructuralFeedback(String feedback) {
+        this.markSheet.setFeedback(feedback);
     }
 
 }
