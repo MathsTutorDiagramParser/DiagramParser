@@ -109,7 +109,7 @@ public class NumberlineEvaluator extends Evaluator {
                                             }
                                             else {
                                                 isCorrectLeftEnd = false;
-                                                subQfeedback = "Though You have placed the dot in left end point no number or verticle line aligned with it.";
+                                                subQfeedback = "Though You have placed the dot as left end point no number or verticle line aligned with it.";
                                             }
                                         } catch (NumberFormatException e) {
                                             subQfeedback = NumberLineEvaluatorConstant.NO_STRING_VALUES;
@@ -170,7 +170,7 @@ public class NumberlineEvaluator extends Evaluator {
                                                 }
                                             } else {
                                                isCorrectRightEnd = false;
-                                               subQfeedback = "Though You have placed the dot in right end point no number or verticle line aligned with it.";
+                                               subQfeedback = "Though You have placed the dot as right end point no number or verticle line aligned with it.";
                                             }
                                         }catch (NumberFormatException e){
                                             subQfeedback = NumberLineEvaluatorConstant.NO_STRING_VALUES;

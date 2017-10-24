@@ -37,6 +37,7 @@ public class ModelAnswerServiceImpl implements ModelAnswerService{
         ObjectSequenceGeneratorService objectSequenceGeneratorService = new ObjectSequenceGeneratorServiceImpl();
         SpatialRelationshipGeneratorService spatialRelationShipGenerator = new SpatialRelationshipGeneratorServiceImpl();
         SVGtoPOJOMapper svGtoPOJOMapperT = svgObjectTokenizationService.tokenize("D:/Projects/FYP/project/MathsTutor/src/main/resources/test/"+filename);
+//        SVGtoPOJOMapper svGtoPOJOMapperT = svgObjectTokenizationService.tokenize("../webapps/DiargamEvaluation/resources/answers/"+filename);
 
         List<GraphicalImageComponent> orderedListT = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapperT.getGraphicalImageComponents());
         List<GraphicalImageComponent> textListT = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapperT.getTexts());

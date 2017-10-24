@@ -1,7 +1,4 @@
 package com.tutor.model.graphParser.DiagramStructureGenerator;
-
-
-import com.sun.xml.internal.bind.v2.TODO;
 import com.tutor.model.graphParser.DiagramStructure.Trignometry.FigureStructure;
 
 import com.tutor.parser.model.graphParser.DiagramStructure.AbstractDiagramStructure;
@@ -32,7 +29,6 @@ public class TrignometryStructureGenerator extends DiagramStructureGenerator {
     public AbstractDiagramStructure generate(int ruleID, Graph host, AbstractDiagramStructure abstractDiagramStructure, int[] objects) {
         AbstractTrignometryStructure abstractTrignometryStructure = (AbstractTrignometryStructure) abstractDiagramStructure;
         if(ruleID==0){
-
             LineStructure lineOne = new LineStructure((Line) host.getGraphicalImageComponents().get(objects[0]));
             abstractTrignometryStructure.updateLineList(lineOne);
             LineStructure lineTwo = new LineStructure((Line) host.getGraphicalImageComponents().get(objects[1]));

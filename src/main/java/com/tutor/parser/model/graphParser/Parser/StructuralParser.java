@@ -3,6 +3,7 @@ package com.tutor.parser.model.graphParser.Parser;
 import com.tutor.parser.model.feedback.FeedbackGeneratorFactory;
 import com.tutor.parser.model.graphParser.DiagramStructure.AbstractDiagramStructure;
 import com.tutor.parser.model.feedback.FeedBack;
+import com.tutor.parser.model.graphParser.DiagramStructure.NumberLine.AbstractNumberLineStructure;
 import com.tutor.parser.model.graphParser.DiagramStructure.TreeDiagram.TreeBranch;
 import com.tutor.parser.model.graphParser.DiagramStructure.TreeDiagram.TreeGraph;
 import com.tutor.parser.model.graphParser.DiagramStructure.TreeDiagram.TreeNode;
@@ -163,7 +164,7 @@ public class StructuralParser {
         * this method iterate through host graph and find sub graphs which matched with the right graph of production rule
      */
 
-    public int[] findRedexForRApplication(Graph host,ProductionRule p){
+    private int[] findRedexForRApplication(Graph host,ProductionRule p){
 
         // keep track whether the object which matched with object type had required relations
         boolean isRelationMatched = true;

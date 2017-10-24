@@ -182,14 +182,17 @@
 
         $.ajax({
             crossDomain: true,
-            url: 'http://mathstutordiagrams.projects.mrt.ac.lk:8080/mathsTutor/saveTreeDiagram',
+//            url: 'http://localhost:8080/mathsTutor/grade',
+            url: 'http://mathstutordiagrams.projects.mrt.ac.lk:8080/DiargamEvaluation/grade',
             type: 'POST',
             data: {
                 answer: svg,
+                diagramType : "TREEDIAGRAM"
             },
-            success: function(){
-                alert( 'Saved Successfully.');
-                canvas.clear();
+            success: function(page){
+//                alert("answer Saved Successfully");
+                $("html").empty();
+                $("html").append(page);
             }
         });
     });

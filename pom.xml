@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.tutor</groupId>
-    <artifactId>MathsTutor</artifactId>
+    <artifactId>DiargamEvaluation</artifactId>
     <name>MathsTutor Diagrams</name>
     <description>Diargam Evaluation</description>
     <url>http://mathstutordiagrams.projects.mrt.ac.lk:8080/mathsTutor/</url>
@@ -19,7 +19,7 @@
     </parent>
 
     <build>
-        <finalName>MathsTutor</finalName>
+        <finalName>DiargamEvaluation</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -44,7 +44,6 @@
             <!--</plugin>-->
         </plugins>
     </build>
-
 
     <!--<dependencyManagement>-->
         <!--<dependencies>-->
@@ -166,6 +165,9 @@
         <cdi.version>1.2</cdi.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <slf4jVersion>1.7.5</slf4jVersion>
+
+        <start-class>com.tutor.WebApplicationConfig</start-class>
+
     </properties>
 
 

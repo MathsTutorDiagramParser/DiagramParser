@@ -17,6 +17,7 @@ import com.tutor.parser.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.parser.service.preProcessorService.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
@@ -31,6 +32,7 @@ import java.util.Scanner;
 public class main {
 
     private static Logger logger = LoggerFactory.getLogger(main.class);
+
     public static void main(String[] args) throws JAXBException, FileNotFoundException {
 
         DiagramType diagramType = null;
@@ -100,18 +102,14 @@ public class main {
 
         if(diagramType == DiagramType.TREEDIAGRAM) {
             logger.info("Total Marks : "+markingStructure.getTotalMark());
-            logger.info("Structure feedback :"+markingStructure.getFeedback());
 
             for (int i = 0; i < markingStructure.getSubMarkSheets().size(); i++) {
                 logger.info("Sub question : " + (i+1));
                 logger.info("Total Mark : " + markingStructure.getSubMarkSheets().get(i).getTotalMark());
 
-                for (int k = 0; k < markingStructure.getSubMarkSheets().get(i).getPartitialMark().length; k++) {
-                    logger.info("Condition : " + k);
-                    logger.info("Mark is : " + markingStructure.getSubMarkSheets().get(i).getPartitialMark()[k].getValue());
-                    logger.info("feedback is : " + markingStructure.getSubMarkSheets().get(i).getPartitialMark()[k].getFeedBack());
-                }
             }
         }
+
     }
+
 }

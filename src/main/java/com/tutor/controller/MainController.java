@@ -97,6 +97,7 @@ public class MainController {
         String path = "";
         try{
             path = "D:/Projects/FYP/project/MathsTutor/src/main/resources/test/"+System.currentTimeMillis()+".svg";
+//            path = "dataFiles/numberline/answer"+System.currentTimeMillis()+".svg";
             File file = new File(path);
             file.createNewFile();
             FileOutputStream fos = new FileOutputStream(file);

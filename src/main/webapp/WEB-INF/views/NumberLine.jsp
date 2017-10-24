@@ -32,7 +32,7 @@
   </div>
 </div>
 
-<div style="max-width: 1250px">
+<div id="main_div" style="max-width: 1250px">
   <div class="w3-content" style="max-width:1564px;height:30px;margin-top: 70px;" align="center">
     <h4> 01)     x > -1  අසමානතාවයේ විසදුම් සංඛ්‍යා රේඛාව මත නිරූපනය කරන්න.</h4>
   </div>
@@ -49,7 +49,7 @@
   </div>
 
   <div align="center" style="margin-top: 10px;margin-bottom: 20px">
-    <button id ="save" style="width:200px;background-color: forestgreen;">Grade</button>
+    <button id ="save" style="width:200px;background-color: forestgreen;">Save</button>
   </div>
 
 </div>
@@ -57,19 +57,25 @@
 
 
 <script type="text/javascript">
+
     var canvas = new fabric.Canvas("myCanvas",{
         isDrawingMode : false,
         selectable : false,
     });
 
     canvas.selection = false;
+    var filled_dot_clicked = false, non_filled_dot_clicked = false, mark_line_clicked = false;
+    var start_of_line = false;
+    var isMoving = false;
+    var pointX=0;
+    var pointY=0;
 
     var scale = 40;
-    var numberLinePos = [50, 200, 600, 200]; // **if numberLinePos[1],numberLinePos[3] should be equal.
+    var numberLineY = 200;
+    var numberLinePos = [50, numberLineY, 600, numberLineY]; // **if numberLinePos[1],numberLinePos[3] should be equal.
     var dotPlaced = false; // check dot placed before draw arrow
 
     function drawNumLine(){
-
         //main line
         var numLine = new fabric.Line(numberLinePos, {
             strokeWidth: 2,
@@ -159,6 +165,7 @@
     //draw number Line
     drawNumLine();
 
+
     //Draw Arrow
     function createLineArrow(points,side) {
         var line = new fabric.Line(points, {
@@ -203,98 +210,43 @@
             var groupArrow = new fabric.Group([line],{left: points[0],top: points[1]-4, id: 'arrow', hasRotatingPoint: false, lockScalingY: true});
         }
         if (side == 'right'){
-            var groupArrow = new fabric.Group([line],{left: points[2],top: points[3]-4, id: 'arrow', hasRotatingPoint: false, lockScalingY: true});
+            var groupArrow = new fabric.Group([line],{right: points[2],top: points[3]-4, id: 'arrow', hasRotatingPoint: false, lockScalingY: true});
         }
 
         return groupArrow;
 
     }
 
+    function createMarkLine() {
+        filled_dot_clicked = false;
+        non_filled_dot_clicked = false;
+        mark_line_clicked = true;
+        console.log("mark line");
+    }
 
+    //create arrow with dot (not filled)
+    function createArrowWithDot(){
+
+        filled_dot_clicked = false;
+        non_filled_dot_clicked = true;
+        mark_line_clicked = false;
+        console.log("not filled dot");
+    }
+
+    //create arrow with filled dot
+    function createArrowWithFilledDot(){
+        filled_dot_clicked = true;
+        non_filled_dot_clicked = false;
+        mark_line_clicked = false;
+        console.log("filled dot");
+    }
 
     //reset All
     function clearPlane(){
         canvas.clear();
         drawNumLine();
+
     }
-
-
-
-    //create arrow with filled dot
-    function createArrowWithFilledDot(){
-
-        canvas.off();
-        canvas.on({
-            'mouse:down': function(e) {
-                pointX = e.e.clientX-300;
-                pointY = e.e.clientY-150;
-                //appear dot where click
-                if(!dotPlaced && checkDotPlace(pointX,pointY)){
-                    filledDot = placeDot(pointX,pointY,'blue','filledDot');
-                    canvas.add(filledDot);
-                    dotPlaced = true;
-                    canvas.renderAll();
-                }
-                else if(dotPlaced){
-                    dotPlaced = false;
-                    saveObject('arrow');
-                    saveObject('filledDot');
-                    canvas.renderAll();
-                }
-                else{
-                    dotPlaced = false;
-                }
-
-            },
-
-        });
-    }
-
-    function createMarkLine() {
-        canvas.off();
-        canvas.on({
-            'mouse:down': function(e) {
-                point_X = e.e.clientX-300;
-                point_Y = 200;
-                start_of_line = true;
-
-            },
-            'mouse:move': function(e) {
-                if (start_of_line){
-                    //draw arrow to left
-                    if (pointX < e.e.clientX-300){
-                        //remove older arrow
-                        canvas.remove(getItemByMyID('arrow'));
-                        canvas.add(createLineArrow([point_X, point_Y, e.e.clientX-300, point_Y],'left'));
-                    }
-                    else if (pointX > e.e.clientX-300){
-                        //remove older arrow
-                        canvas.remove(getItemByMyID('arrow'));
-                        canvas.add(createLineArrow([point_X, point_Y, e.e.clientX-300, point_Y],'right'));
-                    }
-                }
-            },
-            'mouse:up': function(e) {
-                start_of_line = false;
-                if (start_of_line){
-                    //draw arrow to left
-                    if (point_X < e.e.clientX-300){
-                        //remove older arrow
-                        canvas.remove(getItemByMyID('arrow'));
-                        canvas.add(drawMarkedLine([pointX, pointY, e.e.clientX-300, pointY]));
-                    }
-                    else if (pointX > e.e.clientX-300){
-                        //remove older arrow
-                        canvas.remove(getItemByMyID('arrow'));
-                        canvas.add(drawMarkedLine([pointX, pointY, e.e.clientX-300, pointY]));
-                    }
-                }
-            }
-        });
-    }
-
-
-
     //get object by custom id
     function getItemByMyID(myID) {
         var object = null,
@@ -308,35 +260,6 @@
         return object;
     };
 
-    //create arrow with dot (not filled)
-    function createArrowWithDot(){
-        canvas.off();
-
-        canvas.on({
-            'mouse:down': function(e) {
-                pointX = e.e.clientX-300;
-                pointY = e.e.clientY-150;
-                //appear dot where click
-                if(!dotPlaced && checkDotPlace(pointX,pointY)){
-                    var dot = placeDot(pointX,pointY,'transparent','dot');
-                    canvas.add(dot);
-                    dotPlaced = true;
-                    canvas.renderAll();
-                }
-                else if (dotPlaced){
-
-                    dotPlaced = false;
-                    saveObject('arrow');
-                    saveObject('dot');
-                    canvas.renderAll();
-                }
-                else{
-                    dotPlaced = false;
-                }
-
-            },
-        });
-    }
 
 
     //set xy to dot
@@ -366,20 +289,145 @@
             return false;
         }
     }
+
+
+
+    canvas.on( 'mouse:down', function(o) {
+
+        var pointer = canvas.getPointer(o.e);
+        //adding filled dot
+        if (filled_dot_clicked) {
+
+            pointX = pointer.x;
+            pointY = pointer.y;
+            //appear dot where click
+            if(checkDotPlace(pointX,pointY)){
+                filledDot = placeDot(pointX,pointY,'blue','filledDot');
+                canvas.add(filledDot);
+                dotPlaced = true;
+                canvas.renderAll();
+            }
+
+            if(dotPlaced){
+                dotPlaced = false;
+//                    saveObject('arrow');
+//                    saveObject('filledDot');
+                canvas.renderAll();
+            }
+            else{
+                dotPlaced = false;
+            }
+
+            filled_dot_clicked =false;
+
+        }
+
+        //creating branches. This is for tree diagrams
+        if (non_filled_dot_clicked) {
+
+            pointX = pointer.x;
+            pointY = pointer.y;
+            //appear dot where click
+            if(checkDotPlace(pointX,pointY)){
+                dot = placeDot(pointX,pointY,'transparent','dot');
+                canvas.add(dot);
+                dotPlaced = true;
+                canvas.renderAll();
+            }
+
+            if (dotPlaced){
+                dotPlaced = false;
+//                saveObject('arrow');
+//                saveObject('dot');
+                canvas.renderAll();
+            }
+            else{
+                dotPlaced = false;
+            }
+
+            non_filled_dot_clicked = false;
+        }
+
+        if(mark_line_clicked){
+            point_X = pointer.x;
+            point_Y = numberLineY;
+            start_of_line = true;
+        }
+
+    });
+
+    canvas.on('mouse:move', function(o){
+        var pointer = canvas.getPointer(o.e);
+        isMoving = true;
+
+        //for tree diagrams
+        if (mark_line_clicked) {
+            if (start_of_line){
+                //draw arrow to left
+                if (pointX < pointer.x){
+                    //remove older arrow
+                    canvas.remove(getItemByMyID('arrow'));
+                    canvas.add(createLineArrow([point_X, point_Y, pointer.x, point_Y],'left'));
+                }
+                else if( pointX != (pointer.x)){
+                    //remove older arrow
+                    canvas.remove(getItemByMyID('arrow'));
+                    canvas.add(createLineArrow([point_X, point_Y, pointer.x, point_Y],'right'));
+                }
+            }
+        }
+
+    });
+
+    canvas.on('mouse:up', function(o){
+
+        var pointer = canvas.getPointer(o.e);
+        isMoving = false;
+        //for tree diagram
+        if (mark_line_clicked) {
+            start_of_line = false;
+            if (start_of_line){
+                //draw arrow to left
+                if (point_X < pointer.x){
+                    //remove older arrow
+                    canvas.remove(getItemByMyID('arrow'));
+                    canvas.add(drawMarkedLine([pointX, pointY, pointer.x, pointY]));
+                }
+                else if (pointX > pointer.x ){
+                    //remove older arrow
+                    canvas.remove(getItemByMyID('arrow'));
+                    canvas.add(drawMarkedLine([pointX, pointY, pointer.x, pointY]));
+                }
+            }
+            mark_line_clicked =false;
+        }
+
+    });
+
     $('#save').click(function (e){
 
         var svg = canvas.toSVG();
         fabric.log(svg);
 
+        var $this = $(this);
+        $this.toggleClass('Grade');
+        if($this.hasClass('Grade')){
+            $this.text('Evaluating...');
+        } else {
+            $this.text('Grade');
+        }
+
         $.ajax({
             crossDomain: true,
-            url: 'http://localhost:8080/mathsTutor/grade',
+            url: 'http://localhost:8080/DiargamEvaluation/grade',
+//            url: 'http://mathstutordiagrams.projects.mrt.ac.lk:8080/DiargamEvaluation/grade',
             type: 'POST',
             data: {
                 answer: svg,
                 diagramType : "NUMBRELINE"
             },
             success: function(page){
+                alert("answer Saved Successfully");
                 $("html").empty();
                 $("html").append(page);
             }
