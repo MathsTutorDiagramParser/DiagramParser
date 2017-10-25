@@ -17,7 +17,6 @@ import com.tutor.parser.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.parser.service.preProcessorService.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
@@ -32,7 +31,6 @@ import java.util.Scanner;
 public class main {
 
     private static Logger logger = LoggerFactory.getLogger(main.class);
-
     public static void main(String[] args) throws JAXBException, FileNotFoundException {
 
         DiagramType diagramType = null;
@@ -86,30 +84,36 @@ public class main {
         ModelAnswerService modelAnswerService = new ModelAnswerServiceImpl();
         AbstractDiagramStructure  modelAnswer = modelAnswerService.getModelAnswer(fileReaderSupportService.ModelAnswer(diagramType),diagramType,1);
 
+        FeedBackGenerator feedBackGenerator = FeedbackGeneratorFactory.getFeedbackGenerator(diagramType);
+
         EvaluatorServiceImpl evaluatorService=new EvaluatorServiceImpl(diagramType);
-        MarkSheet markingStructure = evaluatorService.evaluate(abstractDiagramStructureS,modelAnswer,abstractDiagramStructureS.getFeedBackList());
+        MarkSheet markingStructure = evaluatorService.evaluate(abstractDiagramStructureS, modelAnswer,
+                feedBackGenerator.generateFinalFeedback(abstractDiagramStructureS.getFeedBackList(), abstractDiagramStructureS));
 
         logger.info("//////////////////////////////////Feedback//////////////////////////////////");
 
-        if(diagramType == DiagramType.NUMBRELINE) {
-            FeedBackGenerator feedBackGenerator = FeedbackGeneratorFactory.getFeedbackGenerator(diagramType);
-            logger.info("*****************************************************");
-            logger.info("Structural feedback: " + feedBackGenerator.generateFinalFeedback(abstractDiagramStructureS.getFeedBackList(), abstractDiagramStructureS));
-            logger.info("Evaluator feedback: " + markingStructure.getSubMarkSheets().get(0).getFeedBack());
-            logger.info("marks : " + markingStructure.getSubMarkSheets().get(0).getTotalMark());
-            logger.info("*****************************************************");
-        }
 
-        if(diagramType == DiagramType.TREEDIAGRAM) {
-            logger.info("Total Marks : "+markingStructure.getTotalMark());
+        logger.info("*****************************************************");
 
+        logger.info("Total Marks : "+ markingStructure.getTotalMark());
+        logger.info("Out of : " + markingStructure.getTotalMark_gainMark());
+        logger.info("Structure feedback :"+markingStructure.getFeedback());
+
+        if(markingStructure.getSubMarkSheets().size() == 1) {
+            if(markingStructure.getSubMarkSheets().get(0).getFeedBack().length() > 0 ) {
+                logger.info("Evaluator feedback: " + markingStructure.getSubMarkSheets().get(0).getFeedBack());
+            }
+        } else {
             for (int i = 0; i < markingStructure.getSubMarkSheets().size(); i++) {
-                logger.info("Sub question : " + (i+1));
-                logger.info("Total Mark : " + markingStructure.getSubMarkSheets().get(i).getTotalMark());
+                logger.info("Sub question : " + (i + 1));
+                logger.info("Gained Mark : " + markingStructure.getSubMarkSheets().get(i).getTotalMark());
+                  if (feedBackGenerator.getFinalFeedback(markingStructure.getSubMarkSheets().get(i).getPartitialMark()).length() > 0 ) {
+                        logger.info("feedback is : " + feedBackGenerator.getFinalFeedback(markingStructure.getSubMarkSheets().get(i).getPartitialMark()));
+                  }
 
             }
         }
+        logger.info("*****************************************************");
 
     }
-
 }

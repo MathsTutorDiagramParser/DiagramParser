@@ -21,6 +21,10 @@
             <id>C3</id>
             <name>MARKING LOWER NODE</name>
         </ConditionType>
+        <ConditionType>
+            <id>C4</id>
+            <name>MARKING ENTIRE NODE</name>
+        </ConditionType>
     </ConditionTypes>
     <MarkingMethodsTypes>
         <MarkingMethodType>
@@ -52,24 +56,13 @@
             <name>N0</name>
             <Conditions>
                 <Condition>
-                    <conditionName>C0</conditionName>
+                    <conditionName>C4</conditionName>
                     <totalMarks>01</totalMarks>
                     <MarkMethods>
                         <MarkMethod>
                             <id>0</id>
                             <gainedMarks>1</gainedMarks>
-                            <method>M0</method>
-                        </MarkMethod>
-                    </MarkMethods>
-                </Condition>
-                <Condition>
-                    <conditionName>C1</conditionName>
-                    <totalMarks>01</totalMarks>
-                    <MarkMethods>
-                        <MarkMethod>
-                            <id>0</id>
-                            <gainedMarks>1</gainedMarks>
-                            <method>M0</method>
+                            <method>M1</method>
                         </MarkMethod>
                     </MarkMethods>
                 </Condition>
@@ -81,22 +74,22 @@
             <Conditions>
                 <Condition>
                     <conditionName>C2</conditionName>
-                    <totalMarks>2</totalMarks>
+                    <totalMarks>1</totalMarks>
                     <MarkMethods>
                         <MarkMethod>
                             <id>0</id>
-                            <gainedMarks>2</gainedMarks>
+                            <gainedMarks>1</gainedMarks>
                             <method>M1</method>
                         </MarkMethod>
                     </MarkMethods>
                 </Condition>
                 <Condition>
                     <conditionName>C3</conditionName>
-                    <totalMarks>2</totalMarks>
+                    <totalMarks>1</totalMarks>
                     <MarkMethods>
                         <MarkMethod>
                             <id>0</id>
-                            <gainedMarks>2</gainedMarks>
+                            <gainedMarks>1</gainedMarks>
                             <method>M1</method>
                         </MarkMethod>
                     </MarkMethods>

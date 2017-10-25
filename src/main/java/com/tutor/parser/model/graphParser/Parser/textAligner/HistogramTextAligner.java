@@ -25,6 +25,8 @@ public class HistogramTextAligner {
     Double y2;
     Double valY1;
     Double valY2;
+    String xLegend;
+    String yLegend;
 
 
     int pos;
@@ -58,6 +60,15 @@ public class HistogramTextAligner {
         xAxisRatio=Math.abs(valX1-valX2)/Math.abs(x1-x2);
         abstractHistogramStructure.setxAxisratio(xAxisRatio);
         abstractHistogramStructure.setyAxisratio(yAxisRatio);
+
+        // Set the axis legends here
+        xLegend="Age Difference";
+        yLegend="No of People";
+
+        abstractHistogramStructure.setxLegend(xLegend);
+        abstractHistogramStructure.setyLegend(yLegend);
+
+
 
         return abstractHistogramStructure;
     }

@@ -1,5 +1,6 @@
 package com.tutor.parser.model.feedback;
 
+import com.tutor.evaluator.model.markingStructure.Mark;
 import com.tutor.parser.model.graphParser.DiagramStructure.AbstractDiagramStructure;
 import com.tutor.parser.model.graphParser.GraphGrammarGenerator.graphGrammarObject.Graph;
 
@@ -18,6 +19,10 @@ public class FeedBackGenerator {
     public String generateFinalFeedback(List<FeedBack> feedBacks, AbstractDiagramStructure abstractDiagramStructure){
         String feedback="";
         return feedback;
+    }
+
+    public String getFinalFeedback(Mark [] partialMarkArray) {
+        return null;
     }
 
 }

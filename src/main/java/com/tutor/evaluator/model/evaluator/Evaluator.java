@@ -13,7 +13,7 @@ import java.util.List;
 public  class Evaluator {
 
     public MarkSheet evaluate(AbstractDiagramStructure studentStructure,
-                              AbstractDiagramStructure teacherStructure, RubricRules rubricRules, List<FeedBack> feedBacks){
+                              AbstractDiagramStructure teacherStructure, RubricRules rubricRules, String structureFeedBack){
         return null;
     }
 

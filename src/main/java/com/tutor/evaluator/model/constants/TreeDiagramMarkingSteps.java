@@ -17,6 +17,7 @@ public final class TreeDiagramMarkingSteps {
     public final static String MARKING_ROOT_NODE = "MARKING ROOT NODE";
 
     public final static String MARKING_UPPER_NODE = "MARKING UPPER NODE";
+    public final static String MARKING_ENTIRE_NODE = "MARKING ENTIRE NODE";
     public final static String ENTIRE_NODE = "ENTIRE_NODE";
     public final static String PROBABILITY_ONLY = "PROBABILITY_ONLY";
 

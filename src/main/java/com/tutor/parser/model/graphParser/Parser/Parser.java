@@ -169,10 +169,15 @@ public class Parser {
             List<Bar> bar=((AbstractHistogramStructure) this.abstractDiagramStructure).getBar();
             int k=((AbstractHistogramStructure) this.abstractDiagramStructure).getBar().size();
             Double yRatio=((AbstractHistogramStructure) this.abstractDiagramStructure).getyAxisratio();
+            Double xRatio=((AbstractHistogramStructure) this.abstractDiagramStructure).getxAxisratio();
             logger.info("Found "+k+" Bars ");
 
             for(int l=0;l<k;l++) {
+                bar.get(l).setY(bar.get(l).rectangle.getHeight()*yRatio);
+                bar.get(l).setXlow(bar.get(l).rectangle.getX()*xRatio);
+                bar.get(l).setXhigh((bar.get(l).rectangle.getX()+bar.get(l).rectangle.getWidth())*xRatio);
                 logger.info(l+"th Bar -> Y Value is : "+bar.get(l).rectangle.getHeight()*yRatio);
+
             }
 
         }
