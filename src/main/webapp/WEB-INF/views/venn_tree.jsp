@@ -39,6 +39,12 @@
   </div>
 </div>
 <div style="margin-top: 50px;" align="center">
+
+  <div class="w3-content" style="max-width:1564px;height:30px;margin-top: 70px;" align="center">
+    <h4> 01) </h4>
+  </div>
+
+
   <div id='c1'>
     <canvas id="myCanvas" width="800" height="400" style="border:1px solid #000000;"></canvas>
   </div>
@@ -53,37 +59,12 @@
       <input type="color" value="#005E7A" id="drawing-color"><br>
     </div>
     <button id="undo">Undo</button>
-    <!--button id="delete">Delete</button-->
-    <button id ="save">Save</button>
     <button id="clearPlane">Clear Plane</button>
 
   </div>
-
-  <div class="w3-content" style="max-width:1564px ;background-color: lightgrey" align="center">
-
-    <h4 style="color: blue" align="center"> Example Qusetions </h4>
-    <div align="left" style="margin-left: 100px">
-      Question1 :
-      <br>
-      <div style="margin-left: 50px">
-        Three out of seven identical vessels contain red rice while the remaining vessels contain white rice.
-        <br>
-        I.	I.	Nimal randomly selects one of these vessels and takes a handful of rice. An incomplete tree diagram of the relevant outcome is shown below. Complete it.
-        <div style="width: 600px; height: 140px" align="middle">
-          <img src="resources/img/treeQ.jpg" width="35%">
-        </div>
-        <br>
-        <br>
-        II.	After Nimal, Kamala also randomly selects a vessel from the above mentioned vessels and takes a handful of rice. Extend the tree diagram by including the relevant outcomes for this occasion too.
-      </div>
-    </div>
-
-
-    <h4 style="color: blue" align="center"> Instruction To Draw </h4>
-    <div align="center">
-      *  Use 'Branch' button to draw branches on the editor and 'Text Label' button to label your diagram.
-      <h5 style="color: red "> do not forget to 'save' your drawings.</h5>
-    </div>
+  <div align="center" style="margin-top: 10px;margin-bottom: 20px">
+    <button id ="save" style="width:200px;background-color: forestgreen;">Save</button>
+  </div>
 
   </div>
 </div>
@@ -180,10 +161,18 @@
         var svg = canvas.toSVG();
         fabric.log(svg);
 
+        var $this = $(this);
+        $this.toggleClass('Grade');
+        if($this.hasClass('Grade')){
+            $this.text('Evaluating...');
+        } else {
+            $this.text('Grade');
+        }
+
         $.ajax({
             crossDomain: true,
 //            url: 'http://localhost:8080/mathsTutor/grade',
-            url: 'http://mathstutordiagrams.projects.mrt.ac.lk:8080/DiargamEvaluation/grade',
+            url: 'http://localhost:8080/DiargamEvaluation/grade',
             type: 'POST',
             data: {
                 answer: svg,

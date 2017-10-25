@@ -76,7 +76,7 @@
 <div class="w3-row-padding" style="background-color: lightgrey" align="center">
 
     <div class="w3-col l3 m6 w3-margin-bottom w3-margin-top" id="d1">
-        <a href="http://localhost:8080/mathsTutor/histogram">
+        <a href="http://localhost:8080/DiargamEvaluation/histogram">
         <%--<a href="http://mathstutordiagrams.projects.mrt.ac.lk:8080/DiargamEvaluation/histogram">--%>
             <div class="w3-display-container">
                 <div class="w3-display-topleft w3-black w3-padding" align="center">Histogram</div>
@@ -95,7 +95,7 @@
     </div>
 
     <div class="w3-col l3 m6 w3-margin-bottom  w3-margin-top" id="d3">
-        <a href="http://localhost:8080/mathsTutor/treeDiagram">
+        <a href="http://localhost:8080/DiargamEvaluation/treeDiagram">
         <%--<a href="http://mathstutordiagrams.projects.mrt.ac.lk:8080/DiargamEvaluation/treeDiagram">--%>
             <div class="w3-display-container">
                 <div class="w3-display-topleft w3-black w3-padding" align="center">Tree Diagram</div>
@@ -104,7 +104,7 @@
         </a>
     </div>
     <div class="w3-col l3 m6 w3-margin-bottom  w3-margin-top" id="d4">
-        <a href="http://localhost:8080/mathsTutor/TrignometricDiagram">
+        <a href="http://localhost:8080/DiargamEvaluation/TrignometricDiagram">
         <%--<a href="http://mathstutordiagrams.projects.mrt.ac.lk:8080/DiargamEvaluation/TrignometricDiagram">--%>
             <div class="w3-display-container">
                 <div class="w3-display-topleft w3-black w3-padding" align="center">Trignometric Diagram</div>

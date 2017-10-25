@@ -157,11 +157,11 @@ public class MainController {
         AbstractDiagramStructure  modelAnswer = modelAnswerService.getModelAnswer(fileReaderSupportService.ModelAnswer(eDiagramType),eDiagramType,1);
 
         EvaluatorServiceImpl evaluatorService=new EvaluatorServiceImpl(eDiagramType);
-        MarkSheet markSheet = evaluatorService.evaluate(abstractDiagramStructureS,modelAnswer,abstractDiagramStructureS.getFeedBackList());
+        MarkSheet markSheet = evaluatorService.evaluate(abstractDiagramStructureS,modelAnswer,feedBackGenerator.generateFinalFeedback(abstractDiagramStructureS.getFeedBackList(),abstractDiagramStructureS));
 
         ModelAndView model = new ModelAndView();
         model.addObject("Question_type",eDiagramType+"-Q1");
-        model.addObject("overall_feedback",feedBackGenerator.generateFinalFeedback(abstractDiagramStructureS.getFeedBackList(), abstractDiagramStructureS));
+        model.addObject("overall_feedback",markSheet.getFeedback());
         model.addObject("total_Mark",markSheet.getTotalMark());
         model.addObject("out_of_total_Mark",markSheet.getTotalMark_gainMark());
         model.addObject("answer",inputStr);

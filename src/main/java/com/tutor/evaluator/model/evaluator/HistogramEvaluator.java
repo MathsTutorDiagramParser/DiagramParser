@@ -29,23 +29,28 @@ public class HistogramEvaluator extends Evaluator {
     AbstractDiagramStructure teacherStructure;
     String subQfeedback ;
     int totalSubQ = 0;
+    int totalQMark = 0;
+    int totalQGainMark = 0;
+    int totalSubQGainMark = 0;
 
     public MarkSheet evaluate(AbstractDiagramStructure studentStructure,
-                              AbstractDiagramStructure teacherStructure, RubricRules rubricRules, List<FeedBack> feedBacks) {
+                              AbstractDiagramStructure teacherStructure, RubricRules rubricRules, String feedBacks) {
         MarkSheet markSheet = new MarkSheet();
 
         this.studentStructure = studentStructure;
         this.teacherStructure = teacherStructure;
 
         ArrayList<SubMarkSheet> subMarkSheets = new ArrayList<>();
+        int itr = 0;
         for (SubQuestion subQuestion : rubricRules.getSubQuestions()){
 
             List<Condition> conditions = subQuestion.getConditions();
-            totalSubQ = 0;
+            totalSubQGainMark = 0;
             subQfeedback = "";
             SubMarkSheet subQmarkSheet = new SubMarkSheet();
 
             for (int i = 0; i < conditions.size(); i++) {
+                totalSubQGainMark += conditions.get(i).getTotalMarks();
                 marks = new Mark[conditions.size()];
                 Condition condition = conditions.get(i);
                 if (condition.getName().equals(MarkingCondition.BAR_VALUES)) {
@@ -54,7 +59,8 @@ public class HistogramEvaluator extends Evaluator {
                     marks[i] = axisCheck(condition);
 
                 }
-                subQmarkSheet = new SubMarkSheet(totalSubQ, marks, subQfeedback);
+                subQmarkSheet = new SubMarkSheet(totalSubQ, marks, subQfeedback,totalSubQGainMark,itr);
+                itr++;
                 subMarkSheets.add(subQmarkSheet);
             }
 

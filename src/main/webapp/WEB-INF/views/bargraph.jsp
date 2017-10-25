@@ -39,12 +39,15 @@
       	  <button id ="undo">Undo</button>
       	  
       	  <button id="clearPlane">Clear Plane</button>
-            <button id = "save">Save</button>
-        </div>
-        
 
-        
-            <form id="AutoSetScale"  style="visibility:hidden" >
+        </div>
+         <div align="center" style="margin-top: 10px;margin-bottom: 20px">
+             <button id ="save" style="width:200px;background-color: forestgreen;">Save</button>
+         </div>
+
+
+
+         <form id="AutoSetScale"  style="visibility:hidden" >
               First value:
               <input type="number" name="firstValue" id="first"><br>
               Last value:
@@ -452,13 +455,38 @@
         canvas.clear();
         drawAxis();
     }
-    
-     $('#save').click(function (e){
-        fabric.log(canvas.toSVG());
-      })
-    
-             
-             
+
+             $('#save').click(function (e){
+                 var svg = canvas.toSVG();
+                 fabric.log(svg);
+
+                 var $this = $(this);
+                 $this.toggleClass('Grade');
+                 if($this.hasClass('Grade')){
+                     $this.text('Evaluating...');
+                 } else {
+                     $this.text('Grade');
+                 }
+
+                 $.ajax({
+                     crossDomain: true,
+//            url: 'http://localhost:8080/mathsTutor/grade',
+                     url: 'http://localhost:8080/DiargamEvaluation/grade',
+                     type: 'POST',
+                     data: {
+                         answer: svg,
+                         diagramType : "HISTOGRAM"
+                     },
+                     success: function(page){
+//                alert("answer Saved Successfully");
+                         $("html").empty();
+                         $("html").append(page);
+                     }
+                 });
+             });
+
+
+
             drawAxis();
             nameAxis();
              

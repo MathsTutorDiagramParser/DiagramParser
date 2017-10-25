@@ -87,8 +87,8 @@ public class main {
         FeedBackGenerator feedBackGenerator = FeedbackGeneratorFactory.getFeedbackGenerator(diagramType);
 
         EvaluatorServiceImpl evaluatorService=new EvaluatorServiceImpl(diagramType);
-        MarkSheet markingStructure = evaluatorService.evaluate(abstractDiagramStructureS, modelAnswer,
-                feedBackGenerator.generateFinalFeedback(abstractDiagramStructureS.getFeedBackList(), abstractDiagramStructureS));
+        MarkSheet markingStructure = evaluatorService.evaluate(abstractDiagramStructureS,modelAnswer,feedBackGenerator.generateFinalFeedback(abstractDiagramStructureS.getFeedBackList(),abstractDiagramStructureS));
+
 
         logger.info("//////////////////////////////////Feedback//////////////////////////////////");
 
