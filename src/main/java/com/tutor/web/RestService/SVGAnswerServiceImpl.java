@@ -65,7 +65,7 @@ public class SVGAnswerServiceImpl implements SVGAnswerService {
         Transformer transformer = transformerFactory.newTransformer();
         DOMSource source = new DOMSource(doc);
 
-        StreamResult result =  new StreamResult(new File("G:\\Sem8\\FYP\\DiagramParser\\src\\main\\resources\\com\\answerFile\\"+fileName+".xml"));
+        StreamResult result =  new StreamResult(new File("E:\\FYP\\implementation\\parser3\\DiagramParser\\src\\main\\resources\\com\\answerFile\\"+fileName+".xml"));
         transformer.transform(source, result);
         System.out.println("Finish writing");
     }

@@ -84,43 +84,36 @@ public class main {
         ModelAnswerService modelAnswerService = new ModelAnswerServiceImpl();
         AbstractDiagramStructure  modelAnswer = modelAnswerService.getModelAnswer(fileReaderSupportService.ModelAnswer(diagramType),diagramType,1);
 
+        FeedBackGenerator feedBackGenerator = FeedbackGeneratorFactory.getFeedbackGenerator(diagramType);
+
         EvaluatorServiceImpl evaluatorService=new EvaluatorServiceImpl(diagramType);
-        MarkSheet markingStructure = evaluatorService.evaluate(abstractDiagramStructureS,modelAnswer,abstractDiagramStructureS.getFeedBackList());
+        MarkSheet markingStructure = evaluatorService.evaluate(abstractDiagramStructureS, modelAnswer,
+                feedBackGenerator.generateFinalFeedback(abstractDiagramStructureS.getFeedBackList(), abstractDiagramStructureS));
 
         logger.info("//////////////////////////////////Feedback//////////////////////////////////");
 
-        if(diagramType == DiagramType.NUMBRELINE) {
-            FeedBackGenerator feedBackGenerator = FeedbackGeneratorFactory.getFeedbackGenerator(diagramType);
-            logger.info("*****************************************************");
-            logger.info("Structural feedback: " + feedBackGenerator.generateFinalFeedback(abstractDiagramStructureS.getFeedBackList(), abstractDiagramStructureS));
-            logger.info("Evaluator feedback: " + markingStructure.getSubMarkSheets().get(0).getFeedBack());
-            logger.info("marks : " + markingStructure.getSubMarkSheets().get(0).getTotalMark());
-            logger.info("*****************************************************");
-        }
 
-        if(diagramType == DiagramType.TREEDIAGRAM) {
-            logger.info("Total Marks : "+markingStructure.getTotalMark());
+        logger.info("*****************************************************");
 
+        logger.info("Total Marks : "+ markingStructure.getTotalMark());
+        logger.info("Out of : " + markingStructure.getTotalMark_gainMark());
+        logger.info("Structure feedback :"+markingStructure.getFeedback());
+
+        if(markingStructure.getSubMarkSheets().size() == 1) {
+            if(markingStructure.getSubMarkSheets().get(0).getFeedBack().length() > 0 ) {
+                logger.info("Evaluator feedback: " + markingStructure.getSubMarkSheets().get(0).getFeedBack());
+            }
+        } else {
             for (int i = 0; i < markingStructure.getSubMarkSheets().size(); i++) {
-                logger.info("Sub question : " + (i+1));
-                logger.info("Total Mark : " + markingStructure.getSubMarkSheets().get(i).getTotalMark());
+                logger.info("Sub question : " + (i + 1));
+                logger.info("Gained Mark : " + markingStructure.getSubMarkSheets().get(i).getTotalMark());
+                  if (feedBackGenerator.getFinalFeedback(markingStructure.getSubMarkSheets().get(i).getPartitialMark()).length() > 0 ) {
+                        logger.info("feedback is : " + feedBackGenerator.getFinalFeedback(markingStructure.getSubMarkSheets().get(i).getPartitialMark()));
+                  }
 
-//                for (int k = 0; k < markingStructure.getSubMarkSheets().get(i).getPartitialMark().length; k++) {
-//                    logger.info("Condition : " + k);
-//                    logger.info("Mark is : " + markingStructure.getSubMarkSheets().get(i).getPartitialMark()[k].getValue());
-//                    logger.info("feedback is : " + markingStructure.getSubMarkSheets().get(i).getPartitialMark()[k].getFeedBack());
-//                }
             }
         }
+        logger.info("*****************************************************");
 
-
-        if(diagramType == DiagramType.HISTOGRAM) {
-            FeedBackGenerator feedBackGenerator = FeedbackGeneratorFactory.getFeedbackGenerator(diagramType);
-            logger.info("*****************************************************");
-            logger.info("Structural feedback: " + feedBackGenerator.generateFinalFeedback(abstractDiagramStructureS.getFeedBackList(), abstractDiagramStructureS));
-            logger.info("Evaluator feedback: " + markingStructure.getSubMarkSheets().get(0).getFeedBack());
-            logger.info("marks : " + markingStructure.getSubMarkSheets().get(0).getTotalMark());
-            logger.info("*****************************************************");
-        }
     }
 }
