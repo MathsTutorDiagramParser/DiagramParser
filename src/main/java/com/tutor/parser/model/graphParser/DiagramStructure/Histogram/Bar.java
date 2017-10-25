@@ -12,8 +12,17 @@ public class Bar {
     public double xhigh;
     // Identify two text(numeric) values in Y axis and then get the length of the line then divide as (numeric value diffrence)/line length.. In which we can get the ratio so I can multiply this value from Bar heigth and get the actual y value
     public double ratio;
+    public double y;
 
-   public Bar(Rectangle rectangle){
+    public double getY() {
+        return y;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public Bar(Rectangle rectangle){
        this.rectangle=rectangle;
        this.text=null;
    }

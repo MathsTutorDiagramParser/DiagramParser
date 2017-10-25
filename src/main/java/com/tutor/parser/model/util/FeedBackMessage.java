@@ -15,6 +15,10 @@ public final class FeedBackMessage {
     public final static String EXTRA_MARK_POINTS_WITH_VALID_GRAPH = "This can not be accepted as a correct answer because though you have marked an inequality there are extra mark points.";
     public final static String EXTRA_MARK_POINTS_WITH_INVALID_GRAPH = "This can not be accepted as a correct answer because there are extra mark points.";
 
+    public final static String BAR_NOT_TOUCHING_XAXIS = "Bar is not touching the x axis";
+    public final static String NO_XLEGEND = "You have not marked the X legend";
+    public final static String NO_YLEGEND = "You have not marked the Y legend";
+
 
 
 }
