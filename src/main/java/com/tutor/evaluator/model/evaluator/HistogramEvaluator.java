@@ -86,7 +86,7 @@ public class HistogramEvaluator extends Evaluator {
         List<Bar> teacherBars = ((AbstractHistogramStructure)teacherStructure).getBar();
 
         int k= studentBars.size();
-        int l= studentBars.size();
+        int l= teacherBars.size();
 
         if(k!=l){
             subQfeedback+= HistogramEvaluatorConstant.BAR_INEQUAL;
