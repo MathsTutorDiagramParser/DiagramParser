@@ -1,8 +1,5 @@
-<%@ page import="java.util.Locale" %>
-<%@ page import="java.util.Enumeration" %>
 <!DOCTYPE HTML>
-<%@page contentType = "text/html;charset = UTF-8" language = "java" %>
-<%@page isELIgnored = "false" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri = "http://www.springframework.org/tags/form" prefix = "form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -13,9 +10,31 @@
 		<script type="text/javascript" src = "http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.6.3/fabric.min.js"></script>
 	</head>
     
-    <body>
-        
-         <div>
+    <>
+
+
+    <div class="w3-content" style="max-width:1564px;height:30px;margin-top: 70px;" align="center">
+        1.	ළමුන් 20 දෙනෙකු පරීක්ෂණයකදී ලබාගත් ලකුණු පහත දැක්වේ. වගුවේ දැක්වෙන පරිදි මෙම ලකුණු සමුහගත කර ඇත. මෙම වගුවට ජලරේඛකය නිර්මාණය කරන්න.
+        <table style="width: 75%;border: thin;color: darkgray">
+            <tr>
+                <td>පන්ති  පාන්තරය</td>
+                <td>0-40</td>
+                <td>40-60</td>
+                <td>60-80</td>
+                <td>80-100</td>
+            </tr>
+            <tr>
+                <td>සංඛ්‍යාතය</td>
+                <td>5</td>
+                <td>20</td>
+                <td>15</td>
+                <td>5</td>
+            </tr>
+        </table>
+    </div>
+
+    <div align="center">
+    <div style="margin-top: 50px">
             <input id="xName" type=text size="30" style="border:2px solid" >       
         
         </div>
@@ -28,8 +47,9 @@
             
             <input id="yName" type=text size="30" style="position:relative;left:600px;border:2px solid" > 
         </div>
+    </div>
         
-        <div>
+        <div align="center" style="margin-top: 10px;" >
 		 <button id = "setXScale">X Scale</button>
 		  <button id = "setYScale">Y Scale</button>
 <!--          <button id = "getValue">Enter Values</button>-->
@@ -42,7 +62,7 @@
 
         </div>
          <div align="center" style="margin-top: 10px;margin-bottom: 20px">
-             <button id ="save" style="width:200px;background-color: forestgreen;">Save</button>
+             <button id ="save" style="width:200px;background-color: forestgreen;">Grade</button>
          </div>
 
 

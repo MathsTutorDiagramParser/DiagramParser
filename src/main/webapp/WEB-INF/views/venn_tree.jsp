@@ -1,8 +1,7 @@
 <%@ page import="java.util.Locale" %>
 <%@ page import="java.util.Enumeration" %>
 <!DOCTYPE HTML>
-<%@page contentType = "text/html;charset = UTF-8" language = "java" %>
-<%@page isELIgnored = "false" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri = "http://www.springframework.org/tags/form" prefix = "form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -40,12 +39,15 @@
 </div>
 <div style="margin-top: 50px;" align="center">
 
-  <div class="w3-content" style="max-width:1564px;height:30px;margin-top: 70px;" align="center">
-    <h4> 01) </h4>
+  <div class="w3-content" style="max-width:1564px;height:30px;margin-top: 70px;" align="left">
+    <h4> 01) A භාජනයේ කලු බෝල 3 ක් හා සුදු බෝල 2 ක් ද B  භාජනයේ කලු බෝල 4 ක් හා සුදු බෝල 3 ක් ද  ඇත. මෙම බෝල සියල්ලම තරමින් සමාන වේ. A භාජනයෙන් අහඹු ලෙස බෝලයක් ගෙන, එහි වර්ණය සළකුණු කර ගෙන, එය B භාජනයට දමනු ලැබේ. අනතුරුව B භාජනයෙන් අහඹු ලෙස බෝලයක් ගෙන එහි වර්ණය සලකුණු කර ගනු ලැබේ.
+      A භාජනයෙන් බොලයක් ගැනීම පළමුවන සිද්ධිය ලෙස ද B භාජනයෙන් බොලයක් ගැනීම දෙවන සිද්ධිය ලෙසද සලකා,
+      <br>I.	මෙම සිද්ධි වලට අදාළ රුක් සටහන අදින්න
+    </h4>
   </div>
 
 
-  <div id='c1'>
+  <div id='c1' style="padding-top: 100px">
     <canvas id="myCanvas" width="800" height="400" style="border:1px solid #000000;"></canvas>
   </div>
 

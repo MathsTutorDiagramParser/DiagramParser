@@ -49,7 +49,7 @@
   </div>
 
   <div align="center" style="margin-top: 10px;margin-bottom: 20px">
-    <button id ="save" style="width:200px;background-color: forestgreen;">Save</button>
+    <button id ="save" style="width:200px;background-color: forestgreen;">Grade</button>
   </div>
 
 </div>

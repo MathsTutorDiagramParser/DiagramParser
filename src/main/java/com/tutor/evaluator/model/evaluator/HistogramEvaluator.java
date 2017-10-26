@@ -59,11 +59,10 @@ public class HistogramEvaluator extends Evaluator {
                     marks[i] = axisCheck(condition);
 
                 }
-                subQmarkSheet = new SubMarkSheet(totalSubQ, marks, subQfeedback,totalSubQGainMark,itr);
-                itr++;
-                subMarkSheets.add(subQmarkSheet);
             }
-
+            subQmarkSheet = new SubMarkSheet(totalSubQ, marks, subQfeedback,totalSubQGainMark,itr);
+            itr++;
+            subMarkSheets.add(subQmarkSheet);
         }
 
         markSheet.setSubMarkSheets(subMarkSheets);
