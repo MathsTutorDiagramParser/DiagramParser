@@ -35,7 +35,6 @@ public class HistogramEvaluator extends Evaluator {
     public MarkSheet evaluate(AbstractDiagramStructure studentStructure,
                               AbstractDiagramStructure teacherStructure, RubricRules rubricRules, String structureFeedBack){
         MarkSheet markSheet = new MarkSheet();
-        markSheet.setFeedback(structureFeedBack);
         this.studentStructure = studentStructure;
         this.teacherStructure = teacherStructure;
 
@@ -64,14 +63,17 @@ public class HistogramEvaluator extends Evaluator {
                     marks[i] = axisCheck(condition);
 
                 }
-                subQmarkSheet = new SubMarkSheet(totalSubQ, marks, subQfeedback);
-                subMarkSheets.add(subQmarkSheet);
+
+
             }
+            subQmarkSheet = new SubMarkSheet(totalSubQ, marks, subQfeedback);
+            subQmarkSheet.setTotalMark(totalMarks);
+            subMarkSheets.add(subQmarkSheet);
 
         }
         markSheet.setTotalMark(totalMarks);
         markSheet.setTotalMark_gainMark(outOfMarks);
-        markSheet.setFeedback(subQfeedback);
+        markSheet.setFeedback(structureFeedBack+  subQfeedback);
         markSheet.setSubMarkSheets(subMarkSheets);
         return markSheet;
     }
