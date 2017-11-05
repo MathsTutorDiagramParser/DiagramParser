@@ -37,7 +37,7 @@ public class Parser {
         this.abstractDiagramStructure = DiagramStructureFactory.getAbstractDiagramStructure(diagramType);
     }
 
-    public AbstractDiagramStructure parse(Graph host, List<GraphicalImageComponent> textList) throws JAXBException, FileNotFoundException {
+    public AbstractDiagramStructure parse(Graph host, List<GraphicalImageComponent> textList) throws JAXBException, FileNotFoundException, NullPointerException {
 
         logger.info("------------------------------Creating structural Parser for diagram----------------------------");
         StructuralParser structuralParser = new StructuralParser(diagramType);
@@ -85,72 +85,99 @@ public class Parser {
 //            }
         }
         else if (diagramType == DiagramType.TREEDIAGRAM) {
-            AbstractTreeDiagramStructure abstractTreeDiagramStructure = (AbstractTreeDiagramStructure)abstractDiagramStructure;
+            try {
+                AbstractTreeDiagramStructure abstractTreeDiagramStructure = (AbstractTreeDiagramStructure) abstractDiagramStructure;
 
-            ArrayList<TreeGraph> graphList = abstractTreeDiagramStructure.getTreeGraphArrayList();
-            if(graphList != null) {
-                for (int i = 0; i < graphList.size(); i++) {
-                    TreeGraph graph = graphList.get(i);
-                    if (graph.getNode() == null) {
-                        logger.info("Level One");
-                        if(abstractTreeDiagramStructure.getLevelOneDes()!= null) {
-                            logger.info("Level String : " + abstractTreeDiagramStructure.getLevelOneDes().getText());
-                        }
-                        logger.info("Node level :"+graph.getNodeOne().getLevel());
-                        logger.info("Upper branch");
-                        logger.info("Outcome : "+ graph.getNodeOne().getLeftTreeBranch().getOutCome().getText());
-                        logger.info("Probability : "+ graph.getNodeOne().getLeftTreeBranch().getProbability().getText());
-                        logger.info("Down branch");
-                        logger.info("Outcome : "+ graph.getNodeOne().getRightTreeBranch().getOutCome().getText());
-                        logger.info("Probability : "+ graph.getNodeOne().getRightTreeBranch().getProbability().getText());
-
-                        logger.info("Level Two");
-                        if(abstractTreeDiagramStructure.getLevelTwoDes()!= null) {
-                            logger.info("Level String : " + abstractTreeDiagramStructure.getLevelTwoDes().getText());
-                        }
-                        logger.info("Node level :"+ graph.getNodeTwo().getLevel());
-                        logger.info("Upper branch");
-                        logger.info("Outcome : "+ graph.getNodeTwo().getLeftTreeBranch().getOutCome().getText());
-                        logger.info("Probability : "+ graph.getNodeTwo().getLeftTreeBranch().getProbability().getText());
-                        logger.info("Down branch");
-                        logger.info("Outcome : "+ graph.getNodeTwo().getRightTreeBranch().getOutCome().getText());
-                        logger.info("Probability : "+ graph.getNodeTwo().getRightTreeBranch().getProbability().getText());
-                    } else {
-
-                        if(i == 0) {
+                ArrayList<TreeGraph> graphList = abstractTreeDiagramStructure.getTreeGraphArrayList();
+                if (graphList != null) {
+                    for (int i = 0; i < graphList.size(); i++) {
+                        TreeGraph graph = graphList.get(i);
+                        if (graph.getNode() == null) {
                             logger.info("Level One");
-                            if(abstractTreeDiagramStructure.getLevelOneDes()!= null) {
+                            if (abstractTreeDiagramStructure.getLevelOneDes() != null) {
                                 logger.info("Level String : " + abstractTreeDiagramStructure.getLevelOneDes().getText());
                             }
-                            logger.info("Node level :"+ graph.getNode().getLevel());
+                            logger.info("Node level :" + graph.getNodeOne().getLevel());
                             logger.info("Upper branch");
-                            logger.info("Outcome : "+ graph.getNode().getLeftTreeBranch().getOutCome().getText());
-                            logger.info("Probability : "+ graph.getNode().getLeftTreeBranch().getProbability().getText());
-                            logger.info("Down branch");
-                            logger.info("Outcome : "+ graph.getNode().getRightTreeBranch().getOutCome().getText());
-                            logger.info("Probability : "+ graph.getNode().getRightTreeBranch().getProbability().getText());
+                            for(int k = 0; k<graph.getNodeOne().getLeftTreeBranch().getOutCome().size();k++) {
+                                logger.info("Outcome : " + graph.getNodeOne().getLeftTreeBranch().getOutCome().get(k).getText());
 
+                            }
+                            logger.info("Probability : " + graph.getNodeOne().getLeftTreeBranch().getProbability().getText());
+                            logger.info("Down branch");
+                            for(int k = 0; k<graph.getNodeOne().getRightTreeBranch().getOutCome().size();k++) {
+                                logger.info("Outcome : " + graph.getNodeOne().getRightTreeBranch().getOutCome().get(k).getText());
+                            }
+                            logger.info("Probability : " + graph.getNodeOne().getRightTreeBranch().getProbability().getText());
+
+                            logger.info("Level Two");
+                            if (abstractTreeDiagramStructure.getLevelTwoDes() != null) {
+                                logger.info("Level String : " + abstractTreeDiagramStructure.getLevelTwoDes().getText());
+                            }
+                            logger.info("Node level :" + graph.getNodeTwo().getLevel());
+                            logger.info("Upper branch");
+
+                            for(int k = 0; k<graph.getNodeTwo().getLeftTreeBranch().getOutCome().size();k++) {
+                                logger.info("Outcome : " + graph.getNodeTwo().getLeftTreeBranch().getOutCome().get(k).getText());
+                            }
+                            logger.info("Probability : " + graph.getNodeTwo().getLeftTreeBranch().getProbability().getText());
+                            logger.info("Down branch");
+                            for(int k = 0; k<graph.getNodeTwo().getRightTreeBranch().getOutCome().size();k++) {
+                                logger.info("Outcome : " + graph.getNodeTwo().getRightTreeBranch().getOutCome().get(k).getText());
+                            }
+                            logger.info("Probability : " + graph.getNodeTwo().getRightTreeBranch().getProbability().getText());
                         } else {
-                            logger.info("Node level :"+ graph.getNode().getLevel());
-                            logger.info("Upper branch");
-                            logger.info("Outcome : "+ graph.getNode().getLeftTreeBranch().getOutCome().getText());
-                            logger.info("Probability : "+ graph.getNode().getLeftTreeBranch().getProbability().getText());
-                            logger.info("Down branch");
-                            logger.info("Outcome : "+ graph.getNode().getRightTreeBranch().getOutCome().getText());
-                            logger.info("Probability : "+ graph.getNode().getRightTreeBranch().getProbability().getText());
 
+                            if (i == 0) {
+                                logger.info("Level One");
+                                if (abstractTreeDiagramStructure.getLevelOneDes() != null) {
+                                    logger.info("Level String : " + abstractTreeDiagramStructure.getLevelOneDes().getText());
+                                }
+                                logger.info("Node level :" + graph.getNode().getLevel());
+                                logger.info("Upper branch");
+                                for(int k = 0; k<graph.getNode().getLeftTreeBranch().getOutCome().size();k++) {
+                                    logger.info("Outcome : " + graph.getNode().getLeftTreeBranch().getOutCome().get(k).getText());
+                                }
+                                logger.info("Probability : " + graph.getNode().getLeftTreeBranch().getProbability().getText());
+                                logger.info("Down branch");
+                                for(int k = 0; k<graph.getNode().getRightTreeBranch().getOutCome().size();k++) {
+                                    logger.info("Outcome : " + graph.getNode().getRightTreeBranch().getOutCome().get(k).getText());
+                                }
+                                logger.info("Probability : " + graph.getNode().getRightTreeBranch().getProbability().getText());
+
+                            } else {
+                                logger.info("Node level :" + graph.getNode().getLevel());
+                                logger.info("Upper branch");
+                                for(int k = 0; k<graph.getNode().getLeftTreeBranch().getOutCome().size();k++) {
+                                    logger.info("Outcome : " + graph.getNode().getLeftTreeBranch().getOutCome().get(k).getText());
+                                }
+                                logger.info("Probability : " + graph.getNode().getLeftTreeBranch().getProbability().getText());
+                                logger.info("Down branch");
+                                for(int k = 0; k<graph.getNode().getRightTreeBranch().getOutCome().size(); k++) {
+                                    logger.info("Outcome : " + graph.getNode().getRightTreeBranch().getOutCome().get(k).getText());
+                                }
+                                logger.info("Probability : " + graph.getNode().getRightTreeBranch().getProbability().getText());
+
+                            }
                         }
                     }
                 }
+            } catch (NullPointerException e) {
+                logger.info("Null Point Exception");
             }
         }else if(diagramType == DiagramType.HISTOGRAM){
             List<Bar> bar=((AbstractHistogramStructure) this.abstractDiagramStructure).getBar();
             int k=((AbstractHistogramStructure) this.abstractDiagramStructure).getBar().size();
             Double yRatio=((AbstractHistogramStructure) this.abstractDiagramStructure).getyAxisratio();
+            Double xRatio=((AbstractHistogramStructure) this.abstractDiagramStructure).getxAxisratio();
             logger.info("Found "+k+" Bars ");
 
             for(int l=0;l<k;l++) {
+                bar.get(l).setY(bar.get(l).rectangle.getHeight()*yRatio);
+                bar.get(l).setXlow(bar.get(l).rectangle.getX()*xRatio);
+                bar.get(l).setXhigh((bar.get(l).rectangle.getX()+bar.get(l).rectangle.getWidth())*xRatio);
                 logger.info(l+"th Bar -> Y Value is : "+bar.get(l).rectangle.getHeight()*yRatio);
+
             }
 
         }

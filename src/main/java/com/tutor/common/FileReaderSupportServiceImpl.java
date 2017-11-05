@@ -12,13 +12,13 @@ public class FileReaderSupportServiceImpl implements FileReaderSupportService {
 
         switch (diagramType) {
             case NUMBRELINE:
-                fileName = "numberLine\\test5.svg";
+                fileName = "numberLine\\test9.svg";
                 break;
             case HISTOGRAM:
                 fileName = "histogram\\test3.svg";
                 break;
             case TREEDIAGRAM:
-                fileName = "treeDiagram\\test1.svg";
+                fileName = "treeDiagram\\tuning\\Q2\\test20.svg";
                 break;
             case TRIGNOMETRICDIAGRAM:
                 fileName = "trignometricDiagram\\test1.svg";
@@ -36,10 +36,13 @@ public class FileReaderSupportServiceImpl implements FileReaderSupportService {
 
         switch (diagramType) {
             case NUMBRELINE:
-                fileName = "modelAnswer\\numberline\\numberlineModel.svg";
+                fileName = "modelAnswer\\numberline\\numberlineModel2.svg";
+                break;
+            case HISTOGRAM:
+                fileName =  "modelAnswer\\histogram\\histogramModel.svg";
                 break;
             case TREEDIAGRAM:
-                fileName = "modelAnswer\\treeDiagram\\modelAnswer.svg";
+                fileName = "modelAnswer\\treeDiagram\\Q2.svg";
                 break;
             default:
                 fileName = "svgResult";
