@@ -34,7 +34,9 @@
 
 <div id="main_div" style="max-width: 1250px">
   <div class="w3-content" style="max-width:1564px;height:30px;margin-top: 70px;" align="center">
+
     <h4> 01)     x > -1  අසමානතාවයේ විසදුම් සංඛ්‍යා රේඛාව මත නිරූපනය කරන්න.</h4>
+
   </div>
   <div  align="center" >
     <canvas id="myCanvas" width = 650 height = 400 style="border:1px solid #000000;margin-top: 50px;" ></canvas>
@@ -48,15 +50,30 @@
     <INPUT type = "Button" value = "Clear Plane" onclick="clearPlane()"/>
   </div>
 
-  <div align="center" style="margin-top: 10px;margin-bottom: 20px">
+  <div align="center" style="margin-top: 10px;margin-bottom: 10px">
     <button id ="save" style="width:200px;background-color: forestgreen;">Grade</button>
   </div>
 
+  <div id="marksheet" >
+    <div class="w3-content w3-padding" style="width:1000px; border: solid; border-width: thin" >
+      <!-- About Section -->
+      <div style="margin-top: 10px" id="about">
+        <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16" align="center"> Mark Sheet</h3>
+      </div>
+      <div class="w3-border-bottom w3-border-light-grey"> Qusetion :  <span id="question_type"> Number Line </span> </div>
+      <div class="w3-border-bottom w3-border-light-grey"> Overall FeedBack : <span id="overall_feedback"> </span>  </div>
+      <div class="w3-border-bottom w3-border-light-grey"> Total Mark : <span id="total_Mark"> </span>  ${total_Mark} Out of <span id="out_of_total_Mark"> </span> </div>
+      <div  id="dvTable" style="padding-bottom: 20px"></div>
+
+    </div>
+  </div>
 </div>
 
 
 
 <script type="text/javascript">
+
+    document.getElementById("marksheet").style.visibility = 'hidden' ;
 
     var canvas = new fabric.Canvas("myCanvas",{
         isDrawingMode : false,
@@ -407,29 +424,70 @@
     $('#save').click(function (e){
 
         var svg = canvas.toSVG();
-        fabric.log(svg);
-
-        var $this = $(this);
-        $this.toggleClass('Grade');
-        if($this.hasClass('Grade')){
-            $this.text('Evaluating...');
-        } else {
-            $this.text('Grade');
-        }
-
+        document.getElementById("save").textContent = "Evaluating..." ;
         $.ajax({
-            crossDomain: true,
             url: 'http://localhost:8080/DiargamEvaluation/grade',
-//            url: 'http://mathstutordiagrams.projects.mrt.ac.lk:8080/DiargamEvaluation/grade',
             type: 'POST',
             data: {
                 answer: svg,
                 diagramType : "NUMBRELINE"
             },
-            success: function(page){
-                alert("answer Saved Successfully");
-                $("html").empty();
-                $("html").append(page);
+            success: function(marksheet){
+                alert("success");
+                document.getElementById("total_Mark").textContent = marksheet.totalMark ;
+                document.getElementById("out_of_total_Mark").textContent = marksheet.totalMark_gainMark ;
+//                document.getElementById("overall_feedback").textContent = marksheet.feedback ;
+                $('#overall_feedback').text(marksheet.feedback);
+                var submarksheets = marksheet.subMarkSheets;
+
+//                for (var i = 0; i < submarksheets.length; i++) {
+//                    var tr='';
+//                    tr = "<tr>"+
+//                            "<td>" + submarksheets[i].QNo + "</td>" +
+//                            "<td>" + submarksheets[i].totalMark + ' out Of ' + submarksheets[i].gainedMark+ "</td>" +
+//                            "<td>" + submarksheets[i]. feedBack+ "</td> </tr> ";
+//                    console.log(tr);
+//                    document.getElementById("marksheet").append(tr);
+//                }
+
+                //Create a HTML Table element.
+                var table = document.createElement("TABLE");
+
+                hrow = table.insertRow(-1);
+                var h1 = hrow.insertCell(-1);
+                h1.innerHTML = "Sub Question";
+
+                var h2 = hrow.insertCell(-1);
+                h2.innerHTML = "Marks";
+
+                var h3 = hrow.insertCell(-1);
+                h3.innerHTML = "FeedBack";
+
+
+                //Add the data rows.
+                for (var i = 0; i < submarksheets.length; i++) {
+                    row = table.insertRow(-1);
+
+                    var cell1 = row.insertCell(-1);
+                    cell1.innerHTML = i+1;
+
+                    var cell2 = row.insertCell(-1);
+                    cell2.innerHTML = submarksheets[i].totalMark + ' out Of ' + submarksheets[i].gainedMark;
+
+                    var cell3 = row.insertCell(-1);
+                    cell3.innerHTML = submarksheets[i]. feedBack;
+
+                }
+
+                var dvTable = document.getElementById("dvTable");
+                dvTable.innerHTML = "";
+                dvTable.appendChild(table);
+                document.getElementById("marksheet").style.visibility = 'visible' ;
+                document.getElementById("save").textContent = "Grade" ;
+
+            },
+            error: function() {
+                alert("error");
             }
         });
 
@@ -444,6 +502,9 @@
             canvas.renderAll();
         }
     }
+
+
+
 </script>
 </body>
 </html>

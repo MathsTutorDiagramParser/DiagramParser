@@ -1,6 +1,7 @@
 package com.tutor.controller;
 
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.tutor.common.FileReaderSupportService;
 import com.tutor.common.FileReaderSupportServiceImpl;
 import com.tutor.evaluator.model.markingStructure.MarkSheet;
@@ -26,10 +27,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletContext;
@@ -40,11 +38,7 @@ import java.io.FileOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
  * Created by Wiranji Dinelka on 8/7/2017.
@@ -85,8 +79,8 @@ public class MainController {
     }
 
 //    @GetMapping("/grade"
-    @RequestMapping(value = "/grade",method = RequestMethod.POST,produces = "text/html")
-    public ModelAndView  Grade(@RequestParam("answer") String inputStr, @RequestParam("diagramType") String diagramType) throws UnsupportedEncodingException, JAXBException, FileNotFoundException {
+    @RequestMapping(value = "/grade",method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public @ResponseBody MarkSheet Grade(@RequestParam("answer") String inputStr, @RequestParam("diagramType") String diagramType) throws UnsupportedEncodingException, JAXBException, FileNotFoundException {
 
 
         logger.info("===================Start writing================");
@@ -97,7 +91,7 @@ public class MainController {
         String path = "";
         try{
             path = "D:/Projects/FYP/project/MathsTutor/src/main/resources/test/"+System.currentTimeMillis()+".svg";
-//            path = "dataFiles/numberline/answer"+System.currentTimeMillis()+".svg";
+//          path = "dataFiles/numberline/answer"+System.currentTimeMillis()+".svg";
             File file = new File(path);
             file.createNewFile();
             FileOutputStream fos = new FileOutputStream(file);
@@ -159,16 +153,9 @@ public class MainController {
         EvaluatorServiceImpl evaluatorService=new EvaluatorServiceImpl(eDiagramType);
         MarkSheet markSheet = evaluatorService.evaluate(abstractDiagramStructureS,modelAnswer,feedBackGenerator.generateFinalFeedback(abstractDiagramStructureS.getFeedBackList(),abstractDiagramStructureS));
 
-        ModelAndView model = new ModelAndView();
-        model.addObject("Question_type",eDiagramType+"-Q1");
-        model.addObject("overall_feedback",markSheet.getFeedback());
-        model.addObject("total_Mark",markSheet.getTotalMark());
-        model.addObject("out_of_total_Mark",markSheet.getTotalMark_gainMark());
-        model.addObject("answer",inputStr);
-        model.addObject("submarkSheets",markSheet.getSubMarkSheets());
+        return markSheet;
 
-        model.setViewName("markSheet");
-        return model;
+
     }
 
 }

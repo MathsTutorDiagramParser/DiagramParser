@@ -15,7 +15,7 @@ import java.util.Set;
 /**
  * Created by Wiranji Dinelka on 10/24/2017.
  */
-public class TreeDiagramFeedBackGenerator extends FeedBackGenerator {
+class TreeDiagramFeedBackGenerator extends FeedBackGenerator {
 
     public List<FeedBack> generateFeedbackByAnalyzingUnrelatedObjects(List<FeedBack> feedBacks, Graph host){
         return feedBacks;

@@ -129,9 +129,9 @@ public class NumberlineEvaluator extends Evaluator {
                                         }
                                     } else {
                                         if(isFoundRightEnd && isCorrectRightEnd) {
-                                            subQfeedback = NumberLineEvaluatorConstant.LEFT_VALUE_OF_THE_MARKED_LINE + teacherMarkPoints.get(j).getText() + " and you have marked it as ("+studentMarkPoints.get(k).getText().getText()+").";
+                                            subQfeedback = NumberLineEvaluatorConstant.LEFT_VALUE_OF_THE_MARKED_LINE + teacherMarkPoints.get(j).getText().getText() + " and you have marked it as ("+studentMarkPoints.get(k).getText().getText()+").";
                                         }else {
-                                            subQfeedback = subQfeedback +NumberLineEvaluatorConstant.LEFT_VALUE_OF_THE_MARKED_LINE + teacherMarkPoints.get(j).getText() + " and you have marked it as (" +studentMarkPoints.get(k).getText().getText()+").";
+                                            subQfeedback = subQfeedback +NumberLineEvaluatorConstant.LEFT_VALUE_OF_THE_MARKED_LINE + teacherMarkPoints.get(j).getText().getText() + " and you have marked it as (" +studentMarkPoints.get(k).getText().getText()+").";
                                         }
                                     }
                                 }
