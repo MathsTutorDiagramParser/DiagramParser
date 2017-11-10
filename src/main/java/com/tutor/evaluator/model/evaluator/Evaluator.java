@@ -16,8 +16,4 @@ public  class Evaluator {
                               AbstractDiagramStructure teacherStructure, RubricRules rubricRules, String structureFeedBack){
         return null;
     }
-
-
-
-
 }

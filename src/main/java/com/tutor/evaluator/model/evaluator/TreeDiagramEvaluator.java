@@ -9,11 +9,14 @@ import com.tutor.evaluator.model.rubicRulesPOJOObjects.MarkingMethod;
 import com.tutor.evaluator.model.rubicRulesPOJOObjects.RubricRules;
 import com.tutor.evaluator.model.rubicRulesPOJOObjects.SubQuestion;
 import com.tutor.parser.model.feedback.FeedBack;
+import com.tutor.parser.model.feedback.FeedBackGenerator;
+import com.tutor.parser.model.feedback.FeedbackGeneratorFactory;
 import com.tutor.parser.model.graphParser.DiagramStructure.AbstractDiagramStructure;
 import com.tutor.parser.model.graphParser.DiagramStructure.TreeDiagram.AbstractTreeDiagramStructure;
 import com.tutor.parser.model.graphParser.DiagramStructure.TreeDiagram.TreeBranch;
 import com.tutor.parser.model.graphParser.DiagramStructure.TreeDiagram.TreeNode;
 import com.tutor.parser.model.graphicalPOJOObject.Text.Text;
+import com.tutor.parser.model.util.DiagramType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +40,7 @@ public class TreeDiagramEvaluator extends Evaluator {
     boolean isMarked ;
     int totalQGainMark = 0;
 
+
     public MarkSheet evaluate(AbstractDiagramStructure studentStructure,
                               AbstractDiagramStructure teacherStructure, RubricRules rubricRules, String feedBacks){
         String s= feedBacks;
@@ -46,6 +50,7 @@ public class TreeDiagramEvaluator extends Evaluator {
         AbstractTreeDiagramStructure answerTreeDiagram = (AbstractTreeDiagramStructure) studentStructure;
         AbstractTreeDiagramStructure modelTreeDiagram = (AbstractTreeDiagramStructure) teacherStructure;
 
+        FeedBackGenerator feedBackGenerator = FeedbackGeneratorFactory.getFeedbackGenerator(DiagramType.TREEDIAGRAM);
         ArrayList<SubMarkSheet> subMarkSheets = new ArrayList<>();
 
 
@@ -204,112 +209,118 @@ public class TreeDiagramEvaluator extends Evaluator {
                     TreeNode answerUpTreeNode = getTreeNode(answerTreeDiagram, 1);
                     TreeNode answerDownTreeNode = getTreeNode(answerTreeDiagram, 2);
 
-                    TreeNode answerRightUpTreeNode;
-                    TreeNode answerRightDownTreeNode;
-                    if (!isSwaped) {
-                        if (answerUpTreeNode.getLevel().equals("1:0")) {
-                            answerRightUpTreeNode = answerUpTreeNode;
-                            answerRightDownTreeNode = answerDownTreeNode;
-                        } else {
-                            answerRightUpTreeNode = answerDownTreeNode;
-                            answerRightDownTreeNode = answerUpTreeNode;
-                        }
-                    } else {
-                        if (answerUpTreeNode.getLevel().equals("1:0")) {
-                            answerRightUpTreeNode = answerDownTreeNode;
-                            answerRightDownTreeNode = answerUpTreeNode;
-                        } else {
-                            answerRightUpTreeNode = answerUpTreeNode;
-                            answerRightDownTreeNode = answerDownTreeNode;
-                        }
-                    }
-
-                    for (int j = 0; j < conditions.size(); j++) {
-                        conditionName = conditions.get(j).getName();
-                        stepMarks = conditions.get(j).getTotalMarks();
-                        markingMethods = conditions.get(j).getMarkingMethods();
-                        totalQGainMark+= conditions.get(j).getTotalMarks();
-
-                        boolean isMarked = false;
-                        boolean isAnyValueEmpty = false;
-
-                        if (marks == null) {
-                            marks = new Mark[conditions.size()];
-                        }
+                    if(answerDownTreeNode == null && i==2) {
                         Mark mark = new Mark();
                         mark.setValue(0);
-                        mark.setFeedBack("");
+                        mark.setFeedBack("Answer need more nodes");
+                    } else {
 
-                        TreeBranch modelTreeUpBranch;
-                        TreeBranch modelTreeDownBranch;
-                        TreeBranch answerTreeUpBranch;
-                        TreeBranch answerTreeDownBranch;
-                        if (j == 0) {
-                            modelTreeUpBranch = modelUpTreeNode.getLeftTreeBranch();
-                            modelTreeDownBranch = modelUpTreeNode.getRightTreeBranch();
-                            answerTreeUpBranch = answerRightUpTreeNode.getLeftTreeBranch();
-                            answerTreeDownBranch = answerRightUpTreeNode.getRightTreeBranch();
-                            isAnyValueEmpty = isEmptyValue(answerRightUpTreeNode, "up node in child level", mark);
+                        TreeNode answerRightUpTreeNode;
+                        TreeNode answerRightDownTreeNode;
+                        if (!isSwaped) {
+                            if (answerUpTreeNode.getLevel().equals("1:0")) {
+                                answerRightUpTreeNode = answerUpTreeNode;
+                                answerRightDownTreeNode = answerDownTreeNode;
+                            } else {
+                                answerRightUpTreeNode = answerDownTreeNode;
+                                answerRightDownTreeNode = answerUpTreeNode;
+                            }
                         } else {
-                            modelTreeUpBranch = modelDownTreeNode.getLeftTreeBranch();
-                            modelTreeDownBranch = modelDownTreeNode.getRightTreeBranch();
-                            answerTreeUpBranch = answerRightDownTreeNode.getLeftTreeBranch();
-                            answerTreeDownBranch = answerRightDownTreeNode.getRightTreeBranch();
-                            isAnyValueEmpty = isEmptyValue(answerRightDownTreeNode, "down node in child level", mark);
+                            if (answerUpTreeNode.getLevel().equals("1:0")) {
+                                answerRightUpTreeNode = answerDownTreeNode;
+                                answerRightDownTreeNode = answerUpTreeNode;
+                            } else {
+                                answerRightUpTreeNode = answerUpTreeNode;
+                                answerRightDownTreeNode = answerDownTreeNode;
+                            }
                         }
 
-                        if(!isAnyValueEmpty) {
-                            for (int k = 0; k < markingMethods.size(); k++) {
-                                if (!isMarked) {
-                                    MarkingMethod markingMethod = markingMethods.get(k);
-                                    gainedMarks = markingMethod.getGainedMarks();
-                                    methodName = markingMethod.getMethod();
+                        for (int j = 0; j < conditions.size(); j++) {
+                            conditionName = conditions.get(j).getName();
+                            stepMarks = conditions.get(j).getTotalMarks();
+                            markingMethods = conditions.get(j).getMarkingMethods();
+                            totalQGainMark += conditions.get(j).getTotalMarks();
 
-                                    if (methodName.equals(TreeDiagramMarkingSteps.ENTIRE_NODE)) {
-                                        if (isOutcomeCorrect(answerTreeUpBranch.getOutCome().get(0).getText(), modelTreeUpBranch.getOutCome())) {
-                                            if (getProbabilityValue(answerTreeUpBranch.getProbability().getText()) == getProbabilityValue(modelTreeUpBranch.getProbability().getText())) {
-                                                if (isOutcomeCorrect(answerTreeDownBranch.getOutCome().get(0).getText(), modelTreeDownBranch.getOutCome())) {
-                                                    if (getProbabilityValue(answerTreeDownBranch.getProbability().getText()) == getProbabilityValue(modelTreeDownBranch.getProbability().getText())) {
-                                                        mark.setValue(gainedMarks);
-                                                        //mark.setFeedBack("You are correctly write probability and outcome");
-                                                        isMarked = true;
+                            boolean isMarked = false;
+                            boolean isAnyValueEmpty = false;
+
+                            if (marks == null) {
+                                marks = new Mark[conditions.size()];
+                            }
+                            Mark mark = new Mark();
+                            mark.setValue(0);
+                            mark.setFeedBack("");
+
+                            TreeBranch modelTreeUpBranch;
+                            TreeBranch modelTreeDownBranch;
+                            TreeBranch answerTreeUpBranch;
+                            TreeBranch answerTreeDownBranch;
+                            if (j == 0) {
+                                modelTreeUpBranch = modelUpTreeNode.getLeftTreeBranch();
+                                modelTreeDownBranch = modelUpTreeNode.getRightTreeBranch();
+                                answerTreeUpBranch = answerRightUpTreeNode.getLeftTreeBranch();
+                                answerTreeDownBranch = answerRightUpTreeNode.getRightTreeBranch();
+                                isAnyValueEmpty = isEmptyValue(answerRightUpTreeNode, "up node in child level", mark);
+                            } else {
+                                modelTreeUpBranch = modelDownTreeNode.getLeftTreeBranch();
+                                modelTreeDownBranch = modelDownTreeNode.getRightTreeBranch();
+                                answerTreeUpBranch = answerRightDownTreeNode.getLeftTreeBranch();
+                                answerTreeDownBranch = answerRightDownTreeNode.getRightTreeBranch();
+                                isAnyValueEmpty = isEmptyValue(answerRightDownTreeNode, "down node in child level", mark);
+                            }
+
+                            if (!isAnyValueEmpty) {
+                                for (int k = 0; k < markingMethods.size(); k++) {
+                                    if (!isMarked) {
+                                        MarkingMethod markingMethod = markingMethods.get(k);
+                                        gainedMarks = markingMethod.getGainedMarks();
+                                        methodName = markingMethod.getMethod();
+
+                                        if (methodName.equals(TreeDiagramMarkingSteps.ENTIRE_NODE)) {
+                                            if (isOutcomeCorrect(answerTreeUpBranch.getOutCome().get(0).getText(), modelTreeUpBranch.getOutCome())) {
+                                                if (getProbabilityValue(answerTreeUpBranch.getProbability().getText()) == getProbabilityValue(modelTreeUpBranch.getProbability().getText())) {
+                                                    if (isOutcomeCorrect(answerTreeDownBranch.getOutCome().get(0).getText(), modelTreeDownBranch.getOutCome())) {
+                                                        if (getProbabilityValue(answerTreeDownBranch.getProbability().getText()) == getProbabilityValue(modelTreeDownBranch.getProbability().getText())) {
+                                                            mark.setValue(gainedMarks);
+                                                            //mark.setFeedBack("You are correctly write probability and outcome");
+                                                            isMarked = true;
+                                                        } else {
+                                                            mark.setValue(0);
+                                                            mark.setFeedBack("Written Probability/probabilities is/are wrong in a second level branch. Check probabilities");
+                                                        }
                                                     } else {
                                                         mark.setValue(0);
-                                                        mark.setFeedBack("Written Probability/probabilities is/are wrong in a second level branch. Check probabilities");
+                                                        mark.setFeedBack("Written outcome(s) in second level node(s) are not matching with the correct answer. ");
                                                     }
                                                 } else {
                                                     mark.setValue(0);
-                                                    mark.setFeedBack("Written outcome(s) in second level node(s) are not matching with the correct answer. ");
+                                                    mark.setFeedBack("Written Probability/probabilities is/are wrong in a second level branch. Check probabilities");
                                                 }
-                                            } else {
-                                                mark.setValue(0);
-                                                mark.setFeedBack("Written Probability/probabilities is/are wrong in a second level branch. Check probabilities");
-                                            }
-                                        } else if (isOutcomeCorrect(answerTreeDownBranch.getOutCome().get(0).getText(), modelTreeUpBranch.getOutCome())) {
-                                            if (getProbabilityValue(answerTreeDownBranch.getProbability().getText()) == getProbabilityValue(modelTreeUpBranch.getProbability().getText())) {
-                                                if (isOutcomeCorrect(answerTreeUpBranch.getOutCome().get(0).getText(), modelTreeDownBranch.getOutCome())) {
-                                                    if (getProbabilityValue(answerTreeUpBranch.getProbability().getText()) == getProbabilityValue(modelTreeDownBranch.getProbability().getText())) {
-                                                        mark.setValue(gainedMarks);
-                                                        //mark.setFeedBack("You are correctly write probability and outcome");
-                                                        isMarked = true;
+                                            } else if (isOutcomeCorrect(answerTreeDownBranch.getOutCome().get(0).getText(), modelTreeUpBranch.getOutCome())) {
+                                                if (getProbabilityValue(answerTreeDownBranch.getProbability().getText()) == getProbabilityValue(modelTreeUpBranch.getProbability().getText())) {
+                                                    if (isOutcomeCorrect(answerTreeUpBranch.getOutCome().get(0).getText(), modelTreeDownBranch.getOutCome())) {
+                                                        if (getProbabilityValue(answerTreeUpBranch.getProbability().getText()) == getProbabilityValue(modelTreeDownBranch.getProbability().getText())) {
+                                                            mark.setValue(gainedMarks);
+                                                            //mark.setFeedBack("You are correctly write probability and outcome");
+                                                            isMarked = true;
+                                                        } else {
+                                                            mark.setValue(0);
+                                                            mark.setFeedBack("Written Probability/probabilities is/are wrong in a second level branch. Check probabilities");
+                                                        }
                                                     } else {
                                                         mark.setValue(0);
-                                                        mark.setFeedBack("Written Probability/probabilities is/are wrong in a second level branch. Check probabilities");
+                                                        mark.setFeedBack("Written outcome(s) in second level node(s) are not matching with the correct answer. ");
                                                     }
                                                 } else {
                                                     mark.setValue(0);
-                                                    mark.setFeedBack("Written outcome(s) in second level node(s) are not matching with the correct answer. ");
+                                                    mark.setFeedBack("Written Probability/probabilities is/are wrong in a second level branch. Check probabilities");
                                                 }
                                             } else {
                                                 mark.setValue(0);
-                                                mark.setFeedBack("Written Probability/probabilities is/are wrong in a second level branch. Check probabilities");
+                                                mark.setFeedBack("Written outcome(s) in second level node(s) are not matching with the correct answer. ");
                                             }
-                                        } else {
-                                            mark.setValue(0);
-                                            mark.setFeedBack("Written outcome(s) in second level node(s) are not matching with the correct answer. ");
                                         }
-                                    }
-                                    //else if (methodName.equals(TreeDiagramMarkingSteps.PROBABILITY_ONLY)) {
+                                        //else if (methodName.equals(TreeDiagramMarkingSteps.PROBABILITY_ONLY)) {
 //                                        if (getProbabilityValue(answerTreeUpBranch.getProbability().getText()) == getProbabilityValue(modelTreeUpBranch.getProbability().getText())) {
 //                                            if (getProbabilityValue(answerTreeDownBranch.getProbability().getText()) == getProbabilityValue(modelTreeDownBranch.getProbability().getText())) {
 //                                                mark.setValue(gainedMarks);
@@ -331,11 +342,12 @@ public class TreeDiagramEvaluator extends Evaluator {
 //
 //                                        }
 //                                    }
+                                    }
                                 }
                             }
+                            marks[j] = mark;
+                            subTotalMark += mark.getValue();
                         }
-                        marks[j] = mark;
-                        subTotalMark += mark.getValue();
                     }
                 }
                 subMarkSheet.setPartitialMark(marks);
@@ -344,6 +356,13 @@ public class TreeDiagramEvaluator extends Evaluator {
                 subMarkSheets.add(subMarkSheet);
             } catch (NullPointerException e) {
                 System.out.println("Null Point exception occur");
+            }
+        }
+        for (int i = 0; i < subMarkSheets.size(); i++) {
+            if(feedBackGenerator.getFinalFeedback(subMarkSheets.get(i).getPartitialMark()).length()>0) {
+                subMarkSheets.get(i).setFeedBack(feedBackGenerator.getFinalFeedback(subMarkSheets.get(i).getPartitialMark()));
+            } else {
+                subMarkSheets.get(i).setFeedBack("Your answer for sub question is correct");
             }
         }
         markSheet.setTotalMark(totalMark);
@@ -364,9 +383,12 @@ public class TreeDiagramEvaluator extends Evaluator {
                 treeNode = treeDiagramStructure.getTreeGraphArrayList().get(i).getNode();
             }
         } else if(i == 1) {
+
             treeNode = treeDiagramStructure.getTreeGraphArrayList().get(i-1).getNodeTwo();
         } else {
-            treeNode = treeDiagramStructure.getTreeGraphArrayList().get(i-1).getNode();
+            if(treeDiagramStructure.getTreeGraphArrayList().size() > 1) {
+                treeNode = treeDiagramStructure.getTreeGraphArrayList().get(i - 1).getNode();
+            } else treeNode = null;
         }
         return treeNode;
     }

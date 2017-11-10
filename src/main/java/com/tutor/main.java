@@ -107,9 +107,7 @@ public class main {
             for (int i = 0; i < markingStructure.getSubMarkSheets().size(); i++) {
                 logger.info("Sub question : " + (i + 1));
                 logger.info("Gained Mark : " + markingStructure.getSubMarkSheets().get(i).getTotalMark());
-                  if (feedBackGenerator.getFinalFeedback(markingStructure.getSubMarkSheets().get(i).getPartitialMark()).length() > 0 ) {
-                        logger.info("feedback is : " + feedBackGenerator.getFinalFeedback(markingStructure.getSubMarkSheets().get(i).getPartitialMark()));
-                  }
+                logger.info("feedback is : " + markingStructure.getSubMarkSheets().get(i).getFeedBack());
 
             }
         }
