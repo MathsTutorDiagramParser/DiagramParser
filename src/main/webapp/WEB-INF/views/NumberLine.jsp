@@ -426,7 +426,7 @@
         var svg = canvas.toSVG();
         document.getElementById("save").textContent = "Evaluating..." ;
         $.ajax({
-            url: 'http://localhost:8080/DiargamEvaluation/grade',
+            url: 'http://localhost:8080/DiagramEvaluation/grade',
             type: 'POST',
             data: {
                 answer: svg,
