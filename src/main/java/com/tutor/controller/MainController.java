@@ -90,7 +90,7 @@ public class MainController {
         byte[] data = decodedStr.toString().getBytes();
         String path = "";
         try{
-            path = "D:/Projects/FYP/project/MathsTutor/src/main/resources/test/"+System.currentTimeMillis()+".svg";
+            path = "E:/FYP/implementation/New V1/DiagramEvaluation/src/main/resources/test/"+System.currentTimeMillis()+".svg";
 //          path = "dataFiles/numberline/answer"+System.currentTimeMillis()+".svg";
             File file = new File(path);
             file.createNewFile();
