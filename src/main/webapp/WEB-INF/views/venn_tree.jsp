@@ -40,22 +40,24 @@
 <div style="margin-top: 50px;" align="center">
 
   <div class="w3-content" style="max-width:1564px;height:30px;margin-top: 70px;" align="left">
-    <h4> 01) A භාජනයේ කලු බෝල 3 ක් හා සුදු බෝල 2 ක් ද B  භාජනයේ කලු බෝල 4 ක් හා සුදු බෝල 3 ක් ද  ඇත. මෙම බෝල සියල්ලම තරමින් සමාන වේ. A භාජනයෙන් අහඹු ලෙස බෝලයක් ගෙන, එහි වර්ණය සළකුණු කර ගෙන, එය B භාජනයට දමනු ලැබේ. අනතුරුව B භාජනයෙන් අහඹු ලෙස බෝලයක් ගෙන එහි වර්ණය සලකුණු කර ගනු ලැබේ.
-      A භාජනයෙන් බොලයක් ගැනීම පළමුවන සිද්ධිය ලෙස ද B භාජනයෙන් බොලයක් ගැනීම දෙවන සිද්ධිය ලෙසද සලකා,
-      <br>I.	මෙම සිද්ධි වලට අදාළ රුක් සටහන අදින්න
-    </h4>
+    <h5> 01)A භාජනයේ කලු බෝල 3 ක් හා සුදු බෝල 2 ක් ද B  භාජනයේ කලු බෝල 4 ක් හා සුදු බෝල 3 ක් ද  ඇත. මෙම බෝල සියල්ලම තරමින් සමාන වේ.
+      A භාජනයෙන් අහඹු ලෙස බෝලයක් ගෙන, එහි වර්ණය සළකුණු කර ගෙන, එය B භාජනයට දමනු ලැබේ. අනතුරුව B භාජනයෙන් අහඹු ලෙස බෝලයක් ගෙන
+      එහි වර්ණය සලකුණු කර ගනු ලැබේ.
+
+      </br>A භාජනයෙන් බොලයක් ගැනීම පළමුවන සිද්ධිය ලෙස ද B භාජනයෙන් බොලයක් ගැනීම දෙවන සිද්ධිය ලෙසද සලකා, ෙම සිද්ධි වලට අදාළ රුක් සටහන අදින්න.
+    </h5>
   </div>
 
 
-  <div id='c1' style="padding-top: 100px">
+  <div id='c1' style="margin-top: 100px">
     <canvas id="myCanvas" width="800" height="400" style="border:1px solid #000000;"></canvas>
   </div>
 
   <div class="col-lg-10">
     <button id="drawBranch">Branch</button>
     <button id="editBranch">Edit Branch</button>
-    <button id="enterText">Text Label</button>
-    <button id="drawing-mode" class="btn btn-info" style="display: none;">Colour</button>
+    <button id="enterText">Event Text Label</button>
+    <button id="drawing-mode" class="btn btn-info" style = "display: none;">Colour</button>
     <div style="display: none;" id="drawing-mode-options">
       <label for="drawing-color">Line color:</label>
       <input type="color" value="#005E7A" id="drawing-color"><br>
@@ -65,12 +67,27 @@
 
   </div>
   <div align="center" style="margin-top: 10px;margin-bottom: 20px">
-    <button id ="save" style="width:200px;background-color: forestgreen;">Save</button>
-  </div>
-
+    <button id ="save" style="width:200px;background-color: forestgreen;">Grade</button>
   </div>
 </div>
+
+<div id="marksheet" >
+  <div class="w3-content w3-padding" style="width:1000px; border: solid; border-width: thin" >
+    <!-- About Section -->
+    <div style="margin-top: 10px" id="about">
+      <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16" align="center"> Mark Sheet</h3>
+    </div>
+    <div class="w3-border-bottom w3-border-light-grey"> Qusetion :  <span id="question_type"> Number Line </span> </div>
+    <div class="w3-border-bottom w3-border-light-grey"> Overall FeedBack : <span id="overall_feedback"> </span>  </div>
+    <div class="w3-border-bottom w3-border-light-grey"> Total Mark : <span id="total_Mark"> </span>  ${total_Mark} Out of <span id="out_of_total_Mark"> </span> </div>
+    <div  id="dvTable" style="padding-bottom: 20px"></div>
+  </div>
+</div>
+</div>
+
+
 <script type="text/javascript">
+    document.getElementById("marksheet").style.visibility = 'hidden' ;
     function onLoad(){
         var options = {
             sourceLanguage: google.elements.transliteration.LanguageCode.ENGLISH,
@@ -92,6 +109,8 @@
     var label_clicked = false, text_clicked = false, branch_clicked = false;
     var isDown = false, isMoving = false;
     var branch;
+    var branchXCoor;
+    var branchYCoor;
     var drawingModeEl = document.getElementById('drawing-mode'),
         drawingOptionsEl = document.getElementById('drawing-mode-options'),
         drawingColorEl = document.getElementById('drawing-color'),
@@ -161,32 +180,63 @@
 
     $('#save').click(function (e){
         var svg = canvas.toSVG();
-        fabric.log(svg);
-
-        var $this = $(this);
-        $this.toggleClass('Grade');
-        if($this.hasClass('Grade')){
-            $this.text('Evaluating...');
-        } else {
-            $this.text('Grade');
-        }
-
+        document.getElementById("save").textContent = "Evaluating..." ;
         $.ajax({
-            crossDomain: true,
-//            url: 'http://localhost:8080/mathsTutor/grade',
-            url: 'http://localhost:8080/DiargamEvaluation/grade',
+            url: 'http://localhost:8080/DiagramEvaluation/grade',
             type: 'POST',
             data: {
                 answer: svg,
                 diagramType : "TREEDIAGRAM"
             },
-            success: function(page){
-//                alert("answer Saved Successfully");
-                $("html").empty();
-                $("html").append(page);
+            success: function(marksheet){
+                alert("success");
+                document.getElementById("total_Mark").textContent = marksheet.totalMark ;
+                document.getElementById("out_of_total_Mark").textContent = marksheet.totalMark_gainMark ;
+//                document.getElementById("overall_feedback").textContent = marksheet.feedback ;
+                $('#overall_feedback').text(marksheet.feedback);
+                var submarksheets = marksheet.subMarkSheets;
+//                for (var i = 0; i < submarksheets.length; i++) {
+//                    var tr='';
+//                    tr = "<tr>"+
+//                            "<td>" + submarksheets[i].QNo + "</td>" +
+//                            "<td>" + submarksheets[i].totalMark + ' out Of ' + submarksheets[i].gainedMark+ "</td>" +
+//                            "<td>" + submarksheets[i]. feedBack+ "</td> </tr> ";
+//                    console.log(tr);
+//                    document.getElementById("marksheet").append(tr);
+//                }
+                //Create a HTML Table element.
+                var table = document.createElement("TABLE");
+                hrow = table.insertRow(-1);
+                var h1 = hrow.insertCell(-1);
+                h1.innerHTML = "Sub Question";
+                var h2 = hrow.insertCell(-1);
+                h2.innerHTML = "Marks";
+                var h3 = hrow.insertCell(-1);
+                h3.innerHTML = "FeedBack";
+                //Add the data rows.
+                if(submarksheets !== null) {
+                    for (var i = 0; i < submarksheets.length; i++) {
+                        row = table.insertRow(-1);
+                        var cell1 = row.insertCell(-1);
+                        cell1.innerHTML = i + 1;
+                        var cell2 = row.insertCell(-1);
+                        cell2.innerHTML = submarksheets[i].totalMark + ' out Of ' + submarksheets[i].gainedMark;
+                        var cell3 = row.insertCell(-1);
+                        cell3.innerHTML = submarksheets[i].feedBack;
+                    }
+                }
+                var dvTable = document.getElementById("dvTable");
+                dvTable.innerHTML = "";
+                dvTable.appendChild(table);
+                document.getElementById("marksheet").style.visibility = 'visible' ;
+                document.getElementById("save").textContent = "Grade" ;
+            },
+            error: function() {
+                alert("error");
             }
         });
     });
+
 
     $('#undo').click(function (e){
         var canvas_objects = canvas._objects;
@@ -236,6 +286,8 @@
                 id: 'branch'
             });
             canvas.add(branch);
+            branchXCoor = pointer.x;
+            branchYCoor = pointer.y;
         }
     });
 
@@ -248,6 +300,7 @@
         if (branch_clicked) {
             branch.set({x2:pointer.x, y2:pointer.y});
             canvas.renderAll();
+
         }
 
     });
@@ -260,9 +313,49 @@
             var pointer = canvas.getPointer(o.e);
             branch.setCoords();
             //branch.set('selectable', true);
+            var x = (pointer.x + branchXCoor)/2-50;
+            var y;
+            if(!(pointer.y === branchYCoor || pointer.x === branchXCoor)){
+
+                if(pointer.y <= branchYCoor) {
+                    y = (pointer.y + branchYCoor)/2-40;
+                } else {
+                    y = (pointer.y + branchYCoor)/2+10;
+                }
+                var probText = new fabric.IText('Probability', {
+                    left: x,
+                    top: y,
+                    fontFamily: 'Bree Serif',
+                    fontSize: 20,
+                    cache: false
+                });
+                canvas.add(probText);
+
+                var outText = new fabric.IText('Outcome', {
+                    left: pointer.x,
+                    top: pointer.y,
+                    fontFamily: 'Bree Serif',
+                    fontSize: 20,
+                    cache: false
+                });
+                canvas.add(outText);
+            }
+            branch_clicked = false;
         }
 
     });
+
+
+    canvas.on("text:editing:entered", clearText);
+
+    function clearText(e) {
+        if (e.target.type === "i-text") {
+            if (e.target.text === "Enter text here") {
+                e.target.text = "";
+                canvas.renderAll();
+            };
+        }
+    }
 
 
     function getElementByMyId(ID){
@@ -287,6 +380,7 @@
         });
         label_clicked = true;
     }
+
 
 </script>
 </body>

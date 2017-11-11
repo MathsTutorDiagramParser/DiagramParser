@@ -36,7 +36,7 @@ public class ModelAnswerServiceImpl implements ModelAnswerService{
         SVGObjectTokenizationService svgObjectTokenizationService = new SVGObjectTokenizationServiceImpl();
         ObjectSequenceGeneratorService objectSequenceGeneratorService = new ObjectSequenceGeneratorServiceImpl();
         SpatialRelationshipGeneratorService spatialRelationShipGenerator = new SpatialRelationshipGeneratorServiceImpl();
-        SVGtoPOJOMapper svGtoPOJOMapperT = svgObjectTokenizationService.tokenize("D:/Projects/FYP/project/MathsTutor/src/main/resources/test/"+filename);
+        SVGtoPOJOMapper svGtoPOJOMapperT = svgObjectTokenizationService.tokenize("E:/FYP/implementation/NewV1/DiagramParser/src/main/resources/test/"+filename);
 //        SVGtoPOJOMapper svGtoPOJOMapperT = svgObjectTokenizationService.tokenize("../webapps/DiargamEvaluation/resources/answers/"+filename);
 
         List<GraphicalImageComponent> orderedListT = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapperT.getGraphicalImageComponents());

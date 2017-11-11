@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.tutor</groupId>
-    <artifactId>DiargamEvaluation</artifactId>
+    <artifactId>DiagramEvaluation</artifactId>
     <name>MathsTutor Diagrams</name>
-    <description>Diargam Evaluation</description>
+    <description>Diagram Evaluation</description>
     <url>http://mathstutordiagrams.projects.mrt.ac.lk:8080/mathsTutor/</url>
     <version>1.0</version>
     <packaging>war</packaging>
@@ -19,7 +19,7 @@
     </parent>
 
     <build>
-        <finalName>DiargamEvaluation</finalName>
+        <finalName>DiagramEvaluation</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

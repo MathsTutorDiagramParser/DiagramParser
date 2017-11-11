@@ -491,7 +491,7 @@
                  $.ajax({
                      crossDomain: true,
 //            url: 'http://localhost:8080/mathsTutor/grade',
-                     url: 'http://localhost:8080/DiargamEvaluation/grade',
+                     url: 'http://localhost:8080/DiagramEvaluation/grade',
                      type: 'POST',
                      data: {
                          answer: svg,

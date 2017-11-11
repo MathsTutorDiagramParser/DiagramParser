@@ -2,20 +2,18 @@ package com.tutor.parser.model.feedback;
 
 import com.tutor.evaluator.model.markingStructure.Mark;
 import com.tutor.parser.model.graphParser.DiagramStructure.AbstractDiagramStructure;
-import com.tutor.parser.model.graphParser.DiagramStructure.NumberLine.AbstractNumberLineStructure;
 import com.tutor.parser.model.graphParser.DiagramStructure.TreeDiagram.AbstractTreeDiagramStructure;
 import com.tutor.parser.model.graphParser.GraphGrammarGenerator.graphGrammarObject.Graph;
-import com.tutor.parser.model.util.FeedBackMessage;
-import com.tutor.parser.model.util.ObjectType;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 /**
- * Created by Wiranji Dinelka on 10/24/2017.
+ * Created by Wiranji Dinelka on 10/26/2017.
  */
-class TreeDiagramFeedBackGenerator extends FeedBackGenerator {
+
+public class TreeDiagramFeedbackGenerator extends FeedBackGenerator {
 
     public List<FeedBack> generateFeedbackByAnalyzingUnrelatedObjects(List<FeedBack> feedBacks, Graph host){
         return feedBacks;
@@ -42,10 +40,12 @@ class TreeDiagramFeedBackGenerator extends FeedBackGenerator {
         String finalFeedback = "";
         String feedback;
         Set<String> feedBackSet = new HashSet<>();
-
-        for (int k = 0; k < partialMarkArray.length; k++) {
-            feedBackSet.add(partialMarkArray[k].getFeedBack());
+        if(partialMarkArray != null ) {
+            for (int k = 0; k < partialMarkArray.length; k++) {
+                feedBackSet.add(partialMarkArray[k].getFeedBack());
+            }
         }
+
         if(feedBackSet.size() > 0 ){
 
             for (String a: feedBackSet) {
@@ -59,7 +59,7 @@ class TreeDiagramFeedBackGenerator extends FeedBackGenerator {
             }
         }
         if(finalFeedback.length()>0) {
-             feedback = finalFeedback.substring(0, finalFeedback.length() - 2);
+            feedback = finalFeedback.substring(0, finalFeedback.length() - 2);
         } else {
             feedback = finalFeedback;
         }
