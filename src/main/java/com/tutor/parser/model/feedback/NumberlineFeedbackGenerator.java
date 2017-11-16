@@ -92,7 +92,7 @@ public class NumberlineFeedbackGenerator extends FeedBackGenerator {
 
             if(feedBacks.get(i).getDescription().equals(FeedBackMessage.INITIAL_GRAPH_WITH_EXTRA_OBJECTS)){
                 if(countExtraObWithValidMP==0){
-                    feedback=feedback+"But You have drawn unrelated things in diagram.";
+                    feedback=feedback+".You have drawn unrelated things in diagram.";
                     countExtraObWithValidMP++;                }
             }
 
