@@ -1,11 +1,12 @@
 <%@ page import="java.util.Locale" %>
 <%@ page import="java.util.Enumeration" %>
 <!DOCTYPE HTML>
-<%@page contentType = "text/html;charset = UTF-8" language = "java" %>
-<%@page isELIgnored = "false" %>
+
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri = "http://www.springframework.org/tags/form" prefix = "form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page isELIgnored = "false" %>
 <html>
 
 <head>
@@ -39,11 +40,26 @@
 <!-- Navbar (sit on top) -->
 <div class="w3-top" style="margin-bottom: 50px" >
   <div class="w3-bar w3-white w3-wide w3-padding w3-card-2" align="center">
-    <b>Trignometric diagram </b>
+    <b>Trignometric Diagram </b>
     <!-- Float links to the right. Hide them on small screens -->
   </div>
 </div>
-<div style="margin-top: 50px;"align="center">
+
+<div style="margin-top: 50px;" align="center">
+
+  <div class="w3-content" style="max-width:1564px;height:30px;margin-top: 70px;" align="left">
+    <h5>
+      01) තිරස් බිමක එකිනෙකට  20m දුරින් වු AB හා CD සිරස් කණු දෙකක් රූපයේ දක්වේ.කණු දෙකෙහි A හා C ශීර්ෂ 42m  දිග ඍජු කම්බියකින් යා කර ඇත.
+      A සිට D හි අවරෝහණ කෝණය 35' කි.
+      </br> මෙම රූපය ඔබේ උත්තර පත්‍රයට පිටපත් කරගෙන, ඉහත දී අති තොරතුරු එහි ලකුණු කරන්න.
+    </h5>
+  </div>
+
+  <div style="width: 400px; height: 100px">
+    <img src="resources/img/trigQPic.png" width="75%">
+  </div>
+
+<div style="margin-top: 110px;"align="center">
   <div id='c1'>
     <canvas id="myCanvas" width="800" height="400" style="border:1px solid #000000;"></canvas>
   </div>
@@ -65,26 +81,23 @@
     <button class="btn btn-success" style="font-family: Aharoni; font-weight: bold;"  id ="save">Save</button>
   </div>
 
-  <div class="w3-content" style="max-width:1564px ;background-color: lightgrey" align="center">
-    <h4 style="color: blue"> Example Qusetions </h4>
-    <div style="width: 800px; height: 200px">
-      <img src="resources/img/trigQ.png" width="75%">
-    </div>
-
-    <h4 style="color: blue"> Instruction To Draw </h4>
-    <div style="margin-left: 300px" align="left">
-      * Use the Line option to draw the lines and copy the diagram given in the question.
-      <br>
-      * DO NOT use the RECTANGLE option to draw.
-      <br>
-      * Mark the labels for angles and sides using the TEXT LABEL option
-      <br>
-      <br>
+  <div id="marksheet" >
+    <div class="w3-content w3-padding" style="width:1000px; border: solid; border-width: thin" >
+      <!-- About Section -->
+      <div style="margin-top: 10px" id="about">
+        <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16" align="center"> Mark Sheet</h3>
+      </div>
+      <div class="w3-border-bottom w3-border-light-grey"> Qusetion :  <span id="question_type"> Number Line </span> </div>
+      <div class="w3-border-bottom w3-border-light-grey"> Overall FeedBack : <span id="overall_feedback"> </span>  </div>
+      <div class="w3-border-bottom w3-border-light-grey"> Total Mark : <span id="total_Mark"> </span>  ${total_Mark} Out of <span id="out_of_total_Mark"> </span> </div>
+      <div  id="dvTable" style="padding-bottom: 20px"></div>
     </div>
   </div>
-
 </div>
+
+
 <script type="text/javascript">
+    document.getElementById("marksheet").style.visibility = 'hidden' ;
     function onLoad(){
         var options = {
             sourceLanguage: google.elements.transliteration.LanguageCode.ENGLISH,
@@ -197,29 +210,63 @@
 
     $('#save').click(function (e){
         var svg = canvas.toSVG();
-        fabric.log(svg);
-
+        document.getElementById("save").textContent = "Evaluating..." ;
         $.ajax({
-            crossDomain: true,
-            url: 'http://mathstutordiagrams.projects.mrt.ac.lk:8080/mathsTutor/saveTrig',
+            url: 'http://localhost:8080/DiagramEvaluation/grade',
             type: 'POST',
             data: {
                 answer: svg,
+                diagramType : "TRIGNOMETRICDIAGRAM"
             },
-            success: function(){alert('Saved Successfully.');}
+            success: function(marksheet){
+                alert("success");
+                document.getElementById("total_Mark").textContent = marksheet.totalMark ;
+                document.getElementById("out_of_total_Mark").textContent = marksheet.totalMark_gainMark ;
+//                document.getElementById("overall_feedback").textContent = marksheet.feedback ;
+                $('#overall_feedback').text(marksheet.feedback);
+                var submarksheets = marksheet.subMarkSheets;
+//                for (var i = 0; i < submarksheets.length; i++) {
+//                    var tr='';
+//                    tr = "<tr>"+
+//                            "<td>" + submarksheets[i].QNo + "</td>" +
+//                            "<td>" + submarksheets[i].totalMark + ' out Of ' + submarksheets[i].gainedMark+ "</td>" +
+//                            "<td>" + submarksheets[i]. feedBack+ "</td> </tr> ";
+//                    console.log(tr);
+//                    document.getElementById("marksheet").append(tr);
+//                }
+                //Create a HTML Table element.
+                var table = document.createElement("TABLE");
+                hrow = table.insertRow(-1);
+                var h1 = hrow.insertCell(-1);
+                h1.innerHTML = "Sub Question";
+                var h2 = hrow.insertCell(-1);
+                h2.innerHTML = "Marks";
+                var h3 = hrow.insertCell(-1);
+                h3.innerHTML = "FeedBack";
+                //Add the data rows.
+                if(submarksheets !== null) {
+                    for (var i = 0; i < submarksheets.length; i++) {
+                        row = table.insertRow(-1);
+                        var cell1 = row.insertCell(-1);
+                        cell1.innerHTML = i + 1;
+                        var cell2 = row.insertCell(-1);
+                        cell2.innerHTML = submarksheets[i].totalMark + ' out Of ' + submarksheets[i].gainedMark;
+                        var cell3 = row.insertCell(-1);
+                        cell3.innerHTML = submarksheets[i].feedBack;
+                    }
+                }
+                var dvTable = document.getElementById("dvTable");
+                dvTable.innerHTML = "";
+                dvTable.appendChild(table);
+                document.getElementById("marksheet").style.visibility = 'visible' ;
+                document.getElementById("save").textContent = "Grade" ;
+            },
+            error: function() {
+                alert("error");
+            }
         });
-        //sending the svg to the server
-        //07.09 - Commented for testing
-      /*$.ajax({
-       crossDomain: true,
-       url: 'http://127.0.0.1:8000/svg/',
-       type: 'POST',
-       data: {
-       'str': svg,
-       },
-       success: function(){alert('PUT completed');}
-       });*/
     });
+
 
     $('#undo').click(function (e){
         var canvas_objects = canvas._objects;
