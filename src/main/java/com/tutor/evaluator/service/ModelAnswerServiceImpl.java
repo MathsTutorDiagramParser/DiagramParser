@@ -13,6 +13,7 @@ import com.tutor.parser.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.parser.model.graphicalPOJOObject.Text.Text;
 import com.tutor.parser.model.preProcessor.SVGtoPOJOMapper;
 import com.tutor.parser.model.util.DiagramType;
+import com.tutor.parser.model.util.ObjectType;
 import com.tutor.parser.model.util.SpatialRelation;
 import com.tutor.parser.service.preProcessorService.*;
 import org.slf4j.Logger;
@@ -36,7 +37,14 @@ public class ModelAnswerServiceImpl implements ModelAnswerService{
         SVGObjectTokenizationService svgObjectTokenizationService = new SVGObjectTokenizationServiceImpl();
         ObjectSequenceGeneratorService objectSequenceGeneratorService = new ObjectSequenceGeneratorServiceImpl();
         SpatialRelationshipGeneratorService spatialRelationShipGenerator = new SpatialRelationshipGeneratorServiceImpl();
-        SVGtoPOJOMapper svGtoPOJOMapperT = svgObjectTokenizationService.tokenize("E:/FYP/implementation/NewV1/DiagramParser/src/main/resources/test/"+filename);
+
+        SVGtoPOJOMapper svGtoPOJOMapperT;
+        if(diagramType == DiagramType.TRIGNOMETRICDIAGRAM) {
+            svGtoPOJOMapperT = svgObjectTokenizationService.tokenize(filename);
+        } else {
+            svGtoPOJOMapperT = svgObjectTokenizationService.tokenize("E:/FYP/implementation/NewV1/DiagramParser/src/main/resources/test/"+filename);
+        }
+
 //        SVGtoPOJOMapper svGtoPOJOMapperT = svgObjectTokenizationService.tokenize("../webapps/DiargamEvaluation/resources/answers/"+filename);
 
         List<GraphicalImageComponent> orderedListT = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapperT.getGraphicalImageComponents());
@@ -49,6 +57,19 @@ public class ModelAnswerServiceImpl implements ModelAnswerService{
         hostT.setRelations(relationsT);
 
         Parser parserT = new Parser(diagramType);
+        if(diagramType == DiagramType.TRIGNOMETRICDIAGRAM){
+            for(GraphicalImageComponent component : hostT.getGraphicalImageComponents()){
+                if (component.objectType == ObjectType.ANGLE_LINE){
+                    component.objectType = ObjectType.LINE;
+                }
+                else if(component.objectType == ObjectType.HORIZONTAL_LINE){
+                    component.objectType = ObjectType.LINE;
+                }
+                else if(component.objectType == ObjectType.VERTICAL_LINE){
+                    component.objectType = ObjectType.LINE;
+                }
+            }
+        }
         AbstractDiagramStructure abstractDiagramStructureT= parserT.parse(hostT,textListT);
 
         if(diagramType == DiagramType.TREEDIAGRAM) {

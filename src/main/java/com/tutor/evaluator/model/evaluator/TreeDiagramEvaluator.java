@@ -381,6 +381,7 @@ public class TreeDiagramEvaluator extends Evaluator {
         for (int i = 0; i < subMarkSheets.size(); i++) {
             if(feedBackGenerator.getFinalFeedback(subMarkSheets.get(i).getPartitialMark()).length()>0) {
                 subMarkSheets.get(i).setFeedBack(feedBackGenerator.getFinalFeedback(subMarkSheets.get(i).getPartitialMark()));
+
             } else {
                 subMarkSheets.get(i).setFeedBack("----");
             }

@@ -10,8 +10,7 @@
 		<script type="text/javascript" src = "http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.6.3/fabric.min.js"></script>
 	</head>
     
-    <>
-
+    <body>
 
     <div class="w3-content" style="max-width:1564px;height:30px;margin-top: 70px;" align="center">
         1.	ළමුන් 20 දෙනෙකු පරීක්ෂණයකදී ලබාගත් ලකුණු පහත දැක්වේ. වගුවේ දැක්වෙන පරිදි මෙම ලකුණු සමුහගත කර ඇත. මෙම වගුවට ජලරේඛකය නිර්මාණය කරන්න.

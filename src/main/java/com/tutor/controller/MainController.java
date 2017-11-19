@@ -8,6 +8,7 @@ import com.tutor.evaluator.model.markingStructure.MarkSheet;
 import com.tutor.evaluator.service.EvaluatorServiceImpl;
 import com.tutor.evaluator.service.ModelAnswerService;
 import com.tutor.evaluator.service.ModelAnswerServiceImpl;
+import com.tutor.parser.model.feedback.FeedBack;
 import com.tutor.parser.model.feedback.FeedBackGenerator;
 import com.tutor.parser.model.feedback.FeedbackGeneratorFactory;
 import com.tutor.parser.model.graphParser.DiagramStructure.AbstractDiagramStructure;
@@ -16,6 +17,7 @@ import com.tutor.parser.model.graphParser.Parser.Parser;
 import com.tutor.parser.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.parser.model.preProcessor.SVGtoPOJOMapper;
 import com.tutor.parser.model.util.DiagramType;
+import com.tutor.parser.model.util.ObjectType;
 import com.tutor.parser.model.util.SpatialRelation;
 import com.tutor.parser.service.preProcessorService.*;
 import netscape.javascript.JSObject;
@@ -145,14 +147,36 @@ public class MainController {
         hostS.setGraphicalImageComponents(orderedListS);
         hostS.setRelations(relationsS);
         Parser parserS = new Parser(eDiagramType);
+
+        if(eDiagramType == DiagramType.TRIGNOMETRICDIAGRAM){
+            for(GraphicalImageComponent component : hostS.getGraphicalImageComponents()){
+                if (component.objectType == ObjectType.ANGLE_LINE){
+                    component.objectType = ObjectType.LINE;
+                }
+                else if(component.objectType == ObjectType.HORIZONTAL_LINE){
+                    component.objectType = ObjectType.LINE;
+                }
+                else if(component.objectType == ObjectType.VERTICAL_LINE){
+                    component.objectType = ObjectType.LINE;
+                }
+            }
+        }
+
         AbstractDiagramStructure abstractDiagramStructureS=parserS.parse(hostS,textListS);
 
         logger.info("//////////////////////////////////Starting Grading Module//////////////////////////////////");
         ModelAnswerService modelAnswerService = new ModelAnswerServiceImpl();
-        AbstractDiagramStructure  modelAnswer = modelAnswerService.getModelAnswer(fileReaderSupportService.ModelAnswer(eDiagramType),eDiagramType,1);
+
+        AbstractDiagramStructure  modelAnswer;
+
+        if(eDiagramType == DiagramType.TRIGNOMETRICDIAGRAM) {
+            modelAnswer = modelAnswerService.getModelAnswer(path, eDiagramType, 1);
+        } else {
+            modelAnswer = modelAnswerService.getModelAnswer(fileReaderSupportService.ModelAnswer(eDiagramType), eDiagramType, 1);
+        }
 
         EvaluatorServiceImpl evaluatorService=new EvaluatorServiceImpl(eDiagramType);
-        MarkSheet markSheet = evaluatorService.evaluate(abstractDiagramStructureS,modelAnswer,feedBackGenerator.generateFinalFeedback(abstractDiagramStructureS.getFeedBackList(),abstractDiagramStructureS));
+        MarkSheet markSheet = evaluatorService.evaluate(abstractDiagramStructureS,modelAnswer,  feedBackGenerator.generateFinalFeedback(abstractDiagramStructureS.getFeedBackList(),abstractDiagramStructureS));
 
         return markSheet;
 

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RubricRules>
+    <TaggedValue>
+        <tag>Graph Type</tag>
+        <tagValue>TRIGONOMETRY</tagValue>
+    </TaggedValue>
+    <ConditionTypes>
+        <ConditionType>
+            <id>C0</id>
+            <name>MARK_LENGTH</name>
+        </ConditionType>
+        <ConditionType>
+            <id>C1</id>
+            <name>MARK_LABEL</name>
+        </ConditionType>
+        <ConditionType>
+            <id>C2</id>
+            <name>MARK_ANGLE</name>
+        </ConditionType>
+    </ConditionTypes>
+    <MarkingMethodsTypes>
+        <MarkingMethodType>
+            <id>M0</id>
+            <name>ALL</name>
+        </MarkingMethodType>
+        <MarkingMethodType>
+            <id>M1</id>
+            <name>ANY</name>
+        </MarkingMethodType>
+    </MarkingMethodsTypes>
+
+    <SubQuestionTypes>
+        <SubQuestionType>
+            <id>N0</id>
+            <name>MARKING_FIGURE</name>
+        </SubQuestionType>
+    </SubQuestionTypes>
+
+    <Question>
+        <SubQuestion>
+            <id>0</id>
+            <name>N0</name>
+            <Conditions>
+                <Condition>
+                    <conditionName>C0</conditionName>
+                    <totalMarks>01</totalMarks>
+                    <MarkMethods>
+                        <MarkMethod>
+                            <id>0</id>
+                            <gainedMarks>01</gainedMarks>
+                            <method>M0</method>
+                        </MarkMethod>
+                    </MarkMethods>
+                </Condition>
+                    <Condition>
+                        <conditionName>C1</conditionName>
+                        <totalMarks>01</totalMarks>
+                        <MarkMethods>
+                            <MarkMethod>
+                                <id>0</id>
+                                <gainedMarks>01</gainedMarks>
+                                <method>M0</method>
+                            </MarkMethod>
+                        </MarkMethods>
+                    </Condition>
+            </Conditions>
+        </SubQuestion>
+    </Question>
+</RubricRules>
