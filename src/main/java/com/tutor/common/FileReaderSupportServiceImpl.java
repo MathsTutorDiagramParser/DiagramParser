@@ -18,7 +18,7 @@ public class FileReaderSupportServiceImpl implements FileReaderSupportService {
                 fileName = "histogram\\test3.svg";
                 break;
             case TREEDIAGRAM:
-                fileName = "treeDiagram\\tuning\\Q2\\test20.svg";
+                fileName = "treeDiagram\\tuning\\Q2\\test6.svg";
                 break;
             case TRIGNOMETRICDIAGRAM:
                 fileName = "trignometricDiagram\\test1.svg";
