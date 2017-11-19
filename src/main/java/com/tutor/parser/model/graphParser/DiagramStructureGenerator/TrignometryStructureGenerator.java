@@ -13,6 +13,7 @@ import com.tutor.parser.model.graphicalPOJOObject.line.Line;
 import com.tutor.parser.model.preProcessor.SpatialRelationShipGenerator;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -47,6 +48,7 @@ public class TrignometryStructureGenerator extends DiagramStructureGenerator {
             ArrayList<LineConnection> connectionList = generateConnectionList(connectionOne,connectionTwo);
             FigureStructure figure = new FigureStructure(connectionList);
             abstractTrignometryStructure.updateFigureList(figure);
+
         }
 
         if(ruleID == 2){
@@ -55,11 +57,21 @@ public class TrignometryStructureGenerator extends DiagramStructureGenerator {
             LineStructure line = new LineStructure((Line) host.getGraphicalImageComponents().get(objects[1]));
             ArrayList<LineConnection> connectionList = generateConnectionList(connection,line);
             FigureStructure figure = new FigureStructure(connectionList);
+
             abstractTrignometryStructure.updateFigureList(figure);
         }
 
         if(ruleID == 3){
             FigureStructure figure = (FigureStructure) host.getGraphicalImageComponents().get(objects[0]);
+            if(figure.getFigureType()==1){
+                figure.updateConnectionList(generateConnectionList(figure.getConnectionOne(),figure.getConnectionTwo()));
+            }
+            else if(figure.getFigureType() == 2) {
+                figure.updateConnectionList(generateConnectionList(figure.getFigure(),figure.getLine()));
+            }
+            else if(figure.getFigureType() ==3){
+                figure.updateConnectionList(generateConnectionList(figure.getLineConnection(),figure.getLine()));
+            }
             FigureStructure oldFigure = figure;
             LineStructure line = new LineStructure((Line) host.getGraphicalImageComponents().get(objects[1]));
             figure.updateConnectionList(generateConnectionList(figure,line));
@@ -78,7 +90,8 @@ public class TrignometryStructureGenerator extends DiagramStructureGenerator {
         Line connectionOneLineTwo = connectionOne.getLineTwo().getLine() ;
         Line connectionTwoLineOne = connectionTwo.getLineOne().getLine();
         Line connectionTwoLineTwo = connectionTwo.getLineTwo().getLine();
-        if(relation.isAnyLineTouch(connectionOneLineOne,connectionTwoLineOne)||relation.isLineTouch(connectionOneLineOne,connectionTwoLineOne)||relation.isEndPointTouch(connectionOneLineOne,connectionTwoLineOne)){
+        if(relation.isAnyLineTouch(connectionOneLineOne,connectionTwoLineOne)||relation.isLineTouch(connectionOneLineOne,connectionTwoLineOne)
+                ||relation.isEndPointTouch(connectionOneLineOne,connectionTwoLineOne)){
             LineConnection connection_1 = new LineConnection(connectionOne.getLineOne(),connectionTwo.getLineOne());
             connectionList.add(connection_1);
             addToConnectionList(connection_1);
@@ -125,33 +138,54 @@ public class TrignometryStructureGenerator extends DiagramStructureGenerator {
     private ArrayList<LineConnection> generateConnectionList(FigureStructure figureStructure, LineStructure lineStructure){
         ArrayList<LineConnection> connectionList = figureStructure.getConnectionList();
         Line line = lineStructure.getLine();
-        SpatialRelationShipGenerator relation = null;
-        for(LineConnection connection: connectionList){
+        SpatialRelationShipGenerator relation = new SpatialRelationShipGenerator();
+        ArrayList<LineConnection> newConnections = null;
+        for(LineConnection connection: connectionList) {
+//        Iterator<LineConnection> iter = connectionList.iterator();
+//        while (iter.hasNext()) {// LineConnection connection = iter.next();
+
             Line LineOne = connection.getLineOne().getLine();
-            Line LineTwo = connection.getLineTwo().getLine() ;
-            if(relation.isAnyLineTouch(LineOne,line)||relation.isLineTouch(LineOne,line)||relation.isEndPointTouch(LineOne,line)){
-                LineConnection connection_1 = new LineConnection(connection.getLineOne(),lineStructure);
+            Line LineTwo = connection.getLineTwo().getLine();
+            if (relation.isAnyLineTouch(LineOne, line) || relation.isLineTouch(LineOne, line) || relation.isEndPointTouch(LineOne, line)) {
+                LineConnection connection_1 = new LineConnection(connection.getLineOne(), lineStructure);
                 if (!connectionList.contains(connection_1)) {
 
-                    connectionList.add(connection_1);
+                    if (newConnections != null) {
+                        newConnections.add(connection_1);
+                    } else {
+                        ArrayList<LineConnection> list = new ArrayList<>();
+                        list.add(connection_1);
+                        newConnections = list;
+                    }
                     addToConnectionList(connection_1);
                 }
             }
-            if(relation.isAnyLineTouch(LineTwo,line)||relation.isLineTouch(LineTwo,line)||relation.isEndPointTouch(LineTwo,line)){
-                LineConnection connection_2 = new LineConnection(connection.getLineTwo(),lineStructure);
+            if (relation.isAnyLineTouch(LineTwo, line) || relation.isLineTouch(LineTwo, line) || relation.isEndPointTouch(LineTwo, line)) {
+                LineConnection connection_2 = new LineConnection(connection.getLineTwo(), lineStructure);
                 if (!connectionList.contains(connection_2)) {
-                    connectionList.add(connection_2);
+                    if (newConnections != null) {
+                        newConnections.add(connection_2);
+                    } else {
+                        ArrayList<LineConnection> list = new ArrayList<>();
+                        list.add(connection_2);
+                        newConnections = list;
+                    }
                     addToConnectionList(connection_2);
                 }
             }
         }
+
+            for(LineConnection newConn : newConnections) {
+                if (!connectionList.contains(newConn)) {
+                    connectionList.add(newConn);
+                }
+            }
         return connectionList;
     }
     public void addToConnectionList( LineConnection connection){
         if (!allConnections.contains(connection))
         {
             abstractTrignometryStructure.updateConnectionList(connection);
-
         }
     }
 }

@@ -169,7 +169,6 @@ public class TrignometryTextAligner extends TextAligner {
             }
         }
     }
-
     //Checks whether a text coordinate lies inside the circle
     public Boolean isInsideCircle(LineConnection lineConnection, Text textCoordinate){
         Text label = textCoordinate;
@@ -191,21 +190,63 @@ public class TrignometryTextAligner extends TextAligner {
 
     // TODO: 8/8/2017 Find a proper formula and implement the method correctly
     //Return whether a point lies within a sector
-    public Boolean isInsideSector(LineConnection lineConnection, Text textCoordinate){
-        Text label = textCoordinate;
+    public Boolean isInsideSector(LineConnection lineConnection, Text angleText){
+        Text label = angleText;
         double connectionPoint_X = lineConnection.getConnectionPoint_X();
         double connectionPoint_Y = lineConnection.getConnectionPoint_Y();
         double labelCordinate_X = label.getX();
         double labelCordinate_Y = label.getY();
+        double lineOneSmallAngle;
+        double lineTwoSmallAngle;
+        double vectorOne_X = 0;
+        double vectorTwo_X = 0;
+        double vectorOne_Y = 0;
+        double vectorTwo_Y = 0;
+        double labelVector_X = labelCordinate_X - connectionPoint_X;
+        double labelVector_Y = labelCordinate_Y - connectionPoint_Y;
+        boolean isInside;
+        Line lineOne = lineConnection.getLineOne().getLine();
+        Line lineTwo = lineConnection.getLineTwo().getLine();
+        double gradientLineOne = Double.parseDouble(null);
+        double gradientLineTwo = Double.parseDouble(null);
 
-        double closeSector = (Math.pow((labelCordinate_X-connectionPoint_X), 2));
 
-        if(closeSector <= 1){
-            return true;
+
+        if(lineOne.getX1() == connectionPoint_X){
+            gradientLineOne = (lineOne.getX2()-lineOne.getX1())/(lineOne.getY2()-lineOne.getY1());
+            vectorOne_X = lineOne.getX2()-lineOne.getX1();
+            vectorOne_Y = lineOne.getY2() - lineOne.getY1();
+
         }
-        else{
-            return false;
+        else if(lineOne.getX2() == connectionPoint_X){
+            gradientLineOne = (lineOne.getX1()-lineOne.getX2())/(lineOne.getY1()-lineOne.getY2());
+            vectorOne_X = lineOne.getX1()-lineOne.getX2();
+            vectorOne_Y = lineOne.getY1() - lineOne.getY2();
         }
+
+        if(lineTwo.getX1() == connectionPoint_X){
+            gradientLineTwo = (lineTwo.getX2()-lineTwo.getX1())/(lineTwo.getY2()-lineTwo.getY1());
+            vectorTwo_X = lineTwo.getX2()-lineTwo.getX1();
+            vectorTwo_Y = lineTwo.getY2() - lineTwo.getY1();
+        }
+        else if(lineTwo.getX2() == connectionPoint_X){
+            gradientLineTwo = (lineTwo.getX1()-lineTwo.getX2())/(lineTwo.getY1()-lineTwo.getY2());
+            vectorTwo_X = lineTwo.getX1()-lineTwo.getX2();
+            vectorTwo_Y = lineTwo.getY1() - lineTwo.getY2();
+        }
+
+         double totalDegree = findAngleBetweenLines(vectorOne_X,vectorOne_Y,vectorTwo_X,vectorTwo_Y);
+         double lineOneLabelDegree = findAngleBetweenLines(vectorOne_X,vectorOne_Y,labelVector_X,labelVector_Y);
+         double lineTwoLabelDegree = findAngleBetweenLines(vectorTwo_X,vectorTwo_Y,labelVector_X,labelVector_Y);
+
+         if ((totalDegree <= (lineOneLabelDegree + lineTwoLabelDegree+ angleToleranceRadius))&&(totalDegree >= (lineOneLabelDegree + lineTwoLabelDegree - angleToleranceRadius)))
+        {
+             isInside = true;
+         }
+         else{
+             isInside= false;
+        }
+            return isInside;
     }
 
     // Finds the label that is very close to the connection point and returns
@@ -233,6 +274,13 @@ public class TrignometryTextAligner extends TextAligner {
     //Set the radius of the circle to check the angle boundary
     public void setAngleToleranceRadius(double angleToleranceRadius){
         this.angleToleranceRadius = angleToleranceRadius ;
+    }
+    public double findAngleBetweenLines(double one_x , double one_y, double two_x, double two_y){
+
+        double cosValue = ((one_x*two_x) + (one_y*two_y))/(Math.sqrt((one_x*one_x)+(one_y*one_y))*(Math.sqrt((two_x*two_x)+two_y*two_y)));
+
+        double degree = Math.toDegrees(Math.acos(cosValue));
+        return degree;
     }
 }
 

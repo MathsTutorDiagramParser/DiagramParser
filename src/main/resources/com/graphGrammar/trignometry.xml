@@ -195,7 +195,7 @@
                 <Objects>
                     <Object>
                         <id>0</id>
-                        <type>I3</type>
+                        <type>I2</type>
                     </Object>
                 </Objects>
             </LeftGraph>
@@ -207,7 +207,7 @@
                     </Object>
                     <Object>
                         <id>1</id>
-                        <type>I2</type>
+                        <type>I1</type>
                     </Object>
                 </Objects>
                 <SpatialRelations>
@@ -253,7 +253,7 @@
                     <SpatialRelation>
                         <objectIdOne>0</objectIdOne>
                         <objectIdTwo>1</objectIdTwo>
-                        <spatialRelationId>S1</spatialRelationId>
+                        <spatialRelationId>S0</spatialRelationId>
                     </SpatialRelation>
                 </SpatialRelations>
             </RightGraph>
@@ -269,6 +269,45 @@
         </Rule>
         <Rule>
             <RuleId>6</RuleId>
+            <LeftGraph>
+                <Objects>
+                    <Object>
+                        <id>0</id>
+                        <type>I3</type>
+                    </Object>
+                </Objects>
+            </LeftGraph>
+            <RightGraph>
+                <Objects>
+                    <Object>
+                        <id>0</id>
+                        <type>I2</type>
+                    </Object>
+                    <Object>
+                        <id>1</id>
+                        <type>I2</type>
+                    </Object>
+                </Objects>
+                <SpatialRelations>
+                    <SpatialRelation>
+                        <objectIdOne>0</objectIdOne>
+                        <objectIdTwo>1</objectIdTwo>
+                        <spatialRelationId>S1</spatialRelationId>
+                    </SpatialRelation>
+                </SpatialRelations>
+            </RightGraph>
+            <RuleOperations>
+                <RuleOperation>
+                    <ObjectList>
+                        <Object>0</Object>
+                        <Object>1</Object>
+                    </ObjectList>
+                    <id>o_p1</id>
+                </RuleOperation>
+            </RuleOperations>
+        </Rule>
+        <Rule>
+            <RuleId>7</RuleId>
             <LeftGraph>
                 <Objects>
                     <Object>
@@ -307,7 +346,7 @@
             </RuleOperations>
         </Rule>
        <Rule>
-            <RuleId>7</RuleId>
+            <RuleId>8</RuleId>
             <LeftGraph>
                 <Objects>
                     <Object>

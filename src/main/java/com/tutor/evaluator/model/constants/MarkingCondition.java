@@ -13,4 +13,6 @@ public final class MarkingCondition {
     public  final static String BAR_VALUES = "BAR_VALUES";
 
 
+    public final static String TRIGNOMETRY_MARK_LENGTH = "MARK_LENGTH";
+    public final static String TRIGNOMETRY_MARK_ANGLE= "MARK_ANGLE";
 }

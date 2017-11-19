@@ -549,7 +549,7 @@ public class SpatialRelationShipGenerator {
                         if(oldItr == redex[0]){
                             if(redex.length!=1) {
                                 for (int j = 0; j < substitute.length; j++) {
-                                    for (ArrayList<SpatialRelation> relationList : old[oldItr + 1]) {
+                                    for (ArrayList<SpatialRelation> relationList : old[redex[1]]) {
                                         for (SpatialRelation relation : relationList) {
                                             substitute[j].add(relation);
                                         }
@@ -580,36 +580,34 @@ public class SpatialRelationShipGenerator {
         int itrNew = 0;
         for (int i = 0; i < substitute.length; i++) {
 
-            if (i == redex[0]) {
+            if(!isInArray(Arrays.copyOfRange(redex,1,redex.length),i)) {
+                if (i == redex[0]) {
 
-                ArrayList<SpatialRelation> substituteRelation = null;
-                substituteRelation = substitute[i];
+                    ArrayList<SpatialRelation> substituteRelation = null;
+                    substituteRelation = substitute[i];
 
-                if(redex.length !=1) {
-                    if (substitute[redex[1]].contains(SpatialRelation.TOUCH)) {
-                        substituteRelation.add(SpatialRelation.TOUCH);
+                    if (redex.length != 1) {
+                        if (substitute[redex[1]].contains(SpatialRelation.TOUCH)) {
+                            substituteRelation.add(SpatialRelation.TOUCH);
+                        }
+                        if (substitute[redex[1]].contains(SpatialRelation.OVERLAP)) {
+                            substituteRelation.add(SpatialRelation.OVERLAP);
+                        }
+                        if (substitute[redex[1]].contains(SpatialRelation.SAME)) {
+                            substituteRelation.add(SpatialRelation.SAME);
+                        }
                     }
-                    if ( substitute[redex[1]].contains(SpatialRelation.OVERLAP)) {
-                        substituteRelation.add(SpatialRelation.OVERLAP);
-                    }
-                    if ( substitute[redex[1]].contains(SpatialRelation.SAME)) {
-                        substituteRelation.add(SpatialRelation.SAME);
-                    }
+                    newSubstitute[itrNew] = substituteRelation;
+                    itrNew++;
+                } else if ((!isInArray(redex, i))) {
+                    newSubstitute[itrNew] = substitute[i];
+                    itrNew++;
                 }
-
-
-                newSubstitute[itrNew] = substituteRelation;
-                itrNew++;
-            }
-            else if(( !isInArray(redex, i)) ){
-                newSubstitute[itrNew] = substitute[i];
-                itrNew++;
             }
 
         }
         return newSubstitute;
     }
-
 
     public static ArrayList<SpatialRelation>[] buildSubstituteArray(ArrayList<SpatialRelation>[] substitute,int[] redex){
         int size = substitute.length-redex.length+1;

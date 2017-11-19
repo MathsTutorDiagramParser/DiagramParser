@@ -1,8 +1,10 @@
 package com.tutor.evaluator.model.evaluator;
 
-import com.tutor.evaluator.model.constants.StepConstant;
+import com.tutor.evaluator.model.constants.MarkingCondition;
+import com.tutor.evaluator.model.constants.TrigonometricMarkingConstants;
 import com.tutor.evaluator.model.markingStructure.Mark;
 import com.tutor.evaluator.model.markingStructure.MarkSheet;
+import com.tutor.evaluator.model.markingStructure.SubMarkSheet;
 import com.tutor.evaluator.model.rubicRulesPOJOObjects.Condition;
 import com.tutor.evaluator.model.rubicRulesPOJOObjects.RubricRules;
 import com.tutor.evaluator.model.rubicRulesPOJOObjects.SubQuestion;
@@ -11,10 +13,9 @@ import com.tutor.parser.model.graphParser.DiagramStructure.AbstractDiagramStruct
 import com.tutor.parser.model.graphParser.DiagramStructure.Trignometry.AbstractTrignometryStructure;
 import com.tutor.parser.model.graphParser.DiagramStructure.Trignometry.LineConnection;
 import com.tutor.parser.model.graphParser.DiagramStructure.Trignometry.LineStructure;
-import com.tutor.parser.model.graphicalPOJOObject.GraphicalImageComponent;
-import com.tutor.parser.model.graphicalPOJOObject.Text.Text;
-import com.tutor.parser.model.graphicalPOJOObject.line.Line;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,36 +27,46 @@ public class TrignometricdiagramEvaluator extends Evaluator {
     AbstractDiagramStructure teacherStructure;
     String subQfeedback ;
     int totalSubQ = 0;
+    int totalMarks = 0;
+    int gainedMarks = 0;
 
-    @Override
-    public MarkSheet[] evaluate(AbstractDiagramStructure studentStructure, AbstractDiagramStructure teacherStructure, RubricRules rubricRules, List<FeedBack> feedBacks) {
-        MarkSheet[] markSheets = new MarkSheet[rubricRules.getSubQuestions().size()];
+
+    public MarkSheet evaluate(AbstractDiagramStructure studentStructure,
+                              AbstractDiagramStructure teacherStructure, RubricRules rubricRules, String structureFeedBack) {
+     MarkSheet markSheet = new MarkSheet();
 
         this.studentStructure = studentStructure;
         this.teacherStructure = teacherStructure;
 
-
+        ArrayList<SubMarkSheet> subMarkSheets = new ArrayList<>();
         for (SubQuestion subQuestion : rubricRules.getSubQuestions()){
 
             List<Condition> conditions = subQuestion.getConditions();
             totalSubQ = 0;
             subQfeedback = "";
-            MarkSheet subQmarkSheet = new MarkSheet();
+            SubMarkSheet subQmarkSheet = new SubMarkSheet();
 
             for (int i = 0; i < conditions.size(); i++) {
                 marks = new Mark[conditions.size()];
+                totalMarks += conditions.get(i).getTotalMarks();
                 Condition condition = conditions.get(i);
-
-                if (condition.getName().equals(StepConstant.TRIGNOMETRY_MARK_LENGTH)) {
+                if (condition.getName().equals(TrigonometricMarkingConstants.MARK_LENGTH)) {
                     marks[i] = checkMarkedLength(condition);
-                } else if (condition.getName().equals(StepConstant.TRIGNOMETRY_MARK_ANGLE)) {
-                    marks[i] = checkMarkedAngles(condition);
+                } else if (condition.getName().equals(TrigonometricMarkingConstants.MARK_LABEL)) {
+                    marks[i] = checkMarkedLabels(condition);
                 }
-                subQmarkSheet = new MarkSheet(totalSubQ, marks, subQfeedback);
+
+
             }
-            markSheets[subQuestion.getId()] =  subQmarkSheet;
+            subQmarkSheet = new SubMarkSheet(totalSubQ, marks, subQfeedback);
+            subMarkSheets.add(subQmarkSheet);
+
         }
-        return markSheets;
+
+        markSheet.setSubMarkSheets(subMarkSheets);
+        markSheet.setTotalMark(totalSubQ);
+        markSheet.setTotalMark_gainMark(totalMarks);
+        return markSheet;
     }
 
     private Mark checkMarkedLength(Condition condition){
@@ -67,7 +78,7 @@ public class TrignometricdiagramEvaluator extends Evaluator {
         if(studentLine != null && studentLine.size()!=0 ) {
             for(LineStructure lineofTeacher: teacherLine){
                 for(LineStructure lineOfStudent: studentLine){
-                    if (lineOfStudent == lineofTeacher){
+                    if ((Math.abs(lineOfStudent.getX2()-lineOfStudent.getX1())) == Math.abs(lineofTeacher.getX2()-lineOfStudent.getX1())){
                         if((lineOfStudent.getLengthText() == lineofTeacher.getLengthText())&&(lineofTeacher.getLengthText() != null)){
                             lengthCount++;
                         }
@@ -91,18 +102,18 @@ public class TrignometricdiagramEvaluator extends Evaluator {
         }
 
     }
-    private Mark checkMarkedAngles(Condition condition){
+    private Mark checkMarkedLabels(Condition condition){
         List<LineConnection> studentConnection = ((AbstractTrignometryStructure)studentStructure).getConnectionList();
         List<LineConnection> teacherConnection = ((AbstractTrignometryStructure)teacherStructure).getConnectionList();
-        int angleCount = 0;
-        int teacherAngleCount = 0;
+        int labelCount = 0;
+        int teacherLabelCount = 0;
 
         if(studentConnection != null && studentConnection.size()!=0 ) {
             for(LineConnection connOfTeacher: teacherConnection){
                 for(LineConnection connOfStudent: studentConnection){
-                    if (connOfStudent == connOfTeacher){
-                        if((connOfStudent.getAngleText() == connOfTeacher.getAngleText())&&(connOfTeacher.getAngleText() != null)){
-                            angleCount++;
+                    if ((connOfStudent.getConnectionPoint_X() == connOfTeacher.getConnectionPoint_X()) && connOfStudent.getConnectionPoint_Y() == connOfTeacher.getConnectionPoint_Y()){
+                        if((connOfStudent.getVertexLabel() == connOfTeacher.getAngleText())&&(connOfTeacher.getVertexLabel() != null)){
+                            labelCount++;
                         }
                     }
                 }
@@ -110,10 +121,10 @@ public class TrignometricdiagramEvaluator extends Evaluator {
         }
         for(LineConnection teacherConn :((AbstractTrignometryStructure) teacherStructure).getConnectionList()){
             if (teacherConn.getAngleText()!=null){
-                teacherAngleCount +=1;
+                teacherLabelCount +=1;
             }
         }
-        if(teacherAngleCount == angleCount){
+        if(teacherLabelCount == labelCount){
             int partMark = condition.getMarkingMethods().get(0).getGainedMarks();
             totalSubQ += partMark;
             return new Mark(condition.getName(), partMark);

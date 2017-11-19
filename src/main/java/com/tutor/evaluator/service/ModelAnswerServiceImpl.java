@@ -13,6 +13,7 @@ import com.tutor.parser.model.graphicalPOJOObject.GraphicalImageComponent;
 import com.tutor.parser.model.graphicalPOJOObject.Text.Text;
 import com.tutor.parser.model.preProcessor.SVGtoPOJOMapper;
 import com.tutor.parser.model.util.DiagramType;
+import com.tutor.parser.model.util.ObjectType;
 import com.tutor.parser.model.util.SpatialRelation;
 import com.tutor.parser.service.preProcessorService.*;
 import org.slf4j.Logger;
@@ -46,7 +47,19 @@ public class ModelAnswerServiceImpl implements ModelAnswerService{
         Graph hostT  = new Graph();
         hostT.setGraphicalImageComponents(orderedListT);
         hostT.setRelations(relationsT);
-
+        if(diagramType == DiagramType.TRIGNOMETRICDIAGRAM){
+            for(GraphicalImageComponent component : hostT.getGraphicalImageComponents()){
+                if (component.objectType == ObjectType.ANGLE_LINE){
+                    component.objectType = ObjectType.LINE;
+                }
+                else if(component.objectType == ObjectType.HORIZONTAL_LINE){
+                    component.objectType = ObjectType.LINE;
+                }
+                else if(component.objectType == ObjectType.VERTICAL_LINE){
+                    component.objectType = ObjectType.LINE;
+                }
+            }
+        }
         Parser parserT = new Parser(diagramType);
         AbstractDiagramStructure abstractDiagramStructureT= parserT.parse(hostT,textListT);
 

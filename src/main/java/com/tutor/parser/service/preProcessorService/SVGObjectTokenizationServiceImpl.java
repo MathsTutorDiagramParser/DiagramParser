@@ -19,8 +19,9 @@ public class SVGObjectTokenizationServiceImpl implements SVGObjectTokenizationSe
         SVGReadPlatformService svgReader = new SVGReadPlatformServiceImpl();
 
 
-        String studentAnswerPath = "E:\\FYP\\implementation\\parser3\\DiagramParser\\src\\main\\resources\\test\\"+filename;
-        //String studentAnswerPath = "D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\test\\"+filename;
+        String studentAnswerPath = "E:\\UoM\\FYP\\DiagramParser\\src\\main\\resources\\test\\trignometricDiagram\\test1.svg";
+        //String studentAnswerPath = E:\UoM\FYP\DiagramParser\src\main\resources\test
+
         //String studentAnswerPath = "D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\test\\"+filename;
 
         System.out.println("===========================Start Executing Rules===================================");
@@ -32,6 +33,8 @@ public class SVGObjectTokenizationServiceImpl implements SVGObjectTokenizationSe
         SVGImage svgImage = svgReader.parse(svgImageStudentAnswer, studentAnswerPath);
 
         svgtoPOJOMapper = new SVGtoPOJOMapper(svgImage);
+
+
         ksession.insert(svgtoPOJOMapper);
         ksession.fireAllRules();
 

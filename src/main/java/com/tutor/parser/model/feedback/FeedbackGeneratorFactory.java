@@ -12,7 +12,7 @@ public class FeedbackGeneratorFactory {
             case NUMBRELINE:
                 return new NumberlineFeedbackGenerator();
             case TRIGNOMETRICDIAGRAM:
-                return null;
+                return new TrigonometricFeedbackGenerator();
             case HISTOGRAM:
                 return new HistogramFeedbackGenerator();
             case TREEDIAGRAM:

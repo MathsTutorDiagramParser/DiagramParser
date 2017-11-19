@@ -39,10 +39,41 @@ public class Parser {
 
     public AbstractDiagramStructure parse(Graph host, List<GraphicalImageComponent> textList) throws JAXBException, FileNotFoundException, NullPointerException {
 
+
         logger.info("------------------------------Creating structural Parser for diagram----------------------------");
         StructuralParser structuralParser = new StructuralParser(diagramType);
         // validate the diagram through structural Parser
-        structuralParser.parse(host,abstractDiagramStructure);
+        structuralParser.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                parse(host,abstractDiagramStructure);
         logger.info("------------------------------finish structural parsing for diagram----------------------------");
 
         logger.info("------------------------------Started textuaral parsing for diagram----------------------------");

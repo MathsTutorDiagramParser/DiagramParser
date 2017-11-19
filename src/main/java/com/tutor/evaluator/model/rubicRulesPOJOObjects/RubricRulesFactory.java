@@ -19,7 +19,7 @@ public class RubricRulesFactory {
 
         switch (type){
             case TRIGNOMETRICDIAGRAM:
-                filename = "";
+                filename = "trignometry.xml";
                 break;
             case TREEDIAGRAM:
                 filename="treeDiagramQ2.xml";

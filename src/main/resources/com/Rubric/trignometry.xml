@@ -6,11 +6,15 @@
     </TaggedValue>
     <ConditionTypes>
         <ConditionType>
-            <id>0</id>
+            <id>C0</id>
             <name>MARK_LENGTH</name>
         </ConditionType>
         <ConditionType>
-            <id>1</id>
+            <id>C1</id>
+            <name>MARK_LABEL</name>
+        </ConditionType>
+        <ConditionType>
+            <id>C2</id>
             <name>MARK_ANGLE</name>
         </ConditionType>
     </ConditionTypes>
@@ -27,13 +31,16 @@
 
     <SubQuestionTypes>
         <SubQuestionType>
+            <id>N0</id>
+            <name>MARKING_FIGURE</name>
         </SubQuestionType>
     </SubQuestionTypes>
 
     <Question>
         <SubQuestion>
             <id>0</id>
-                <Conditions>
+            <name>N0</name>
+            <Conditions>
                 <Condition>
                     <conditionName>C0</conditionName>
                     <totalMarks>01</totalMarks>

@@ -23,6 +23,7 @@ import com.tutor.parser.model.util.DiagramType;
 import com.tutor.parser.model.util.FeedBackMessage;
 import com.tutor.parser.model.util.ObjectType;
 import com.tutor.parser.model.graphParser.DiagramStructure.Trignometry.FigureStructure;
+import com.tutor.parser.model.util.SpatialRelation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import javax.xml.bind.JAXBException;
@@ -143,7 +144,7 @@ public class StructuralParser {
                 FeedBack feedBack = new FeedBack("INVALID_DIAGRAM_STRUCTURE");
                 feedBack.setDescription(FeedBackMessage.INVALID_DIAGRAM_STRUCTURE);
                 feedBacks.add(feedBack);
-                // add feedbacks by analyzing unrelated objects
+                // add feedback by analyzing unrelated objects
                 feedBacks = FeedbackGeneratorFactory.getFeedbackGenerator(diagramType).generateFeedbackByAnalyzingUnrelatedObjects(feedBacks,host);
             }
 
@@ -181,7 +182,7 @@ public class StructuralParser {
         for (int i=0; i < total_number_of_objects ;i++){
             boolean isObjectTypeMatched = false;
             /*
-                when same rule is applying,it need to start iteration from the stop point(not from the start again)
+                when same rule is applying,it needs to start iteration from the stop point(not from the start again)
                 by assigning 'j' to 'stopPointOfHostGraph' iteration will start from the previous stop point
              */
             int j=stopPointOfHostGraph;
@@ -189,7 +190,7 @@ public class StructuralParser {
             while ( j < host.getGraphicalImageComponents().size()){
 
                ObjectType objectType = host.getGraphicalImageComponents().get(j).objectType;
-               // after applying rule element that need to be checked will be setted by the 'r application method'
+               // after applying rule element that need to be checked will be set by the 'r application method'
                if(afterRuleApplication){
                    objectType = host.getGraphicalImageComponents().get(first_checkIndex_afterRuleApplication).objectType;
                }
@@ -200,12 +201,12 @@ public class StructuralParser {
                    isObjectTypeMatched = true;
                    // second step of finding redex, match spatial relations
                    if (i==0){
-                       // Check whether right graph has only one object and retun redex without checking spatial relationships
+                       // Check whether right graph has only one object and return redex without checking spatial relationships
                        if(total_number_of_objects == 1){
                            redex[i] = j;
                            stopPointOfHostGraph = 0;
                            total_number_of_object_found += 1;
-                           if(total_number_of_object_found==total_number_of_objects){
+                           if(total_number_of_object_found == total_number_of_objects){
                                return redex;
                            }
                        }
@@ -216,7 +217,7 @@ public class StructuralParser {
                              redex[i] = j;
                              stopPointOfHostGraph = j+1;
                          }
-                         total_number_of_object_found+=1;
+                         total_number_of_object_found += 1;
                          // after finding first element of the rule set again set 'afterRuleApplication' to false
                          afterRuleApplication = false;
                          break;
@@ -237,9 +238,16 @@ public class StructuralParser {
                                  //end
 
                                  if(host.getSpatialRelations(redex[i - 1],j)!=null) {
-                                     if (host.getSpatialRelations(redex[i - 1], j).contains(ruleGraph.getSpatialRelations(i - 1, i).get(k))) {
+
+                                     if(redex[i-1] == j){
+                                         break;
+                                     }
+
+                                     else if (host.getSpatialRelations(redex[i - 1], j).contains(ruleGraph.getSpatialRelations(i - 1, i).get(k))) {
                                          contain_count += 1;
                                      }
+
+
                                  }
                              }
 
@@ -395,9 +403,11 @@ public class StructuralParser {
             first_checkIndex_afterRuleApplication = redex[0];
         }
         if(ruleId==4){
-
-            newObjectList.add(substitute);
-            first_checkIndex_afterRuleApplication = redex[0]+1;
+            FigureStructure figureIn = (FigureStructure) host.getGraphicalImageComponents().get(redex[0]);
+            LineConnection connection = (LineConnection) host.getGraphicalImageComponents().get(redex[1]);
+            FigureStructure figure = new FigureStructure(figureIn, connection);
+            newObjectList.add(figure);
+            first_checkIndex_afterRuleApplication = redex[0];
         }
         if(ruleId==5){
             newObjectList.add(substitute);
@@ -408,9 +418,13 @@ public class StructuralParser {
             first_checkIndex_afterRuleApplication = redex[0];
         }
         if(ruleId==7){
+            newObjectList.add(substitute);
+            first_checkIndex_afterRuleApplication = redex[0];
+        }
+        if(ruleId==8){
 
                 newObjectList.add(substitute);
-                first_checkIndex_afterRuleApplication = redex[0]+1;
+                first_checkIndex_afterRuleApplication = redex[0];
 
         }
         return newObjectList;

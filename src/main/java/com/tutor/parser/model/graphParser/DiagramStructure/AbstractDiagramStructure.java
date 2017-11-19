@@ -31,6 +31,10 @@ public abstract class AbstractDiagramStructure {
 
 
     public List<FeedBack> getFeedBackList() {
+
+//        FeedBack feedBack = new FeedBack("0");
+//        feedBack.setDescription("Corrct");
+//        feedBackList.add(feedBack);
         return feedBackList;
     }
 
