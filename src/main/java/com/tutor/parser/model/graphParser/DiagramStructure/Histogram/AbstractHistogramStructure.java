@@ -15,6 +15,8 @@ import com.tutor.parser.model.util.ObjectType;
 public class AbstractHistogramStructure extends AbstractDiagramStructure {
     List<Bar> bar;
     List<Bar> abstractBar;
+    public Double scaleYValue;
+    public Double scaleXValue;
     public String xLegend;
     public String yLegend;
     public Double xAxisratio;
@@ -39,6 +41,22 @@ public class AbstractHistogramStructure extends AbstractDiagramStructure {
 
     public Double getxAxisratio() {
         return xAxisratio;
+    }
+
+    public Double getScaleYValue() {
+        return scaleYValue;
+    }
+
+    public void setScaleYValue(Double scaleValue) {
+        this.scaleYValue = scaleValue;
+    }
+
+    public Double getScaleXValue() {
+        return scaleXValue;
+    }
+
+    public void setScaleXValue(Double scaleXValue) {
+        this.scaleXValue = scaleXValue;
     }
 
     public Double getyAxisratio() {

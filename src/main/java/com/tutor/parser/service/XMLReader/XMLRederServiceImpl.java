@@ -36,7 +36,7 @@ public class XMLRederServiceImpl implements XMLReaderService {
         }
         try {
             //File file = new File("E:\\UoM\\FYP\\DiagramParser\\src\\main\\resources\\com\\graphGrammar\\"+fileName);
-            File file = new File("E:\\FYP\\implementation\\NewV1\\DiagramParser\\src\\main\\resources\\com\\graphGrammar\\"+fileName);
+            File file = new File("F:\\Final\\DiagramParser\\src\\main\\resources\\com\\graphGrammar\\"+fileName);
 //            File file = new File("../webapps/DiargamEvaluation/resources/com/graphGrammar/"+fileName);
 
             JAXBContext jaxbContext = JAXBContext.newInstance(XMLGraphGrammar.class);

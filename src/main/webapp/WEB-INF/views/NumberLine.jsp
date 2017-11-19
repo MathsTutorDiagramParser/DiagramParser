@@ -10,6 +10,10 @@
   <title>ouragan</title>
   <link rel="shortcut icon" href="resources/img/logo.jpg">
   <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <style>
     body {
       margin: 0px;
@@ -43,17 +47,16 @@
   </div>
 
   <div style="margin-top: 60px;" align="center">
-    <INPUT type = "Button" value = '&#9899'  onclick="createArrowWithFilledDot()"/>
-    <INPUT type = "Button" value = '&#9898'  onclick="createArrowWithDot()"/>
-    <INPUT type = "Button" value = "Mark Line"  onclick="createMarkLine()"/>
-    <INPUT type = "Button" value = "Undo" onclick="undo()"/>
-    <INPUT type = "Button" value = "Clear Plane" onclick="clearPlane()"/>
+    <INPUT class="btn btn-danger" style="font-family: Aharoni; font-weight: bold;" type = "Button" value = '&#9899'  onclick="createArrowWithFilledDot()"/>
+    <INPUT class="btn btn-danger" style="font-family: Aharoni; font-weight: bold;" type = "Button" value = '&#9898'  onclick="createArrowWithDot()"/>
+    <INPUT class="btn btn-warning" style="font-family: Aharoni; font-weight: bold;" type = "Button" value = "Mark Line"  onclick="createMarkLine()"/>
+    <INPUT class="btn btn-primary" style="font-family: Aharoni; font-weight: bold;" type = "Button" value = "Undo" onclick="undo()"/>
+    <INPUT class="btn btn-primary" style="font-family: Aharoni; font-weight: bold;" type = "Button" value = "Clear Plane" onclick="clearPlane()"/>
   </div>
 
   <div align="center" style="margin-top: 10px;margin-bottom: 10px">
-    <button id ="save" style="width:200px;background-color: forestgreen;">Grade</button>
+    <button class="btn btn-success" style="font-family: Aharoni; font-weight: bold;" id = "save">Grade</button>
   </div>
-
   <div id="marksheet" >
     <div class="w3-content w3-padding" style="width:1000px; border: solid; border-width: thin" >
       <!-- About Section -->

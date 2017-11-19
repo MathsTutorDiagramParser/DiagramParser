@@ -12,6 +12,10 @@
   <link rel="shortcut icon" href="resources/img/logo.jpg">
   <meta charset="utf-8"/>
   <link rel="stylesheet" href="./css/bootstrap.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <!--link rel="stylesheet" href="editor.css"-->
 
   <!-- Optional theme -->
@@ -19,6 +23,10 @@
   <link rel="stylesheet" href="./css/style.css">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="resources/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <style>
     body {
       margin: 0px;
@@ -52,24 +60,23 @@
   <div id='c1' style="margin-top: 100px">
     <canvas id="myCanvas" width="800" height="400" style="border:1px solid #000000;"></canvas>
   </div>
+  <br>
 
-  <div class="col-lg-10">
-    <button id="drawBranch">Branch</button>
-    <button id="editBranch">Edit Branch</button>
-    <button id="enterText">Event Text Label</button>
+  <div align="center">
+    <button class="btn btn-danger" style="font-family: Aharoni; font-weight: bold;" id="drawBranch">Branch</button>
+    <button class="btn btn-danger" style="font-family: Aharoni; font-weight: bold;" id="editBranch">Edit Branch</button>
+    <button class="btn btn-warning" style="font-family: Aharoni; font-weight: bold;" id="enterText">Event Text Label</button>
     <button id="drawing-mode" class="btn btn-info" style = "display: none;">Colour</button>
     <div style="display: none;" id="drawing-mode-options">
       <label for="drawing-color">Line color:</label>
       <input type="color" value="#005E7A" id="drawing-color"><br>
     </div>
-    <button id="undo">Undo</button>
-    <button id="clearPlane">Clear Plane</button>
-
+    <button class="btn btn-primary" style="font-family: Aharoni; font-weight: bold;" id="undo">Undo</button>
+    <button class="btn btn-primary" style="font-family: Aharoni; font-weight: bold;" id="clearPlane">Clear Plane</button>
+    <br>
+    <br>
+    <button class="btn btn-success" style="font-family: Aharoni; font-weight: bold;" id = "save">Grade</button>
   </div>
-  <div align="center" style="margin-top: 10px;margin-bottom: 20px">
-    <button id ="save" style="width:200px;background-color: forestgreen;">Grade</button>
-  </div>
-</div>
 
 <div id="marksheet" >
   <div class="w3-content w3-padding" style="width:1000px; border: solid; border-width: thin" >

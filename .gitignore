@@ -1,5 +1,6 @@
 target/
 !.mvn/wrapper/maven-wrapper.jar
+
 src/resources/test/NumberLine
 
 ### STS ###
@@ -16,4 +17,4 @@ src/resources/test/NumberLine
 *.iml
 *.ipr
 
-### 
+###

@@ -91,7 +91,7 @@ public class MainController {
         System.out.println(inputStr);
         String path = "";
         try{
-            path = "E:/FYP/implementation/NewV1/DiagramParser/src/main/resources/test/"+System.currentTimeMillis()+".svg";
+            path = "F:/Final/DiagramParser/src/main/resources/test/"+System.currentTimeMillis()+".svg";
 //          path = "dataFiles/numberline/answer"+System.currentTimeMillis()+".svg";
             File file = new File(path);
             file.createNewFile();
@@ -133,7 +133,6 @@ public class MainController {
         SVGtoPOJOMapper svGtoPOJOMapperS = svgObjectTokenizationService.tokenize(path);
 
         logger.info("//////////////////////////////////done seperation//////////////////////////////////");
-
         List<GraphicalImageComponent> orderedListS = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapperS.getGraphicalImageComponents());
         List<GraphicalImageComponent> textListS = objectSequenceGeneratorService.getOrderedList(svGtoPOJOMapperS.getTexts());
         ArrayList<SpatialRelation>[][] relationsS =

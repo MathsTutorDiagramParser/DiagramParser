@@ -173,10 +173,10 @@ public class Parser {
             logger.info("Found "+k+" Bars ");
 
             for(int l=0;l<k;l++) {
-                bar.get(l).setY(bar.get(l).rectangle.getHeight()*yRatio);
-                bar.get(l).setXlow(bar.get(l).rectangle.getX()*xRatio);
-                bar.get(l).setXhigh((bar.get(l).rectangle.getX()+bar.get(l).rectangle.getWidth())*xRatio);
-                logger.info(l+"th Bar -> Y Value is : "+bar.get(l).rectangle.getHeight()*yRatio);
+                bar.get(l).setY(Math.round(bar.get(l).rectangle.getHeight()*yRatio));
+                bar.get(l).setXlow(Math.round((bar.get(l).rectangle.getX()-102)*xRatio));
+                bar.get(l).setXhigh(Math.round(((bar.get(l).rectangle.getX()-102) +bar.get(l).rectangle.getWidth())*xRatio));
+                logger.info(l+"th Bar -> Y Value is : "+Math.round(bar.get(l).rectangle.getHeight()*yRatio)+"X value is ->"+Math.round((bar.get(l).rectangle.getX()-102)*xRatio)+", "+Math.round(((bar.get(l).rectangle.getX()-102)+bar.get(l).rectangle.getWidth())*xRatio));
 
             }
 

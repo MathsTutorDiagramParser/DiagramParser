@@ -27,12 +27,11 @@ public class HistogramEvaluator extends Evaluator {
     Mark[] marks = null;
     AbstractDiagramStructure studentStructure;
     AbstractDiagramStructure teacherStructure;
-    String subQfeedback ;
+    String subQfeedback ="  " ;
     int totalSubQ = 0;
     int totalQMark = 0;
     int totalQGainMark = 0;
     int totalSubQGainMark = 0;
-
     public MarkSheet evaluate(AbstractDiagramStructure studentStructure,
                               AbstractDiagramStructure teacherStructure, RubricRules rubricRules, String feedBacks) {
         MarkSheet markSheet = new MarkSheet();
@@ -77,32 +76,95 @@ public class HistogramEvaluator extends Evaluator {
         List<Bar> teacherBars = ((AbstractHistogramStructure)teacherStructure).getBar();
 
         int k= studentBars.size();
-        int l= studentBars.size();
+        int l= teacherBars.size();
+        boolean indexCheckM;
+        boolean indexCheckL;
+        String indexName="";
+        String barBars="";
+        int barWCount=0;
+        int barCCount=0;
+        Double scaleSY =(((AbstractHistogramStructure)studentStructure).getScaleYValue())*0.2;
+        Double scaleSX =(((AbstractHistogramStructure)studentStructure).getScaleXValue())*0.4;
+
 
         if(k!=l){
-            subQfeedback= HistogramEvaluatorConstant.BAR_INEQUAL;
-            return new Mark(condition.getName(), 0);
-        }else{
-            Boolean check= true;
-            int index=200;
-            for(int a=0;a<k;a++){
-               if(studentBars.get(a).getY()<teacherBars.get(a).getY()+5 && studentBars.get(a).getY()>teacherBars.get(a).getY()-5 ){
+            if(k>l){
+                subQfeedback+=HistogramEvaluatorConstant.BAR_INEQUAL_MORE;
+                barCCount=0;
+                for(int i=0;i<k;i++) {
+                    for (int j = 0; j < l; j++) {
+                        if((studentBars.get(i).getXlow()<teacherBars.get(j).getXlow()+scaleSX && studentBars.get(i).getXlow()>teacherBars.get(j).getXlow()-scaleSX)&&(studentBars.get(i).getXhigh()<teacherBars.get(j).getXhigh()+scaleSX && studentBars.get(i).getXhigh()>teacherBars.get(j).getXhigh()-scaleSX)) {
+                            if (studentBars.get(i).getY() < teacherBars.get(j).getY() + scaleSY && studentBars.get(i).getY() > teacherBars.get(j).getY() - scaleSY) {
+                                barCCount++;
+                            }
+                        }
+                    }
+                }
+                if(barCCount==k){
+                    subQfeedback+="You have correctly marked the required bars but cannot give marks";
+                }else{
+                    if((k-barCCount)==1){
+                        barBars=" bar";
+                    }else{
+                        barBars=" bars";
+                    }
+                    subQfeedback+="You have incorrectly marked "+(k-barCCount)+barBars;
+                }
 
-               } else{
-                   index=a;
-                   check=false;
-               }
+            }else{
+                subQfeedback+=HistogramEvaluatorConstant.BAR_INEQUAL_LESS;
+
+                for(int i=0;i<k;i++) {
+                    for (int j = 0; j < l; j++) {
+                        if((studentBars.get(i).getXlow()<teacherBars.get(j).getXlow()+scaleSX && studentBars.get(i).getXlow()>teacherBars.get(j).getXlow()-scaleSX)&&(studentBars.get(i).getXhigh()<teacherBars.get(j).getXhigh()+scaleSX && studentBars.get(i).getXhigh()>teacherBars.get(j).getXhigh()-scaleSX)) {
+                            if (studentBars.get(i).getY() < teacherBars.get(j).getY() + scaleSY && studentBars.get(i).getY() > teacherBars.get(j).getY() - scaleSY) {
+                                barCCount++;
+                            }
+                        }
+                    }
+                }
+                if((k-barCCount)==1){
+                    barBars=" bar";
+                }else{
+                    barBars=" bars";
+                }
+                subQfeedback+="You have incorrectly marked "+(k-barCCount)+barBars;
+
+
+
+
             }
-            if(check){
-                subQfeedback=HistogramEvaluatorConstant.ALL_MARKED_CORRECTLY;
+            return new Mark(condition.getName(), 0);
+
+        }else if (k==l){
+            subQfeedback+=HistogramEvaluatorConstant.CORRECT_NUMBER_OF_BARS;
+            barCCount=0;
+            for(int i=0;i<k;i++) {
+                for (int j = 0; j < l; j++) {
+                    if((studentBars.get(i).getXlow()<teacherBars.get(j).getXlow()+scaleSX && studentBars.get(i).getXlow()>teacherBars.get(j).getXlow()-scaleSX)&&(studentBars.get(i).getXhigh()<teacherBars.get(j).getXhigh()+scaleSX && studentBars.get(i).getXhigh()>teacherBars.get(j).getXhigh()-scaleSX)) {
+                        if (studentBars.get(i).getY() < teacherBars.get(j).getY() + scaleSY && studentBars.get(i).getY() > teacherBars.get(j).getY() - scaleSY) {
+                            barCCount++;
+                        }
+                    }
+                }
+            }
+
+            if(barCCount==k){
+                subQfeedback+=HistogramEvaluatorConstant.ALL_MARKED_CORRECTLY;
                 for(int x = 0; x< condition.getMarkingMethods().size(); x++) {
                     if (condition.getMarkingMethods().get(x).getMethod().equals("ALL")) {
+                        totalSubQGainMark+=condition.getMarkingMethods().get(x).getGainedMarks();
                         return new Mark(condition.getName(), condition.getMarkingMethods().get(x).getGainedMarks());
                     }
                 }
 
             }else{
-                subQfeedback=HistogramEvaluatorConstant.NOT_ALL_MARKED_CORRECTLY+ index +HistogramEvaluatorConstant.BAR;
+                if((k-barCCount)==1){
+                    barBars=" bar";
+                }else{
+                    barBars=" bars";
+                }
+                subQfeedback+="You have incorrectly marked "+(k-barCCount)+barBars;
                 return new Mark(condition.getName(), 0);
 
             }
@@ -113,33 +175,66 @@ public class HistogramEvaluator extends Evaluator {
 
         return null;
     }
+
+    public static boolean isNumeric(String str)
+    {
+        try
+        {
+            double d = Double.parseDouble(str);
+        }
+        catch(NumberFormatException nfe)
+        {
+            return false;
+        }
+        return true;
+    }
     public Mark axisCheck(Condition condition){
 
 
-        String xSlegend = ((AbstractHistogramStructure)studentStructure).xLegend;
-        String xTlegend = ((AbstractHistogramStructure)teacherStructure).xLegend;
-        String ySLegend= ((AbstractHistogramStructure)studentStructure).yLegend;
-        String yTLegend= ((AbstractHistogramStructure)teacherStructure).yLegend;
+        String xSlegend = ((AbstractHistogramStructure)studentStructure).getxLegend();
+        String xTlegend = ((AbstractHistogramStructure)teacherStructure).getxLegend();
+        String ySLegend= ((AbstractHistogramStructure)studentStructure).getyLegend();
+        String yTLegend= ((AbstractHistogramStructure)teacherStructure).getyLegend();
+        if(isNumeric(xSlegend) && isNumeric(ySLegend) ){
+            subQfeedback+=" No X and Y axises labels";
 
-        if(xSlegend.equals(xTlegend)&& ySLegend.equals(yTLegend)){
-            subQfeedback=HistogramEvaluatorConstant.ALL_LEGENDS;
-            for(int x = 0; x< condition.getMarkingMethods().size(); x++) {
-                if (condition.getMarkingMethods().get(x).getMethod().equals("ALL")) {
-                    return new Mark(condition.getName(), condition.getMarkingMethods().get(x).getGainedMarks());
-                }
+
+        }else if(isNumeric(xSlegend)){
+            subQfeedback+="  No X Axis label ";
+            if(!ySLegend.equals(yTLegend)){
+                subQfeedback+=" You have not labeled Y axis correctly";
             }
 
-
+        }else if (isNumeric(ySLegend)){
+            subQfeedback+="  No Y Axis label";
+            if(!xSlegend.equals(xTlegend)){
+                subQfeedback+=" You have not labeled X axis correctly";
+            }
         }else{
-            if(!(xSlegend.equals(xTlegend))&&!(ySLegend.equals(yTLegend))){
-                subQfeedback=HistogramEvaluatorConstant.NOT_ALL_LEGENDS;
-            }else if(!ySLegend.equals(yTLegend)){
-                subQfeedback=HistogramEvaluatorConstant.NOT_Y_LEGEND;
+            if(xSlegend.equals(xTlegend)&& ySLegend.equals(yTLegend)){
+                subQfeedback+=HistogramEvaluatorConstant.ALL_LEGENDS;
+                for(int x = 0; x< condition.getMarkingMethods().size(); x++) {
+                    if (condition.getMarkingMethods().get(x).getMethod().equals("ALL")) {
+                        totalSubQGainMark+=condition.getMarkingMethods().get(x).getGainedMarks();
+                        return new Mark(condition.getName(), condition.getMarkingMethods().get(x).getGainedMarks());
+                    }
+                }
+
+
             }else{
-                subQfeedback=HistogramEvaluatorConstant.NOT_X_LEGEND;
+                if(!(xSlegend.equals(xTlegend))&&!(ySLegend.equals(yTLegend))){
+                    subQfeedback+=HistogramEvaluatorConstant.NOT_ALL_LEGENDS;
+                }else if(!ySLegend.equals(yTLegend)){
+                    subQfeedback+=HistogramEvaluatorConstant.NOT_Y_LEGEND;
+                }else{
+                    subQfeedback+=HistogramEvaluatorConstant.NOT_X_LEGEND;
+                }
+                return new Mark(condition.getName(), 0);
             }
-            return new Mark(condition.getName(), 0);
+
+
         }
+
 
 
         return null;

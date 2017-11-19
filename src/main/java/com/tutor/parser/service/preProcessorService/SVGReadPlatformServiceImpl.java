@@ -327,23 +327,19 @@ public class SVGReadPlatformServiceImpl implements SVGReadPlatformService {
         }
     }
     public Double getXvalue(Double x, Double w,Double t1,Double s1){
-        Double answer;
-        answer=(x+t1)*s1-((w*s1)-w);
+        Double answer=(x*s1)+t1;
         return answer;
     }
     public Double getYvalue(Double y, Double h,Double t2,Double s2){
-        Double answer;
-        answer=(y+t2)*s2-((h*s2)-h);
+        Double answer=(y*s2)+t2;
         return answer;
     }
     public Double getWvalue(Double w,Double s1){
-        Double answer;
-        answer=w*s1;
+        Double answer =w*s1;
         return answer;
     }
     public Double getHvalue(Double h,Double s2){
-        Double answer;
-        answer=h*s2;
+        Double answer=h*s2;
         return answer;
     }
 
