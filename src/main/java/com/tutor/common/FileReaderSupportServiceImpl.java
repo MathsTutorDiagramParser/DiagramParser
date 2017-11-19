@@ -44,6 +44,9 @@ public class FileReaderSupportServiceImpl implements FileReaderSupportService {
             case TREEDIAGRAM:
                 fileName = "modelAnswer\\treeDiagram\\Q2.svg";
                 break;
+            case TRIGNOMETRICDIAGRAM:
+                fileName = "modelAnswer\\TrignometricAnswers\\model1.svg";
+                break;
             default:
                 fileName = "svgResult";
         }

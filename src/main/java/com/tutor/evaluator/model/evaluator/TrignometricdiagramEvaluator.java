@@ -54,18 +54,26 @@ public class TrignometricdiagramEvaluator extends Evaluator {
                     marks[i] = checkMarkedLength(condition);
                 } else if (condition.getName().equals(TrigonometricMarkingConstants.MARK_LABEL)) {
                     marks[i] = checkMarkedLabels(condition);
+                } else {
+                    Mark mark = new Mark();
+                    mark.setValue(0);
+                    mark.setFeedBack("NO MATCHING");
+                    marks[i] = mark;
                 }
 
 
             }
             subQmarkSheet = new SubMarkSheet(totalSubQ, marks, subQfeedback);
+
             subMarkSheets.add(subQmarkSheet);
+
 
         }
 
         markSheet.setSubMarkSheets(subMarkSheets);
         markSheet.setTotalMark(totalSubQ);
         markSheet.setTotalMark_gainMark(totalMarks);
+        markSheet.setFeedback(structureFeedBack);
         return markSheet;
     }
 
@@ -92,13 +100,22 @@ public class TrignometricdiagramEvaluator extends Evaluator {
             }
         }
 
-        if(teacherLengthCount == lengthCount){
+        if((teacherLengthCount == lengthCount)&& (lengthCount!= 0 )){
             int partMark = condition.getMarkingMethods().get(0).getGainedMarks();
             totalSubQ += partMark;
-            return new Mark(condition.getName(), partMark);
+
+            Mark mark = new Mark();
+            mark.setValue(partMark);
+
+                subQfeedback = subQfeedback + "--------------------------------- \nLength labels are marked correctly in the student's answer \n";
+                mark.setFeedBack("Length labels are marked correctly in the student's answer");
+
+            return  mark;
         }
         else{
+            subQfeedback = subQfeedback  + "------------------------------------ \nLength labels are not marked in the Diagram correctly \n";
             return new Mark(condition.getName(), 0);
+
         }
 
     }
@@ -127,7 +144,13 @@ public class TrignometricdiagramEvaluator extends Evaluator {
         if(teacherLabelCount == labelCount){
             int partMark = condition.getMarkingMethods().get(0).getGainedMarks();
             totalSubQ += partMark;
-            return new Mark(condition.getName(), partMark);
+            Mark mark = new Mark();
+            mark.setValue(partMark);
+
+                subQfeedback = subQfeedback + "Vertex labels are marked correctly in the student's answer";
+                mark.setFeedBack("Vertex labels are marked correctly in the student's answer");
+
+            return  mark;
         }
         else{
             return new Mark(condition.getName(), 0);
