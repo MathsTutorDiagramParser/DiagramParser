@@ -63,8 +63,8 @@
   <div id='c1'>
     <canvas id="myCanvas" width="800" height="400" style="border:1px solid #000000;"></canvas>
   </div>
-
-  <div class="col-lg-10" align="center">
+<br>
+  <div align="center">
     <button class="btn btn-danger" style="font-family: Aharoni; font-weight: bold;"  id="drawCircle">Circle</button>
     <button class="btn btn-danger" style="font-family: Aharoni; font-weight: bold;"  id="drawLine">Arrow</button>
     <button class="btn btn-danger" style="font-family: Aharoni; font-weight: bold;"  id="drawBranch">Line</button>
@@ -78,7 +78,11 @@
     <button class="btn btn-primary" style="font-family: Aharoni; font-weight: bold;"  id="undo">Undo</button>
     <!--button id="delete">Delete</button-->
     <button class="btn btn-primary" style="font-family: Aharoni; font-weight: bold;"  id="clearPlane">Clear Plane</button>
-    <button class="btn btn-success" style="font-family: Aharoni; font-weight: bold;"  id ="save">Save</button>
+    <br>
+    <br>
+    <div align="center">
+      <button class="btn btn-success" style="font-family: Aharoni; font-weight: bold;" id = "save">Grade</button>
+    </div>
   </div>
 
   <div id="marksheet" >

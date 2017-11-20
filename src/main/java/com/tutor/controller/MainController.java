@@ -93,7 +93,7 @@ public class MainController {
         System.out.println(inputStr);
         String path = "";
         try{
-            path = "F:/Final/DiagramParser/src/main/resources/test/"+System.currentTimeMillis()+".svg";
+            path = "E:/FYP/implementation/NewV1/DiagramParser/src/main/resources/test/"+System.currentTimeMillis()+".svg";
 //          path = "dataFiles/numberline/answer"+System.currentTimeMillis()+".svg";
             File file = new File(path);
             file.createNewFile();

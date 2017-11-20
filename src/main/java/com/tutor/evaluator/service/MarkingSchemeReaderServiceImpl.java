@@ -24,7 +24,7 @@ public class MarkingSchemeReaderServiceImpl {
         try {
 //            File file = new File("D:\\Projects\\FYP\\project\\MathsTutor\\src\\main\\resources\\com\\Rubric\\"+filename);
 //            File file = new File("../webapps/DiargamEvaluation/resources/com/Rubric/"+filename);
-            File file = new File("F:\\Final\\DiagramParser\\src\\main\\resources\\com\\Rubric\\"+filename);
+            File file = new File("E:\\FYP\\implementation\\NewV1\\DiagramParser\\src\\main\\resources\\com\\Rubric\\"+filename);
 
             JAXBContext jaxbContext = JAXBContext.newInstance(XMLRubricRules.class);
 

@@ -67,7 +67,6 @@
       <div class="w3-border-bottom w3-border-light-grey"> Overall FeedBack : <span id="overall_feedback"> </span>  </div>
       <div class="w3-border-bottom w3-border-light-grey"> Total Mark : <span id="total_Mark"> </span>  ${total_Mark} Out of <span id="out_of_total_Mark"> </span> </div>
       <div  id="dvTable" style="padding-bottom: 20px"></div>
-
     </div>
   </div>
 </div>

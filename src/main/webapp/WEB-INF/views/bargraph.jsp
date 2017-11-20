@@ -10,6 +10,7 @@
 		<script type="text/javascript" src = "http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.6.3/fabric.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <style>
@@ -78,7 +79,7 @@
     </div>
 
     <div class="w3-content" style="max-width:1564px;height:30px;margin-top: 70px;" align="center">
-        1.	ළමුන් 20 දෙනෙකු පරීක්ෂණයකදී ලබාගත් ලකුණු පහත දැක්වේ. වගුවේ දැක්වෙන පරිදි මෙම ලකුණු සමුහගත කර ඇත. මෙම වගුවට ජලරේඛකය නිර්මාණය කරන්න.
+        1.	ළමුන් පරීක්ෂණයකදී ලබාගත් ලකුණු පහත දැක්වේ. වගුවේ දැක්වෙන පරිදි මෙම ලකුණු සමුහගත කර ඇත. මෙම වගුවට ජලරේඛකය නිර්මාණය කරන්න.
         <table style="width: 60%; border: thin;color: darkgray">
             <tr>
                 <td>පන්ති  පාන්තරය</td>
@@ -109,7 +110,8 @@
         </div>
     </div>
         <br>
-        <div align="center">
+
+    <div align="center">
             <button class="btn btn-danger" style="font-family: Aharoni; font-weight: bold;" id = "setXScale">X Scale</button>
             <button class="btn btn-primary" style="font-family: Aharoni; font-weight: bold;" id = "setYScale">Y Scale</button>
             <!--          <button id = "getValue">Enter Values</button>-->
@@ -121,11 +123,13 @@
             <button class="btn btn-info" style="font-family: Aharoni; font-weight: bold;" id="clearPlane">Clear Plane</button>
             <br>
             <br>
-            <div align="center">
-            <button class="btn btn-success" style="font-family: Aharoni; font-weight: bold;" id = "save">Grade</button>
-            </div>
-        </div>
-    <div id="marksheet" align="center">
+    </div>
+
+    <div align="center" style="margin-top: 10px;margin-bottom: 10px">
+        <button class="btn btn-success" style="font-family: Aharoni; font-weight: bold;" id = "save">Grade</button>
+    </div>
+
+    <div id="marksheet" align="center" style="margin-bottom: 50px;">
         <div class="w3-content w3-padding" style="width:1000px; border: solid; border-width: thin" >
             <!-- About Section -->
             <div style="margin-top: 10px" id="about">
