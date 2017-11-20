@@ -223,7 +223,7 @@
                 diagramType : "TRIGNOMETRICDIAGRAM"
             },
             success: function(marksheet){
-                alert("success");
+
                 document.getElementById("total_Mark").textContent = marksheet.totalMark ;
                 document.getElementById("out_of_total_Mark").textContent = marksheet.totalMark_gainMark ;
 //                document.getElementById("overall_feedback").textContent = marksheet.feedback ;

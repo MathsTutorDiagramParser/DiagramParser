@@ -32,6 +32,7 @@ public class HistogramEvaluator extends Evaluator {
     int totalQMark = 0;
     int totalQGainMark = 0;
     int totalSubQGainMark = 0;
+    int  totalSubQMark ;
     public MarkSheet evaluate(AbstractDiagramStructure studentStructure,
                               AbstractDiagramStructure teacherStructure, RubricRules rubricRules, String feedBacks) {
         MarkSheet markSheet = new MarkSheet();
@@ -40,9 +41,10 @@ public class HistogramEvaluator extends Evaluator {
         this.teacherStructure = teacherStructure;
 
         ArrayList<SubMarkSheet> subMarkSheets = new ArrayList<>();
+
         int itr = 0;
         for (SubQuestion subQuestion : rubricRules.getSubQuestions()){
-
+            totalSubQMark = 0;
             List<Condition> conditions = subQuestion.getConditions();
             totalSubQGainMark = 0;
             subQfeedback = "";
@@ -51,6 +53,7 @@ public class HistogramEvaluator extends Evaluator {
             for (int i = 0; i < conditions.size(); i++) {
                 totalSubQGainMark += conditions.get(i).getTotalMarks();
                 marks = new Mark[conditions.size()];
+
                 Condition condition = conditions.get(i);
                 if (condition.getName().equals(MarkingCondition.BAR_VALUES)) {
                     marks[i] = barCheck(condition);
@@ -61,10 +64,14 @@ public class HistogramEvaluator extends Evaluator {
             }
             subQmarkSheet = new SubMarkSheet(totalSubQ, marks, subQfeedback,totalSubQGainMark,itr);
             itr++;
+            subQmarkSheet.setTotalMark(totalSubQMark);
             subMarkSheets.add(subQmarkSheet);
-        }
 
+        }
+        markSheet.setTotalMark(totalSubQMark);
+        markSheet.setTotalMark_gainMark(totalSubQGainMark);
         markSheet.setSubMarkSheets(subMarkSheets);
+
         return markSheet;
     }
 
@@ -153,7 +160,7 @@ public class HistogramEvaluator extends Evaluator {
                 subQfeedback+=HistogramEvaluatorConstant.ALL_MARKED_CORRECTLY;
                 for(int x = 0; x< condition.getMarkingMethods().size(); x++) {
                     if (condition.getMarkingMethods().get(x).getMethod().equals("ALL")) {
-                        totalSubQGainMark+=condition.getMarkingMethods().get(x).getGainedMarks();
+                        totalSubQMark +=condition.getMarkingMethods().get(x).getGainedMarks();
                         return new Mark(condition.getName(), condition.getMarkingMethods().get(x).getGainedMarks());
                     }
                 }
@@ -215,7 +222,7 @@ public class HistogramEvaluator extends Evaluator {
                 subQfeedback+=HistogramEvaluatorConstant.ALL_LEGENDS;
                 for(int x = 0; x< condition.getMarkingMethods().size(); x++) {
                     if (condition.getMarkingMethods().get(x).getMethod().equals("ALL")) {
-                        totalSubQGainMark+=condition.getMarkingMethods().get(x).getGainedMarks();
+                        totalSubQMark+=condition.getMarkingMethods().get(x).getGainedMarks();
                         return new Mark(condition.getName(), condition.getMarkingMethods().get(x).getGainedMarks());
                     }
                 }
@@ -234,8 +241,6 @@ public class HistogramEvaluator extends Evaluator {
 
 
         }
-
-
 
         return null;
     }

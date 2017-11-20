@@ -83,17 +83,17 @@
         <table style="width: 60%; border: thin;color: darkgray">
             <tr>
                 <td>පන්ති  පාන්තරය</td>
+                <td>20-30</td>
+                <td>40-50</td>
                 <td>50-60</td>
-                <td>60-70</td>
-                <td>70-80</td>
-                <td>80-90</td>
+                <td>70-90</td>
             </tr>
             <tr>
                 <td>සංඛ්‍යාතය</td>
                 <td>15</td>
                 <td>30</td>
-                <td>10</td>
-                <td>5</td>
+                <td>20</td>
+                <td>20</td>
             </tr>
         </table>
     </div>
@@ -599,7 +599,6 @@
                          diagramType : "HISTOGRAM"
                      },
                      success: function(marksheet){
-                         alert("success");
                          document.getElementById("total_Mark").textContent = marksheet.totalMark ;
                          document.getElementById("out_of_total_Mark").textContent = marksheet.totalMark_gainMark ;
 //                document.getElementById("overall_feedback").textContent = marksheet.feedback ;
